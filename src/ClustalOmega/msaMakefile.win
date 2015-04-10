@@ -1,0 +1,46 @@
+CPPNames=\
+exceptions4c/e4c_lite.c \
+argtable2/argtable2.c argtable2/arg_end.c argtable2/arg_rem.c argtable2/arg_lit.c argtable2/arg_int.c \
+argtable2/arg_dbl.c argtable2/arg_str.c argtable2/arg_file.c \
+kmpp/KMeans.cpp kmpp/KmTree.cpp kmpp/KmUtils.cpp \
+clustal/hhalign_wrapper.c clustal/ktuple_pair.c clustal/list.c clustal/log.c clustal/muscle_upgma.c \
+clustal/muscle_tree.c clustal/mbed.c clustal/pair_dist.c clustal/progress.c clustal/seq.c clustal/symmatrix.c \
+clustal/tree.c clustal/util.c clustal/weights.c \
+squid/a2m.c squid/aligneval.c squid/alignio.c squid/clustal.c squid/cluster.c squid/dayhoff.c squid/eps.c \
+squid/file.c squid/getopt.c squid/gki.c squid/gsi.c squid/gsi64.c squid/hsregex.c squid/iupac.c squid/msa.c \
+squid/msf.c squid/phylip.c squid/revcomp.c squid/rk.c squid/selex.c squid/seqencode.c squid/shuffle.c \
+squid/sqerror.c squid/sqio.c squid/squidcore.c squid/sre_ctype.c squid/sre_math.c squid/sre_random.c \
+squid/sre_string.c squid/ssi.c squid/stack.c squid/stockholm.c squid/stopwatch.c squid/translate.c \
+squid/types.c squid/vectorops.c squid/weight.c \
+hhalign/hhalign.cpp \
+RClustalOmega.cpp mymain.c clustal-omega.c
+
+OBJNames=\
+exceptions4c/e4c_lite.o \
+argtable2/argtable2.o argtable2/arg_end.o argtable2/arg_rem.o argtable2/arg_lit.o argtable2/arg_int.o \
+argtable2/arg_dbl.o argtable2/arg_str.o argtable2/arg_file.o \
+kmpp/KMeans.o kmpp/KmTree.o kmpp/KmUtils.o \
+clustal/hhalign_wrapper.o clustal/ktuple_pair.o clustal/list.o clustal/log.o clustal/muscle_upgma.o \
+clustal/muscle_tree.o clustal/mbed.o clustal/pair_dist.o clustal/progress.o clustal/seq.o clustal/symmatrix.o \
+clustal/tree.o clustal/util.o clustal/weights.o \
+squid/a2m.o squid/aligneval.o squid/alignio.o squid/clustal.o squid/cluster.o squid/dayhoff.o squid/eps.o \
+squid/file.o squid/getopt.o squid/gki.o squid/gsi.o squid/gsi64.o squid/hsregex.o squid/iupac.o squid/msa.o \
+squid/msf.o squid/phylip.o squid/revcomp.o squid/rk.o squid/selex.o squid/seqencode.o squid/shuffle.o \
+squid/sqerror.o squid/sqio.o squid/squidcore.o squid/sre_ctype.o squid/sre_math.o squid/sre_random.o \
+squid/sre_string.o squid/ssi.o squid/stack.o squid/stockholm.o squid/stopwatch.o squid/translate.o \
+squid/types.o squid/vectorops.o squid/weight.o \
+hhalign/hhalign.o \
+RClustalOmega.o mymain.o clustal-omega.o
+
+all: clustalomega
+
+clustalomega:
+	cp windows/src/config.h src/; \
+	cp windows/src/clustal-omega-config.h src/; \
+	export PKG_LIBS="$(PKG_LIBS) -L"../../gc-7.2" -lgccpp72 -lgc72 `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::LdFlags()"`"; \
+	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::CxxFlags()"`"; \
+	export PKG_CFLAGS="$(PKG_CFLAGS) -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" -lgccpp -lgc `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::CxxFlags()"`"; \
+	cd src; \
+	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o ClustalOmega.dll $(CPPNames); \
+	$(AR) rcs libClustalOmega.a $(OBJNames); \
+	cp libClustalOmega.a ../../

@@ -1,0 +1,59 @@
+\def\ps@headings{%
+      \let\@oddfoot\@empty\let\@evenfoot\@empty
+      \def\@evenhead{\underline{\makebox[\textwidth][l]{%
+          \sffamily\thepage\hfill\leftmark}}}%
+      \def\@oddhead{\underline{\makebox[\textwidth][l]{%
+          \sffamily\rightmark\hfill\thepage}}}%
+      \let\@mkboth\markboth
+    \def\sectionmark##1{%
+      \markboth {
+        \ifnum \c@secnumdepth >\z@
+          \thesection\quad
+        \fi
+        ##1}{
+        \ifnum \c@secnumdepth >\z@
+          \thesection\quad
+        \fi
+        ##1}}%
+    \def\subsectionmark##1{}}
+\renewenvironment{abstract}{\section*{\abstractname}%
+    \@mkboth{\abstractname}{\abstractname}}{}
+\newenvironment{acknowledgments}{\section*{Acknowledgments}%
+    \@mkboth{Acknowledgments}{Acknowledgments}}{}
+\renewcommand\tableofcontents{%
+    \section*{\contentsname
+        \@mkboth{\contentsname}{\contentsname}}%
+    \@starttoc{toc}%
+    }
+\renewcommand\listoffigures{%
+    \section*{\listfigurename}%
+      \@mkboth{\listfigurename}%
+              {\listfigurename}%
+    \@starttoc{lof}%
+    }
+\renewcommand\listoftables{%
+    \section*{\listtablename}%
+      \@mkboth{\listtablename}%
+         {\listtablename}%
+    \@starttoc{lot}%
+    }
+\renewenvironment{thebibliography}[1]
+     {\section*{\refname}%
+      \@mkboth{\refname}{\refname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+\endinput

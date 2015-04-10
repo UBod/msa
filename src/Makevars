@@ -1,0 +1,57 @@
+.PHONY: all mylibs
+
+PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"` -Wl,--whole-archive ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,--no-whole-archive
+PKG_CXXFLAGS=-I"./gc-7.2/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src" `Rscript -e "Rcpp:::CxxFlags()"`
+
+all: $(SHLIB)
+$(SHLIB): mylibs
+
+mylibs: build_gc build_muscle build_clustalw build_clustalomega
+
+build_gc:
+	make --file=msaMakefile --directory=gc-7.2
+
+build_muscle:
+	@if make --file=msaMakefile --directory=Muscle; then \
+	    echo "----------------------------------------"; \
+		echo "---------------- Muscle ----------------"; \
+		echo "----------------------------------------"; \
+		echo "-------- Compilation successful --------"; \
+		echo "----------------------------------------"; \
+	else \
+	    echo "----------------------------------------"; \
+		echo "---------------- Muscle ----------------"; \
+		echo "----------------------------------------"; \
+		echo "------ Compilation NOT successful ------"; \
+		echo "----------------------------------------"; \
+	fi
+
+build_clustalw:
+	@if make --file=msaMakefile --directory=ClustalW; then \
+	    echo "----------------------------------------"; \
+		echo "--------------- ClustalW ---------------"; \
+		echo "----------------------------------------"; \
+		echo "-------- Compilation successful --------"; \
+		echo "----------------------------------------"; \
+	else \
+	    echo "----------------------------------------"; \
+		echo "--------------- ClustalW --------------"; \
+		echo "----------------------------------------"; \
+		echo "------ Compilation NOT successful ------"; \
+		echo "----------------------------------------"; \
+	fi
+
+build_clustalomega:
+	@if make --file=msaMakefile --directory=ClustalOmega; then \
+	    echo "----------------------------------------"; \
+		echo "------------- ClustalOmega -------------"; \
+		echo "----------------------------------------"; \
+		echo "-------- Compilation successful --------"; \
+		echo "----------------------------------------"; \
+	else \
+	    echo "----------------------------------------"; \
+		echo "------------- ClustalOmega -------------"; \
+		echo "----------------------------------------"; \
+		echo "------ Compilation NOT successful ------"; \
+		echo "----------------------------------------"; \
+	fi

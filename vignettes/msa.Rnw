@@ -1,0 +1,661 @@
+\documentclass[article]{bioinf}
+
+\usepackage{texshade}
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=false,
+    pdfborder=0 0 0,
+    pdftitle={msa - An R Package for Multiple Sequence Alignment},
+    pdfauthor={Enrico Bonatesta, Christoph Horejs-Kainrath, and Ulrich Bodenhofer}}
+
+\title{{\Huge msa}\\[5mm] An R Package for Multiple Sequence Alignment}
+\author{Enrico Bonatesta, Christoph Horejs-Kainrath, and Ulrich Bodenhofer}
+\affiliation{Institute of Bioinformatics, Johannes Kepler University
+Linz\\Altenberger Str. 69, 4040 Linz, Austria\\
+\email{msa@bioinf.jku.at}}
+
+\newcommand{\msa}{\texttt{msa}}
+\newcommand{\MSA}{\texttt{msa}}
+\newcommand{\R}{\texttt{R}}
+\newcommand{\shade}{\TeXshade}
+
+%\VignetteIndexEntry{msa - An R Package for Multiple Sequence Alignment}
+%\VignetteDepends{methods, stats, graphics, utils}
+%\VignetteEngine{knitr::knitr}
+
+\setlength{\fboxrule}{1.5pt}
+
+\newcommand{\notebox}[1]{%
+\begin{center}
+\fbox{\begin{minipage}{\Nboxwidth}
+\noindent{\sffamily\bfseries Note:} #1
+\end{minipage}}
+\end{center}}
+
+\begin{document}
+<<LoadPackageToDetermineVersion,echo=FALSE,message=FALSE,results='hide'>>=
+options(width=65)
+set.seed(0)
+library(msa)
+msaVersion <- packageDescription("msa")$Version
+msaDateRaw <- packageDescription("msa")$Date
+msaDateYear <- as.numeric(substr(msaDateRaw, 1, 4))
+msaDateMonth <- as.numeric(substr(msaDateRaw, 6, 7))
+msaDateDay <- as.numeric(substr(msaDateRaw, 9, 10))
+msaDate <- paste(month.name[msaDateMonth], " ",
+                 msaDateDay, ", ",
+                 msaDateYear, sep="")
+@
+
+\newcommand{\msaVer}{\Sexpr{msaVersion}}
+\newcommand{\msaDate}{\Sexpr{msaDate}}
+\manualtitlepage[Version \msaVer, \msaDate]
+
+\section*{Scope and Purpose of this Document}
+
+This document provides a gentle introduction into the \R\ package \MSA. Not all
+features of the \R\ package are described in full detail. Such details can be
+obtained from the documentation enclosed in the  \R\ package. Further note
+the following: (1) this is not an introduction to multiple sequence alignment
+or algorithms for multiple sequence alignment; (2) this is not an
+introduction to  \R\ or any of the Bioconductor packages used in this document.
+If you lack the background for understanding this manual, you
+first have to read introductory literature on the subjects mentioned above.
+
+\newpage
+
+\vspace{1cm}
+
+\newlength{\auxparskip}
+\setlength{\auxparskip}{\parskip}
+\setlength{\parskip}{0pt}
+\tableofcontents
+\clearpage
+\setlength{\parskip}{\auxparskip}
+
+\newlength{\Nboxwidth}
+\setlength{\Nboxwidth}{\textwidth}
+\addtolength{\Nboxwidth}{-2\fboxrule}
+\addtolength{\Nboxwidth}{-2\fboxsep}
+
+
+\section{Introduction}
+Multiple sequence alignment is one of the most fundamental tasks in
+bioinformatics. Algorithms like ClustalW~\cite{Thompson1994},
+ClustalOmega~\cite{Sievers2011}, and MUSCLE~\cite{Edgar2004b,Edgar2004a}
+are well known and
+widely used. However, all these algorithms are implemented as stand-alone
+commmand line programs without any integration into the R/Bioconductor
+ecosystem. Before the \MSA\ package, only the \verb+muscle+ package has
+been available in \R, but no other multiple sequence alignment algorithm,
+although the \verb+Biostrings+ package has provided data types for
+representing multiple sequence alignments for quite some time.
+The \MSA\ package aims to close that gap by
+providing a unified R interface to the multiple sequence alignment algorithms
+ClustalW, ClustalOmega, and MUSCLE. The package requires no additional
+software packages and runs on all major platforms. Moreover, the \MSA\
+package provides an R interface to
+the powerful \LaTeX\ package \shade\ \cite{Beitz2000} which allows for a
+highly customizable plots of multiple sequence alignments. Unless some very
+special features of \shade\ are required, users can pretty-print multiple
+sequence alignments without the need to know the details of \LaTeX\ or
+\shade.
+
+\section{Installation}\label{sec:install}
+
+The \MSA\ \R\ package (current version: \msaVer) is
+available via Bioconductor. The simplest way to install the package
+is the following:
+
+<<InstallMSA,eval=FALSE>>=
+source("http://www.bioconductor.org/biocLite.R")
+biocLite("msa")
+@
+
+To test the installation of the \MSA\ package, enter
+<<LoadMSA,eval=FALSE>>=
+library(msa)
+@
+\noindent in your \R\ session. If this command terminates without any error
+message or warning, you can be sure that the \MSA\ package has
+been installed successfully. If so, the \MSA\ package is ready
+for use now and you can start performing multiple sequence alignments.
+
+To make use of all functionalities of \verb+msaPrettyPrint()+,
+a \TeX/\LaTeX{} system \cite{Lamport1999} must be installed. To make use of
+\LaTeX\ code created by \verb+msaPrettyPrint()+ or to use the output
+of \verb+msaPrettyPrint()+ in Sweave \cite{Leisch2002} or knitr
+\cite{Xie2014} documents, the \LaTeX\ package
+\shade\ (file \verb+texshade.sty+) \cite{Beitz2000} must be accessible to
+the \LaTeX\  system too. The file \verb+texshade.sty+ is shipped with
+the \MSA\ package. To determine where the file is located, enter the
+following command in your \R\ session:
+<<locateTeXshadeSty,eval=FALSE>>=
+system.file("tex", "texshade.sty", package="msa")
+@
+\noindent Alternatively, \shade\ can be installed directly from the
+Comprehensive \TeX\ Archive Network (CTAN).%
+\footnote{\url{https://www.ctan.org/pkg/texshade}}
+
+\section{\MSA\ for the Impatient}\label{sec:impatient}
+
+In order to illustrate the basic workflow, this section presents a simple
+example with default settings and without going into the details of each
+step. Let us first load amino acid sequences from one of the example files
+that are supplied with the \MSA\ package:
+<<SimpleExFileNames>>=
+mySequenceFile <- system.file("examples", "exampleAA.fasta", package="msa")
+mySequences <- readAAStringSet(mySequenceFile)
+mySequences
+@
+\noindent Now that we have loaded the sequences, we can run the \verb+msa()+
+function which, by default, runs ClustalW with default parameters:
+<<doAlignment>>=
+myFirstAlignment <- msa(mySequences)
+myFirstAlignment
+@
+
+The \MSA\ package offers the function \verb+msaPrettyPrint()+ which allows
+for pretty-printing multiple alignments using the \LaTeX\ package \shade.
+As an example, the following \R\ code creates a PDF file
+\verb+myfirstAlignment.pdf+ which is shown in
+Figure~\ref{fig:myFirstAlignment}:
+<<IntegratePDF2>>=
+msaPrettyPrint(myFirstAlignment, output="pdf", showNames="none",
+               showLogo="none", askForOverwrite=FALSE, verbose=FALSE)
+@
+\noindent In the above call to \verb+msaPrettyPrint()+, the printing of
+sequence names
+has been suppressed by \verb+showNames="none"+. The settings
+\verb+askForOverwrite=FALSE+ and \verb+verbose=FALSE+ are necessary for
+building this vignette, but, in an interactive \R\ session, they are not
+necessary.
+\begin{figure}
+\includegraphics[width=\textwidth]{myFirstAlignment.pdf}
+\caption{The PDF file \texttt{myfirstAlignment.pdf}
+  created with \texttt{msaPrettyPrint()}.}\label{fig:myFirstAlignment}
+\end{figure}
+
+Almost needless to say, the file names created by \verb+msaPrettyPrint()+
+are customizable. By default, the name of the argument is taken as file name.
+More importantly, the actual output of \verb+msaPrettyPrint()+ is
+highly customizable, too. For more details,
+see the Section~\ref{sec:msaPrettyPrint} and the help page of the function
+(\verb+?msaPrettyPrint+).
+
+The \verb+msaPrettyPrint()+ function is particularly useful for pretty-printing
+multiple sequence alignments in Sweave \cite{Leisch2002} or knitr
+\cite{Xie2014} documents. More details are provided in
+Section~\ref{sec:msaPrettyPrint}. Here, we restrict to a teasing example:
+
+<<VisualizePDF,results='asis'>>=
+msaPrettyPrint(myFirstAlignment, y=c(164, 213), output="asis",
+               showNames="none", showLogo="none", askForOverwrite=FALSE)
+@
+
+\section{Functions for Multiple Sequence Alignment in More Detail}
+\label{sec:moreDetail}
+
+The example in Section~\ref{sec:impatient} above simply called
+the function \verb+msa()+ without any additional arguments.
+We mentioned already that, in this case, ClustalW is called with default
+parameters. We can also explicitly request ClustalW or one of the two
+other algorithms ClustalOmega or Muscle:
+<<OtherAlgorithms,>>=
+myClustalWAlignment <- msa(mySequences, "ClustalW")
+myClustalWAlignment
+myClustalOmegaAlignment <- msa(mySequences, "ClustalOmega")
+myClustalOmegaAlignment
+myMuscleAlignment <- msa(mySequences, "Muscle")
+myMuscleAlignment
+@
+\noindent Please note that the call \verb+msa(mySequences, "ClustalW", ...)+ is
+just a shortcut for the call \verb+msaClustalW(mySequences, ...)+,
+analogously for
+\verb+msaClustalOmega()+ and \verb+msaMuscle()+. In other words,
+\verb+msa()+ is nothing else but a wrapper function that provides a
+unified interface to the three functions \verb+msaClustalW()+,
+\verb+msaClustalOmega()+, and \verb+msaMuscle()+.
+
+All three functions \verb+msaClustalW()+, \verb+msaClustalOmega()+, and
+\verb+msaMuscle()+ have the same parameters: The input sequences are passed
+as argument \verb+inputSeqs+, and all functions have the following
+arguments: \verb+cluster+, \verb+gapOpening+, \verb+gapExtension+,
+\verb+maxiters+, \verb+substitutionMatrix+, \verb+type+, and
+\verb+verbose+. The ways these parameters are interpreted, are largely
+analogous, although there are some differences, also in terms of
+default values. See the subsections below and the man page
+of the three functions for more details.
+All of the three functions \verb+msaClustalW()+, \verb+msaClustalOmega()+, and
+\verb+msaMuscle()+, however, are not restricted to the parameters mentioned
+above. All three have a `\verb+...+' argument through which several other
+algorithm-specific parameters can be passed on to the underlying library.
+The following subsections provide an overview of which parameters are
+supported by each of the three algorithms.
+
+\subsection{ClustalW-Specific Parameters}\label{ssec:msaClustalW}
+
+The original implementation of ClustalW offers a lot of parameters for
+customizing the way a multiple sequence alignment is computed. Through
+the `\verb+...+' argument, \verb+msaClustalW()+ provides an interface to
+make use of most these parameters (see the documentation of ClustalW%
+\footnote{\url{http://www.clustal.org/download/clustalw_help.txt}}
+for a comprehensive overview). Currently, the following restrictions and
+caveats apply:
+\begin{itemize}
+  \item The parameters \verb+infile+, \verb+clustering+, \verb+gapOpen+,
+    \verb+gapExt+, \verb+numiters+, and \verb+matrix+ have been renamed to
+    the standardized argument names \verb+inputSeqs+, \verb+cluster+,
+    \verb+gapOpening+, \verb+gapExtension+, \verb+maxiters+, and
+    \verb+substitutionMatrix+
+    in order to provide a consistent interface for all three multiple
+    sequence alignment algorithms.
+    Gap penalties always have to be entered as negative values.
+  \item Boolean flags must be passed as logical values, e.g.\
+    \verb+verbose=TRUE+.
+  \item The parameter \verb+quiet+
+    has been replaced by \verb+verbose+ (with the exact opposite meaning).
+  \item The following parameters are (currently) not supported:
+    \verb+bootstrap+, \verb+check+, \verb+fullhelp+, \verb+interactive+,
+    \verb+maxseqlen+, \verb+options+, and \verb+tree+.
+  \item For the parameter \verb+output+, only the choice \verb+"clustal"+
+    is available.
+\end{itemize}
+
+\subsection{ClustalOmega-Specific Parameters}
+\label{ssec:msaClustalOmega}
+
+In the same way as ClustalW, the original implementation of ClustalOmega
+also offers a lot of parameters for
+customizing the way a multiple sequence alignment is computed. Through
+the `\verb+...+' argument, \verb+msaClustalOmega()+ provides an interface to
+make use of most these parameters (see the documentation of ClustalOmega%
+\footnote{\url{http://www.clustal.org/omega/README}}
+for a comprehensive overview). Currently, the following restrictions and
+caveats apply:
+\begin{itemize}
+  \item The parameters \verb+infile+, \verb+clustersize+, \verb+gapOpen+,
+    \verb+gapExt+, and \verb+iterations+ have been renamed to
+    the argument names \verb+inputSeqs+, \verb+cluster+,
+    \verb+gapOpening+, \verb+gapExtension+, and \verb+maxiters+
+    in order to provide a consistent interface for all three multiple
+    sequence alignment algorithms.
+    Gap penalties always have to be entered as negative values.
+  \item Boolean flags must be passed as logical values, e.g.\
+    \verb+verbose=TRUE+.
+  \item The following parameters are (currently) not supported:
+    \verb+maxSeqLength+ and \verb+help+.
+  \item For the parameter \verb+outFmt+, only the choice \verb+"clustal"+
+    is available.
+\end{itemize}
+
+\subsection{MUSCLE-Specific Parameters}\label{msaMuscle}
+
+Finally, also MUSCLE offers a lot of parameters for
+customizing the way a multiple sequence alignment is computed. Through
+the `\verb+...+' argument, \verb+msaMuscle()+ provides an interface to
+make use of most these parameters (see the documentation of MUSCLE%
+\footnote{\url{http://www.drive5.com/muscle/muscle.html}}
+for a comprehensive overview). Currently, the following restrictions and
+caveats apply:
+\begin{itemize}
+  \item The parameters \verb+in+, \verb+gapOpen+,
+    \verb+gapExtend+, \verb+matrix+, and \verb+seqtype+ have been renamed
+    to \verb+inputSeqs+, \verb+gapOpening+,
+    \verb+gapExtension+, \verb+substitutionMatrix+ and \verb+type+
+    in order to provide a consistent interface for all three multiple
+    sequence alignment algorithms.
+    Gap penalties always have to be entered as negative values.
+  \item Boolean flags must be passed as logical values, e.g.\
+    \verb+verbose=TRUE+.
+  \item The parameter \verb+quiet+
+    has been replaced by \verb+verbose+ (with the exact opposite meaning).
+  \item The following parameters are currently not supported:
+    \verb+clw+, \verb+clwstrict+, \verb+fastaout+, \verb+group+, \verb+html+,
+    \verb+in1+, \verb+in2+, \verb+log+, \verb+loga+,
+    \verb+msaout+, \verb+msf+, \verb+out+, \verb+phyi+, \verb+phyiout+,
+    \verb+phys+, \verb+physout+, \verb+refine+, \verb+refinew+,
+    \verb+scorefile+, \verb+spscore+, \verb+stable+, \verb+termgaps4+,
+    \verb+termgapsfull+, \verb+termgapshalf+, \verb+termgapshalflonger+,
+    \verb+tree1+, \verb+tree2+,  \verb+usetree+,
+    \verb+weight1+, and \verb+weight2+.
+\end{itemize}
+
+\section{Pretty-Printing Multiple Sequence Alignments}\label{sec:msaPrettyPrint}
+
+As already mentioned above, the \MSA\ package offers the function
+\verb+msaPrettyPrint()+ which allows for pretty-printing multiple
+sequence alignments using the \LaTeX\ package \shade\ \cite{Beitz2000}.
+Which prerequisites are necessary to take full advantage of the
+\verb+msaPrettyPrint()+ function is described in Section~\ref{sec:install}.
+
+The \verb+msaPrettyPrint()+ function writes a multiple sequence alignment
+to an alignment (\verb+.aln+) file and then creates \LaTeX\ code for
+pretty-printing the multiple sequence alignment on the basis of the
+\LaTeX\ package \shade. Depending on the choice of the \verb+output+
+argument, the function \verb+msaPrettyPrint()+ either prints a \LaTeX\
+fragment to the \R\ session (choice \verb+output="asis"+) or writes a
+\LaTeX\ source file (choice \verb+output="tex"+) that it processes to
+a DVI file (choice \verb+output="dvi"+) or PDF file
+(choice \verb+output="pdf"+). Note that no extra software is needed for
+choices \verb+output="asis"+ and \verb+output="tex"+. For
+\verb+output="dvi"+ and \verb+output="pdf"+, however, a \TeX/\LaTeX\
+distribution must be installed in order to translate the \LaTeX\ source
+file into the desired target format (DVI or PDF).
+
+The function \verb+msaPrettyPrint()+ allows for making the most common
+settings directly and conveniently via an \R\ interface without the need
+to know the details of \LaTeX\ or \shade. In the following, we will describe
+some of these customizations. For all possibilities, the user is referred
+to the documentation of \shade.%
+\footnote{\url{https://www.ctan.org/pkg/texshade}}
+
+\subsection{Consensus Sequence and Sequence Logo}
+
+The consensus sequence of the alignment is one of the most important results
+of a multiple sequence alignment. \verb+msaPrettyPrint()+ has a
+standard possibility to show
+this consensus sequence with the parameter \verb+showConsensus+.
+The default value is \verb+"bottom"+, which results in the following:
+<<ShowConsensusBottom,results="asis">>=
+msaPrettyPrint(myFirstAlignment, output="asis", y=c(164, 213),
+               subset=c(1:6), showNames="none", showLogo="none",
+               consensusColor="ColdHot", showLegend=FALSE,
+               askForOverwrite=FALSE)
+@
+Consensus sequences can also be displayed on top of a multiple sequence
+alignment or omitted completely.
+
+In the above example, an exclamation mark `\verb+!+' in the consensus
+sequence stands for a conserved letter, i.e.\ a sequence positions in which
+all sequences agree, whereas an asterisk `\verb+*+' stands for positions in
+which there is a majority of sequences agreeing. Positions in which the
+sequences disagree are left blank in the consensus sequence. For a more
+advanced example how to customize the consensus sequence, see the example in
+Subsection~\ref{ssec:custom} below.
+
+The color scheme of the consensus sequence can be configured with the
+\verb+consensusColors+ parameter. Possible values are
+\verb+"ColdHot"+, \verb+"HotCold"+, \verb+"BlueRed"+, \verb+"RedBlue"+,
+\verb+"GreenRed"+, \verb+"RedGreen"+, or \verb+"Gray"+. The above example
+uses the color scheme \verb+"RedGreen"+.
+
+Additionally, \texttt{msaPrettyPrint()} also offers a more sophisticated
+visual representation of the consensus sequence --- sequence logos.
+Sequence logos can be displayed either on top of the multiple sequence
+alignment (\verb+showLogo="top"+), below the multiple sequence
+alignment (\verb+showLogo="bottom"+), or omitted at all
+(\verb+showLogo="none"+):
+<<ShowLogoDefault,results="asis">>=
+msaPrettyPrint(myFirstAlignment, output="asis", y=c(164, 213),
+               subset=c(1:6), showNames="none", showLogo="top",
+               logoColors="rasmol", shadingMode="similar",
+               showLegend=FALSE, askForOverwrite=FALSE)
+@
+The color scheme of the sequence logo can be configured with the
+\verb+logoColors+ parameter. Possible values are \verb+"chemical"+,
+\verb+"rasmol"+, \verb+"hydropathy"+, \verb+"structure"+,
+\verb+"standard area"+, and \verb+"accessible area"+. The above example
+uses the color scheme \verb+"rasmol"+.
+
+Finally note that a consensus sequence and a sequence logo can be displayed
+together, but only on opposite sides.
+
+\subsection{Color Shading Modes}
+
+\shade\ offers different shading schemes for displaying the multiple sequence
+alignment itself. The following schemes are available:
+\verb+"similar"+, \verb+"identical"+, and \verb+"functional"+.
+Moreover, there are five different color schemes available for shading:
+\verb+"blues"+, \verb+"reds"+, \verb+"greens"+, \verb+"grays"+, or
+\verb+"black"+. The following example uses the shading mode
+\verb+"similar"+ along with the color scheme \verb+"blues"+:
+<<Shading1,results='asis'>>=
+msaPrettyPrint(myFirstAlignment, output="asis", y=c(164, 213),
+               showNames="none", shadingMode="similar",
+               shadingColors="blues", showLogo="none",
+               showLegend=FALSE, askForOverwrite=FALSE)
+@
+
+If the shading modes \verb+"similar"+ or \verb+"identical"+ are used,
+the \verb+shadingModeArg+ argument allows for setting a similarity
+threshold (a numerical value between 0 and 100).
+For shading mode \verb+"functional"+, the following settings of the
+\verb+shadingModeArg+ argument are possible:
+\verb+"charge"+, \verb+"hydropathy"+, \verb+"structure"+, \verb+"hemical"+,
+\verb+"rasmol"+, \verb+"standard area"+,  and
+\verb+"accessible area"+. The following example uses shading mode
+\verb+"functional"+ along with \verb+shadingModeArg+ set to
+\verb+"structure"+:
+<<Shading2,results='asis'>>=
+msaPrettyPrint(myFirstAlignment, output="asis", y=c(164, 213),
+               showNames="none", shadingMode="functional",
+               shadingModeArg="structure",
+               askForOverwrite=FALSE)
+@
+
+In the above example, a legend is shown that specifies the meaning of the
+color codes with which the letters are shaded. In some of the other examples
+above, we have suppressed this legend with the option \verb+showLegend=FALSE+.
+The default, however, is that a legend is printed underneath the multiple
+sequence alignment like in the previous example.
+
+\subsection{Subsetting}
+
+In case that not the complete multiple sequence alignment should be printed,
+\verb+msaPrettyPrint()+ offers two ways of sub-setting.
+On the one hand, the \verb+subset+ argument allows for selecting only
+a subset of sequences. Not surprisingly, \verb+subset+ must be a numeric
+vector with indices of sequences to be selected.
+On the other hand, it is also possible to slice out certain positions
+of the multiple sequence alignment using the \verb+y+ argument.
+In the simplest case, \verb+y+ can be a numeric vector with two elements
+in ascending order which correspond to the left and right bounds between
+which the multiple sequence alignment should be displayed. However,
+it is also possible to slice out multiple windows. For this purpose,
+the argument \verb+y+ must be an \verb+IRanges+ object containing the starts
+and ends of the windows to be selected.
+
+\subsection{Additional Customizations}\label{ssec:custom}
+
+The \verb+msaPrettyPrint()+ function provides an interface to the most common
+functionality of \shade\ in a way that the user does not need to know the
+specific commands of \shade. \shade, however, provides a host of additional
+customizations many of which are not covered by the interface of the
+\verb+msaPrettyPrint()+ function. In order to allow users to make use of
+all functionality of \shade,  \verb+msaPrettyPrint()+ offers the
+\verb+furtherCode+ argument through which users can add \LaTeX\ code to the
+\verb+texshade+ environment that is created by \verb+msaPrettyPrint()+.
+Moreover, the \verb+code+ argument can be used to bypass all of
+\verb+msaPrettyPrint()+'s generation of \shade\ code.
+
+Here is an example how to use the \verb+furtherCode+ argument in order to
+customize the consensus sequence and to show a ruler on top:
+<<ShowConsensusBottom2,results="asis">>=
+msaPrettyPrint(myFirstAlignment, output="asis", y=c(164, 213),
+               subset=c(1:6), showNames="none", showLogo="none",
+               consensusColor="ColdHot", showLegend=FALSE,
+               shadingMode="similar", askForOverwrite=FALSE,
+               furtherCode=c("\\defconsensus{.}{lower}{upper}",
+                             "\\showruler{1}{top}"))
+@
+
+\subsection{Sweave or knitr Integration}
+
+The function \verb+msaPrettyPrint()+ is particularly well-suited for
+pretty-printing multiple alignments in Sweave \cite{Leisch2002} or knitr
+\cite{Xie2014} documents. The key is to set \verb+output+ to \verb+"asis"+
+when calling \verb+msaPrettyPrint()+ and, at the same time, to
+let the \R\ code chunk produce output that is directly included in the
+resulting \LaTeX\ document as it is. This can be accomplished with the code
+chunk option \verb+results="tex"+ in Sweave and with the code chunk option
+\verb+results="asis"+ in knitr. Here is an example of a Sweave code chunk that
+displays a pretty-printed multiple sequence alignment inline:
+\input{SweaveExample.txt}
+The same example in knitr:
+\input{knitrExample.txt}
+
+Note that, for processing the resulting \LaTeX\ source document, the
+\shade\ package must be installed (see Section~\ref{sec:install}) and
+the \shade\ package must be loaded in the preamble:
+\begin{quote}
+\begin{verbatim}
+\usepackage{texshade}
+\end{verbatim}
+\end{quote}
+
+\subsection{Further Caveats}
+
+\begin{itemize}
+  \item Note that \verb+texi2dvi()+ and \verb+ttexi2pdf()+ always
+    save the resulting DVI/PDF files to the current working directory,
+    even if the \LaTeX\ source file is in a different directory.
+    That is also the reason why the temporary file is created in the
+    current working directory in the example below.
+  \item \shade\ has a wide array of functionalities. Only the most common ones
+    have been tested for interoperability with \R. So the use of the arguments
+    \verb+furtherCode+ and \verb+code+ is the user's own risk!
+\end{itemize}
+
+\section{Known Issues}\label{sec:issues}
+
+The original implementations of ClustalW, ClustalOmega, and MUSCLE
+are stand-alone command line programs which are only run once each time
+a multiple sequence alignment is performed. During the development of the
+\MSA\ package, we performed memory management checks using
+Valgrind~\cite{Nethercote2007} and discovered multiple memory leaks in
+ClustalW and MUSCLE.
+These memory leaks have no effect for the command line tools,
+since the program is closed each time the alignment is finished.
+In the implementation of the \MSA\ package, however, these memory leaks
+may have an effect if the same algorithm is run multiple times.
+
+For MUSCLE, we managed to eliminate all memory leaks by deactivating the
+two parameters \verb+weight1+ and \verb+weight2+. ClustalOmega did
+not show any memory leaks. ClustalW indeed has several memory leaks
+which are benign if the algorithm is run only a few times, but which may
+have more severe effects if the algorithm is run many times. ClustalOmega also
+has a minor memory leak, but the loss of data is so small that no major
+problems are to be expected except for thousands of executions of
+ClustalOmega.
+
+\shade\ has some issues with aligning the sequence logo to the multiple
+sequence alignment. Under which conditions this happens, would require a
+more detailed investigation.
+
+\section{Future Extensions}\label{sec:future}
+
+We envision the following changes/extensions in future versions of the package:
+\begin{itemize}
+  \item Integration of more multiple sequence alignment algorithms, such as,
+    T-Coffee \cite{Notredame2000} or DIALIGN \cite{Morgenstern1999}
+  \item Support for retrieving guide trees from the multiple sequence
+    alignment algorithms
+  \item Interface to methods computing phylogenetic trees (e.g.\ as
+    contained in the original implementation of ClustalW)
+  \item Elimination of memory leaks described in Section~\ref{sec:issues} and
+    re-activation of parameters that have been deactivated in order to
+    avoid memory leaks
+\end{itemize}
+
+\section{How to Cite This Package}
+
+If you use this package for research that is published later, you are kindly
+asked to cite it as follows:
+\begin{quotation}
+\noindent E.~Bonatesta, C.~Horejs-Kainrath, and U.~Bodenhofer, (2015).
+msa: An R Package for Multiple Sequence Alignment.
+\end{quotation}
+To obtain a Bib\TeX\ entries of the reference, enter the
+following into your R session:
+<<GetBibTeX,eval=FALSE>>=
+toBibtex(citation("msa"))
+@
+
+Moreover, we insist that, any time you cite the package, you also cite
+the original paper in which the original algorithm has been introduced (see
+bibliography below).
+
+\section{Change Log}
+
+\begin{description}
+\item[Version 0.99.0:] first version submitted to Bioconductor
+\end{description}
+
+%\bibliographystyle{plain}
+%\bibliography{lit}
+
+\begin{thebibliography}{10}
+
+\bibitem{Beitz2000}
+E.~Beitz.
+\newblock {\TeX shade}: shading and labeling of multiple sequence alignments
+  using {\LaTeX2e}.
+\newblock {\em Bioinformatics}, 16(2):135--139, 2000.
+
+\bibitem{Edgar2004b}
+R.~C. Edgar.
+\newblock {MUSCLE}: a multiple sequence alignment method with reduced time and
+  space complexity.
+\newblock {\em BMC Bioinformatics}, 5(5):113, 2004.
+
+\bibitem{Edgar2004a}
+R.~C. Edgar.
+\newblock {MUSCLE:} multiple sequence alignment with high accuracy and high
+  throughput.
+\newblock {\em Nucleic Acids Res.}, 32(5):1792--1797, 2004.
+
+\bibitem{Lamport1999}
+L.~Lamport.
+\newblock {\em {\LaTeX} --- A Document Preparation System. User's Guide and
+  Reference Manual}.
+\newblock Addison-Wesley Longman, Amsterdam, 1999.
+
+\bibitem{Leisch2002}
+F.~Leisch.
+\newblock Sweave: dynamic generation of statistical reports using literate data
+  analysis.
+\newblock In W.~H\"ardle and B.~R\"onz, editors, {\em Compstat 2002 ---
+  Proceedings in Computational Statistics}, pages 575--580, Heidelberg, 2002.
+  Physica-Verlag.
+
+\bibitem{Morgenstern1999}
+B.~Morgenstern.
+\newblock {DIALIGN 2}: improvement of the segment-to-segment approach to
+  multiple sequence alignment.
+\newblock {\em Bioinformatics}, 15(3):211--218, 1999.
+
+\bibitem{Nethercote2007}
+N.~Nethercote and J.~Seward.
+\newblock Valgrind: A framework for heavyweight dynamic binary instrumentation.
+\newblock In {\em Proc. of the ACM SIGPLAN 2007 Conf. on Programming Language
+  Design and Implementation}, San Diego, CA, 2007.
+
+\bibitem{Notredame2000}
+C.~Notredame, D.~G. Higgins, and J.~Heringa.
+\newblock {T-Coffee}: A novel method for fast and accurate multiple sequence
+  alignment.
+\newblock {\em J. Mol. Biol.}, 302(1):205--217, 2000.
+
+\bibitem{Sievers2011}
+F.~Sievers, A.~Wilm, D.~Dineen, T.~J. Gibson, K.~Karplus, W.~Li, R.~Lopez,
+  H.~McWilliam, M.~Remmert, J.~S\"oding, J.~D. Thompson, and D.~G. Higgins.
+\newblock Fast, scalable generation of high-quality protein multiple sequence
+  alignments using {Clustal Omega}.
+\newblock {\em Mol. Syst. Biol.}, 7:539, 2011.
+
+\bibitem{Thompson1994}
+J.~D. Thompson, D.~G. Higgins, and T.~J. Gibson.
+\newblock {CLUSTAL W}: improving the sensitivity of progressive multiple
+  sequence alignment through sequence weighting, position-specific gap
+  penalties and weight matrix choice.
+\newblock {\em Nucleic Acids Res.}, 22(22):4673--4680, 2004.
+
+\bibitem{Xie2014}
+Y.~Xie.
+\newblock {\em Dynamic Documents with R and knitr}.
+\newblock Chapman \&\ Hall/CRC, 2014.
+
+\end{thebibliography}
+
+\end{document}

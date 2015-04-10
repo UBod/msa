@@ -1,0 +1,63 @@
+MUSCLE-specific help
+====================
+
+msaMuscle offers the following parameters:
+
+anchors=                     [Logical Value]
+anchorspacing=               [Int]
+brenner=                     [Logical Value]
+center=                      [Negative Int]
+cluster=                     [String]
+cluster1=                    [String]
+cluster2=                    [String]
+core=                        [Logical Value]
+diagbreak=                   [Positive Int]
+diaglength=                  [Positive Int]
+diagmargin=                  [Positive Int]
+diags=                       [Logical Value]
+diags1=                      [Logical Value]
+diags2=                      [Logical Value]
+dimer=                       [Logical Value]
+distance1=                   [String]
+distance2=                   [String]
+gapOpening=                  [Negative Numeric]
+gapExtension=                [Negative Numeric]
+hydro=                       [Positive Int]
+hydrofactor=                 [Positive Numeric]
+in1=                         [Filename]
+in2=                         [Filename]
+inputSeqs=                   [String]*,[Filename], or [XStringSet]
+le=                          [Logical Value]
+maxhours=                    [Positive Numeric]
+maxiters=                    [Positive Int]
+maxtrees=                    [Positive Int]
+minbestcolscore=             [Positive Numeric]
+minsmoothscore=              [Positive Numeric]
+noanchors=                   [Logical Value]
+nocore=                      [Logical Value]
+objscore=                    [String]
+profile=                     [Logical Value]
+refine=                      [Logical Value]
+refinew=                     [Logical Value]
+refinewindow=                [Positive Int]
+root1=                       [String]
+root2=                       [String]
+smoothscoreceil=             [Numeric]
+smoothwindow=                [Positive Int]
+sp=                          [Logical Value]
+spn=                         [Logical Value]
+spscore=                     [Logical Value]
+substitutionMatrix=          [Filename], or [Matrix]
+SUEFF=                       [Positive Numeric] in Interval [0,1]
+sv=                          [Logical Value]
+type=                        [String]
+version=                     [Logical Value]
+
+* The functionality for showing all available choices for string arguments
+  is not available for the parameter inputSeqs:
+- [String] in the context of inputSeqs means sequences supplied as
+  a character vector.
+
+For more information on how these parameters are interpreted by
+MUSCLE, see http://www.drive5.com/muscle/muscle.html.
+

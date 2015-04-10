@@ -1,0 +1,7 @@
+\begin{quote}
+\begin{verbatim}
+<<AnyChunkName,results="asis">>=
+msaPrettyPrint(myFirstAlignment, output="asis")
+@
+\end{verbatim}
+\end{quote}

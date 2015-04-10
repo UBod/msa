@@ -1,0 +1,10 @@
+For consistency with the R/Bioconductor platform, some parameters were renamed
+(as compared to the names in the algorithms' original implementation).
+Note: all parameter names are case-sensitive!
+To show all choices for character arguments, supply an empty string "". Then 
+the function prints all options for this parameter.
+Furthermore, until now, not all functionalities are realized. A more 
+sophisticated implementation (and help) will be available in the subsequent 
+version.
+
+

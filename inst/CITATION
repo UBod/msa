@@ -1,0 +1,32 @@
+##345678901234567890123456789012345678901234567890123456789012345678901234567890
+citHeader("To cite package 'msa' in publications use:")
+
+#year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE) 
+#vers <- paste("R package version", meta$Version)
+desc <- packageDescription("msa")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
+vers <- paste("R package version", desc$Version)
+url  <- desc$URL
+
+
+citEntry(entry="Manual", 
+         title = "msa -- An R Package for Multiple Sequence Alignment.", 
+         author = personList(as.person("Enrico Bonatesta"), as.person("Christoph Horejs-Kainrath"), as.person("Ulrich Bodenhofer")),
+         year = year, 
+         note = vers,
+         organization=paste("Institute of Bioinformatics",
+                            "Johannes Kepler University", sep=", "),
+         address="Linz, Austria",
+         url=url,
+         textVersion = 
+             paste("Enrico Bonatesta, Christoph Horejs-Kainrath and Ulrich Bodenhofer (", year, "). ",
+                   "msa -- An R Package for Multiple Sequence Alignment. ",
+                   vers, ".", sep="")
+)
+
+citFooter(
+"If you use one of the three alignment algorithms, ",
+"please cite the corresponding original paper.\n\n",
+"To obtain the reference in BibTex format, enter",
+"'toBibtex(citation(\"msa\"))'"
+)

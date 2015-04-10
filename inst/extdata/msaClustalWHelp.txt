@@ -1,0 +1,82 @@
+ClustalW-specific help
+======================
+
+msaClustalW offers the following parameters:
+
+align=                       [Logical Value]
+bootlabels=                  [String]
+case=                        [String]
+check=                       [Logical Value]
+cluster=                     [String]
+convert=                     [Logical Value]
+dnamatrix=                   [Filename] or [String]
+endgaps=                     [Logical Value]
+fullhelp=                    [Logical Value]
+gapdist=                     [Int]
+gapOpening=                  [Negative Numeric]
+gapExtension=                [Negative Numeric]
+helixendin=                  [Int]
+helixendout=                 [Int]
+helixgap=                    [Int]
+help=                        [Logical Value]
+inputSeqs=                   [String]*, [Filename], or [XStringSet]
+iteration=                   [String]
+kimura=                      [Logical Value]
+ktuple=                      [Int]
+loopgap=                     [Int]
+maxdiv=                      [Int]
+maxiters=                    [Positive Int]
+negative=                    [Logical Value]
+nohgap=                      [Logical Value]
+nopgap=                      [Logical Value]
+nosecstr1=                   [Logical Value]
+nosecstr2=                   [Logical Value]
+novgap=                      [Logical Value]
+noweights=                   [Logical Value]
+options=                     [Logical Value]
+outorder=                    [String]
+output=                      [String]
+outputtree=                  [String]
+pairgap=                     [Int]
+pim=                         [Logical Value]
+profile=                     [Logical Value]
+profile1=                    [Filename]
+profile2=                    [Filename]
+pwdnamatrix=                 [Filename] or [String]
+pwgapext=                    [Numeric]
+pwgapopen=                   [Numeric]
+pwmatrix=                    [Filename] or [String]
+quicktree=                   [Logical Value]
+range=                       [Vector with 2 Positive Int]
+score=                       [String]
+secstrout=                   [String]
+seed=                        [Int]
+seqnos=                      [String]
+seqno_range=                 [String]
+sequences=                   [Logical Value]
+stats=                       [Filename]
+strandendin=                 [Int]
+strandendout=                [Int]
+strandgap=                   [Int]
+substitutionMatrix=          [String]*, [Filename], or [Matrix]
+terminalgap=                 [Int]
+topdiags=                    [Int]
+tossgaps=                    [Logical Value]
+transweight=                 [Numeric]
+tree=                        [Logical Value]
+type=                        [String]
+usetree=                     [Filename]
+usetree1=                    [Filename]
+usetree2=                    [Filename]
+verbose=                     [Logical Value]
+window=                      [Int]
+
+* The functionality for showing all available choices for string arguments
+  is not available for the parameters inputSeqs and substitutionMatrix:
+  - [String] in the context of inputSeqs means sequences supplied as
+    a character vector.
+  - [String] in the context of substitutionMatrix means a string, 
+    which describes the matrix like "blosum" (see ?msaClustalW).
+
+For more information on how these parameters are interpreted by
+ClustalW, see http://www.clustal.org/download/clustalw_help.txt.

@@ -1,0 +1,63 @@
+This R package provides R interface to three multiple alignment software
+packages not written by the authors of this R package. Furthermore, this
+package also includes some more libraries and utilities that have not been
+written by the package authors either. Copyright and license information
+is enclosed below.
+
+--------------------------------------------------------------------------------
+ClustalW:
+
+The copyright for ClustalW is held by Des Higgins, Julie Thompson, and
+Toby Gibson.The project homepage can be found at
+http://www.clustal.org/clustal2/. ClustalW is distributed under the Gnu Lesser
+General Public License, Version 3.
+
+--------------------------------------------------------------------------------
+ClustalOmega:
+
+The copyright for ClustalOmega is held by Fabian Sievers, Andreas Wilm,
+David Dineen, Johannes Söding, and Michael Remmert. The project homepage can
+be found at http://www.clustal.org/omega/. ClustalOmega is distributed
+under the Gnu General Public License, Version 2.
+
+--------------------------------------------------------------------------------
+Muscle:
+
+ClustalOmega was written by Robert Edgar. The project homepage can be found
+at http://www.drive5.com/muscle/. Muscle has been released
+to the public domain without any specific license.
+
+--------------------------------------------------------------------------------
+argtable2:
+
+argtable was written by Stewart Heitmann. The project homepage can be found at
+http://argtable.sourceforge.net/. argtable is distributed
+under the Gnu General Public License, Version 2.
+
+--------------------------------------------------------------------------------
+squid:
+
+squid was written by Sean Eddy. squid is distributed under the Gnu General 
+Public License, Version 2.
+
+--------------------------------------------------------------------------------
+texshade:
+
+texshade was written by Eric Beitz. The project homepage can be found at
+http://www.ctan.org/tex-archive/macros/latex/contrib/texshade. texshade is
+distributed under the Gnu General Public License, Version 2.
+
+--------------------------------------------------------------------------------
+libgc:
+
+libgc was written by Hans-J. Boehm and Alan J. Demers. libgc has been released
+to the public domain without any specific license. The program can be used for
+any purpose provided that the following notices are retained:
+
+  Copyright 1988, 1989 Hans-J. Boehm, Alan J. Demers
+  Copyright (c) 1991-1995 by Xerox Corporation.  All rights reserved.
+  Copyright (c) 1996-1999 by Silicon Graphics.  All rights reserved.
+  Copyright (c) 1999-2001 by Hewlett-Packard. All rights reserved.
+
+  THIS MATERIAL IS PROVIDED AS IS, WITH ABSOLUTELY NO WARRANTY EXPRESSED
+  OR IMPLIED.  ANY USE IS AT YOUR OWN RISK.

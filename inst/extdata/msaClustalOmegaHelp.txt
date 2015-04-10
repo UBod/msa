@@ -1,0 +1,54 @@
+ClustalOmega-specific help
+==========================
+
+msaClustalOmega offers the following parameters:
+
+auto=                        [Logical Value]
+clusteringOut=               [Filename]
+cluster=                     [Positive Int]
+dealign=                     [Logical Value]
+distMatIn=                   [Filename]
+distMatOut=                  [Filename]
+force=                       [Logical Value]
+full=                        [Logical Value]
+fullIter=                    [Logical Value]
+gapOpening=                  [Negative Numeric]
+gapExtension=                [Negative Numeric]
+guideTreeIn=                 [Filename]
+guideTreeOut=                [Filename]
+help=                        [Logical Value]
+hmmIn=                       [Filename]
+inFmt=                       [String]
+inputSeqs=                   [String]*,[Filename], or [XStringSet]
+isProfile=                   [Logical Value]
+longVersion=                 [Logical Value]
+macRam=                      [Int]
+maxGuidetreeIterations=      [Int]
+maxHmmIterations=            [Int]
+maxiters=                    [Positive Int]
+maxNumSeq=                   [Int]
+maxSeqLen=                   [Int]
+outfile=                     [Filename]
+outFmt=                      [String]
+outputOrder=                 [String]
+percentId=                   [Logical Value]
+profile1=                    [Filename]
+profile2=                    [Filename]
+residueNumber=               [Logical Value]
+substitutionMatrix=          [String]*,[Filename], or [Matrix]
+threads=                     [Positive Int]
+type=                        [String]
+useKimura=                   [Logical Value]
+verbose=                     [Logical Value]
+version=                     [Logical Value]
+wrap=                        [Positive Int]
+
+* The functionality for showing all available choices for string arguments
+  is not available for the parameters inputSeqs and substitutionMatrix:
+  - [String] in the context of inputSeqs means sequences supplied as
+    a character vector.
+  - [String] in the context of substitutionMatrix means a string, 
+    which describes the matrix like "blosum30" (see ?msaClustalOmega).
+
+For more information on how these parameters are interpreted by
+ClustalOmega, see http://www.clustal.org/omega/README.
