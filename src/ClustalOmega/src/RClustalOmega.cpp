@@ -31,11 +31,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <R.h>
-#include <Rinternals.h>
-
 #include "RClustalOmega.h"
 
+#include <R.h>
+#include <Rinternals.h>
 #include <Rdefines.h>
 
 extern "C" {

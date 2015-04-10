@@ -1,7 +1,13 @@
-.PHONY: all mylibs
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+	PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"` -Wl,-all_load ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,-noall_load
+else 
+	PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"` -Wl,--whole-archive ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,--no-whole-archive
+endif
 
-PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"` -Wl,--whole-archive ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,--no-whole-archive
 PKG_CXXFLAGS=-I"./gc-7.2/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src" `Rscript -e "Rcpp:::CxxFlags()"`
+
+.PHONY: all mylibs
 
 all: $(SHLIB)
 $(SHLIB): mylibs

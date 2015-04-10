@@ -45,17 +45,37 @@
 }
 \section{Methods}{
   \describe{
-    \item{\code{print(x, show=c("version", "call"))}:}{displays the
-      alignment in the same way as \code{show}, but allows for
-      specifying which metadata should be displayed (determined by the
-      \code{show} argument).}
+    \item{\code{print(x, show=c("alignment", "version", "call"))}:}{
+      prints information about the object \code{x}; the \code{show}
+      argument allows for determining what should be printed.
+      The \code{show} must be a character vector and may contain any
+      combination of the following five strings:
+      if \code{show} contains \code{"alignment"}, the multiple
+      sequence alignment is printed using the corresponding method
+      from the \pkg{Biostrings} package.
+      If \code{show} contains \code{"version"},
+      the \code{version} slot is shown. If \code{show} contains
+      \code{"call"}, the \code{call} slot is shown.
+      If \code{show} contains \code{"standardParams"}, the
+      settings of the parameters that are common to all three
+      multiple sequence alignment algorithms are shown. If \code{show}
+      contains \code{"algParams"}, the
+      algorithm-specific parameters are shown. 
+      The order in which the strings are placed in the \code{show}
+      argument does not have an effect on the order in which
+      data are printed. The default is
+      \code{show=c("alignment", "version", "call")}, i.e. by default,
+      the multiple sequence alignment is shown along with version and
+      call information.
+    }
     \item{\code{show(object)}:}{displays the alignment along with
       metadata; synonymous to calling \code{print} with default
-      \code{show} argument}
+      \code{show} argument \code{c("alignment", "version", "call")}}
     \item{\code{version(object)}:}{displays the algorithm with which
       the multiple alignment has been computed along with its
-      version number.}
-    \item{\code{params(x)}:}{accessor to the \code{params} slot.}
+      version number (see also \code{\linkS4class{MsaMetaData}}).}
+    \item{\code{params(x)}:}{accessor to the \code{params} slot (see
+      also \code{\linkS4class{MsaMetaData}})}
   }
 }
 \author{Enrico Bonatesta and Christoph Horejs-Kainrath
@@ -80,10 +100,10 @@ version(myAlignment)
 show(myAlignment)
 
 ## print the results
-print(myAlignment, show="version")
+print(myAlignment, show="alignment")
+print(myAlignment, show=c("alignment", "version"))
 print(myAlignment, show="standardParams")
 print(myAlignment, show="algParams")
-print(myAlignment, show="call")
 print(myAlignment, show=c("call", "version"))
 
 ## show the params

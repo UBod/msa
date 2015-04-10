@@ -15,5 +15,5 @@ namespace clustalw {
 			~RClustalWMain();
 			void run(UserArgs args, ClustalWInput *input, ClustalWOutput *output);
 	};
-	#endif
 }
+#endif

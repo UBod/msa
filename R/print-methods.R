@@ -1,8 +1,5 @@
-print.MsaMetaData <- function(x, show=c("version", "standardParams",
-                                        "algParams", "call"))
+print.MsaMetaData <- function(x, show)
 {
-    show <- match.arg(show, several.ok=TRUE)
-
     sep <- FALSE
 
     if ("version" %in% show)
@@ -48,14 +45,22 @@ print.MsaMetaData <- function(x, show=c("version", "standardParams",
     }
 }
 
-setMethod("print", signature("MsaMetaData"), print.MsaMetaData)
 
-
-print.MsaMultipleAlignment <- function(x, show=c("version", "call"))
+print.MsaMultipleAlignment <- function(x, show=c("alignment", "version",
+                                                 "call"))
 {
-    print(as(x, "MsaMetaData"), show=show)
-    cat("\n")
-    print(as(x, substr(class(x), 4, nchar(class(x)))))
+    show <- match.arg(show,
+                      choices=c("alignment", "version", "call",
+                                "standardParams", "algParams"),
+                      several.ok=TRUE)
+
+    print.MsaMetaData(x, show=show)
+
+    if ("alignment" %in% show)
+    {
+        cat("\n")
+        print(as(x, substr(class(x), 4, nchar(class(x)))))
+    }
 }
 
 setMethod("print", signature("MsaDNAMultipleAlignment"),

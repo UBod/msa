@@ -5,7 +5,6 @@
 #include "seqvect.h"
 
 #include <Rcpp.h>
-#include <R_ext/Rdynload.h>
 
 /*
  * note : RcppExport is an alias to `extern "C"` defined by Rcpp.

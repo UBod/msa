@@ -2,16 +2,15 @@
 \docType{class}
 \alias{class:MsaMetaData}
 \alias{MsaMetaData-class}
-\alias{show,MsaMetaData-method}
+\alias{MsaMetaData}
 \alias{params,MsaMetaData-method}
-\alias{print,MsaMetaData-method}
 \alias{version}
 \alias{version,MsaMetaData-method}
 \title{Class \code{MsaMetaData}}
 \description{S4 class for storing metadata about multiple sequence
   alignment results}
 \section{Objects}{
-  Objects of these classes are not be created and used directly. This
+  Objects of this virtual class are not be created and used directly. This
   is an auxiliary class used by the classes
   \code{\linkS4class{MsaAAMultipleAlignment}},
   \code{\linkS4class{MsaDNAMultipleAlignment}}, and
@@ -31,20 +30,6 @@ The following slots are defined for \code{MsaMetaData} objects:
 }
 \section{Methods}{
   \describe{
-    \item{\code{print(x, show=c("version", "standardParams",
-	"algParams", "call"))}:}{displays the object; the \code{show}
-      parameter can be used to determine which information should be
-      present in the output. If \code{show} contains \code{"version"},
-      the \code{version} slot is shown. If \code{show} contains
-      \code{"call"}, the \code{call} slot is shown.
-      If \code{show} contains \code{"standardParams"}, the
-      settings of the the parameters that are common to all three
-      multiple sequence alignment algorithms. If \code{show}
-      contains \code{"algParams"}, the
-      algorith-specific parameters are shown. 
-    }
-    \item{\code{show(object)}:}{displays the object; synonymous to
-      calling  \code{print} with default \code{show} argument}
     \item{\code{version(object)}:}{accessor to the \code{version} slot}
     \item{\code{params(x)}:}{accessor to the \code{params} slot}
   }
@@ -73,10 +58,10 @@ version(myAlignment)
 show(myAlignment)
 
 ## print the results
-print(myAlignment, show="version")
+print(myAlignment, show="alignment")
+print(myAlignment, show=c("alignment", "version"))
 print(myAlignment, show="standardParams")
 print(myAlignment, show="algParams")
-print(myAlignment, show="call")
 print(myAlignment, show=c("call", "version"))
 
 ## show the params

@@ -1,18 +1,18 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 0.99.2
-Date: 2015-04-09
+Version: 0.99.3
+Date: 2015-04-10
 Author: Enrico Bonatesta, Christoph Horejs-Kainrath, Ulrich Bodenhofer
 Maintainer: Ulrich Bodenhofer <bodenhofer@bioinf.jku.at>
-Description: This package provides a unified R/Bioconductor interface
-        to the multiple sequence alignment algorithms ClustalW,
-        ClustalOmega, and Muscle. All three algorithms are integrated
-        in the package, therefore, they do not depend on any external
-        software tools and are available for all major platforms. The
-        multiple sequence alignment algorithms are complemented by a
-        function for pretty-printing multiple sequence alignments using
-        the LaTeX package TeXshade.
+Description: This package provides a unified R/Bioconductor interface to the
+	     multiple sequence alignment algorithms ClustalW, ClustalOmega,
+	     and Muscle. All three algorithms are integrated in the package,
+	     therefore, they do not depend on any external software tools
+	     and are available for all major platforms. The multiple sequence
+	     alignment algorithms are complemented by a function for
+	     pretty-printing multiple sequence alignments using the LaTeX
+	     package TeXshade.
 License: GPL (>= 2)
 Copyright: See file inst/COPYRIGHT
 Depends: R (>= 3.1.0), methods, Biostrings (>= 2.30.0)
@@ -20,6 +20,7 @@ Imports: Rcpp (>= 0.11.1), BiocGenerics, IRanges (>= 1.20.0),
         S4Vectors, tools
 Suggests: Biobase, knitr
 LinkingTo: Rcpp
+SystemRequirements: GNU make
 VignetteBuilder: knitr
 LazyLoad: yes
 Collate: AllClasses.R AllGenerics.R params-methods.R version-methods.R
@@ -29,3 +30,4 @@ Collate: AllClasses.R AllGenerics.R params-methods.R version-methods.R
 biocViews: MultipleSequenceAlignment, Alignment, MultipleComparison,
         Sequencing
 NeedsCompilation: yes
+Packaged: 2015-04-10 22:07:02 UTC; bodenhof
