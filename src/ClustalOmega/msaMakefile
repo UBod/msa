@@ -1,3 +1,10 @@
+OS := $(shell uname)
+ifeq ($(OS), Darwin)
+	CONFIGURE_FLAGS='--without-openmp'
+else 
+	CONFIGURE_FLAGS=''
+endif
+
 CPPNames=\
 exceptions4c/e4c_lite.c \
 argtable2/argtable2.c argtable2/arg_end.c argtable2/arg_rem.c argtable2/arg_lit.c argtable2/arg_int.c \
@@ -35,11 +42,11 @@ RClustalOmega.o mymain.o clustal-omega.o
 all: clustalomega
 
 clustalomega:
-	./configure; \
+	./configure $(CONFIGURE_FLAGS); \
 	export PKG_LIBS="$(PKG_LIBS) $(SHLIB_OPENMP_CFLAGS) `Rscript -e "Rcpp:::LdFlags()"`"; \
 	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) $(SHLIB_OPENMP_CXXFLAGS) -fPIC -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" `Rscript -e "Rcpp:::CxxFlags()"`"; \
 	export PKG_CFLAGS="$(PKG_CFLAGS) $(SHLIB_OPENMP_CFLAGS) -fPIC -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" `Rscript -e "Rcpp:::CxxFlags()"`"; \
 	cd src; \
-	R CMD SHLIB -o libClustalOmega.so $(CPPNames); \
-	ar rcs libClustalOmega.a $(OBJNames); \
+	R CMD SHLIB -o libClustalOmega.so $(CPPNames) && \
+	ar rcs libClustalOmega.a $(OBJNames) && \
 	cp libClustalOmega.a ../../
