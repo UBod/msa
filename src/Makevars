@@ -1,6 +1,6 @@
 OS := $(shell uname)
 ifeq ($(OS), Darwin)
-	PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"` -Wl,-all_load ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,-noall_load
+	PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"` -Wl,-all_load ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a
 else 
 	PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"` -Wl,--whole-archive ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,--no-whole-archive
 endif
