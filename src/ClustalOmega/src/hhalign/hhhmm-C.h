@@ -186,12 +186,12 @@ HMM& HMM::operator=(HMM& q)
   
   n_display=q.n_display;
   for (int k=0; k<n_display; k++) {
-    sname[k]=new(char[strlen(q.sname[k])+1]);
+    sname[k]=new char[strlen(q.sname[k])+1];
     if (!sname[k]) MemoryError("array of names for sequences to display");
     strcpy(sname[k],q.sname[k]);
   }
   for (int k=0; k<n_display; k++) {
-    seq[k]=new(char[strlen(q.seq[k])+1]); 
+    seq[k]=new char[strlen(q.seq[k])+1];
     if (!seq[k]) MemoryError("array of names for sequences to display");
     strcpy(seq[k],q.seq[k]);
   }
@@ -327,7 +327,7 @@ HMM::Read(FILE* dbf, char* path)
       else if (!strcmp("SEQ",str3))
 	{
         //char cur_seq[MAXCOL]=""; //Sequence currently read in
-        char *cur_seq = new(char[par.maxColCnt]); //Sequence currently read in
+        char *cur_seq = new char[par.maxColCnt]; //Sequence currently read in
 	  int k;                // sequence index; start with -1; after reading name of n'th sequence-> k=n
 	  int h;                // index for character in input line
 	  int l=1;              // index of character in sequence seq[k]
@@ -358,14 +358,14 @@ HMM::Read(FILE* dbf, char* path)
 
 		  //If this is not the first sequence then store residues of previous sequence
 		  if (k>0) {
-		    seq[k-1]=new(char[strlen(cur_seq)+1]); 
+		    seq[k-1]=new char[strlen(cur_seq)+1];
 		    if (!seq[k-1]) MemoryError("array of sequences to display");
 		    strcpy(seq[k-1],cur_seq);
 		  }
 
 		  // store sequence name
 		  strcut(line+1); //find next white-space character and overwrite it with end-of-string character
-		  sname[k] = new (char[strlen(line+1)+1]); //+1 for terminating '\0'
+		  sname[k] = new char[strlen(line+1)+1]; //+1 for terminating '\0'
 		  if (!sname[k]) MemoryError("array of names for sequences to display");
 		  strcpy(sname[k],line+1);           //store sequence name in **name
 		  l=1; i=1;		
@@ -461,7 +461,7 @@ HMM::Read(FILE* dbf, char* path)
 	    } //while(getline)
 	  //If this is not the first sequence some residues have already been read in
 	  if (k>=0) {
-	    seq[k]=new(char[strlen(cur_seq)+1]); 
+	    seq[k]=new char[strlen(cur_seq)+1];
 	    if (!seq[k]) MemoryError("array of sequences to display");
 	    strcpy(seq[k],cur_seq);
 	  }
@@ -733,7 +733,7 @@ HMM::ReadHMMer(FILE* dbf, char* filestr)
 	  if (nsa_dssp<0) 
 	    {
 	      nsa_dssp=k++;
-	      seq[nsa_dssp] = new(char[/*MAXRES*/par.maxResLen+2]);
+	      seq[nsa_dssp] = new char[/*MAXRES*/par.maxResLen+2];
 	      sname[nsa_dssp] = new(char[15]);
 	      strcpy(seq[nsa_dssp]," ");
 	      strcpy(sname[nsa_dssp],"sa_dssp");
@@ -754,7 +754,7 @@ HMM::ReadHMMer(FILE* dbf, char* filestr)
 	  if (nss_pred<0) 
 	    {
 	      nss_pred=k++;
-	      seq[nss_pred] = new(char[/*MAXRES*/par.maxResLen+2]);
+	      seq[nss_pred] = new char[/*MAXRES*/par.maxResLen+2];
 	      sname[nss_pred] = new(char[15]);
 	      strcpy(seq[nss_pred]," ");
 	      strcpy(sname[nss_pred],"ss_pred");
@@ -775,7 +775,7 @@ HMM::ReadHMMer(FILE* dbf, char* filestr)
 	  if (nss_conf<0) 
 	    {
 	      nss_conf=k++;
-	      seq[nss_conf] = new(char[/*MAXRES*/par.maxResLen+2]);
+	      seq[nss_conf] = new char[/*MAXRES*/par.maxResLen+2];
 	      sname[nss_conf] = new(char[15]);
 	      strcpy(seq[nss_conf]," ");
 	      strcpy(sname[nss_conf],"ss_conf");
@@ -857,7 +857,7 @@ HMM::ReadHMMer(FILE* dbf, char* filestr)
 
 	  // Prepare to store DSSP states (if there are none, delete afterwards)
 	  nss_dssp=k++;
-	  seq[nss_dssp] = new(char[/*MAXRES*/par.maxResLen+2]);
+	  seq[nss_dssp] = new char[/*MAXRES*/par.maxResLen+2];
 	  sname[nss_dssp] = new(char[15]);
 	  strcpy(sname[nss_dssp],"ss_dssp");
 
@@ -1033,12 +1033,12 @@ HMM::ReadHMMer(FILE* dbf, char* filestr)
     {
       sname[k]=new(char[10]);
       strcpy(sname[k],"Consensus");
-      sname[k+1]=new(char[strlen(longname)+1]);
+      sname[k+1]=new char[strlen(longname)+1];
       strcpy(sname[k+1],longname);
-      seq[k]=new(char[L+2]); 
+      seq[k]=new char[L+2];
       seq[k][0]=' '; 
       seq[k][L+1]='\0'; 
-      seq[k+1]=new(char[L+2]); 
+      seq[k+1]=new char[L+2];
       seq[k+1][0]=' '; 
       seq[k+1][L+1]='\0'; 
       for (i=1; i<=L; ++i)
@@ -1056,11 +1056,11 @@ HMM::ReadHMMer(FILE* dbf, char* filestr)
     } 
   else 
     {
-      sname[k]=new(char[strlen(longname)+1]);
+      sname[k]=new char[strlen(longname)+1];
       /* FIXME valgrind says bytes get lost here during hmm iteration --
          fixed in HMM::ClobberGlobal(), I (FS) think */
       strcpy(sname[k],longname);
-      seq[k]=new(char[L+2]); 
+      seq[k]=new char[L+2];
       seq[k][0]=' '; 
       seq[k][L+1]='\0'; 
     }
@@ -1235,7 +1235,7 @@ HMM::ReadHMMer3(FILE* dbf, char* filestr)
                  if (nsa_dssp<0)
                      {
                          nsa_dssp=k++;
-                         seq[nsa_dssp] = new(char[/*MAXRES*/par.maxResLen+2]);
+                         seq[nsa_dssp] = new char[/*MAXRES*/par.maxResLen+2];
                          sname[nsa_dssp] = new(char[15]);
                          strcpy(seq[nsa_dssp]," ");
                          strcpy(sname[nsa_dssp],"sa_dssp");
@@ -1256,7 +1256,7 @@ HMM::ReadHMMer3(FILE* dbf, char* filestr)
                  if (nss_pred<0)
                      {
                          nss_pred=k++;
-                         seq[nss_pred] = new(char[/*MAXRES*/par.maxResLen+2]);
+                         seq[nss_pred] = new char[/*MAXRES*/par.maxResLen+2];
                          sname[nss_pred] = new(char[15]);
                          strcpy(seq[nss_pred]," ");
                          strcpy(sname[nss_pred],"ss_pred");
@@ -1277,7 +1277,7 @@ HMM::ReadHMMer3(FILE* dbf, char* filestr)
                  if (nss_conf<0)
                      {
                          nss_conf=k++;
-                         seq[nss_conf] = new(char[/*MAXRES*/par.maxResLen+2]);
+                         seq[nss_conf] = new char[/*MAXRES*/par.maxResLen+2];
                          sname[nss_conf] = new(char[15]);
                          strcpy(seq[nss_conf]," ");
                          strcpy(sname[nss_conf],"ss_conf");
@@ -1347,7 +1347,7 @@ HMM::ReadHMMer3(FILE* dbf, char* filestr)
 
                  // Prepare to store DSSP states (if there are none, delete afterwards) 
                  nss_dssp=k++;
-                 seq[nss_dssp] = new(char[/*MAXRES*/par.maxResLen+2]);
+                 seq[nss_dssp] = new char[/*MAXRES*/par.maxResLen+2];
                  sname[nss_dssp] = new(char[15]);
                  strcpy(sname[nss_dssp],"ss_dssp");
 
@@ -1527,12 +1527,12 @@ HMM::ReadHMMer3(FILE* dbf, char* filestr)
      {
          sname[k]=new(char[10]);
          strcpy(sname[k],"Consensus");
-         sname[k+1]=new(char[strlen(longname)+1]);
+         sname[k+1]=new char[strlen(longname)+1];
          strcpy(sname[k+1],longname);
-         seq[k]=new(char[L+2]);
+         seq[k]=new char[L+2];
          seq[k][0]=' ';
          seq[k][L+1]='\0';
-         seq[k+1]=new(char[L+2]);
+         seq[k+1]=new char[L+2];
          seq[k+1][0]=' ';
          seq[k+1][L+1]='\0';
          for (i=1; i<=L; ++i)
@@ -1550,9 +1550,9 @@ HMM::ReadHMMer3(FILE* dbf, char* filestr)
      }
  else
      {
-         sname[k]=new(char[strlen(longname)+1]);
+         sname[k]=new char[strlen(longname)+1];
          strcpy(sname[k],longname);
-         seq[k]=new(char[L+2]);
+         seq[k]=new char[L+2];
          seq[k][0]=' ';
          seq[k][L+1]='\0';
      }
@@ -2107,7 +2107,7 @@ void
 HMM::InsertCalibration(char* infile)
 {
   char* line =  new(char[LINELEN]);    // input line
-  char** lines = new(char*[3*L+100000]);
+  char** lines = new char*[3*L+100000];
   int nline=0;
   int l;
   char done=0;   // inserted new 'EVD mu sigma' line?
@@ -2136,7 +2136,7 @@ HMM::InsertCalibration(char* infile)
 	  sprintf(lines[nline],"EVD   %-7.4f %-7.4f",lamda,mu);
 	  nline++;
 	}
-      lines[nline]=new(char[strlen(line)+1]); 
+      lines[nline]=new char[strlen(line)+1];
       if (!lines[nline]) MemoryError("space to read in HHM file for calibration");
       strcpy (lines[nline],line);
       nline++;

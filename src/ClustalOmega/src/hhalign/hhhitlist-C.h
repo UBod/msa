@@ -1285,32 +1285,32 @@ HitList::TransitiveScoring()
       index.Add(name,k);
     }
   // Read symmetric Z-scores matrix
-  Z = new(float*[N]);
+  Z = new float*[N];
   for (k=0; k<N; k++) 
     {
-      Z[k] = new(float[N]);
+      Z[k] = new float[N];
       for (l=0; l<k; l++) Z[k][l] = Z[l][k];
       unused = fread(Z[k]+k,sizeof(float),N-k,wfile);   
     }
   // Read symmetric covariance matrix
-  C = new(float*[N]);
+  C = new float*[N];
   for (k=0; k<N; k++) 
     {
-      C[k] = new(float[N]);
+      C[k] = new float[N];
       for (l=0; l<k; l++) C[k][l] = C[l][k];
       unused = fread(C[k]+k,sizeof(float),N-k,wfile);
     }
   fclose(wfile);
 
   // Allocate memory
-  Zq = new(float[N]);
-  Ztq = new(float[N]);
-  Zrq = new(float[N]);
-  fold = new(char*[N]);
-  fam = new(char*[N]);
-  Prob = new(float[N]);
-  ll = new(int[N]);
-  w = new(float[N]);
+  Zq = new float[N];
+  Ztq = new float[N];
+  Zrq = new float[N];
+  fold = new char*[N];
+  fam = new char*[N];
+  Prob = new float[N];
+  ll = new int[N];
+  w = new float[N];
 
   // Transform P-values to normally distributed Z-scores and store in Zq vector
   fprintf(stderr,"Transform P-values to Z-scores\n");
@@ -1373,12 +1373,12 @@ HitList::TransitiveScoring()
   else
     {
       // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-      double** Csub = new(double*[M]);
-      double** Cinv = new(double*[M]);
+      double** Csub = new double*[M];
+      double** Cinv = new double*[M];
       for (m=0; m<M; m++) 
 	{
-	  Csub[m] = new(double[M]);
-	  Cinv[m] = new(double[M]);
+	  Csub[m] = new double[M];
+	  Cinv[m] = new double[M];
 	  for (n=0; n<M; n++)
 	    Csub[m][n] = double(C[ll[m]][ll[n]]);
 	}
@@ -1453,10 +1453,10 @@ HitList::TransitiveScoring()
       else 
 	{
 	  // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-	  double** Csub = new(double*[M]);
+	  double** Csub = new double*[M];
 	  for (m=0; m<M; m++) 
 	    {
-	      Csub[m] = new(double[M]);
+	      Csub[m] = new double[M];
 	      for (n=0; n<M; n++)
 		Csub[m][n] = double(C[ll[m]][ll[n]]);
 	    }
@@ -1470,8 +1470,8 @@ HitList::TransitiveScoring()
 	  else 
 	    {
 	      
-	      double** Cinv = new(double*[M]);
-	      for (m=0; m<M; m++) Cinv[m] = new(double[M]);
+	      double** Cinv = new double*[M];
+	      for (m=0; m<M; m++) Cinv[m] = new double[M];
 
 	      // Invert Csub
 	      InvertMatrix(Cinv,Csub,M);
@@ -1650,32 +1650,32 @@ HitList::TransitiveScoring2()
       index.Add(name,k);
     }
   // Read symmetric Z-scores matrix
-  Z = new(float*[N]);
+  Z = new float*[N];
   for (k=0; k<N; k++) 
     {
-      Z[k] = new(float[N]);
+      Z[k] = new float[N];
       for (l=0; l<k; l++) Z[k][l] = Z[l][k];
       unused = fread(Z[k]+k,sizeof(float),N-k,wfile);   
     }
   // Read symmetric covariance matrix
-  C = new(float*[N]);
+  C = new float*[N];
   for (k=0; k<N; k++) 
     {
-      C[k] = new(float[N]);
+      C[k] = new float[N];
       for (l=0; l<k; l++) C[k][l] = C[l][k];
       unused = fread(C[k]+k,sizeof(float),N-k,wfile);
     }
   fclose(wfile);
 
   // Allocate memory
-  Zq = new(float[N]);
-  Ztq = new(float[N]);
-  Zrq = new(float[N]);
-  fold = new(char*[N]);
-  fam = new(char*[N]);
-  Prob = new(float[N]);
-  ll = new(int[N]);
-  w = new(float[N]);
+  Zq = new float[N];
+  Ztq = new float[N];
+  Zrq = new float[N];
+  fold = new char*[N];
+  fam = new char*[N];
+  Prob = new float[N];
+  ll = new int[N];
+  w = new float[N];
 
   // Transform P-values to normally distributed Z-scores and store in Zq vector
   fprintf(stderr,"Transform P-values to Z-scores\n");
@@ -1739,12 +1739,12 @@ HitList::TransitiveScoring2()
   else
     {
       // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-      double** Csub = new(double*[M]);
-      double** Cinv = new(double*[M]);
+      double** Csub = new double*[M];
+      double** Cinv = new double*[M];
       for (m=0; m<M; m++) 
 	{
-	  Csub[m] = new(double[M]);
-	  Cinv[m] = new(double[M]);
+	  Csub[m] = new double[M];
+	  Cinv[m] = new double[M];
 	  for (n=0; n<M; n++)
 	    Csub[m][n] = double(C[ll[m]][ll[n]]);
 	}
@@ -1821,10 +1821,10 @@ HitList::TransitiveScoring2()
       else 
 	{
 	  // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-	  double** Csub = new(double*[M]);
+	  double** Csub = new double*[M];
 	  for (m=0; m<M; m++) 
 	    {
-	      Csub[m] = new(double[M]);
+	      Csub[m] = new double[M];
 	      for (n=0; n<M; n++)
 		Csub[m][n] = double(C[ll[m]][ll[n]]);
 	    }
@@ -1838,8 +1838,8 @@ HitList::TransitiveScoring2()
 	  else 
 	    {
 	      
-	      double** Cinv = new(double*[M]);
-	      for (m=0; m<M; m++) Cinv[m] = new(double[M]);
+	      double** Cinv = new double*[M];
+	      for (m=0; m<M; m++) Cinv[m] = new double[M];
 
 // 	      // Invert Csub
 // 	      InvertMatrix(Cinv,Csub,M);
@@ -2020,32 +2020,32 @@ HitList::TransitiveScoring3()
       index.Add(name,k);
     }
   // Read symmetric Z-scores matrix
-  Z = new(float*[N]);
+  Z = new float*[N];
   for (k=0; k<N; k++) 
     {
-      Z[k] = new(float[N]);
+      Z[k] = new float[N];
       for (l=0; l<k; l++) Z[k][l] = Z[l][k];
       unused = fread(Z[k]+k,sizeof(float),N-k,wfile);   
     }
   // Read symmetric covariance matrix
-  C = new(float*[N]);
+  C = new float*[N];
   for (k=0; k<N; k++) 
     {
-      C[k] = new(float[N]);
+      C[k] = new float[N];
       for (l=0; l<k; l++) C[k][l] = C[l][k];
       unused = fread(C[k]+k,sizeof(float),N-k,wfile);
     }
   fclose(wfile);
 
   // Allocate memory
-  Zq = new(float[N]);
-  Ztq = new(float[N]);
-  Zrq = new(float[N]);
-  fold = new(char*[N]);
-  fam = new(char*[N]);
-  Prob = new(float[N]);
-  ll = new(int[N]);
-  w = new(float[N]);
+  Zq = new float[N];
+  Ztq = new float[N];
+  Zrq = new float[N];
+  fold = new char*[N];
+  fam = new char*[N];
+  Prob = new float[N];
+  ll = new int[N];
+  w = new float[N];
 
   // Transform P-values to normally distributed Z-scores and store in Zq vector
   fprintf(stderr,"Transform P-values to Z-scores\n");
@@ -2114,12 +2114,12 @@ HitList::TransitiveScoring3()
       else
 	{
 	  // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-	  double** Csub = new(double*[M]);
-	  double** Cinv = new(double*[M]);
+	  double** Csub = new double*[M];
+	  double** Cinv = new double*[M];
 	  for (m=0; m<M; m++) 
 	    {
-	      Csub[m] = new(double[M]);
-	      Cinv[m] = new(double[M]);
+	      Csub[m] = new double[M];
+	      Cinv[m] = new double[M];
 	      for (n=0; n<M; n++)
 		Csub[m][n] = double(C[ll[m]][ll[n]]);
 	    }
@@ -2186,10 +2186,10 @@ HitList::TransitiveScoring3()
       else 
 	{
 	  // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-	  double** Csub = new(double*[M]);
+	  double** Csub = new double*[M];
 	  for (m=0; m<M; m++) 
 	    {
-	      Csub[m] = new(double[M]);
+	      Csub[m] = new double[M];
 	      for (n=0; n<M; n++)
 		Csub[m][n] = double(C[ll[m]][ll[n]]);
 	    }
@@ -2203,8 +2203,8 @@ HitList::TransitiveScoring3()
 	  else 
 	    {
 	      
-	      double** Cinv = new(double*[M]);
-	      for (m=0; m<M; m++) Cinv[m] = new(double[M]);
+	      double** Cinv = new double*[M];
+	      for (m=0; m<M; m++) Cinv[m] = new double[M];
 
 	      // Invert Csub
  	      InvertMatrix(Cinv,Csub,M); 
@@ -2385,32 +2385,32 @@ HitList::TransitiveScoring4()
       index.Add(name,k);
     }
   // Read symmetric Z-scores matrix
-  Z = new(float*[N]);
+  Z = new float*[N];
   for (k=0; k<N; k++) 
     {
-      Z[k] = new(float[N]);
+      Z[k] = new float[N];
       for (l=0; l<k; l++) Z[k][l] = Z[l][k];
       unused = fread(Z[k]+k,sizeof(float),N-k,wfile);   
     }
   // Read symmetric covariance matrix
-  C = new(float*[N]);
+  C = new float*[N];
   for (k=0; k<N; k++) 
     {
-      C[k] = new(float[N]);
+      C[k] = new float[N];
       for (l=0; l<k; l++) C[k][l] = C[l][k];
       unused = fread(C[k]+k,sizeof(float),N-k,wfile);
     }
   fclose(wfile);
 
   // Allocate memory
-  Zq = new(float[N]);
-  Ztq = new(float[N]);
-  Zrq = new(float[N]);
-  fold = new(char*[N]);
-  fam = new(char*[N]);
-  Prob = new(float[N]);
-  ll = new(int[N]);
-  w = new(float[N]);
+  Zq = new float[N];
+  Ztq = new float[N];
+  Zrq = new float[N];
+  fold = new char*[N];
+  fam = new char*[N];
+  Prob = new float[N];
+  ll = new int[N];
+  w = new float[N];
 
   // Transform P-values to normally distributed Z-scores and store in Zq vector
   fprintf(stderr,"Transform P-values to Z-scores\n");
@@ -2472,10 +2472,10 @@ HitList::TransitiveScoring4()
   else
     {
       // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-      double** Csub = new(double*[M]);
+      double** Csub = new double*[M];
       for (m=0; m<M; m++) 
 	{
-	  Csub[m] = new(double[M]);
+	  Csub[m] = new double[M];
 	  for (n=0; n<M; n++)
 	    Csub[m][n] = double(C[ll[m]][ll[n]]);
 	}
@@ -2538,10 +2538,10 @@ HitList::TransitiveScoring4()
       else 
 	{
 	  // Generate submatrix of C for indices l for which Z_lq,Z_lk > Zmin_trans 
-	  double** Csub = new(double*[M]);
+	  double** Csub = new double*[M];
 	  for (m=0; m<M; m++) 
 	    {
-	      Csub[m] = new(double[M]);
+	      Csub[m] = new double[M];
 	      for (n=0; n<M; n++)
 		Csub[m][n] = double(C[ll[m]][ll[n]]);
 	    }
@@ -2840,9 +2840,9 @@ HitList::InvertMatrix(double** B, double** A, int N)
     }
 
   int k,l,m;
-  double** V = new(double*[N]);
-  double* s  = new(double[N]);
-  for (k=0; k<N; k++) V[k] = new(double[N]);
+  double** V = new double*[N];
+  double* s  = new double[N];
+  for (k=0; k<N; k++) V[k] = new double[N];
 
   // Copy original matrix A into B since B will be overwritten by SVD()
   for (k=0; k<N; k++) 
@@ -2925,7 +2925,7 @@ HitList::SVD(double **A, int n, double w[], double **V)
   double pythag(double a, double b);
   int flag,i,its,j,jj,k,l=1,nm=1;
   double anorm,c,f,g,h,s,scale,x,y,z,*rv1;
-  rv1=new(double[n]);
+  rv1=new double[n];
   g=scale=anorm=0.0;    
   
   // Householder reduction to bidiagonal form.

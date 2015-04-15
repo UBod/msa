@@ -6,6 +6,7 @@ msa <- function(inputSeqs,
                 maxiters="default",
                 substitutionMatrix="default",
                 type="default",
+                order=c("aligned", "input"),
                 verbose=FALSE,
                 help=FALSE,
                 ...)

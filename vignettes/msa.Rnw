@@ -223,7 +223,7 @@ All three functions \verb+msaClustalW()+, \verb+msaClustalOmega()+, and
 \verb+msaMuscle()+ have the same parameters: The input sequences are passed
 as argument \verb+inputSeqs+, and all functions have the following
 arguments: \verb+cluster+, \verb+gapOpening+, \verb+gapExtension+,
-\verb+maxiters+, \verb+substitutionMatrix+, \verb+type+, and
+\verb+maxiters+, \verb+substitutionMatrix+, \verb+order+, \verb+type+, and
 \verb+verbose+. The ways these parameters are interpreted, are largely
 analogous, although there are some differences, also in terms of
 default values. See the subsections below and the man page
@@ -246,13 +246,13 @@ for a comprehensive overview). Currently, the following restrictions and
 caveats apply:
 \begin{itemize}
   \item The parameters \verb+infile+, \verb+clustering+, \verb+gapOpen+,
-    \verb+gapExt+, \verb+numiters+, and \verb+matrix+ have been renamed to
+    \verb+gapExt+, \verb+numiters+, \verb+matrix+, and \verb+outorder+
+    have been renamed to
     the standardized argument names \verb+inputSeqs+, \verb+cluster+,
-    \verb+gapOpening+, \verb+gapExtension+, \verb+maxiters+, and
-    \verb+substitutionMatrix+
+    \verb+gapOpening+, \verb+gapExtension+, \verb+maxiters+,
+    \verb+substitutionMatrix+, and \verb+order+
     in order to provide a consistent interface for all three multiple
     sequence alignment algorithms.
-    Gap penalties always have to be entered as negative values.
   \item Boolean flags must be passed as logical values, e.g.\
     \verb+verbose=TRUE+.
   \item The parameter \verb+quiet+
@@ -277,12 +277,11 @@ for a comprehensive overview). Currently, the following restrictions and
 caveats apply:
 \begin{itemize}
   \item The parameters \verb+infile+, \verb+clustersize+, \verb+gapOpen+,
-    \verb+gapExt+, and \verb+iterations+ have been renamed to
+    \verb+gapExt+, \verb+iterations+, and \verb+out-order+ have been renamed to
     the argument names \verb+inputSeqs+, \verb+cluster+,
-    \verb+gapOpening+, \verb+gapExtension+, and \verb+maxiters+
+    \verb+gapOpening+, \verb+gapExtension+, \verb+maxiters+, and \verb+order+
     in order to provide a consistent interface for all three multiple
     sequence alignment algorithms.
-    Gap penalties always have to be entered as negative values.
   \item Boolean flags must be passed as logical values, e.g.\
     \verb+verbose=TRUE+.
   \item The following parameters are (currently) not supported:
@@ -307,7 +306,6 @@ caveats apply:
     \verb+gapExtension+, \verb+substitutionMatrix+ and \verb+type+
     in order to provide a consistent interface for all three multiple
     sequence alignment algorithms.
-    Gap penalties always have to be entered as negative values.
   \item Boolean flags must be passed as logical values, e.g.\
     \verb+verbose=TRUE+.
   \item The parameter \verb+quiet+
@@ -521,6 +519,8 @@ the \shade\ package must be loaded in the preamble:
 
 \section{Known Issues}\label{sec:issues}
 
+\subsubsection*{Memory Leaks}
+
 The original implementations of ClustalW, ClustalOmega, and MUSCLE
 are stand-alone command line programs which are only run once each time
 a multiple sequence alignment is performed. During the development of the
@@ -541,9 +541,39 @@ has a minor memory leak, but the loss of data is so small that no major
 problems are to be expected except for thousands of executions of
 ClustalOmega.
 
+\subsubsection*{\shade: Alignment of Sequence Logos}
+
 \shade\ has some issues with aligning the sequence logo to the multiple
 sequence alignment. Under which conditions this happens, would require a
 more detailed investigation.
+
+\subsubsection*{ClustalOmega vs.\ Older GCC Versions on Linux/Unix}
+
+We have encountered peculiar behavior of ClustalOmega if the package was
+built using an older GCC version: if we built the package on an \verb+x86_64+
+Linux system with GCC 4.4.7, ClustalOmega built smoothly and could be executed
+without any errors. However, the resulting multiple sequence alignment was
+more than sub-optimal. We could neither determine the source of this problem
+nor which GCC versions show this behavior. We therefore recommend Linux/Unix
+users to use an up-to-date GCC version (we used 4.8.2 during package
+development, which worked nicely) or, in case they encounter dubious results,
+to update to a newer GCC version and re-install the package.
+
+\subsubsection*{ClustalOmega: OpenMP Support on Mac OS}
+
+ClustalOmega is implemented to make use of OpenMP (if available on the
+target platform). Due to issues on one of the Bioconductor build servers
+running Mac OS, we had to deactivate OpenMP generally for Mac OS platforms.
+If a Mac OS user wants to re-activate OpenMP, he/she should download the
+source package tarball, untar it, comment/uncomment the corresponding line in
+\verb+msa/src/ClustalOmega/msaMakefile+ (see first six lines), and
+build/install the package from source.
+
+\subsubsection*{MUSCLE with Custom Substitution Matrices}
+
+We are aware the that our MUSCLE interface is rather picky in terms of the
+format in which substitution matrices are passed to the \verb+msaMuscle()+
+function. This interface will be improved in future versions.
 
 \section{Future Extensions}\label{sec:future}
 
@@ -558,6 +588,8 @@ We envision the following changes/extensions in future versions of the package:
   \item Elimination of memory leaks described in Section~\ref{sec:issues} and
     re-activation of parameters that have been deactivated in order to
     avoid memory leaks
+  \item More tolerant handling of custom substitution matrices
+    (MUSCLE interface)
 \end{itemize}
 
 \section{How to Cite This Package}

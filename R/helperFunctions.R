@@ -43,31 +43,13 @@ getParamsList <-function(type,
 
 ##function, which tests a given input sequence
 ##whether it is a character string, or a XStringSet
-transformInputSeq <- function(inputSeq, isFile=FALSE) {
+transformInputSeq <- function(inputSeq) {
     if (!is(inputSeq, "character")) {
         if (is(inputSeq, "XStringSet")) {
             inputSeq <- as.character(inputSeq)
         } else {
             stop("The Parameter inputSeq is not valid. \n",
                  "Possible inputs are <character> or <XStringSet>!")
-        }
-    }
-
-    if (!isFile)
-    {
-        if (is.null(names(inputSeq))) {
-            warning("The input sequences are unnamed! \n",
-                    "Note that the order of sequences \n",
-                    "in the resulting multiple sequence alignment \n",
-                    "may not be preserved, so unique sequence names\n",
-                    "are necessary to recover the order!")
-        }
-        else if (length(unique(names(inputSeq))) != length(inputSeq)){
-            warning("The input sequences are not unique! \n",
-                    "Note that the order of sequences \n",
-                    "in the resulting multiple sequence alignment \n",
-                    "may not be preserved, so unique sequence names \n",
-                    "are necessary to recover the order!")
         }
     }
 

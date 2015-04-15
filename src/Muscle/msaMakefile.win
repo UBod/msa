@@ -5,7 +5,7 @@ OBJNames=aligngivenpath.o aligngivenpathsw.o aligntwomsas.o aligntwoprofs.o aln.
 all: muscle
 
 muscle:
-	export PKG_LIBS="$(PKG_LIBS) `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::LdFlags()"` -L"../gc-7.2/" -lgc72 -lgccpp72"
+	export PKG_LIBS="$(PKG_LIBS) -L"../gc-7.2/" -lgc72 -lgccpp72"
 	export PKG_CXXFLAGS="-c -O3 -msse2 -mfpmath=sse -D_FILE_OFFSET_BITS=64 -DNDEBUG=1 $(PKG_CXXFLAGS) -I"../gc-7.2/include/" `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::CxxFlags()"`"
 	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o Muscle.dll $(CPPNames)
 	$(AR) rcs libMuscle.a $(OBJNames)

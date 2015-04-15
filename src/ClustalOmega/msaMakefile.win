@@ -37,10 +37,10 @@ all: clustalomega
 clustalomega:
 	cp windows/src/config.h src/; \
 	cp windows/src/clustal-omega-config.h src/; \
-	export PKG_LIBS="$(PKG_LIBS) -L"../../gc-7.2" -lgccpp72 -lgc72 `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::LdFlags()"`"; \
+	export PKG_LIBS="$(PKG_LIBS) -L"../../gc-7.2" -lgccpp72 -lgc72"; \
 	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::CxxFlags()"`"; \
 	export PKG_CFLAGS="$(PKG_CFLAGS) -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" -lgccpp -lgc `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::CxxFlags()"`"; \
 	cd src; \
-	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o ClustalOmega.dll $(CPPNames); \
-	$(AR) rcs libClustalOmega.a $(OBJNames); \
+	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o ClustalOmega.dll $(CPPNames) && \
+	$(AR) rcs libClustalOmega.a $(OBJNames) && \
 	cp libClustalOmega.a ../../

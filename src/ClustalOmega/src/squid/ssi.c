@@ -17,6 +17,7 @@
 #include "ssi.h"
 #ifdef CLUSTALO
 #include <limits.h>
+#include <inttypes.h>
 #endif
 
 static sqd_uint32 v20magic = 0xf3f3e9b1; /* SSI 1.0: "ssi1" + 0x80808080 */
@@ -747,9 +748,9 @@ SSIAddPrimaryKeyToIndex(SSIINDEX *g, char *key, int fh,
 	      (unsigned long) L);
     } else {
 #ifdef CLUSTALO
-        fprintf(g->ptmp, "%s\t%d\t%llu\t%llu\t%lu\n", 
+        fprintf(g->ptmp, "%s\t%d\t%" PRIu64 "\t%" PRIu64 "\t%lu\n",
                 key, fh, (unsigned long long)r_off->off.i64, 
-                d_off == NULL? 0 : (unsigned long long) d_off->off.i64, 
+                d_off == NULL ? 0 : (unsigned long long) d_off->off.i64,
 	      (unsigned long) L);
 #else
         fprintf(g->ptmp, "%s\t%d\t%llu\t%llu\t%lu\n", 
@@ -1403,7 +1404,7 @@ activate_external_sort(SSIINDEX *g)
 	      (unsigned long) g->pkeys[i].d_off.off.i32, 
 	      (unsigned long) g->pkeys[i].len);
     } else {
-      fprintf(g->ptmp, "%s\t%u\t%llu\t%llu\t%lu\n", 
+      fprintf(g->ptmp, "%s\t%u\t%" PRIu64 "\t%" PRIu64 "\t%lu\n",
 	      g->pkeys[i].key, g->pkeys[i].fnum,
 	      (unsigned long long) g->pkeys[i].r_off.off.i64, 
 	      (unsigned long long) g->pkeys[i].d_off.off.i64, 

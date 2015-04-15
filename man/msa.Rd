@@ -11,7 +11,8 @@
         cluster="default", gapOpening="default",
         gapExtension="default", maxiters="default",
         substitutionMatrix="default", type="default",
-        verbose=FALSE, help=FALSE, ...)
+        order=c("aligned", "input"), verbose=FALSE, help=FALSE,
+        ...)
 }
 \arguments{
   \item{inputSeqs}{input sequences; this argument can be a character vector,
@@ -31,16 +32,16 @@
     \code{\link{msaMuscle}} for algorithm-specific information.}
   \item{gapOpening}{gap opening penalty; the defaults are
     specific to the algorithm (see \code{\link{msaClustalW}},
-    \code{\link{msaClustalOmega}}, or \code{\link{msaMuscle}});
-    In order to standardize interfaces,
-    all algorithms consistently use negative values for the gap opening
-    penalty.}
+    and \code{\link{msaMuscle}}). Note that the sign of
+    this parameter is ignored. The sign is automatically
+    adjusted such that the called algorithm penalizes gaps
+    instead of rewarding them.}
   \item{gapExtension}{gap extension penalty; the defaults are
     specific to the algorithm (see \code{\link{msaClustalW}},
-    \code{\link{msaClustalOmega}}, or \code{\link{msaMuscle}});
-    In order to standardize interfaces,
-    all algorithms consistently use negative values for the gap extension
-    penalty.}
+    and \code{\link{msaMuscle}}). Note that the sign of
+    this parameter is ignored. The sign is automatically
+    adjusted such that the called algorithm penalizes gaps
+    instead of rewarding them.}
   \item{maxiters}{maximum number of iterations; its
     interpretation and default value depends on the method;
     see \code{\link{msaClustalW}}, \code{\link{msaClustalOmega}}, or
@@ -63,6 +64,18 @@
     parameter is not necessary. If it is nevertheless specified and the
     type does not match the class of \code{inputSeqs}, the function
     stops with an error.}
+  \item{order}{how the sequences should be ordered in the output object;
+    if \code{"aligned"} is chosen, the sequences are ordered in the way
+    the multiple sequence alignment algorithm orders them. If
+    \code{"input"} is chosen, the sequences in the output object are
+    ordered in the same way as the input sequences. For MUSCLE, the
+    choice \code{"input"} is not available for sequence data that is
+    read directly from a FASTA file. Even if sequences are supplied
+    directly via R, the sequences must have unique names, otherwise
+    the input order cannot be recovered. If the sequences do not have
+    names or if the names are not unique, the \code{\link{msaMuscle}}
+    function assignes generic unique names \code{"Seq1"}-\code{Seqn}
+    to the sequences and issues a warning.}
   \item{verbose}{if \code{TRUE}, the algorithm displays detailed
     information and progress messages.}
   \item{help}{if \code{TRUE}, information about algorithm-specific
@@ -86,22 +99,24 @@
 
   Note that the input sequences may be reordered by the multiple
   sequence alignment algorithms in order to group together similar
-  sequences. Therefore, it is necessary to assign names to input
-  sequences in case the user wants to preserve a one-to-one assignment
-  between input sequences and the sequences in the multiple sequence
-  alignment. That is why all algorithms check input sequences for
-  unique names and issue warnings if the input sequences are unnamed or
-  if the names are not unique.
-  As noted in the description of the \code{inputSeqs} argument above,
-  all functions, \code{msa()}, \code{\link{msaClustalW}},
-  \code{\link{msaClustalOmega}}, and \code{\link{msaMuscle}}, also allow
+  sequences (see also description of argument \code{order} above).
+  So, if the input order should be preserved or if the input order
+  should be recovered later, we strongly recommend to always assign
+  unique names to the input sequences. As noted in the description
+  of the \code{inputSeqs} argument above, all functions, \code{msa()},
+  \code{\link{msaClustalW}}, \code{\link{msaClustalOmega}}, and
+  \code{\link{msaMuscle}}, also allow
   for direct reading from FASTA files. This is mainly for the reason of
   memory efficiency if the sequence data set is very large. Otherwise,
   we want to encourage users to first read the sequences into the R
-  workspace. In any case, if sequences are read from a FASTA file
-  directly, this is completely under the control of the respective
+  workspace. If sequences are read from a FASTA file
+  directly, the order of output sequences is completely under
+  the control of the respective
   algorithm and does not allow for checking whether the sequences are
-  named uniquely in the FASTA file.
+  named uniquely in the FASTA file. The preservation of the input order
+  works also for sequence data read from a FASTA file, but only for
+  ClustalW and ClustalOmega; MUSCLE does not support this (see also
+  argument \code{order} above and \code{\link{msaMuscle}}).
 }
 \value{
    Depending on the type of sequences for which it was called,
@@ -164,10 +179,12 @@ mySeqs <- readAAStringSet(filepath)
 msa(mySeqs)
 
 ## call ClustalOmega through unified interface
-msa(mySeqs, method="ClustalOmega", cluster=120, gapOpening=-3,
-    gapExtension=-1, maxGuidetreeIterations=20, outFmt="clustal",
-    outputOrder="input-order", substitutionMatrix="blosum30",
-    type="protein", verbose=FALSE)
+msa(mySeqs, method="ClustalOmega")
+
+## call MUSCLE through unified interface with some custom parameters
+msa(mySeqs, method="Muscle", gapOpening=12, gapExtension=3, maxiters=16,
+    cluster="upgmamax", SUEFF=0.4, brenner=FALSE,
+    order="input", verbose=FALSE)
 }
 \keyword{manip}
 

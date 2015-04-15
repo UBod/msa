@@ -5,6 +5,7 @@ msaClustalW <- function(inputSeqs,
                         maxiters="default",
                         substitutionMatrix="default",
                         type="default",
+                        order=c("aligned", "input"),
                         verbose=FALSE,
                         help=FALSE,
                         ...)
@@ -53,7 +54,14 @@ msaClustalW <- function(inputSeqs,
     #############
     # inputSeqs #
     #############
-    inputSeqs <- transformInputSeq(inputSeqs, params[["inputSeqIsFileFlag"]])
+    inputSeqs <- transformInputSeq(inputSeqs)
+
+    #############
+    # order     #
+    #############
+    order <- match.arg(order)
+
+    params[["outorder"]] <- order
 
     ###########
     # cluster #
@@ -122,7 +130,7 @@ msaClustalW <- function(inputSeqs,
         !is.matrix(substitutionMatrix)) {
         ##check whether value is BLOSUM, PAM, GONNET, or ID;
             possibleValues <- c("blosum", "pam", "gonnet", "id")
-            if (!(tolower(substitutionMatrix) %in% possibleValues)){
+            if (!(substitutionMatrix %in% possibleValues)){
                 ##create a string with all possible Values named text
                 text <- ""
                 text <- paste(possibleValues, collapse=", ")
@@ -135,14 +143,12 @@ msaClustalW <- function(inputSeqs,
         if (isSymmetric(substitutionMatrix)) {
             if (nrow(substitutionMatrix) <=20 ||
                 nrow(substitutionMatrix) >26 ) {
-                    stop("The parameter substitutionMatrix ",
-                         "has wrong dimensions!")
+                    stop("substitutionMatrix has wrong dimensions!")
             }
         } else {
-            stop("The parameter substitutionMatrix should be symmetric!")
+            stop("substitutionMatrix should be a symmetric matrix!")
         }
     }
-
 
     ##############
     # gapOpening #
@@ -350,17 +356,6 @@ msaClustalW <- function(inputSeqs,
 
     ##delete param in copy
     paramsCopy[["output"]] <- NULL
-
-    ############
-    # outorder #
-    ############
-
-    ##possible Values
-    posVal <- c("input", "aligned")
-    params[["outorder"]] <- checkSingleValParamsNew("outorder", params, posVal)
-
-    ##delete param in copy
-    paramsCopy[["outorder"]] <- NULL
 
     ########
     # case #
@@ -617,6 +612,9 @@ msaClustalW <- function(inputSeqs,
 
     params[["pwgapopen"]] <- checkNumericParamsNew("pwgapopen", params)
 
+    if (is.numeric(params[["pwgapopen"]]))
+        params[["pwgapopen"]] <- abs(params[["pwgapopen"]])
+
     ##delete param in copy
     paramsCopy[["pwgapopen"]] <- NULL
 
@@ -627,6 +625,8 @@ msaClustalW <- function(inputSeqs,
 
     params[["pwgapext"]] <- checkNumericParamsNew("pwgapext", params)
 
+    if (is.numeric(params[["pwgapext"]]))
+        params[["pwgapext"]] <- abs(params[["pwgapext"]])
 
     ##delete param in copy
     paramsCopy[["pwgapext"]] <- NULL
@@ -1116,11 +1116,11 @@ msaClustalW <- function(inputSeqs,
 
     inputSeqNames <- names(inputSeqs)
 
-    names(inputSeqs) <- paste0("seq", 1:length(inputSeqs))
+    names(inputSeqs) <- paste0("Seq", 1:length(inputSeqs))
 
-    result <- .Call("RClustalW", inputSeqs, cluster, gapOpening, gapExtension,
-                    maxiters, substitutionMatrix, type, verbose,
-                    params, PACKAGE="msa")
+    result <- .Call("RClustalW", inputSeqs, cluster, abs(gapOpening),
+                    abs(gapExtension), maxiters, substitutionMatrix,
+                    type, verbose, params, PACKAGE="msa")
 
     out <- convertAlnRows(result$msa, type)
 

@@ -5,6 +5,7 @@ msaMuscle <- function(inputSeqs,
                       maxiters="default",
                       substitutionMatrix="default",
                       type="default",
+                      order=c("aligned", "input"),
                       verbose=FALSE,
                       help=FALSE,
                       ...)
@@ -70,7 +71,27 @@ msaMuscle <- function(inputSeqs,
     # inputSeqs #
     #############
     ##transform the input Sequences to a string vector
-    inputSeqs <- transformInputSeq(inputSeqs, params[["inputSeqIsFileFlag"]])
+    inputSeqs <- transformInputSeq(inputSeqs)
+
+    #############
+    # order     #
+    #############
+    order <- match.arg(order)
+
+    if (order == "input")
+    {
+        if (params[["inputSeqIsFileFlag"]])
+            stop("msaMuscle does not support order=\"input\" for reading\n",
+                 "sequences directly from a FASTA file.")
+        else if (is.null(names(inputSeqs)) ||
+                 length(unique(names(inputSeqs))) != length(inputSeqs))
+        {
+            warning("order=\"input\" requires input sequences to be named\n",
+                    "uniquely! Assigning default names 'Seq1'..'Seqn'\n",
+                    "to sequences.")
+            names(inputSeqs) <- paste0("Seq", 1:length(inputSeqs))
+        }
+    }
 
     ###########
     # cluster #
@@ -1126,23 +1147,30 @@ msaMuscle <- function(inputSeqs,
 
     inputSeqNames <- names(inputSeqs)
 
-    names(inputSeqs) <- paste0("seq", 1:length(inputSeqs))
+    names(inputSeqs) <- paste0("Seq", 1:length(inputSeqs))
 
-
-    result <- .Call("RMuscle", inputSeqs, cluster, gapOpening,
-                    gapExtension, maxiters, substitutionMatrix, type,
+    result <- .Call("RMuscle", inputSeqs, cluster, -abs(gapOpening),
+                    -abs(gapExtension), maxiters, substitutionMatrix, type,
                     verbose, params, PACKAGE="msa")
 
     out <- convertAlnRows(result$msa, type)
 
     if (length(inputSeqNames) > 0)
     {
-        perm <- match(names(out@unmasked), names(inputSeqs))
-        names(out@unmasked) <- inputSeqNames[perm]
+        if (order == "aligned")
+        {
+            perm <- match(names(out@unmasked), names(inputSeqs))
+            names(out@unmasked) <- inputSeqNames[perm]
+        }
+        else
+        {
+            perm <- match(names(inputSeqs), names(out@unmasked))
+            out@unmasked <- out@unmasked[perm]
+            names(out@unmasked) <- inputSeqNames
+        }
     }
     else
         names(out@unmasked) <- NULL
-
 
     standardParams <- list(gapOpening=gapOpening,
                            gapExtension=gapExtension,

@@ -176,20 +176,20 @@ void
 Hit::AllocateBacktraceMatrix(int Nq, int Nt)
 {
   int i;
-  bMM=new(char*[Nq]);
-  bMI=new(char*[Nq]);
-  bIM=new(char*[Nq]);
-  bDG=new(char*[Nq]);
-  bGD=new(char*[Nq]);
-  cell_off=new(char*[Nq]);
+  bMM=new char*[Nq];
+  bMI=new char*[Nq];
+  bIM=new char*[Nq];
+  bDG=new char*[Nq];
+  bGD=new char*[Nq];
+  cell_off=new char*[Nq];
   for (i=0; i<Nq; i++) 
     {
-      bMM[i]=new(char[Nt]);
-      bMI[i]=new(char[Nt]);
-      bIM[i]=new(char[Nt]);
-      bGD[i]=new(char[Nt]);
-      bDG[i]=new(char[Nt]);
-      cell_off[i]=new(char[Nt]);
+      bMM[i]=new char[Nt];
+      bMI[i]=new char[Nt];
+      bIM[i]=new char[Nt];
+      bGD[i]=new char[Nt];
+      bDG[i]=new char[Nt];
+      cell_off[i]=new char[Nt];
       if (!bMM[i] || !bMI[i] || !bIM[i] || !bGD[i] || !bDG[i] || !cell_off[i]) 
 	{
 	  fprintf(stderr,"Error: out of memory while allocating row %i (out of %i) for dynamic programming matrices \n",i+1,Nq);
@@ -236,19 +236,19 @@ Hit::DeleteBacktraceMatrix(int Nq)
 void 
 Hit::AllocateForwardMatrix(int Nq, int Nt)
 {
-  F_MM=new(double*[Nq]);
-  F_MI=new(double*[Nq]);
-  F_DG=new(double*[Nq]);
-  F_IM=new(double*[Nq]);
-  F_GD=new(double*[Nq]);
-  scale=new(double[Nq+1]); // need Nq+3?
+  F_MM=new double*[Nq];
+  F_MI=new double*[Nq];
+  F_DG=new double*[Nq];
+  F_IM=new double*[Nq];
+  F_GD=new double*[Nq];
+  scale=new double[Nq+1]; // need Nq+3?
   for (int i=0; i<Nq; i++) 
     {
-      F_MM[i] = new(double[Nt]);
-      F_MI[i] = new(double[Nt]);
-      F_DG[i] = new(double[Nt]);
-      F_IM[i] = new(double[Nt]);
-      F_GD[i] = new(double[Nt]);
+      F_MM[i] = new double[Nt];
+      F_MI[i] = new double[Nt];
+      F_DG[i] = new double[Nt];
+      F_IM[i] = new double[Nt];
+      F_GD[i] = new double[Nt];
       if (!F_MM[i] || !F_MI[i] || !F_IM[i] || !F_GD[i] || !F_DG[i]) 
 	{
 	  fprintf(stderr,"Error: out of memory while allocating row %i (out of %i) for dynamic programming matrices \n",i+1,Nq);
@@ -293,14 +293,14 @@ Hit::DeleteForwardMatrix(int Nq)
 void 
 Hit::AllocateBackwardMatrix(int Nq, int Nt)
 {
-  B_MM=new(double*[Nq]);
+  B_MM=new double*[Nq];
   B_MI=F_MI; 
   B_DG=F_DG; 
   B_IM=F_IM; 
   B_GD=F_GD; 
   for (int i=0; i<Nq; i++) 
     {
-      B_MM[i] = new(double[Nt]);
+      B_MM[i] = new double[Nt];
       if (!B_MM[i]) 
 	{
 	  fprintf(stderr,"Error: out of memory while allocating row %i (out of %i) for dynamic programming matrices \n",i+1,Nq);
@@ -373,11 +373,11 @@ Hit::Viterbi(HMM& q, HMM& t, float** Sstruc)
     //float sDG[MAXRES];          // sDG[i][j] = score of best alignment up to indices (i,j) ending in (Delete,Gap)
     //float sIM[MAXRES];          // sIM[i][j] = score of best alignment up to indices (i,j) ending in (Ins,Match)
     //float sMI[MAXRES];          // sMI[i][j] = score of best alignment up to indices (i,j) ending in (Match,Ins) 
-    float *sMM = new(float[par.maxResLen]);   // sMM[i][j] = score of best alignment up to indices (i,j) ending in (Match,Match) 
-    float *sGD = new(float[par.maxResLen]);   // sGD[i][j] = score of best alignment up to indices (i,j) ending in (Gap,Delete) 
-    float *sDG = new(float[par.maxResLen]);   // sDG[i][j] = score of best alignment up to indices (i,j) ending in (Delete,Gap)
-    float *sIM = new(float[par.maxResLen]);   // sIM[i][j] = score of best alignment up to indices (i,j) ending in (Ins,Match)
-    float *sMI = new(float[par.maxResLen]);   // sMI[i][j] = score of best alignment up to indices (i,j) ending in (Match,Ins) 
+    float *sMM = new float[par.maxResLen];   // sMM[i][j] = score of best alignment up to indices (i,j) ending in (Match,Match)
+    float *sGD = new float[par.maxResLen];   // sGD[i][j] = score of best alignment up to indices (i,j) ending in (Gap,Delete)
+    float *sDG = new float[par.maxResLen];   // sDG[i][j] = score of best alignment up to indices (i,j) ending in (Delete,Gap)
+    float *sIM = new float[par.maxResLen];   // sIM[i][j] = score of best alignment up to indices (i,j) ending in (Ins,Match)
+    float *sMI = new float[par.maxResLen];   // sMI[i][j] = score of best alignment up to indices (i,j) ending in (Match,Ins)
     float smin=(par.loc? 0:-FLT_MAX);  //used to distinguish between SW and NW algorithms in maximization         
     int i=0,j=0;      //query and template match state indices
     float sMM_i_j=0, sMI_i_j=0, sIM_i_j=0, sGD_i_j=0, sDG_i_j=0;
@@ -1123,9 +1123,9 @@ Hit::Backtrace(HMM& q, HMM& t)
   nsteps=step; 
   
   // Allocate new space for alignment scores
-  if (t.Xcons) Xcons = new( char[q.L+2]); // for template consensus sequence aligned to query
-  S    = new( float[nsteps+1]);
-  S_ss = new( float[nsteps+1]);
+  if (t.Xcons) Xcons = new char[q.L+2]; // for template consensus sequence aligned to query
+  S    = new  float[nsteps+1];
+  S_ss = new float[nsteps+1];
   if (!S_ss) MemoryError("space for HMM-HMM alignments");
 
   // Add contribution from secondary structure score, record score along alignment,
@@ -1225,7 +1225,7 @@ Hit::StochasticBacktrace(HMM& q, HMM& t, char maximize)
   int i,j;         // query and template match state indices
 //  float pmin=(par.loc? 1.0: 0.0);    // used to distinguish between SW and NW algorithms in maximization         
   const float pmin=0;
-  double* scale_cum = new(double[q.L+2]);
+  double* scale_cum = new double[q.L+2];
   
 
   scale_cum[0]=1;
@@ -1244,7 +1244,7 @@ Hit::StochasticBacktrace(HMM& q, HMM& t, char maximize)
   else 
     {
 //      float sumF[q.L+t.L];
-      double* sumF=new(double[q.L+t.L]);
+      double* sumF=new double[q.L+t.L];
       sumF[0]=0.0;
       for (j=1; j<=t.L; j++)        sumF[j] = sumF[j-1] + F_MM[q.L][j]/scale_cum[q.L];;
       for (j=t.L+1; j<t.L+q.L; j++) sumF[j] = sumF[j-1] + F_MM[j-t.L][t.L]/scale_cum[j-t.L];;
@@ -1368,9 +1368,9 @@ Hit::StochasticBacktrace(HMM& q, HMM& t, char maximize)
   nsteps=step; 
 
   // Allocate new space for alignment scores
-  if (t.Xcons) Xcons = new( char[q.L+2]); // for template consensus sequence aligned to query
-  S    = new( float[nsteps+1]);
-  S_ss = new( float[nsteps+1]);
+  if (t.Xcons) Xcons = new char[q.L+2]; // for template consensus sequence aligned to query
+  S    = new float[nsteps+1];
+  S_ss = new float[nsteps+1];
   if (!S_ss) MemoryError("space for HMM-HMM alignments");
 
   // Add contribution from secondary structure score, record score along alignment,
@@ -1472,10 +1472,10 @@ Hit::BacktraceMAC(HMM& q, HMM& t)
   nsteps=step; 
     
   // Allocate new space for alignment scores
-  if (t.Xcons) Xcons = new( char[q.L+2]); // for template consensus sequence aligned to query
-  S    = new( float[nsteps+1]);
-  S_ss = new( float[nsteps+1]);
-  P_posterior = new( float[nsteps+1]);
+  if (t.Xcons) Xcons = new char[q.L+2]; // for template consensus sequence aligned to query
+  S    = new float[nsteps+1];
+  S_ss = new float[nsteps+1];
+  P_posterior = new float[nsteps+1];
   if (!P_posterior) MemoryError("space for HMM-HMM alignments");
 
   // Add contribution from secondary structure score, record score along alignment,
@@ -1680,9 +1680,9 @@ Hit::InitializeBacktrace(HMM& q, HMM& t)
     if (irep==1) //if this is the first single repeat repeat hit with this template
         {
             //Copy information about template profile to hit and reset template pointers to avoid destruction
-            longname=new(char[strlen(t.longname)+1])();
-            name    =new(char[strlen(t.name)+1])();
-            file    =new(char[strlen(t.file)+1])();
+            longname=new char[strlen(t.longname)+1]();
+            name    =new char[strlen(t.name)+1]();
+            file    =new char[strlen(t.file)+1]();
             if (!file) {
                 MemoryError("space for alignments with database HMMs. \nNote that all alignments have to be kept in memory");
             }
@@ -1693,8 +1693,8 @@ Hit::InitializeBacktrace(HMM& q, HMM& t)
             strcpy(fold ,t.fold);
             strcpy(cl ,t.cl);
             strcpy(file,t.file);
-            sname=new(char*[t.n_display])();   // Call Compare only once with irep=1
-            seq  =new(char*[t.n_display])();   // Call Compare only once with irep=1
+            sname=new char*[t.n_display]();   // Call Compare only once with irep=1
+            seq  =new char*[t.n_display]();   // Call Compare only once with irep=1
             if (!sname || !seq) {
                 MemoryError("space for alignments with database HMMs.\nNote that all sequences for display have to be kept in memory");
             }
@@ -1727,9 +1727,9 @@ Hit::InitializeBacktrace(HMM& q, HMM& t)
         }    
     
     // Allocate new space
-    this->i = new( int[i2+j2+2])();
-    this->j = new( int[i2+j2+2])();
-    states  = new( char[i2+j2+2])();
+    this->i = new int[i2+j2+2]();
+    this->j = new int[i2+j2+2]();
+    states  = new char[i2+j2+2]();
     S = S_ss = P_posterior = NULL; // set to NULL to avoid deleting data from irep=1 when hit with irep=2 is removed 
     Xcons = NULL;
 } /* this is the end of Hit::InitializeBacktrace() */

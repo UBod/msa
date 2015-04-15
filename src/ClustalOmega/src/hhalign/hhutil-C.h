@@ -513,12 +513,12 @@ ReadDefaultsFile(int& argc_conf, char** argv_conf)
 	      if (*c=='\0' || *c=='\n' || *c=='#')         //Is end of line reached?
 		{
 		  *c='\0'; 
-		  argv_conf[argc_conf]=new(char[strlen(c_first)+1]);
+		  argv_conf[argc_conf]=new char[strlen(c_first)+1];
 		  strcpy(argv_conf[argc_conf++],c_first); 
 		  break;
 		}
 	      *c='\0'; 
-	      argv_conf[argc_conf]=new(char[strlen(c_first)+1]);
+	      argv_conf[argc_conf]=new char[strlen(c_first)+1];
 	      strcpy(argv_conf[argc_conf++],c_first);
 	      printf("Argument: %s\n",c_first);
 	      c++;

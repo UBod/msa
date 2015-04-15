@@ -1,5 +1,5 @@
 Change history of package msa:
 ==============================
 
-Version 0.99.0:
-- first version submitted to Bioconductor
+Version 1.0.0:
+- first official release as part of Bioconductor 3.1

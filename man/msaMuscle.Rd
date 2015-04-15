@@ -8,7 +8,8 @@
 \usage{
     msaMuscle(inputSeqs, cluster="default", gapOpening="default",
               gapExtension="default", maxiters="default",
-              substitutionMatrix="default", type="default",
+              substitutionMatrix="default",
+              type="default", order=c("aligned", "input"),
               verbose=FALSE, help=FALSE, ...)
 }
 \arguments{
@@ -19,16 +20,12 @@
     Possible values are \code{"upgma"}, \code{"upgmamax"},
     \code{"upgmamin"}, \code{"upgmb"}, and \code{"neighborjoining"}.}
   \item{gapOpening}{gap opening penalty; the default 
-    is -400 for DNA sequences and -420 for RNA sequences. The default
+    is 400 for DNA sequences and 420 for RNA sequences. The default
     for amino acid sequences depends on the profile score settings:
-    for the setting \code{le=TRUE}, the default is -2.9, for
-    \code{sp=TRUE}, the default is -1,439, and for \code{sv=TRUE},
-    the default is -300. In order to standardize interfaces,
-    all algorithms consistently use negative values for the gap opening
-    penalty.}
-  \item{gapExtension}{gap extension penalty; the default is 0.
-    In order to standardize interfaces, all algorithms consistently
-    use negative values for the gap extension penalty.}
+    for the setting \code{le=TRUE}, the default is 2.9, for
+    \code{sp=TRUE}, the default is 1,439, and for \code{sv=TRUE},
+    the default is 300.}
+  \item{gapExtension}{gap extension penalty; the default is 0.}
   \item{maxiters}{maximum number of iterations; the default is 16.
     In the original MUSCLE implementation, it is also possible
     to set \code{maxiters} to 0 which leads to an (out of memory) error. 
@@ -41,6 +38,17 @@
     this format is not supported by \code{msaMuscle}.}
   \item{type}{type of the input sequences \code{inputSeqs};
     see \code{\link{msa}}.}
+  \item{order}{how the sequences should be ordered in the output object
+    (see \code{\link{msa}} for more details); the original MUSCLE
+    implementation does not allow for preserving the order of input
+    sequences. The \code{msaMuscle} function realizes this functionality
+    by reverse matching of sequence names. Therefore, the sequences
+    need to have unique names. If the sequences do not have
+    names or if the names are not unique, the \code{\link{msaMuscle}}
+    function assignes generic unique names \code{"Seq1"}-\code{Seqn}
+    to the sequences and issues a warning. The choice \code{"input"}
+    is not available at all for sequence data that is
+    read directly from a FASTA file.}
   \item{verbose}{if \code{TRUE}, the algorithm displays detailed
     information and progress messages.}
   \item{help}{if \code{TRUE}, information about algorithm-specific
@@ -104,8 +112,8 @@ mySeqs <- readAAStringSet(filepath)
 msaMuscle(mySeqs)
 
 ## call msaMuscle with custom parameters
-msaMuscle(mySeqs, gapOpening=-12, gapExtension=-3, maxiters=16,
-          type="protein", cluster="upgmamax", SUEFF=0.4,
-          brenner=FALSE, verbose=FALSE)
+msaMuscle(mySeqs, gapOpening=12, gapExtension=3, maxiters=16,
+          cluster="upgmamax", SUEFF=0.4, brenner=FALSE,
+          order="input", verbose=FALSE)
 }
 \keyword{manip}

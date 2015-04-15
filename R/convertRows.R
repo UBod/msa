@@ -4,7 +4,7 @@ convertAlnRows <- function(rows, type)
 
     if (length(rows) < 3 ||
         ##!identical(grep("^CLUSTAL", rows[1L]), 1L) ||
-        !identical(rows[2:3], c("","")))
+        !identical(sub("^\\s+$", "", rows[2:3]), c("", "")))
         stop("There is an invalid aln file!")
 
     rows <- tail(rows, -3)

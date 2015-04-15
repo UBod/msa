@@ -1,9 +1,9 @@
-OS := $(shell uname)
-ifeq ($(OS), Darwin)
-	CONFIGURE_FLAGS='--without-openmp'
-else 
-	CONFIGURE_FLAGS=''
-endif
+## Variant 1: deactivate OpenMP on Mac Platforms
+CONFIGURE_FLAGS=`Rscript -e "if (Sys.info()['sysname'] == 'Darwin') cat('--without-openmp')"`
+## Variant 2: deactivate OpenMP generally
+#CONFIGURE_FLAGS=--without-openmp 
+## Variant 3: let the configure script determine whether OpenMP is available
+#CONFIGURE_FLAGS=
 
 CPPNames=\
 exceptions4c/e4c_lite.c \
@@ -43,7 +43,7 @@ all: clustalomega
 
 clustalomega:
 	./configure $(CONFIGURE_FLAGS); \
-	export PKG_LIBS="$(PKG_LIBS) $(SHLIB_OPENMP_CFLAGS) `Rscript -e "Rcpp:::LdFlags()"`"; \
+	export PKG_LIBS="$(PKG_LIBS) $(SHLIB_OPENMP_CFLAGS)"; \
 	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) $(SHLIB_OPENMP_CXXFLAGS) -fPIC -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" `Rscript -e "Rcpp:::CxxFlags()"`"; \
 	export PKG_CFLAGS="$(PKG_CFLAGS) $(SHLIB_OPENMP_CFLAGS) -fPIC -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I"../../gc-7.2/include" `Rscript -e "Rcpp:::CxxFlags()"`"; \
 	cd src; \

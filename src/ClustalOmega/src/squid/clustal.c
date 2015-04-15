@@ -491,13 +491,13 @@ WriteClustalForR(MSA *msa, int *msa_c, char ***msa_v)
 #ifdef CLUSTALO
 	//fprintf(fp, "\n"); /* Blank line between sequence blocks */
 	(*msa_v)[a_idx] = malloc((2) * sizeof(char*));
-	sprintf((*msa_v)[a_idx++], "");
+	sprintf((*msa_v)[a_idx++], " ");
 	//(*msa_v)[a_idx++] = '\0';
 #endif
 	for (pos = 0; pos < msa->alen; pos += cpl) {
 		//fprintf(fp, "\n");	/* Blank line between sequence blocks */
 		(*msa_v)[a_idx] = malloc((2) * sizeof(char*));
-		sprintf((*msa_v)[a_idx++], "");
+		sprintf((*msa_v)[a_idx++], " ");
 		//(*msa_v)[a_idx++] = '\0';
 		for (idx = 0; idx < msa->nseq; idx++) {
 			//char cmd[512];
@@ -652,7 +652,7 @@ WriteClustalForR(MSA *msa, int *msa_c, char ***msa_v)
 	//Log(&rLog, LOG_INFO, "index %i", a_idx);
 	while (a_idx < vecSize) {
 		(*msa_v)[a_idx] = malloc((2) * sizeof(char*));
-		sprintf((*msa_v)[a_idx++], "");
+		sprintf((*msa_v)[a_idx++], " ");
 		//(*msa_v)[a_idx++] = '\0';
 	}
 

@@ -918,11 +918,10 @@ hhalign(char **ppcFirstProf, int iFirstCnt, double *pdWeightsL,
         par.gapg = par.gapgV;
         par.gaph = par.gaphV;
         par.gapi = par.gapiV;
-
-        par.gapExtension = rHhalignPara.gapExtension;
-        par.gapOpening   = rHhalignPara.gapOpening;
-
     }
+
+    par.gapExtension = rHhalignPara.gapExtension;
+    par.gapOpening   = rHhalignPara.gapOpening;
     
     // Read input file (HMM, HHM, or alignment format), and add pseudocounts etc.
     q.cQT = 'q';

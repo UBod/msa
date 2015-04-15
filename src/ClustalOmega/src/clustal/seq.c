@@ -940,7 +940,9 @@ FreeRSeq(mseq_t **mseq, bool bRSequence)
     }
         
 	if ((*mseq)->filename && !bRSequence) {
-        (*mseq)->filename = CKFREE((*mseq)->filename);
+        //(*mseq)->filename = CKFREE((*mseq)->filename);
+		CKFREE((*mseq)->filename);
+		(*mseq)->filename = NULL;
     }
 
     for (i=0; i<(*mseq)->nseqs; i++) {

@@ -9,31 +9,26 @@
     msaClustalW(inputSeqs, cluster="default", gapOpening="default", 
                 gapExtension="default", maxiters="default", 
                 substitutionMatrix="default", type="default", 
-                verbose=FALSE, help=FALSE, ...)
+                order=c("aligned", "input"), verbose=FALSE,
+                help=FALSE, ...)
 }
 \arguments{
   \item{inputSeqs}{input sequences; see \code{\link{msa}}.
     In the original ClustalW implementation, this
-    parameter is called \code{-infile}.}
+    parameter is called \code{infile}.}
   \item{cluster}{The clustering method which should be used.
     Possible values are \code{"nj"} (default) and \code{"upgma"}.
     In the original ClustalW implementation, this parameter is called 
-    \code{-clustering}.}
+    \code{clustering}.}
   \item{gapOpening}{gap opening penalty; the default value for
-    nucleotide sequences is -15.0, the default value for 
-    amino acid sequences is -10.0. In order to standardize interfaces,
-    all algorithms consistently use negative values for the gap open
-    penalty. In the original ClustalW implementation, this parameter is
-    called \code{-gapOpen}.}
+    nucleotide sequences is 15.0, the default value for 
+    amino acid sequences is 10.0.}
   \item{gapExtension}{gap extension penalty; the default value for
-    nucleotide sequences is -6.66, the default value for 
-    amino acid sequences is -0.2. In order to standardize interfaces,
-    all algorithms consistently use negative values for the gap extension
-    penalty. In the original ClustalW implementation, this parameter is
-    called \code{-gapExt}.}
+    nucleotide sequences is 6.66, the default value for 
+    amino acid sequences is 0.2.}
   \item{maxiters}{maximum number of iterations; the default value is 16.
     In the original ClustalW implementation, this parameter is called
-    \code{-numiters}.}
+    \code{numiters}.}
   \item{substitutionMatrix}{substitution matrix for scoring matches and
     mismatches; can be a real matrix, a file name, or the name of a
     built-in substitution matrix. In the latter case, the choices
@@ -42,9 +37,12 @@
     sequences, the parameter \code{dnamatrix} must be used instead.
     The valid choices for this parameter are \code{"iub"} and
     \code{"clustalw"}. In the original ClustalW implementation, this
-    parameter is called \code{-matrix}.}
+    parameter is called \code{matrix}.}
   \item{type}{type of the input sequences \code{inputSeqs};
     see \code{\link{msa}}.}
+  \item{order}{how the sequences should be ordered in the output object
+    (see \code{\link{msa}}); in the original ClustalW implementation, this
+    parameter is called \code{outorder}.}
   \item{verbose}{if \code{TRUE}, the algorithm displays detailed
     information and progress messages.}
   \item{help}{if \code{TRUE}, information about algorithm-specific
@@ -105,7 +103,7 @@ mySeqs <- readAAStringSet(filepath)
 msaClustalW(mySeqs)
 
 ## call msaClustalW with custom parameters
-msaClustalW(mySeqs, gapOpening=-1, gapExtension=-1, maxiters=16,
-            type="protein", cluster="upgma", kimura=FALSE, maxdiv=23)
+msaClustalW(mySeqs, gapOpening=1, gapExtension=1, maxiters=16,
+            cluster="upgma", kimura=FALSE, order="input", maxdiv=23)
 }
 \keyword{manip}

@@ -182,7 +182,6 @@ SEXP RClustalOmega(SEXP rInputSeqs,
             msaInput.seqLength = seqLength;
             msaInput.seqNames = seqNames;
             //hardcoded value, if sequence is an R sequence
-            //appendString(&argv, argc, "R");
             appendString(&argv, argc, "--R");
         }
         appendString(&argv, argc, "-o");
@@ -242,6 +241,10 @@ SEXP RClustalOmega(SEXP rInputSeqs,
         if (hasClustalOmegaEntry(rParams, "distMatOut")) {
 			appendStringValue(&argv, argc, "--distmat-out",
 					getListElement(rParams, "distMatOut"));
+        }
+        if (hasClustalOmegaEntry(rParams, "outputOrder")) {
+			appendStringValue(&argv, argc, "--output-order",
+					getListElement(rParams, "outputOrder"));
         }
         if (hasClustalOmegaEntry(rParams, "guideTreeIn")) {
 			appendStringValue(&argv, argc, "--guidetree-in",

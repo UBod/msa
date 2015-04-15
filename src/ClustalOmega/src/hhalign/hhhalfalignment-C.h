@@ -63,10 +63,10 @@ HalfAlignment::HalfAlignment(int maxseqdis)
   n=0; 
   sname=seq=NULL; 
   nss_dssp = nss_pred = nss_conf = nsa_dssp = ncons= -1;
-  h = new(int[maxseqdis]);   //h[k] = next position of sequence k to be written
-  s = new(char*[maxseqdis]);  //s[k][h] = character in column h, sequence k of output alignment
-  l = new(int*[maxseqdis]);   //counts non-gap residues: l[k][i] = index of last residue AT OR BEFORE match state i in seq k
-  m = new(int*[maxseqdis]);   //counts positions:        m[k][i] = position of match state i in string seq[k]  
+  h = new int[maxseqdis];   //h[k] = next position of sequence k to be written
+  s = new char*[maxseqdis];  //s[k][h] = character in column h, sequence k of output alignment
+  l = new int*[maxseqdis];   //counts non-gap residues: l[k][i] = index of last residue AT OR BEFORE match state i in seq k
+  m = new int*[maxseqdis];   //counts positions:        m[k][i] = position of match state i in string seq[k]
 }
 
 /////////////////////////////////////////////////////////////////////////////////////

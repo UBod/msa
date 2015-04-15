@@ -1094,8 +1094,10 @@ HHalignWrapper(mseq_t *prMSeq, int *piOrderLR,
                 CKFREE(pcReprsnt2);
                 CKFREE(pcConsens2);
             }
-            ppiLeafList[iL] = CKFREE(ppiLeafList[iL]);
-            ppiLeafList[iR] = CKFREE(ppiLeafList[iR]);
+            CKFREE(ppiLeafList[iL]);
+            ppiLeafList[iL] = NULL;
+            CKFREE(ppiLeafList[iR]);
+            ppiLeafList[iR] = NULL;
             piLeafCount[iL] = piLeafCount[iR] = 0;
             
         } /* was a merge node */

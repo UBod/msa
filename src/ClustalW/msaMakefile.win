@@ -11,8 +11,7 @@ clustalw:
 	cp windows/src/clustalw_version.h src/; \
 	cp windows/src/config.h src/; \
 	cd src; \
-	export PKG_LIBS="$(PKG_LIBS) `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::LdFlags()"`"; \
 	export PKG_CXXFLAGS="-DHAVE_CONFIG_H -I. $(PKG_CXXFLAGS) `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::CxxFlags()"`"; \
-	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o ClustalW.dll $(CPPNames); \
-	$(AR) rcs libClustalW.a $(OBJNames); \
+	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o ClustalW.dll $(CPPNames) &&\
+	$(AR) rcs libClustalW.a $(OBJNames) && \
 	cp libClustalW.a ../../

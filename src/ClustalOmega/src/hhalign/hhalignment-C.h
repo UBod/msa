@@ -77,15 +77,15 @@ Alignment::Alignment(int maxseq, int maxres)
 
     //printf(">>>>>>>>%s:%s:%d: maxseq=%d, maxres=%d\n", __FUNCTION__, __FILE__, __LINE__, maxseq, maxres); /* (FS) */
   longname = new(char[DESCLEN]);
-  sname = new(char*[maxseq+2]); /* MR1 */
-  seq = new(char*[maxseq+2]); /* MR1 */
-  l = new(int[maxres]);
-  X = new(char*[maxseq+2]);  /* MR1 */
-  I = new(short unsigned int*[maxseq+2]); /* MR1 */
-  keep = new(char[maxseq+2]); /* MR1 */
-  display = new(char[maxseq+2]); /* MR1 */
-  wg = new(float[maxseq+2]); /* MR1 */
-  nseqs = new(int[maxres+2]); /* MR1 */
+  sname = new char*[maxseq+2]; /* MR1 */
+  seq = new char*[maxseq+2]; /* MR1 */
+  l = new int[maxres];
+  X = new char*[maxseq+2];  /* MR1 */
+  I = new short unsigned int*[maxseq+2]; /* MR1 */
+  keep = new char[maxseq+2]; /* MR1 */
+  display = new char[maxseq+2]; /* MR1 */
+  wg = new float[maxseq+2]; /* MR1 */
+  nseqs = new int[maxres+2]; /* MR1 */
   N_in=L=0;
   nres=NULL; // number of residues per sequence k
   first=NULL; // first residue in sequence k
@@ -138,7 +138,7 @@ Alignment::Read(FILE* inf, char infile[], char* firstline)
   int k; // Index of sequence being read currently (first=0)
   char line[LINELEN]=""; // input line
   //char cur_seq[MAXCOL]; // Sequence currently read in
-  char *cur_seq=new(char[par.maxColCnt]);
+  char *cur_seq=new char[par.maxColCnt];
   char* cur_name; // Sequence currently read in
   int linenr=0; // current line number in input file
   char skip_sequence=0;
@@ -180,11 +180,11 @@ Alignment::Read(FILE* inf, char infile[], char* firstline)
                               }
 
                           // Create space for residues and paste new sequence in
-                          seq[k]=new(char[strlen(cur_seq)+2]);
+                          seq[k]=new char[strlen(cur_seq)+2];
                           if (!seq[k]) MemoryError("array for input sequences");
-                          X[k]=new(char[strlen(cur_seq)+2]);
+                          X[k]=new char[strlen(cur_seq)+2];
                           if (!X[k]) MemoryError("array for input sequences");
-                          I[k]=new(short unsigned int[strlen(cur_seq)+2]);
+                          I[k]=new short unsigned int[strlen(cur_seq)+2];
                           if (!I[k]) MemoryError("array for input sequences");
                           strcpy(seq[k],cur_seq);
                       }
@@ -233,7 +233,7 @@ Alignment::Read(FILE* inf, char infile[], char* firstline)
 
                   // store sequence name
                   if (v>=4) printf("Reading seq %-16.16s k=%3i n_displ=%3i display[k]=%i keep[k]=%i\n",cur_name,k,n_display,display[k],keep[k]);
-                  sname[k] = new(char[strlen(cur_name)+1]);
+                  sname[k] = new char[strlen(cur_name)+1];
                   if (!sname[k]) {MemoryError("array for sequence names");}
                   strcpy(sname[k],cur_name);
               } // end if(line contains sequence name)
@@ -348,11 +348,11 @@ Alignment::Read(FILE* inf, char infile[], char* firstline)
 
   if (k>=0) //if at least one sequence was read in
       {
-          seq[k]=new(char[strlen(cur_seq)+2]);
+          seq[k]=new char[strlen(cur_seq)+2];
           if (!seq[k]) MemoryError("array for input sequences");
-          X[k]=new(char[strlen(cur_seq)+2]);
+          X[k]=new char[strlen(cur_seq)+2];
           if (!X[k]) MemoryError("array for input sequences");
-          I[k]=new(short unsigned int[strlen(cur_seq)+2]);
+          I[k]=new short unsigned int[strlen(cur_seq)+2];
           if (!I[k]) MemoryError("array for input sequences");
           strcpy(seq[k],cur_seq);
       }
@@ -420,7 +420,7 @@ Alignment::Compress(const char infile[])
     /*static short unsigned int h[MAXSEQ];*/
     /*short*/ unsigned int *h = NULL; /* short may lead to overflow for long alignments, FS, r235 -> r236 */
 
-    h = new(/*short*/ unsigned int[N_in+2]); /* short -> overflow, FS, r235 -> r236 */
+    h = new /*short*/ unsigned int[N_in+2]; /* short -> overflow, FS, r235 -> r236 */
     float *percent_gaps = NULL; /* FS, 2010-Nov */
     char *match_state = NULL;  /* FS, 2010-Nov */
 
@@ -552,13 +552,13 @@ Alignment::Compress(const char infile[])
                had to move declaration of float *percent_gaps out of switch()
             */
             //float percent_gaps[MAXCOL]; //percentage of gaps in column k (with weighted sequences)
-            percent_gaps = new(float[par.maxColCnt]);
+            percent_gaps = new float[par.maxColCnt];
 
             //determine number of columns L in alignment
             L=strlen(seq[kfirst])-1;
 
             // Conversion to integer representation, checking for unequal lengths and initialization
-            if (nres==NULL) nres=new(int[N_in]);
+            if (nres==NULL) nres=new int[N_in];
             for (k=0; k<N_in; k++)
                 {
                     if (!keep[k]) continue;
@@ -780,7 +780,7 @@ Alignment::Compress(const char infile[])
                had to move declaration of float *percent_gaps out of switch()
             */
             //char match_state[MAXCOL]; //1: column assigned to match state 0: insert state
-            match_state = new(char[par.maxColCnt]);
+            match_state = new char[par.maxColCnt];
 
             // Determine number of columns L in alignment
             L=strlen(seq[0]+1);
@@ -942,7 +942,7 @@ Alignment::FilterForDisplay(int max_seqid, int coverage, int qid, float qsc, int
 
 
     if (par.mark) return n_display;
-    char *dummy = new(char[N_in+1]);
+    char *dummy = new char[N_in+1];
     int vtmp=v, seqid;
     v=0;
     n_display=0;
@@ -1005,12 +1005,12 @@ Alignment::Filter2(char keep[], int coverage, int qid, float qsc, int seqid1, in
 {
     // In the beginnning, keep[k] is 1 for all regular amino acid sequences and 0 for all others (ss_conf, ss_pred,...)
     // In the end, keep[k] will be 1 for all regular representative sequences kept in the alignment, 0 for all others
-    char* in=new(char[N_in+1]); // in[k]=1: seq k has been accepted; in[k]=0: seq k has not yet been accepted at current seqid
-    char* inkk=new(char[N_in+1]); // inkk[k]=1 iff in[ksort[k]]=1 else 0;
-    int* Nmax=new(int[L+2]); // position-dependent maximum-sequence-identity threshold for filtering /* MR1, used to be called idmax*/
-    int* idmaxwin=new(int[L+2]); // minimum value of idmax[i-WFIL,i+WFIL]
-    int* seqid_prev=new(int[N_in+1]); // maximum-sequence-identity threshold used in previous round of filtering (with lower seqid)
-    int* N=new(int[L+2]); // N[i] number of already accepted sequences at position i
+    char* in=new char[N_in+1]; // in[k]=1: seq k has been accepted; in[k]=0: seq k has not yet been accepted at current seqid
+    char* inkk=new char[N_in+1]; // inkk[k]=1 iff in[ksort[k]]=1 else 0;
+    int* Nmax=new int[L+2]; // position-dependent maximum-sequence-identity threshold for filtering /* MR1, used to be called idmax*/
+    int* idmaxwin=new int[L+2]; // minimum value of idmax[i-WFIL,i+WFIL]
+    int* seqid_prev=new int[N_in+1]; // maximum-sequence-identity threshold used in previous round of filtering (with lower seqid)
+    int* N=new int[L+2]; // N[i] number of already accepted sequences at position i
     const int WFIL=25; // see previous line
 
     int diffNmax=Ndiff;       // current  maximum difference of Nmax[i] and Ndiff /* MR1 */
@@ -1039,8 +1039,8 @@ Alignment::Filter2(char keep[], int coverage, int qid, float qsc, int seqid1, in
     // Determine first[k], last[k]?
     if (first==NULL)
         {
-            first=new(int[N_in]);// first non-gap position in sequence k
-            last =new(int[N_in]);// last  non-gap position in sequence k
+            first=new int[N_in];// first non-gap position in sequence k
+            last =new int[N_in];// last  non-gap position in sequence k
             for (k=0; k<N_in; k++) // do this for ALL sequences, not only those with in[k]==1 (since in[k] may be display[k])
                 {
                     for (i=1; i<=L; i++) if (X[k][i]<NAA) break;
@@ -1054,7 +1054,7 @@ Alignment::Filter2(char keep[], int coverage, int qid, float qsc, int seqid1, in
     if ( (nres==NULL)  || (sizeof(nres)<N_in*sizeof(int)) )
         {
     	 if (nres) delete[] nres;
-    		nres=new(int[N_in]);
+    		nres=new int[N_in];
             for (k=0; k<N_in; k++) // do this for ALL sequences, not only those with in[k]==1 (since in[k] may be display[k])
                 {
                     int nr=0;
@@ -1068,7 +1068,7 @@ Alignment::Filter2(char keep[], int coverage, int qid, float qsc, int seqid1, in
     // Sort sequences according to length; afterwards, nres[ksort[kk]] is sorted by size
     if (ksort==NULL)
         {
-            ksort=new(int[N_in]); // never reuse alignment object for new alignment with more sequences
+            ksort=new int[N_in]; // never reuse alignment object for new alignment with more sequences
             for (k=0; k<N_in; k++) ksort[k]=k;
             QSortInt(nres,ksort,kfirst+1,N_in-1,-1); //Sort sequences after kfirst (query) in descending order
         }
@@ -1311,7 +1311,7 @@ Alignment::HomologyFilter(int coverage_core, float qsc_core, float coresc)
     const int Ndiff_core=0;
     int n;
     HMM qcore;
-    char* coreseq=new(char[N_in]); // coreseq[k]=1 if sequence belongs to core of alignment (i.e. it is very similar to query)
+    char* coreseq=new char[N_in]; // coreseq[k]=1 if sequence belongs to core of alignment (i.e. it is very similar to query)
     for (int k=0; k<N_in; k++) coreseq[k]=keep[k]; // Copy keep[] into coreseq[]
 
     // Remove sequences with seq. identity larger than seqid percent (remove the shorter of two)
@@ -1362,7 +1362,7 @@ Alignment::FilterWithCoreHMM(char in[], float coresc, HMM& qcore)
     int i; // column in query alignment
     int a; // amino acid (0..19)
     int n=1; // number of sequences that passed filter
-    float** logodds=new(float*[L+1]); // log-odds ratios for HMM qcore
+    float** logodds=new float*[L+1]; // log-odds ratios for HMM qcore
     char gap; // 1: previous state in seq k was a gap 0: previous state in seq k was an amino acid
     float score; // score of sequence k aligned with qcore
 
@@ -1371,8 +1371,8 @@ Alignment::FilterWithCoreHMM(char in[], float coresc, HMM& qcore)
     // Determine first[k], last[k]?
     if (first==NULL)
         {
-            first=new(int[N_in]);// first non-gap position in sequence k
-            last =new(int[N_in]);// last non-gap position in sequence k
+            first=new int[N_in];// first non-gap position in sequence k
+            last =new int[N_in];// last non-gap position in sequence k
             for (k=0; k<N_in; k++) // do this for ALL sequences, not only those with in[k]==1 (since in[k] may be display[k])
                 {
                     for (i=1; i<=L; i++) if (X[k][i]<NAA) break;
@@ -1385,7 +1385,7 @@ Alignment::FilterWithCoreHMM(char in[], float coresc, HMM& qcore)
     // Determine number of residues nres[k]?
     if (nres==NULL)
         {
-            nres=new(int[N_in]);
+            nres=new int[N_in];
             for (k=0; k<N_in; k++) // do this for ALL sequences, not only those with in[k]==1 (since in[k] may be display[k])
                 {
                     int nr=0;
@@ -1667,18 +1667,18 @@ Alignment::FrequenciesAndTransitions(HMM& q, char* in)
                     q.sname[q.ncons]=new(char[10]);
                     if (!q.sname[q.ncons]) {MemoryError("array of names for displayed sequences");}
                     strcpy(q.sname[q.ncons],"Consensus");
-                    q.seq[q.ncons]=new(char[L+2]);
+                    q.seq[q.ncons]=new char[L+2];
                     if (!q.seq[q.ncons]) {MemoryError("array of names for displayed sequences");}
                 }
             if (par.cons)
                 {
                     // Reserve space for consensus sequence as first sequence in alignment
                     q.nfirst=n++; kfirst=-1;
-                    q.sname[q.nfirst]=new(char[strlen(name)+11]);
+                    q.sname[q.nfirst]=new char[strlen(name)+11];
                     if (!q.sname[q.nfirst]) {MemoryError("array of names for displayed sequences");}
                     strcpy(q.sname[q.nfirst],name);
                     strcat(q.sname[q.nfirst],"_consensus");
-                    q.seq[q.nfirst]=new(char[L+2]);
+                    q.seq[q.nfirst]=new char[L+2];
                     if (!q.seq[q.nfirst]) {MemoryError("array of names for displayed sequences");}
                 }
             // Calculate consensus amino acids using similarity matrix
@@ -1736,10 +1736,10 @@ Alignment::FrequenciesAndTransitions(HMM& q, char* in)
                     else if (k==kfirst) nn=q.nfirst=n++;
                     else nn=n++;
                     // strcut(sname[k]," "); // delete rest of name line beginning with two spaces " " // Why this?? Problem for pdb seqs without chain
-                    q.sname[nn]=new(char[strlen(sname[k])+1]);
+                    q.sname[nn]=new char[strlen(sname[k])+1];
                     if (!q.sname[nn]) {MemoryError("array of names for displayed sequences");}
                     strcpy(q.sname[nn],sname[k]);
-                    q.seq[nn]=new(char[strlen(seq[k])+1]);
+                    q.seq[nn]=new char[strlen(seq[k])+1];
                     if (!q.seq[nn]) {MemoryError("array of names for displayed sequences");}
                     strcpy(q.seq[nn],seq[k]);
                 }
@@ -1826,14 +1826,14 @@ Alignment::Amino_acid_frequencies_and_transitions_from_M_state(HMM& q, char* in)
   //float wi[MAXSEQ]; // weight of sequence k in column i, calculated from subalignment i
   float *wi=NULL; // weight of sequence k in column i, calculated from subalignment i
   //float Neff[MAXRES]; // diversity of subalignment i
-  float *Neff = new(float[par.maxResLen]); // diversity of subalignment i
+  float *Neff = new float[par.maxResLen]; // diversity of subalignment i
   int nseqi=0; // number of sequences in subalignment i
   int ncol=0; // number of columns j that contribute to Neff[i]
   char change; // has the set of sequences in subalignment changed? 0:no 1:yes
   float fj[NAA+3]; // to calculate entropy
   float sum;
 
-  wi = new(float[N_in+2]);
+  wi = new float[N_in+2];
 
   // Global weights?
   if (par.wg==1)
@@ -1842,7 +1842,7 @@ Alignment::Amino_acid_frequencies_and_transitions_from_M_state(HMM& q, char* in)
   // Initialization
   q.Neff_HMM=0.0f;
   Neff[0]=0.0; // if the first column has no residues (i.e. change==0), Neff[i]=Neff[i-1]=Neff[0]
-  n = new(int*[L+2]);
+  n = new int*[L+2];
   for (j=1; j<=L; j++) n[j]=new(int[NAA+3]);
   for (j=1; j<=L; j++)
     for (a=0; a<NAA+3; a++) n[j][a]=0;
@@ -2052,7 +2052,7 @@ Alignment::Transitions_from_I_state(HMM& q, char* in)
     //float wi[MAXSEQ]; // weight of sequence k in column i, calculated from subalignment i
     float *wi = NULL; // weight of sequence k in column i, calculated from subalignment i
     //float Neff[MAXRES]; // diversity of subalignment i
-    float *Neff = new(float[par.maxResLen]); // diversity of subalignment i
+    float *Neff = new float[par.maxResLen]; // diversity of subalignment i
     int nseqi; // number of sequences in subalignment i
     int ncol; // number of columns j that contribute to Neff[i]
     float fj[NAA+3]; // to calculate entropy
@@ -2060,7 +2060,7 @@ Alignment::Transitions_from_I_state(HMM& q, char* in)
     float Nlim=0.0; // only for global weights
     float scale=0.0; // only for global weights
 
-    wi = new(float[N_in+2]);
+    wi = new float[N_in+2];
 
     // Global weights?
     if (par.wg==1)
@@ -2071,7 +2071,7 @@ Alignment::Transitions_from_I_state(HMM& q, char* in)
         }
 
     // Initialization
-    n = new(int*[L+2]);
+    n = new int*[L+2];
     for (j=1; j<=L; j++) n[j]=new(int[NAA+3]);
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -2254,7 +2254,7 @@ Alignment::Transitions_from_D_state(HMM& q, char* in)
     //float wi[MAXSEQ]; // weight of sequence k in column i, calculated from subalignment i
     float *wi=NULL; // weight of sequence k in column i, calculated from subalignment i
     //float Neff[MAXRES]; // diversity of subalignment i 
-    float *Neff = new(float[par.maxResLen]); // diversity of subalignment i 
+    float *Neff = new float[par.maxResLen]; // diversity of subalignment i
     int nseqi=0; // number of sequences in subalignment i (for DEBUGGING)
     int ncol=0; // number of columns j that contribute to Neff[i]
     char change; // has the set of sequences in subalignment changed? 0:no 1:yes
@@ -2263,7 +2263,7 @@ Alignment::Transitions_from_D_state(HMM& q, char* in)
     float Nlim=0.0; // only for global weights
     float scale=0.0; // only for global weights
 
-    wi = new(float[N_in+2]); /* FIXME: FS */
+    wi = new float[N_in+2]; /* FIXME: FS */
     // Global weights?
     if (par.wg==1)
         {
@@ -2273,7 +2273,7 @@ Alignment::Transitions_from_D_state(HMM& q, char* in)
         }
 
     // Initialization
-    n = new(int*[L+2]);
+    n = new int*[L+2];
     for (j=1; j<=L; j++) n[j]=new(int[NAA+3]);
     for (j=1; j<=L; j++)
         for (a=0; a<NAA+3; a++) n[j][a]=0;
@@ -2544,7 +2544,7 @@ Alignment::MergeMasterSlave(Hit& hit, char ta3mfile[])
  N_filtered = Tali.Filter(par.max_seqid,par.coverage,par.qid,par.qsc,par.Ndiff);
 
  // Record imatch[j]
- int* imatch=new(int[hit.j2+1]);
+ int* imatch=new int[hit.j2+1];
  int step = hit.nsteps;
  for (j=hit.j1; j<=hit.j2; j++)
  {
@@ -2676,7 +2676,7 @@ Alignment::MergeMasterSlave(Hit& hit, char ta3mfile[])
  iprev=i; lprev=l;
  if (h>=maxcol-1000) // too few columns? Reserve double space
  {
- char* new_seq=new(char[2*maxcol]);
+ char* new_seq=new char[2*maxcol];
  strncpy(new_seq,cur_seq,maxcol); //////// check: maxcol-1 ????
  delete[](cur_seq); (cur_seq) = NULL;
  cur_seq=new_seq;
@@ -2689,14 +2689,14 @@ Alignment::MergeMasterSlave(Hit& hit, char ta3mfile[])
  cur_seq[h++]='\0';
 
  keep[N_in] = display[N_in] = KEEP_CONDITIONALLY;
- seq[N_in]=new(char[h]);
+ seq[N_in]=new char[h];
  if (!seq[N_in]) MemoryError("array for input sequences");
  strcpy(seq[N_in],cur_seq);
- X[N_in]=new(char[h]);
+ X[N_in]=new char[h];
  if (!X[N_in]) MemoryError("array for input sequences");
- I[N_in]=new(short unsigned int[h]);
+ I[N_in]=new short unsigned int[h];
  if (!I[N_in]) MemoryError("array for input sequences");
- sname[N_in]=new(char[strlen(Tali.sname[k])+1]);
+ sname[N_in]=new char[strlen(Tali.sname[k])+1];
  if (!sname[N_in]) MemoryError("array for input sequences");
  strcpy(sname[N_in],Tali.sname[k]);
  N_in++;
@@ -2727,7 +2727,7 @@ Alignment::AddSequence(char Xk[], int Ik[])
 {
  int i; // position in query and target
  if (L<=0) InternalError("L is not set in AddSequence()");
- X[N_in]=new(char[L+2]);
+ X[N_in]=new char[L+2];
  for (i=0; i<=L+1; i++) X[N_in][i]=Xk[i];
  if (Ik==NULL)
  for (i=0; i<=L+1; i++) I[N_in][i]=0;
@@ -2777,7 +2777,7 @@ Alignment::GetPositionSpecificWeights(float* w[])
  {
 
  // Initialization
- n = new(int*[L+2]);
+ n = new int*[L+2];
  for (j=1; j<=L; j++) n[j]=new(int[NAA+3]);
  for (j=1; j<=L; j++)
  for (a=0; a<NAA+3; a++) n[j][a]=0;
@@ -2894,9 +2894,9 @@ Alignment::Transfer(char **ppcProf, int iCnt){
     /* @<allocate memory for sequences etc@> */
     for (k = 0; k < iCnt; k++){
 #define GOOD_MEASURE 1000 /* Temporary -- can be removed once rest in place */
-        I[k] = new(short unsigned int[iLen+2+GOOD_MEASURE]);
-        X[k] = new(char[iLen+2+GOOD_MEASURE]);
-        seq[k] = new(char[iLen+2+GOOD_MEASURE]);
+        I[k] = new short unsigned int[iLen+2+GOOD_MEASURE];
+        X[k] = new char[iLen+2+GOOD_MEASURE];
+        seq[k] = new char[iLen+2+GOOD_MEASURE];
         seq[k][0] = ' ';
         seq[k][1] = '\0';
         if (NULL == ppcProf[k]){

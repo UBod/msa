@@ -356,8 +356,8 @@ FullAlignment::PrintHHR(FILE* outf, Hit& hit)
   int iq=hit.i1;  // match state counter for query HMM (displayed in consensus line)
   int jt=hit.j1;  // match state counter for template HMM (displayed in consensus line)
 
-  lq = new(short unsigned int[qa->n+2]);
-  lt = new(short unsigned int[ta->n+2]);
+  lq = new short unsigned int[qa->n+2];
+  lt = new short unsigned int[ta->n+2];
 
   for (k=0; k<qa->n; k++) lq[k]=qa->l[k][hit.i1];
   for (k=0; k<ta->n; k++) lt[k]=ta->l[k][hit.j1];

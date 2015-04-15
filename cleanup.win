@@ -13,7 +13,7 @@ rm -rf src/gc-7.2/*.a
 ## -- Muscle
 rm -rf src/Muscle/muscle.make.std???.txt
 rm -rf src/Muscle/*.o
-rm -rf src/Muscle/*.dll
+rm -rf src/Muscle/*.a
 rm -rf src/Muscle/*.dll
 
 ## -- ClustalW

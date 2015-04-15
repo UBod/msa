@@ -72,9 +72,8 @@ checkType <- function(type, inputSeqs, msaName){
 ###############################################################################
 
 ##function, that tests the input of gapOpening.
-##If the value is negative, everything is ok and the function returns
-##the gapOpening parameter. If the input is positive, the value is transformed
-##and a warning is given. If the input is not numeric, an exception is thrown.
+##If the value is numeric, everything is ok and the function returns
+##the gapOpening parameter. If the input is not numeric, an exception is thrown.
 ##Same for missing substitutionMatrix
 checkGapOpening <- function(gapOpening, type, substitutionMatrix,
         defaultDNAValue,  defaultAAValue){
@@ -90,25 +89,18 @@ checkGapOpening <- function(gapOpening, type, substitutionMatrix,
     if (is.numeric(gapOpening)) {
         if (is.matrix(gapOpening)) {
             stop("The parameter gapOpening should be \n",
-                 "a negative numeric, not a matrix!")
+                 "a numeric, not a matrix!")
         }
         if (length(gapOpening) != 1) {
             stop("The parameter gapOpening should be \n",
-                 "a negative numeric, not a vector!")
+                 "a numeric, not a vector!")
         }
         if (is.nan(gapOpening)) {
             stop("The parameter gapOpening should be \n",
-                 "a negative numeric, not a NaN!")
-        }
-        ##check if gapOpening is positive
-        if (gapOpening > 0) {
-            warning("According to BioStrings, the parameter gapOpening \n",
-                    "should be negative! The value is transformed \n",
-                    "to a negative numeric!")
-            gapOpening <- gapOpening * -1;
+                 "a numeric, not a NaN!")
         }
     } else {
-        stop("The parameter gapOpening should be a negative numeric!")
+        stop("The parameter gapOpening should be a numeric!")
     }
     return(gapOpening)
 }
@@ -117,9 +109,8 @@ checkGapOpening <- function(gapOpening, type, substitutionMatrix,
 
 ##used in MUSCLE, analoguous to checkGapOpening, but only ONE defaut value
 ##function, that tests the input of gapOpening.
-##If the value is negative, everything is ok and the function returns
-##the gapOpening parameter. If the input is positive, the value is transformed
-##and a warning is given. If the input is not numeric, an exception is thrown.
+##If the value is numeric, everything is ok and the function returns
+##the gapOpening parameter. If the input is not numeric, an exception is thrown.
 checkGapOpening2 <- function(gapOpening, substitutionMatrix,
         defaultValue){
     ##set defaultValue
@@ -132,25 +123,18 @@ checkGapOpening2 <- function(gapOpening, substitutionMatrix,
     if (is.numeric(gapOpening)) {
         if (is.matrix(gapOpening)) {
             stop("The parameter gapOpening should be \n",
-                 "a negative numeric, not a matrix!")
+                 "a numeric, not a matrix!")
         }
         if (length(gapOpening) != 1) {
             stop("The parameter gapOpening should be \n",
-                 "a negative numeric, not a vector!")
+                 "a numeric, not a vector!")
         }
         if (is.nan(gapOpening)) {
             stop("The parameter gapOpening should be \n",
-                 "a negative numeric, not a NaN!")
-        }
-        ##check if gapOpening is positive
-        if (gapOpening > 0) {
-            warning("According to BioStrings, the parameter gapOpening \n",
-                    "should be negative! The value is transformed \n",
-                    "to a negative numeric!")
-            gapOpening <- gapOpening * -1;
+                 "a numeric, not a NaN!")
         }
     } else {
-        stop("The parameter gapOpening should be a negative numeric!")
+        stop("The parameter gapOpening should be a numeric!")
     }
     return(gapOpening)
 }
@@ -172,25 +156,18 @@ checkGapExtension <- function(gapExtension, type, substitutionMatrix,
     if (is.numeric(gapExtension)) {
         if (is.matrix(gapExtension)) {
            stop("The parameter gapExtension should be \n",
-                "a negative numeric, not a matrix!")
+                "a numeric, not a matrix!")
         }
         if (length(gapExtension) != 1) {
            stop("The parameter gapExtension should be \n",
-                "a negative numeric, not a vector!")
+                "a numeric, not a vector!")
         }
         if (is.nan(gapExtension)) {
             stop("The parameter gapExtension should be \n",
-                 "a negative numeric, not a NaN!")
-        }
-        ##check if gapExtension is positive
-        if (gapExtension > 0) {
-           warning("According to BioStrings, the parameter gapOpening \n",
-                   "should be negative! The value is transformed to a \n",
-                   "negative numeric.")
-           gapExtension <- gapExtension * -1
+                 "a numeric, not a NaN!")
         }
     } else {
-        stop("The parameter gapExtension should be a negative numeric!")
+        stop("The parameter gapExtension should be a numeric!")
     }
 
     return(gapExtension)

@@ -134,7 +134,7 @@ ReadSequences(mseq_t *prMSeq_p, char *pcSeqFile,
               int iMaxNumSeq, int iMaxSeqLen);
 
 extern int
-ReadSequencesFrom(mseq_t *prMSeq_p, int seqLength, char **seq, char **seqNames,
+ReadSequencesFromR(mseq_t *prMSeq_p, int seqLength, char **seq, char **seqNames,
               int iSeqType,  int iSeqFmt, bool bIsProfile,
               int iMaxNumSeq, int iMaxSeqLen);
 

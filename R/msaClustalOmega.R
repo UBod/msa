@@ -5,6 +5,7 @@ msaClustalOmega <- function(inputSeqs,
                             maxiters="default",
                             substitutionMatrix="default",
                             type="default",
+                            order=c("aligned", "input"),
                             verbose=FALSE,
                             help=FALSE,
                             ...)
@@ -53,7 +54,15 @@ msaClustalOmega <- function(inputSeqs,
     #############
     # inputSeqs #
     #############
-    inputSeqs <- transformInputSeq(inputSeqs, params[["inputSeqIsFileFlag"]])
+    inputSeqs <- transformInputSeq(inputSeqs)
+
+    #############
+    # order     #
+    #############
+    order <- match.arg(order)
+    params[["outputOrder"]] <- switch(order,
+                                      aligned="tree-order",
+                                      input="input-order")
 
     ###########
     # cluster #
@@ -103,9 +112,9 @@ msaClustalOmega <- function(inputSeqs,
             substitutionMatrix <- NULL
     } else if (is.character(substitutionMatrix) &&
                    !is.matrix(substitutionMatrix)) {
-            possibleValues <- c("blosum30","blosum40", "blosum50",
-                                "blosum65","blosum80","gonnet")
-            if (!(tolower(substitutionMatrix) %in% possibleValues)){
+            possibleValues <- c("BLOSUM30", "BLOSUM40", "BLOSUM50",
+                                "BLOSUM65", "BLOSUM80", "Gonnet")
+            if (!(substitutionMatrix %in% possibleValues)){
                 ##create a string with all possible Values named text
                 text <- ""
                 text <- paste(possibleValues, collapse=", ")
@@ -117,21 +126,16 @@ msaClustalOmega <- function(inputSeqs,
     ##############
     # gapOpening #
     ##############
-
-    gapOpening <- checkGapOpening(gapOpening, type,
-                                  substitutionMatrix, -6, -6)
-    # ClustalOmega uses positive values
-    gapOpening <- gapOpening * -1
-
+    if (!identical(gapOpening, "default"))
+        warning("msaClustalOmega currently does not support to set\n",
+                "gapOpening to a non-default value!\n")
 
     ################
     # gapExtension #
     ################
-
-    gapExtension <- checkGapExtension(gapExtension, type,
-                                      substitutionMatrix, -1, -1)
-    # ClustalOmega uses positive values
-    gapExtension <- gapExtension * -1
+    if (!identical(gapExtension, "default"))
+        warning("msaClustalOmega currently does not support to set\n",
+                "gapExtension to a non-default value!\n")
 
     ############
     # maxiters #
@@ -334,13 +338,13 @@ msaClustalOmega <- function(inputSeqs,
 
     ##delete param in copy
     paramsCopy[["isProfile"]] <- NULL
-    
+
     #######
     # log #
     #######
     ##Log all non-essential output to this file
     ##DEACTIVATED: All log-messages are print to R console
-    
+
     ##if(!is.null(params[["log"]])) {
     ##    tempList <- checkOutFile("log", params)
     ##    if (tempList$existingFile) {
@@ -349,7 +353,7 @@ msaClustalOmega <- function(inputSeqs,
     ##    }
     ##    params[["log"]] <- tempList$param
     ##}
-    
+
     ##delete param in copy
     ##paramsCopy[["log"]] <- NULL
 
@@ -468,7 +472,7 @@ msaClustalOmega <- function(inputSeqs,
         if (!identical (params[["outFmt"]], "clustal") &&
             !identical (params[["outFmt"]], "clu")) {
             stop("Until now, the parameter outFmt is only implemented ",
-                 "for value \"clustal\" \n", 
+                 "for value \"clustal\" \n",
                  "the other formats will be ",
                  "realized in a later version.")
         }
@@ -476,23 +480,6 @@ msaClustalOmega <- function(inputSeqs,
 
     ##delete param in copy
     paramsCopy[["outFmt"]] <- NULL
-
-    ################
-    # outputOrder #
-    ################
-    ##MSA output orderlike in input/guide-tree
-    ##default: output-order=input-order
-
-    ##possible Values
-    posVal <- c("input-order", "tree-order")
-    ##params[["outputOrder"]] <- checkSingleValParams("outputOrder", params,
-    ##                                                 "input-order", posVal)
-
-    params[["outputOrder"]] <- checkSingleValParamsNew(
-                                "outputOrder", params, posVal)
-
-    ##delete param in copy
-    paramsCopy[["outputOrder"]] <- NULL
 
     #############
     # percentId #
@@ -523,9 +510,9 @@ msaClustalOmega <- function(inputSeqs,
 
     if (!is.null(params[["profile2"]])) {
         if (is.null(params[["profile1"]])){
-            stop("The parameter profile1 is NULL, \n", 
+            stop("The parameter profile1 is NULL, \n",
                  "so the parameter profile2 can't have a value! \n",
-                 "Please insert file for parameter profile1 \n", 
+                 "Please insert file for parameter profile1 \n",
                  "or change the parameters profile1 and profile2!")
         }
         checkInFile("profile2", params)
@@ -570,7 +557,7 @@ msaClustalOmega <- function(inputSeqs,
 
     ##useKimura==TRUE AND percentId==TRUE is not allowed!!!
     if(params[["useKimura"]] & params[["percentId"]]){
-        stop("Percentage Identity cannot be calcuted \n", 
+        stop("Percentage Identity cannot be calcuted \n",
              "if Kimura Distances are used!",
              "You have to set either the parameter percentID or \n",
              "the parameter useKimura to FALSE!")
@@ -622,10 +609,10 @@ msaClustalOmega <- function(inputSeqs,
 
     inputSeqNames <- names(inputSeqs)
 
-    names(inputSeqs) <- paste0("seq", 1:length(inputSeqs))
+    names(inputSeqs) <- paste0("Seq", 1:length(inputSeqs))
 
-    result <- .Call("RClustalOmega", inputSeqs, cluster, gapOpening,
-                    gapExtension, maxiters, substitutionMatrix, type,
+    result <- .Call("RClustalOmega", inputSeqs, cluster, 6,
+                    1, maxiters, substitutionMatrix, type,
                     verbose, params, PACKAGE="msa");
 
     out <- convertAlnRows(result$msa, type)
@@ -637,7 +624,6 @@ msaClustalOmega <- function(inputSeqs,
     }
     else
         names(out@unmasked) <- NULL
-
 
     standardParams <- list(gapOpening=gapOpening,
                            gapExtension=gapExtension,

@@ -9,38 +9,36 @@
     msaClustalOmega(inputSeqs, cluster="default",
                     gapOpening="default", gapExtension="default",
                     maxiters="default",  substitutionMatrix="default",
-                    type="default", verbose=FALSE, help=FALSE,
-                    ...) 
+                    type="default", order=c("aligned", "input"),
+                    verbose=FALSE, help=FALSE, ...) 
 }
 \arguments{
   \item{inputSeqs}{input sequences; see \code{\link{msa}}.
     In the original ClustalOmega implementation, this
-    parameter is called \code{-infile}.}
+    parameter is called \code{infile}.}
   \item{cluster}{The cluster size which should be used. The default is 100.  
     In the original ClustalOmega implementation, this parameter is called 
-    \code{--cluster-size}.}
-  \item{gapOpening}{gap opening penalty; the default value is -6.0.
-    In order to standardize interfaces,
-    all algorithms consistently use negative values for the gap open
-    penalty. This parameter is a new feature - the original ClustalOmega
-    implementation does not allow for customizing gap penalties.}
-  \item{gapExtension}{gap extension penalty; the default value is -1.0.
-    In order to standardize interfaces,
-    all algorithms consistently use negative values for the gap open
-    penalty. This parameter is a new feature - the original ClustalOmega
-    implementation does not allow for customizing gap penalties.}
+    \code{cluster-size}.}
+  \item{gapOpening,gapExtension}{ClustalOmega currently does
+    not allow to adjust gap penalties; these arguments are only for
+    future extensions and consistency with the other algorithms
+    and \code{\link{msa}}. However, setting these parameters to values
+    other than \code{"default"} will result in a warning.}
   \item{maxiters}{maximum number of iterations; the default value is 0
     (no limitation). In the original ClustalOmega implementation, this
-    parameter is called \code{--iterations}.}
+    parameter is called \code{iterations}.}
   \item{substitutionMatrix}{substitution matrix for scoring matches and
     mismatches; can be a real matrix, a file name, or the name of a
     built-in substitution matrix. In the latter case, the choices
-    \code{"blosum30"}, \code{"blosum40"}, \code{"blosum50"},
-    \code{"blosum65"}, \code{"blosum80"}, and \code{"gonnet"} are
+    \code{"BLOSUM30"}, \code{"BLOSUM40"}, \code{"BLOSUM50"},
+    \code{"BLOSUM65"}, \code{"BLOSUM80"}, and \code{"Gonnet"} are
     supported.  This parameter is a new feature - the original ClustalOmega
     implementation does not allow for using a custom substitution matrix.}
   \item{type}{type of the input sequences \code{inputSeqs};
     see \code{\link{msa}}.}
+  \item{order}{how the sequences should be ordered in the output object
+    (see \code{\link{msa}}); in the original ClustalW implementation, this
+    parameter is called \code{output-order}.}
   \item{verbose}{if \code{TRUE}, the algorithm displays detailed
     information and progress messages.}
   \item{help}{if \code{TRUE}, information about algorithm-specific
@@ -102,8 +100,7 @@ mySeqs <- readAAStringSet(filepath)
 msaClustalOmega(mySeqs)
 
 ## call msaClustalOmega with custom parameters
-msaClustalOmega(mySeqs, gapOpening=-6, gapExtension=-1, auto=FALSE,
-                cluster=120, dealign=FALSE, useKimura=FALSE,
-                verbose=FALSE)
+msaClustalOmega(mySeqs, auto=FALSE, cluster=120, dealign=FALSE,
+                useKimura=FALSE, order="input", verbose=FALSE)
 }
 \keyword{manip}
