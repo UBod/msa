@@ -1,7 +1,7 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.0.0
+Version: 1.1.0
 Date: 2015-04-16
 Author: Enrico Bonatesta, Christoph Horejs-Kainrath, Ulrich Bodenhofer
 Maintainer: Ulrich Bodenhofer <bodenhofer@bioinf.jku.at>
