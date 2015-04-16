@@ -156,7 +156,7 @@ msaClustalW <- function(inputSeqs,
     ##The gap open score. Must be negative
 
     gapOpening <- checkGapOpening(gapOpening, type, substitutionMatrix,
-                                  defaultDNAValue=-15.0, defaultAAValue=-10.0)
+                                  defaultDNAValue=15.0, defaultAAValue=10.0)
 
     ################
     # gapExtension #
@@ -164,8 +164,8 @@ msaClustalW <- function(inputSeqs,
     ##The gap extend score. Must be negative
 
     gapExtension <- checkGapExtension(gapExtension, type, substitutionMatrix,
-                                      defaultDNAValue=-6.66,
-                                      defaultAAValue=-0.2)
+                                      defaultDNAValue=6.66,
+                                      defaultAAValue=0.2)
 
     ############
     # maxiters #

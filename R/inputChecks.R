@@ -102,7 +102,7 @@ checkGapOpening <- function(gapOpening, type, substitutionMatrix,
     } else {
         stop("The parameter gapOpening should be a numeric!")
     }
-    return(gapOpening)
+    return(abs(gapOpening))
 }
 
 ###############################################################################
@@ -136,7 +136,7 @@ checkGapOpening2 <- function(gapOpening, substitutionMatrix,
     } else {
         stop("The parameter gapOpening should be a numeric!")
     }
-    return(gapOpening)
+    return(abs(gapOpening))
 }
 
 ###############################################################################
@@ -170,7 +170,7 @@ checkGapExtension <- function(gapExtension, type, substitutionMatrix,
         stop("The parameter gapExtension should be a numeric!")
     }
 
-    return(gapExtension)
+    return(abs(gapExtension))
 }
 
 ###############################################################################

@@ -262,24 +262,24 @@ msaMuscle <- function(inputSeqs,
     ##le: -2.9
     ##sp: -1439
     ##sv: -300
-    ##spn_dna:-400
-    ##spn_rna:-420
+    ##spn_dna:400
+    ##spn_rna:420
 
     if (params$le) {
-        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, -2.9)
+        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 2.9)
     }
     if (params$sp) {
-        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, -1439)
+        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 1439)
     }
-        if (params$sv) {
-        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, -300)
+    if (params$sv) {
+        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 300)
     }
     if (params$spn) {
         if (identical(type,"dna")) {
-        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, -400)
+        gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 400)
         }
         if (identical(type,"rna")) {
-            gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, -420)
+            gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 420)
         }
         if (identical(type,"protein")) {
            stop("If you use sequences of type \"protein\", \n",
@@ -298,7 +298,6 @@ msaMuscle <- function(inputSeqs,
     ##type= "dna" => gapExtension=0
     ##type= "rna" => gapExtension=0
     ##type= "protein" 0> gapExtension=???
-
 
     gapExtension <- checkGapExtension(gapExtension,
                                       type, substitutionMatrix, 0, 0)
