@@ -13,10 +13,19 @@ msa <- function(inputSeqs,
 {
     method <- match.arg(method)
 
-    msaArgs <- as.list(match.call(expand.dots=TRUE)[-1])
-    msaArgs[["method"]] <- NULL
+    msaFun <- match.fun(paste0("msa", method))
 
-    out <- do.call(paste0("msa", method), msaArgs)
+    out <- msaFun(inputSeqs=inputSeqs,
+                  cluster=cluster,
+                  gapOpening=gapOpening,
+                  gapExtension=gapExtension,
+                  maxiters=maxiters,
+                  substitutionMatrix=substitutionMatrix,
+                  type=type,
+                  order=order,
+                  verbose=verbose,
+                  help=help,
+                  ...)
 
     if (is(out, "MsaMetaData"))
         out@call <- deparse(sys.call())

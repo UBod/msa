@@ -1,5 +1,11 @@
 Change history of package msa:
 ==============================
 
+Version 1.1.1:
+- fix of msa() function
+
+Version 1.1.0:
+- new branch for Bioconductor 3.2 devel
+
 Version 1.0.0:
 - first official release as part of Bioconductor 3.1
