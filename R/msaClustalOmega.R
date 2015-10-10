@@ -110,11 +110,11 @@ msaClustalOmega <- function(inputSeqs,
     if (is.null(substitutionMatrix) ||
             identical(substitutionMatrix, "default")) {
             substitutionMatrix <- NULL
-    } else if (is.character(substitutionMatrix) &&
-                   !is.matrix(substitutionMatrix)) {
+    } else {
             possibleValues <- c("BLOSUM30", "BLOSUM40", "BLOSUM50",
                                 "BLOSUM65", "BLOSUM80", "Gonnet")
-            if (!(substitutionMatrix %in% possibleValues)){
+            if (!is.character(substitutionMatrix) ||
+                 !(substitutionMatrix %in% possibleValues)){
                 ##create a string with all possible Values named text
                 text <- ""
                 text <- paste(possibleValues, collapse=", ")

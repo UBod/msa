@@ -188,9 +188,14 @@
   <msa@bioinf.jku.at>
 }
 \references{
-\url{http://www.bioinf.jku.at/software/msa}
+  \url{http://www.bioinf.jku.at/software/msa}
+  
+  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  (2015). msa: an R package for multiple sequence alignment. 
+  \emph{Bioinformatics} (accepted). DOI:
+  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
 
-\url{https://www.ctan.org/pkg/texshade}
+  \url{https://www.ctan.org/pkg/texshade}
 
   Beitz, E. (2000) TeXshade: shading and labeling of multiple
   sequence alignments using LaTeX2e

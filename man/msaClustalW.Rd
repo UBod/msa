@@ -34,7 +34,9 @@
     built-in substitution matrix. In the latter case, the choices
     \code{"blosum"}, \code{"pam"}, \code{"gonnet"}, and \code{"id"} are
     supported for amino acid sequences. For aligning nucleotide
-    sequences, the parameter \code{dnamatrix} must be used instead.
+    sequences, the choices \code{"iub"} and \code{"clustalw"} are
+    possible. The parameter \code{dnamatrix} can also be used instead
+    for the sake of backwards compatibility.
     The valid choices for this parameter are \code{"iub"} and
     \code{"clustalw"}. In the original ClustalW implementation, this
     parameter is called \code{matrix}.}
@@ -79,7 +81,12 @@
 }
 \references{
   \url{http://www.bioinf.jku.at/software/msa}
-  
+   
+  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  (2015). msa: an R package for multiple sequence alignment. 
+  \emph{Bioinformatics} (accepted). DOI:
+  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+ 
   \url{http://www.clustal.org/download/clustalw_help.txt}
 
   Thompson, J. D., Higgins, D. G., and Gibson, T. J. (1994)

@@ -1,6 +1,23 @@
 Change history of package msa:
 ==============================
 
+Version 1.2.0:
+- new branch for Bioconductor 3.2 release
+
+Version 1.1.2:
+- new print() function for multiple alignments that also
+  allows for displaying alignments in their entirety (plus additional
+  customizations)
+- strongly improved handling of custom substitution matrices by
+  msaClustalW(): now custom matrices can also be supplied for nucleotide
+  sequences which can also be passed via the 'substitutionMatrix' argument.
+  The 'dnamatrix' argument is still available for the sake of backwards
+  compatibility.
+- strongly improved handling of custom substitution matrices by
+  msaMuscle()
+- fix of improperly aligned sequence logos produced by msaPrettyPrint()
+- updated citation information
+
 Version 1.1.1:
 - fix of msa() function
 

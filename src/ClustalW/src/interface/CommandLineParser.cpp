@@ -574,13 +574,13 @@ void CommandLineParser::run(StringArray* args, bool xmenus, ClustalWInput *input
             { 
                 userParameters->setDNAFlag(false);
                 userParameters->setExplicitDNAFlag(true);
-                msg = "Sequence type explicitly set to Protein";
-                cout << msg << std::endl;
+                /*msg = "Sequence type explicitly set to Protein";
+		  cout << msg << std::endl;*/
             }
             else if(temp == 1) 
             {
-                msg = "Sequence type explicitly set to DNA";
-                cout << msg << std::endl;
+                /*msg = "Sequence type explicitly set to DNA";
+		  cout << msg << std::endl;*/
                 userParameters->setDNAFlag(true);
                 userParameters->setExplicitDNAFlag(true);
             }

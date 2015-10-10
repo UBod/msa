@@ -4,10 +4,10 @@
 #define TRACE	0
 
 const int MAX_LINE = 4096;
-const int MAX_HEADINGS = 32;
+const int MAX_HEADINGS = 20;
 static char Heading[MAX_HEADINGS];
 static unsigned HeadingCount = 0;
-static float Mx[32][32];
+static float Mx[20][20];
 
 static void LogMx()
 	{
@@ -111,7 +111,7 @@ PTR_SCOREMATRIX ReadMx(TextFile &File)
 
 		char *p = Line + 1;
 		char *maxp = p + strlen(Line);
-		for (unsigned Col = 0; Col < HeadingCount - 1; ++Col)
+		for (unsigned Col = 0; Col < HeadingCount; ++Col)
 			{
 			if (p >= maxp)
 				Quit("Too few fields in line of matrix file: '%s'", Line);
@@ -148,7 +148,7 @@ PTR_SCOREMATRIX ReadMx(TextFile &File)
 				  Mx[j][i]);
 				goto ExitLoop;
 				}
-			}
+		}
 ExitLoop:;
 
 	if (g_bVerbose)

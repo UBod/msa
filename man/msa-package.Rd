@@ -17,8 +17,8 @@
   \tabular{ll}{
     Package: \tab msa\cr
     Type: \tab Package\cr
-    Version: \tab 0.99.1\cr
-    Date: \tab 2015-03-29\cr
+    Version: \tab 1.1.2\cr
+    Date: \tab 2015-09-29\cr
     License: \tab GPL-2\cr
   }
 }
@@ -27,6 +27,11 @@
 }
 \references{
   \url{http://www.bioinf.jku.at/software/msa}
+  
+  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  (2015). msa: an R package for multiple sequence alignment. 
+  \emph{Bioinformatics} (accepted). DOI:
+  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
 
   Thompson, J. D., Higgins, D. G., and Gibson, T. J. (1994)
   CLUSTAL W: improving the sensitivity of progressive multiple sequence

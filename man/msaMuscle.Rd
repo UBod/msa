@@ -85,6 +85,11 @@
 }
 \references{
   \url{http://www.bioinf.jku.at/software/msa}
+  
+  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  (2015). msa: an R package for multiple sequence alignment. 
+  \emph{Bioinformatics} (accepted). DOI:
+  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
 
   \url{http://www.drive5.com/muscle/muscle.html}
   

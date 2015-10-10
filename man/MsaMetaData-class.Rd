@@ -37,6 +37,14 @@ The following slots are defined for \code{MsaMetaData} objects:
 \author{Enrico Bonatesta and Christoph Horejs-Kainrath
   <msa@bioinf.jku.at>
 }
+\references{
+  \url{http://www.bioinf.jku.at/software/msa}
+  
+  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  (2015). msa: an R package for multiple sequence alignment. 
+  \emph{Bioinformatics} (accepted). DOI:
+  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+}
 \seealso{\code{\link{msa}}, \code{\link{msaClustalW}},
   \code{\link{msaClustalOmega}}, \code{\link{msaMuscle}},
   \code{\linkS4class{MsaAAMultipleAlignment}},

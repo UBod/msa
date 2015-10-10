@@ -129,6 +129,8 @@ msaClustalW <- function(inputSeqs,
             ##name of a matrix that should be used
         !is.matrix(substitutionMatrix)) {
         ##check whether value is BLOSUM, PAM, GONNET, or ID;
+        if (type == "protein")
+        {
             possibleValues <- c("blosum", "pam", "gonnet", "id")
             if (!(substitutionMatrix %in% possibleValues)){
                 ##create a string with all possible Values named text
@@ -138,15 +140,69 @@ msaClustalW <- function(inputSeqs,
                      "only can have the values: \n", text)
             }
             params[["substitutionMatrixIsStringFlag"]] <- TRUE
+        }
+        else
+        {
+            possibleValues <- c("iub", "clustalw")
+            if (!(substitutionMatrix %in% possibleValues)){
+                ##create a string with all possible Values named text
+                text <- ""
+                text <- paste(possibleValues, collapse=", ")
+                stop("The parameter substitutionMatrix ",
+                     "only can have the values: \n", text)
+            }
+
+            params[["substitutionMatrixIsStringFlag"]] <- FALSE
+            params[["substitutionMatrixIsDefaultFlag"]] <- TRUE
+            params[["dnamatrix"]] <- substitutionMatrix
+            substitutionMatrix <- "default"
+        }
     } else {
         ##real matrix
-        if (isSymmetric(substitutionMatrix)) {
-            if (nrow(substitutionMatrix) <=20 ||
-                nrow(substitutionMatrix) >26 ) {
-                    stop("substitutionMatrix has wrong dimensions!")
-            }
-        } else {
-            stop("substitutionMatrix should be a symmetric matrix!")
+        reqNames <- c("A", "R", "N", "D", "C", "Q", "E", "G", "H", "I",
+                      "L", "K", "M", "F", "P", "S", "T", "W", "Y", "V",
+                      "B", "Z", "X", "*")
+
+        if (type == "protein")
+        {
+            rowPerm <- match(reqNames, rownames(substitutionMatrix))
+            if (any(is.na(rowPerm)))
+                stop("substitutionMatrix does not contain all necessary rows")
+
+            colPerm <- match(reqNames, colnames(substitutionMatrix))
+            if (any(is.na(colPerm)))
+                stop("substitutionMatrix does not contain all necessary columns")
+
+            substitutionMatrix <- substitutionMatrix[rowPerm, colPerm]
+
+            if (!isSymmetric(substitutionMatrix))
+                stop("substitutionMatrix should be a symmetric matrix!")
+        }
+        else
+        {
+            reqNuc <- if (type == "dna") c("A", "G", "C", "T")
+                      else c("A", "G", "C", "U")
+
+            if (any(is.na(match(reqNuc, rownames(substitutionMatrix)))))
+                    stop("substitutionMatrix does not contain all necessary rows")
+
+            if (any(is.na(match(reqNuc, colnames(substitutionMatrix)))))
+                stop("substitutionMatrix does not contain all necessary columns")
+
+            rowSel <- which(rownames(substitutionMatrix) %in% reqNames)
+            colSel <- which(colnames(substitutionMatrix) %in% reqNames)
+
+            substitutionMatrix <- substitutionMatrix[rowSel, colSel]
+
+            fakeAAmat <- matrix(0, length(reqNames), length(reqNames))
+            rownames(fakeAAmat) <- reqNames
+            colnames(fakeAAmat) <- reqNames
+            fakeAAmat[rownames(substitutionMatrix), colnames(substitutionMatrix)] <-
+                substitutionMatrix
+
+            substitutionMatrix <- fakeAAmat
+
+            params[["dnamatrix"]] <- NULL
         }
     }
 

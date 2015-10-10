@@ -1,27 +1,21 @@
 ##345678901234567890123456789012345678901234567890123456789012345678901234567890
 citHeader("To cite package 'msa' in publications use:")
 
-#year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE) 
-#vers <- paste("R package version", meta$Version)
-desc <- packageDescription("msa")
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
-vers <- paste("R package version", desc$Version)
-url  <- desc$URL
-
-
-citEntry(entry="Manual", 
-         title = "msa -- An R Package for Multiple Sequence Alignment.", 
-         author = personList(as.person("Enrico Bonatesta"), as.person("Christoph Horejs-Kainrath"), as.person("Ulrich Bodenhofer")),
-         year = year, 
-         note = vers,
-         organization=paste("Institute of Bioinformatics",
-                            "Johannes Kepler University", sep=", "),
-         address="Linz, Austria",
-         url=url,
-         textVersion = 
-             paste("Enrico Bonatesta, Christoph Horejs-Kainrath and Ulrich Bodenhofer (", year, "). ",
-                   "msa -- An R Package for Multiple Sequence Alignment. ",
-                   vers, ".", sep="")
+citEntry(entry="Article",
+         title = "msa: an R package for multiple sequence alignment",
+         author = personList(as.person("Ulrich Bodenhofer"),
+                             as.person("Enrico Bonatesta"),
+                             as.person("Christoph Horejs-Kainrath"),
+                             as.person("Sepp Hochreiter")),
+         journal="Bioinformatics",
+         note="(accepted)",
+         year="2015",
+         doi="10.1093/bioinformatics/btv494",
+         textVersion =
+             paste("U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter (2015)",
+                   "msa: an R package for multiple sequence alignment.",
+                   "Bioinformatics (accepted).",
+                   "DOI: 10.1093/bioinformatics/btv176.")
 )
 
 citFooter(

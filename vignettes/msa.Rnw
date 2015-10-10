@@ -156,10 +156,17 @@ function which, by default, runs ClustalW with default parameters:
 myFirstAlignment <- msa(mySequences)
 myFirstAlignment
 @
+\noindent Obviously, the default printing function shortens the alignment
+for the sake of compact output. The \verb+print()+ function provided by the
+\MSA\ package provides some ways for customizing the output, such as,
+showing the entire alignment split over multiple blocks of sub-sequences:
+<<showWholeWidth>>=
+print(myFirstAlignment, show="complete")
+@
 
-The \MSA\ package offers the function \verb+msaPrettyPrint()+ which allows
-for pretty-printing multiple alignments using the \LaTeX\ package \shade.
-As an example, the following \R\ code creates a PDF file
+The \MSA\ package additionally offers the function \verb+msaPrettyPrint()+
+which allows for pretty-printing multiple alignments using the \LaTeX\ package
+\shade. As an example, the following \R\ code creates a PDF file
 \verb+myfirstAlignment.pdf+ which is shown in
 Figure~\ref{fig:myFirstAlignment}:
 <<IntegratePDF2>>=
@@ -276,12 +283,26 @@ make use of most these parameters (see the documentation of ClustalOmega%
 for a comprehensive overview). Currently, the following restrictions and
 caveats apply:
 \begin{itemize}
-  \item The parameters \verb+infile+, \verb+clustersize+, \verb+gapOpen+,
-    \verb+gapExt+, \verb+iterations+, and \verb+out-order+ have been renamed to
+  \item The parameters \verb+infile+, \verb+cluster-size+,
+    \verb+iterations+, and \verb+output-order+ have been renamed to
     the argument names \verb+inputSeqs+, \verb+cluster+,
-    \verb+gapOpening+, \verb+gapExtension+, \verb+maxiters+, and \verb+order+
+    \verb+maxiters+, and \verb+order+
     in order to provide a consistent interface for all three multiple
     sequence alignment algorithms.
+  \item ClustalOmega does not allow for setting custom gap penalties.
+    Therefore, setting the parameters \verb+gapOpening+ and
+    \verb+gapExtension+ currently has no effect and will lead to a
+    warning. These arguments are only defined for
+    future extensions and consistency with the other algorithms
+    available in \MSA.
+  \item ClustalOmega only allows for choosing substitution matrices
+    from a pre-defined set of names, namely \verb+"BLOSUM30"+,
+    \verb+"BLOSUM40"+, \verb+"BLOSUM50"+, \verb+"BLOSUM65"+,
+    \verb+"BLOSUM80"+, and \verb+"Gonnet"+. This is a new feature
+    --- the original ClustalOmega implementation does not allow for
+    using any custom substitution matrix. However, since these are
+    all amino acid substitution matrices, ClustalOmega is still hardly
+    useful for multiple alignments of nucleotide sequences.
   \item Boolean flags must be passed as logical values, e.g.\
     \verb+verbose=TRUE+.
   \item The following parameters are (currently) not supported:
@@ -320,6 +341,94 @@ caveats apply:
     \verb+tree1+, \verb+tree2+,  \verb+usetree+,
     \verb+weight1+, and \verb+weight2+.
 \end{itemize}
+
+\section{Printing Multiple Sequence Alignments}\label{sec:msaPrint}
+
+As already shown above, multiple sequence alignments can be shown in
+plain text format on the \R\ console using the \verb+print()+ function
+(which is implicitly called if just the object name is entered on the
+\R\ console). This function allows for multiple customizations, such as,
+enabling/disabling to display a consensus sequence, printing the entire
+alignment or only a subset, enabling/disabling to display sequence names,
+and adjusting the width allocated for sequence names. For more information,
+the reader is referred to the
+help page of the print function:
+<<helpPrint,eval=FALSE>>=
+help("print,MsaDNAMultipleAlignment-method")
+@
+We only provide some examples here:
+<<printExamples>>=
+print(myFirstAlignment)
+print(myFirstAlignment, show="complete")
+print(myFirstAlignment, showConsensus=FALSE, halfNrow=3)
+print(myFirstAlignment, showNames=FALSE, show="complete")
+@
+
+\section{Processing Multiple Alignments}\label{sec:msaProc}
+
+The classes defined by the \MSA\ package for storing multiple alignment results
+have been derived from the corresponding classes defined by the
+\verb+Biostrings+ package. Therefore, all methods for processing
+multiple alignments are available and work without any practical limitation. In
+this section, we highlight some of these.
+
+The classes used for storing multiple alignments allow for defining masks
+on sequences and sequence positions via their row and column mask slots.
+They can be set by \verb+rowmask()+ and \verb+colmask()+ functions which serve
+both as setter and getter functions. To set row or column masks, an
+\verb+IRanges+ object must be supplied:
+<<maskExample>>=
+myMaskedAlignment <- myFirstAlignment
+rowM <- IRanges(start=1, end=2)
+rowmask(myMaskedAlignment) <- rowM
+myMaskedAlignment
+@
+
+The \verb+unmasked()+ allows for removing these masks, thereby casting
+the multiple alignment to a set of aligned \verb+Biostrings+ sequences
+(class \verb+AAStringSet+, \verb+DNAStringSet+, or \verb+RNAStringSet+):
+<<unmaskedExample>>=
+unmasked(myMaskedAlignment)
+@
+
+Consensus matrices can be computed conveniently as follows:
+<<consensusExample1>>=
+conMat <- consensusMatrix(myFirstAlignment)
+dim(conMat)
+conMat[, 101:110]
+@
+Note that \verb+consensusMatrix()+ cannot handle
+alignments with active masks. So, the masks in multiple alignment objects must
+must be removed prior to the computation of the consensus matrix:
+<<consensusExample2>>=
+conMat <- consensusMatrix(unmasked(myMaskedAlignment))
+@
+
+Consensus strings can be computed from consensus matrices:
+<<consensusExample3>>=
+## auxiliary function for splitting a string into displayable portions
+printSplitString <- function(x, width=getOption("width") - 1)
+{
+    starts <- seq(from=1, to=nchar(x), by=width)
+
+    for (i in 1:length(starts))
+        cat(substr(x, starts[i], starts[i] + width - 1), "\n")
+}
+
+printSplitString(consensusString(conMat))
+@
+\noindent Consensus sequences can also be computed directly without computing
+intermediate consensus matrices. However, the \verb+consensusString()+
+function cannot handle the
+masks contained in the multiple alignment objects (no matter whether
+there are active masks or not). Therefore, it is necessary to remove
+the masks beforehand:
+<<consensusExample4>>=
+printSplitString(consensusString(unmasked(myFirstAlignment)))
+printSplitString(consensusString(unmasked(myMaskedAlignment)))
+@
+\noindent Actually, the \verb+print()+ method (see Section~\ref{sec:msaPrint} above)
+uses this function to compute the consensus sequence.
 
 \section{Pretty-Printing Multiple Sequence Alignments}\label{sec:msaPrettyPrint}
 
@@ -398,8 +507,13 @@ The color scheme of the sequence logo can be configured with the
 \verb+"standard area"+, and \verb+"accessible area"+. The above example
 uses the color scheme \verb+"rasmol"+.
 
-Finally note that a consensus sequence and a sequence logo can be displayed
+Note that a consensus sequence and a sequence logo can be displayed
 together, but only on opposite sides.
+
+Finally, a caveat: for computing consensus sequences,
+\verb+msaPrettyPrint()+ uses the functionality provided by \shade, therefore,
+the results need not match to the results of the methods described in
+Section~\ref{sec:msaProc} above.
 
 \subsection{Color Shading Modes}
 
@@ -541,12 +655,6 @@ has a minor memory leak, but the loss of data is so small that no major
 problems are to be expected except for thousands of executions of
 ClustalOmega.
 
-\subsubsection*{\shade: Alignment of Sequence Logos}
-
-\shade\ has some issues with aligning the sequence logo to the multiple
-sequence alignment. Under which conditions this happens, would require a
-more detailed investigation.
-
 \subsubsection*{ClustalOmega vs.\ Older GCC Versions on Linux/Unix}
 
 We have encountered peculiar behavior of ClustalOmega if the package was
@@ -613,6 +721,14 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.0.2:] \mbox{ }  \begin{itemize}
+    \item new \verb+print()+ function for multiple alignments that also
+      allows for displaying alignments in their entirety (plus additional
+      customizations)
+    \item fix of improperly aligned sequence logos produced by
+      \verb+msaPrettyPrint()+
+    \item updated citation information
+  \end{itemize}
 \item[Version 1.1.1:] fix of \verb+msa()+ function
 \item[Version 1.1.0:] new branch for Bioconductor 3.2 devel
 \item[Version 1.0.0:] first official release as part of Bioconductor 3.1

@@ -148,111 +148,48 @@ msaMuscle <- function(inputSeqs,
         substitutionMatrix <- NULL;
     }
 
-
     ##check if substitutionMatrix is a matrix
-    if (!is.null(substitutionMatrix) & !is.matrix(substitutionMatrix)) {
+    if ((!is.null(substitutionMatrix) && !is.matrix(substitutionMatrix)) ||
+        identical(mode(substitutionMatrix), "list"))
         stop("The parameter substitutionMatrix should be a matrix!")
-    }
 
-    ## Attention, the upper check does NOT detect the
-    ## difference between matrices build as
-    ## a) y <- list()
-    ##    length(y) <- 3^2
-    ##    dim(y) <- c(3,3)
-    ## b) x <- matrix(...)
-    ##
-    ## is.matrix(x)==is.matrix(y)==TRUE !!!!
-    ## class(x)==class(y)=="matrix"
-    ## so another is necessary:
-    ## mode(x)==numeric
-    ## mode(y)==list
+    if (!is.null(substitutionMatrix))
+    {
+        headerNames <- c("A", "C", "D", "E", "F",
+                         "G", "H", "I", "K", "L",
+                         "M", "N", "P", "Q", "R",
+                         "S", "T",  "V","W", "Y")
 
-    ##case a)
-    if (identical(mode(substitutionMatrix), "list")) {
-        ##check if there are any NA-Values
-        if (length(which(is.na(substitutionMatrix)))!=0) {
-            stop("The parameter substitutionMatrix is not valid. \n",
-                 "There are NA-values in the substitutionMatrix! ")
-        }
+        if (type == "protein")
+            reqNames <- headerNames
+        else if (type == "dna")
+            reqNames <- c("A", "C", "G", "T")
+        else
+            reqNames <- c("A", "C", "G", "U")
 
-        ##check if there are any NaN-Values
-        if (length(which(is.element(substitutionMatrix, NaN)))!=0) {
-            stop("The parameter substitutionMatrix is not valid. \n",
-                 "There are NaN-values in the substitutionMatrix! ")
-        }
+        rowPerm <- match(reqNames, rownames(substitutionMatrix))
+        if (any(is.na(rowPerm)))
+            stop("substitutionMatrix does not contain all necessary rows")
 
-        ##check if there are any Inf-Values
-        if (length(which(is.element(substitutionMatrix, Inf)))!=0) {
-            stop("The parameter substitutionMatrix is not valid.\n",
-                 "There are Inf-values in the substitutionMatrix! ")
-        }
+        colPerm <- match(reqNames, colnames(substitutionMatrix))
+        if (any(is.na(colPerm)))
+            stop("substitutionMatrix does not contain all necessary columns")
 
-        ##check if there are any NULL-Values
-        if (length(which(unlist(lapply(substitutionMatrix,is.null))))!=0) {
-            stop("The parameter substitutionMatrix is not valid. \n",
-                 "There are NULL-values in the substitutionMatrix! ")
-        }
+        substitutionMatrix <- substitutionMatrix[rowPerm, colPerm]
 
+        auxMat <- matrix(0, length(headerNames), length(headerNames))
+        rownames(auxMat) <- headerNames
+        colnames(auxMat) <- headerNames
+        auxMat[reqNames, reqNames] <- substitutionMatrix
+        substitutionMatrix <- auxMat
 
-        ##after having checked all,
-        ##create a real matrix of type b)
+        if (!isSymmetric(substitutionMatrix))
+            stop("substitutionMatrix should be a symmetric matrix!")
 
-        ##nasty, but should work
-
-        ##mode(substitutionMatrix)=list()
-        helpMatrix = matrix(nrow=nrow(substitutionMatrix),
-                            ncol=ncol(substitutionMatrix))
-        colnames(helpMatrix)=colnames(substitutionMatrix)
-        rownames(helpMatrix)=rownames(substitutionMatrix)
-        for (i in 1:length(t(sapply(substitutionMatrix, unlist)))) {
-            helpMatrix[i]=  unlist(t(sapply(substitutionMatrix, unlist))[i])
-        }
-        substitutionMatrix = helpMatrix
-        ##mode(substitutionMatrix)=numeric =>now: case b)
-    }
-
-
-    ## case b)
-    if(!is.null(substitutionMatrix)){
-    ##check, if matrix is symmetric
-    if (isSymmetric(substitutionMatrix)) {
-        ##check dimensions according to NCBI-BLAST
-        if (nrow(substitutionMatrix) !=24) {
-            stop("The parameter substitutionMatrix has wrong dimensions! \n",
-                 "Should be a 24x24 matrix!" )
-        }
-        ##check order according to NCBI-BLAST
-        if (!(identical(toString(tolower(rownames(substitutionMatrix))),
-    "a, r, n, d, c, q, e, g, h, i, l, k, m, f, p, s, t, w, y, v, b, z, x, *"))){
-                stop("The parameter substitutionMatrix has wrong ",
-                     "order or no names! \n",
-                     "Should be in order <abcdefghiklmnpqrstvwxyz>!")
-        }
-        ##check if there are any NA-Values
-        if (length(which(is.na(substitutionMatrix)))!=0) {
-            stop("The parameter substitutionMatrix is not valid. \n",
-                 "There are NA-values in the substitutionMatrix!")
-        }
-
-        ##check if there are any NaN-Values
-        if (length(which(is.nan(substitutionMatrix)))!=0) {
-            stop("The parameter substitutionMatrix is not valid. \n",
-                 "There are NaN-values in the substitutionMatrix! ")
-        }
-
-        ##check if there are any Inf-Values
-        if (length(which(is.element(substitutionMatrix, Inf)))!=0) {
-            stop("The parameter substitutionMatrix is not valid. \n",
-                 "There are Inf-values in the substitutionMatrix! ")
-        }
-
-        ##check if there are any NULL-Values:
-        ##by definition not allowed and not possible!
-        ##You can't assign NULL-values to Matrices as well as to Vectors!
-    } else {
-        stop("The parameter substitutionMatrix should be symmetric!")
-    }
-    }
+        if (any(is.na(substitutionMatrix)) || any(is.na(substitutionMatrix)) ||
+            any(is.infinite(substitutionMatrix)))
+            stop("substitutionMatrix contains invalid values!")
+     }
 
     ##############
     # gapOpening #

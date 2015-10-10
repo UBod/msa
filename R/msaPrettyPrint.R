@@ -57,24 +57,24 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
         stop("The parameter alFile has an invalid argument!")
 
     if (!is(x, "MultipleAlignment"))
-        stop("The parameter x has an invalid argument! \n", 
+        stop("The parameter x has an invalid argument! \n",
              "x must be a multiple alignment object!")
-    
+
 
     if (output != "asis")
     {
         if (!is.numeric(paperWidth) || length(paperWidth) != 1 ||
             paperWidth <= 0)
-            stop("The parameter paperWidth must be ", 
+            stop("The parameter paperWidth must be ",
                  "single positive number (unit: inches)!")
 
         if (!is.numeric(paperHeight) || length(paperHeight) != 1 ||
             paperHeight <= 0)
-            stop("The parameter paperHeight must be ", 
+            stop("The parameter paperHeight must be ",
                  "single positive number (unit: inches)!")
 
         if (!is.numeric(margins) || length(margins) != 2)
-            stop("The parameter margins must be ", 
+            stop("The parameter margins must be ",
                  "two positive numbers (unit: inches)!")
     }
 
@@ -85,14 +85,14 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
             if (max(subset) < .Machine$integer.max)
                 subset <- as.integer(subset)
             else
-               stop("One or more values for parameter subset ", 
+               stop("One or more values for parameter subset ",
                     "are larger than integer!")
         }
         else if (!is.integer(subset))
             stop("The parameter subset has an invalid argument!")
 
         if (length(subset) < 2)
-            stop("The parameter subset is expected to be \n", 
+            stop("The parameter subset is expected to be \n",
                  " a vector with at least 2 entries!")
 
         if (!all(subset %in% 1:nrow(x)))
@@ -122,7 +122,7 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
 
     if (!is.numeric(consensusThreshold) || length(consensusThreshold) != 1 ||
         consensusThreshold < 0 || consensusThreshold > 100)
-        stop("The parameter consensusThreshold must be \n", 
+        stop("The parameter consensusThreshold must be \n",
              "a single numeric between 0 and 100 !")
 
     if (shadingMode %in% c("identical", "similar"))
@@ -151,9 +151,9 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
                                          "accessible area"))
         else
             stop("Missing shadingModeArg for functional shading mode. \n",
-                 "Valid values are: \n", 
-                 "\"charge\", \n", 
-                 "\"hydropathy\", \n", 
+                 "Valid values are: \n",
+                 "\"charge\", \n",
+                 "\"hydropathy\", \n",
                  "\"structure\", \n",
                  "\"chemical\",\n",
                  " \"rasmol\",\n",
@@ -203,7 +203,7 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
     if (output != "asis")
     {
         if (!is.character(file) || length(file) > 1)
-            stop("The argument for parameter file must be \n", 
+            stop("The argument for parameter file must be \n",
                  "a single character string!")
 
         if (substr(file, nchar(file) - 2, nchar(file)) != output)
@@ -240,6 +240,11 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
     seqNames <- rownames(x)[subset]
 
     texOutput <- paste0("\\begin{texshade}{", stratifyFilenames(alFile), "}")
+
+    if (is(x, "AAMultipleAlignment"))
+        texOutput <- c(texOutput, "\\seqtype{P}")
+    else
+        texOutput <- c(texOutput, "\\seqtype{N}")
 
     if (length(toShow) == 1)
     {

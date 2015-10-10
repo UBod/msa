@@ -27,12 +27,11 @@
   \item{maxiters}{maximum number of iterations; the default value is 0
     (no limitation). In the original ClustalOmega implementation, this
     parameter is called \code{iterations}.}
-  \item{substitutionMatrix}{substitution matrix for scoring matches and
-    mismatches; can be a real matrix, a file name, or the name of a
-    built-in substitution matrix. In the latter case, the choices
+  \item{substitutionMatrix}{name of substitution matrix for scoring matches and
+    mismatches; can be one of the choices
     \code{"BLOSUM30"}, \code{"BLOSUM40"}, \code{"BLOSUM50"},
-    \code{"BLOSUM65"}, \code{"BLOSUM80"}, and \code{"Gonnet"} are
-    supported.  This parameter is a new feature - the original ClustalOmega
+    \code{"BLOSUM65"}, \code{"BLOSUM80"}, and \code{"Gonnet"}.
+    This parameter is a new feature - the original ClustalOmega
     implementation does not allow for using a custom substitution matrix.}
   \item{type}{type of the input sequences \code{inputSeqs};
     see \code{\link{msa}}.}
@@ -59,6 +58,10 @@
   specific to ClustalOmega can be passed to ClustalOmega via additional
   arguments (see argument \code{help} above).
 
+  Since ClustalOmega only allows for using built-in amino acid
+  substitution matrices, it is hardly useful for multiple alignments
+  of nucleotide sequences.
+
   For a note on the order of output sequences and direct reading from
   FASTA files, see \code{\link{msa}}.
 }
@@ -76,6 +79,11 @@
 }
 \references{
   \url{http://www.bioinf.jku.at/software/msa}
+  
+  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  (2015). msa: an R package for multiple sequence alignment. 
+  \emph{Bioinformatics} (accepted). DOI:
+  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
 
   \url{http://www.clustal.org/omega/README}
   
