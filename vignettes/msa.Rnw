@@ -209,7 +209,7 @@ The example in Section~\ref{sec:impatient} above simply called
 the function \verb+msa()+ without any additional arguments.
 We mentioned already that, in this case, ClustalW is called with default
 parameters. We can also explicitly request ClustalW or one of the two
-other algorithms ClustalOmega or Muscle:
+other algorithms ClustalOmega or MUSCLE:
 <<OtherAlgorithms,>>=
 myClustalWAlignment <- msa(mySequences, "ClustalW")
 myClustalWAlignment
@@ -677,12 +677,6 @@ source package tarball, untar it, comment/uncomment the corresponding line in
 \verb+msa/src/ClustalOmega/msaMakefile+ (see first six lines), and
 build/install the package from source.
 
-\subsubsection*{MUSCLE with Custom Substitution Matrices}
-
-We are aware the that our MUSCLE interface is rather picky in terms of the
-format in which substitution matrices are passed to the \verb+msaMuscle()+
-function. This interface will be improved in future versions.
-
 \section{Future Extensions}\label{sec:future}
 
 We envision the following changes/extensions in future versions of the package:
@@ -721,10 +715,25 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
-\item[Version 1.0.2:] \mbox{ }  \begin{itemize}
+\item[Version 1.2.0:] \mbox{ }  \begin{itemize}
+    \item new branch for Bioconductor 3.2 release
+  \end{itemize}
+\item[Version 1.1.3:] \mbox{ }  \begin{itemize}
+    \item bug fix related to custom substitution matrices
+      in the MUSCLE interface
+    \item corrections and updates of documentation
+  \end{itemize}
+\item[Version 1.1.2:] \mbox{ }  \begin{itemize}
     \item new \verb+print()+ function for multiple alignments that also
       allows for displaying alignments in their entirety (plus additional
       customizations)
+    \item strongly improved handling of custom substitution matrices by
+      \verb+msaClustalW()+: now custom matrices can also be supplied for nucleotide
+      sequences which can also be passed via the \verb+substitutionMatrix+ argument.
+      The \verb+dnamatrix+ argument is still available for the sake of backwards
+      compatibility.
+    \item strongly improved handling of custom substitution matrices by
+      \verb+msaMuscle()+
     \item fix of improperly aligned sequence logos produced by
       \verb+msaPrettyPrint()+
     \item updated citation information

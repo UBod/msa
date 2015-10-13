@@ -50,11 +50,11 @@
     is passed as argument \code{x}.}
   \item{alFile}{name of alignment file to be created;
     \code{msaPrettyPrint} first writes the multiple alignment \code{x}
-    to an alignment (\code{.aln}) file. The name of this file can be
+    to a \code{.fasta} file. The name of this file can be
     determined with the \code{alFile} argument. If no name 
     is given, the name of the output file defaults to name of the
     object provided as argument \code{x} along with the suffix
-    \code{.aln}. Note that this might lead to
+    \code{.fasta}. Note that this might lead to
     invalid file names if not the name of an object, but an R expression
     is passed as argument \code{x}.}
   \item{askForOverwrite}{if \code{TRUE} (default), 
@@ -147,7 +147,7 @@
 	applicable) is printed to the R session.}
 }
 \details{The \code{msaPrettyPrint} function writes a multiple alignment
-  to an alignment (\code{.aln}) file and creates LaTeX code for
+  to a \code{.fasta} file and creates LaTeX code for
   pretty-printing the multiple alignment on the basis of the
   LaTeX package \pkg{texshade.sty}. If \code{output="asis"},
   \code{msaPrettyPrint} prints a LaTeX fragment consisting of the

@@ -158,7 +158,7 @@ msaMuscle <- function(inputSeqs,
         headerNames <- c("A", "C", "D", "E", "F",
                          "G", "H", "I", "K", "L",
                          "M", "N", "P", "Q", "R",
-                         "S", "T",  "V","W", "Y")
+                         "S", "T", "V", "W", "Y")
 
         if (type == "protein")
             reqNames <- headerNames
@@ -177,6 +177,9 @@ msaMuscle <- function(inputSeqs,
 
         substitutionMatrix <- substitutionMatrix[rowPerm, colPerm]
 
+        if (type == "rna")
+            reqNames <- c("A", "C", "G", "T")
+
         auxMat <- matrix(0, length(headerNames), length(headerNames))
         rownames(auxMat) <- headerNames
         colnames(auxMat) <- headerNames
@@ -189,6 +192,25 @@ msaMuscle <- function(inputSeqs,
         if (any(is.na(substitutionMatrix)) || any(is.na(substitutionMatrix)) ||
             any(is.infinite(substitutionMatrix)))
             stop("substitutionMatrix contains invalid values!")
+
+        params[["le"]] <- FALSE
+        params[["sv"]] <- FALSE
+
+        if (type == "protein")
+        {
+            params[["sp"]] <- TRUE
+            params[["spn"]] <- FALSE
+        }
+        else
+        {
+            params[["sp"]] <- FALSE
+            params[["spn"]] <- TRUE
+        }
+
+        paramsCopy[["le"]] <- NULL
+        paramsCopy[["sv"]] <- NULL
+        paramsCopy[["sp"]] <- NULL
+        paramsCopy[["spn"]] <- NULL
      }
 
     ##############
@@ -205,13 +227,13 @@ msaMuscle <- function(inputSeqs,
     if (params$le) {
         gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 2.9)
     }
-    if (params$sp) {
+    else if (params$sp) {
         gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 1439)
     }
-    if (params$sv) {
+    else if (params$sv) {
         gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 300)
     }
-    if (params$spn) {
+    else if (params$spn) {
         if (identical(type,"dna")) {
         gapOpening <- checkGapOpening2(gapOpening, substitutionMatrix, 400)
         }
@@ -222,7 +244,6 @@ msaMuscle <- function(inputSeqs,
            stop("If you use sequences of type \"protein\", \n",
                 "you can't use the parameter \"spn\"!")
         }
-
     }
 
     ##FIXME TODO: check default-Value for type=protein

@@ -695,7 +695,7 @@ checkProfileScore <- function(type, params){
         }
         ##consistency check
         ##type==RNA|DNA =>only spn==TRUE, all others FALSE possible
-        if (identical(type, "rna") | identical(type, "dna")) {
+        if (identical(type, "rna") || identical(type, "dna")) {
             if (!params[["spn"]] | params[["le"]] | params[["sp"]] |
                  params[["sv"]]){
                 stop("The used profile score is inconsistent. \n",

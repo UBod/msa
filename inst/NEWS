@@ -4,6 +4,10 @@ Change history of package msa:
 Version 1.2.0:
 - new branch for Bioconductor 3.2 release
 
+Version 1.1.3: 
+- bug fix related to custom substitution matrices in the MUSCLE interface
+- correction and updates of documentation
+
 Version 1.1.2:
 - new print() function for multiple alignments that also
   allows for displaying alignments in their entirety (plus additional

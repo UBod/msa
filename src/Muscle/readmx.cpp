@@ -7,7 +7,7 @@ const int MAX_LINE = 4096;
 const int MAX_HEADINGS = 20;
 static char Heading[MAX_HEADINGS];
 static unsigned HeadingCount = 0;
-static float Mx[20][20];
+static float Mx[32][32];
 
 static void LogMx()
 	{
@@ -148,7 +148,7 @@ PTR_SCOREMATRIX ReadMx(TextFile &File)
 				  Mx[j][i]);
 				goto ExitLoop;
 				}
-		}
+			}
 ExitLoop:;
 
 	if (g_bVerbose)
@@ -172,7 +172,7 @@ PTR_SCOREMATRIX ReadMxFromR(std::vector<std::string> colnames, float matrix[32][
 
 #if TRACE
 	{
-	Log("ReadMx\n");
+	Log("ReadMxFromR\n");
 	Log("%d headings: ", HeadingCount);
 	for (unsigned i = 0; i < HeadingCount; ++i)
 		Log("%c", Heading[i]);
@@ -210,7 +210,7 @@ PTR_SCOREMATRIX ReadMxFromR(std::vector<std::string> colnames, float matrix[32][
 				Log("Row letter = %u\n", RowLetter);
 		#endif
 
-		for (unsigned Col = 0; Col < HeadingCount - 1; ++Col) {
+		for (unsigned Col = 0; Col < HeadingCount; ++Col) {
 			char HeaderChar = Heading[Col];
 			//printf("Header char: %c\n", HeaderChar);
 			if (IsResidueChar(HeaderChar)) {

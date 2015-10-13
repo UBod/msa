@@ -24,7 +24,10 @@
     for amino acid sequences depends on the profile score settings:
     for the setting \code{le=TRUE}, the default is 2.9, for
     \code{sp=TRUE}, the default is 1,439, and for \code{sv=TRUE},
-    the default is 300.}
+    the default is 300. Note that these defaults may not be suitable
+    if custom substitution matrices are being used. In such a case,
+    a sensible choice of gap penalties that fits well to the
+    substitution matrix must be made.}
   \item{gapExtension}{gap extension penalty; the default is 0.}
   \item{maxiters}{maximum number of iterations; the default is 16.
     In the original MUSCLE implementation, it is also possible
@@ -120,5 +123,9 @@ msaMuscle(mySeqs)
 msaMuscle(mySeqs, gapOpening=12, gapExtension=3, maxiters=16,
           cluster="upgmamax", SUEFF=0.4, brenner=FALSE,
           order="input", verbose=FALSE)
+
+## call msaMuscle with a custom substitution matrix
+data(PAM120)
+msaMuscle(mySeqs, substitutionMatrix=PAM120)
 }
 \keyword{manip}
