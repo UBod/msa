@@ -699,8 +699,9 @@ We envision the following changes/extensions in future versions of the package:
 If you use this package for research that is published later, you are kindly
 asked to cite it as follows:
 \begin{quotation}
-\noindent E.~Bonatesta, C.~Horejs-Kainrath, and U.~Bodenhofer, (2015).
-msa: An R Package for Multiple Sequence Alignment.
+\noindent U.~Bodenhofer, E.~Bonatesta, C.~Horej\v{s}-Kainrath, and S.~Hochreiter (2015).
+msa: an R package for multiple sequence alignment. {\em Bioinformatics} {\bf 31}(24):3997--3999.
+DOI: \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{bioinformatics/btv494}.
 \end{quotation}
 To obtain a Bib\TeX\ entries of the reference, enter the
 following into your R session:
@@ -715,8 +716,15 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
-\item[Version 1.2.0:] \mbox{ }  \begin{itemize}
-    \item new branch for Bioconductor 3.2 release
+\item[Version 1.3.2:] \mbox{ }  \begin{itemize}
+   \item further fixes in Makefiles and Makevars files to account for changes in build system
+   \item update of citation information
+  \end{itemize}
+\item[Version 1.3.1:] \mbox{ }  \begin{itemize}
+   \item fixes in Makefiles and Makevars files to account for changes in build system
+  \end{itemize}
+\item[Version 1.3.0:] \mbox{ }  \begin{itemize}
+    \item new branch for Bioconductor 3.3 devel
   \end{itemize}
 \item[Version 1.1.3:] \mbox{ }  \begin{itemize}
     \item bug fix related to custom substitution matrices

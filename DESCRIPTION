@@ -1,8 +1,8 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.3.1
-Date: 2015-10-13
+Version: 1.3.2
+Date: 2015-12-21
 Author: Enrico Bonatesta, Christoph Horejs-Kainrath, Ulrich Bodenhofer
 Maintainer: Ulrich Bodenhofer <bodenhofer@bioinf.jku.at>
 Description: This package provides a unified R/Bioconductor interface to the
@@ -21,7 +21,7 @@ Imports: Rcpp (>= 0.11.1), BiocGenerics, IRanges (>= 1.20.0),
         S4Vectors, tools
 Suggests: Biobase, knitr
 LinkingTo: Rcpp
-SystemRequirements:
+SystemRequirements: GNU make
 VignetteBuilder: knitr
 LazyLoad: yes
 Collate: AllClasses.R AllGenerics.R params-methods.R version-methods.R
@@ -31,4 +31,3 @@ Collate: AllClasses.R AllGenerics.R params-methods.R version-methods.R
 biocViews: MultipleSequenceAlignment, Alignment, MultipleComparison,
         Sequencing
 NeedsCompilation: yes
-Packaged: 2015-10-07 16:20:45 UTC; bodenhof

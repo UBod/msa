@@ -1,7 +1,7 @@
 .PHONY: all ./libGC.a ./libMuscle.a ./libClustalW.a ./libClustalOmega.a
 
 PKG_LIBS=-Wl,--whole-archive ./libGC.a ./libMuscle.a ./libClustalW.a ./libClustalOmega.a -Wl,--no-whole-archive
-PKG_CXXFLAGS=-I"./gc-7.2/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src" `${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe -e "Rcpp:::CxxFlags()"`
+PKG_CXXFLAGS=-I"./gc-7.2/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src"
 
 all: $(SHLIB)
 $(SHLIB): ./libGC.a ./libMuscle.a ./libClustalW.a ./libClustalOmega.a

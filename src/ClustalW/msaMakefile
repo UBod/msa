@@ -7,7 +7,7 @@ all: clustalw
 clustalw:
 	./configure; \
 	cd src; \
-	export PKG_CXXFLAGS="-DHAVE_CONFIG_H -I. $(PKG_CXXFLAGS) `"${R_HOME}/bin${R_ARCH_BIN}/Rscript" -e "Rcpp:::CxxFlags()"`"; \
-	"${R_HOME}/bin${R_ARCH_BIN}/R" CMD SHLIB -o libClustalW.so $(CPPNames) && \
+	export PKG_CXXFLAGS="-DHAVE_CONFIG_H -I. $(PKG_CXXFLAGS)"; \
+	${R_HOME}/bin/R CMD SHLIB -o libClustalW.so $(CPPNames) && \
 	ar rcs libClustalW.a $(OBJNames) && \
 	cp libClustalW.a ../../
