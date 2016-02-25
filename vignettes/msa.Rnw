@@ -39,6 +39,7 @@ Linz\\Altenberger Str. 69, 4040 Linz, Austria\\
 options(width=65)
 set.seed(0)
 library(msa)
+library(seqinr)
 msaVersion <- packageDescription("msa")$Version
 msaDateRaw <- packageDescription("msa")$Date
 msaDateYear <- as.numeric(substr(msaDateRaw, 1, 4))
@@ -366,6 +367,8 @@ print(myFirstAlignment, showNames=FALSE, show="complete")
 
 \section{Processing Multiple Alignments}\label{sec:msaProc}
 
+\subsection{Methods Inherited From {\tt Biostrings}}
+
 The classes defined by the \MSA\ package for storing multiple alignment results
 have been derived from the corresponding classes defined by the
 \verb+Biostrings+ package. Therefore, all methods for processing
@@ -429,6 +432,51 @@ printSplitString(consensusString(unmasked(myMaskedAlignment)))
 @
 \noindent Actually, the \verb+print()+ method (see Section~\ref{sec:msaPrint} above)
 uses this function to compute the consensus sequence.
+
+\subsection{Interfacing to Other Packages}
+
+There are also other sequence analysis packages that use or make use of multiple
+sequence alignments. The \msa\ package does not directly interface to any of these packages
+in order to avoid dependencies and possible incompatibilities. However, \msa\ provides
+a function \verb+msaConvert()+ that allows for converting multiple sequence alignment
+objects to other types/classes. Currently, two such conversions are available, namely to
+objects of class \verb+alignment+ (as defined and used by the \verb+seqinr+ package) and
+to objects of class \verb+align+ (as defined and used by the \verb+bios2mds+ package).
+Note that the conversion is performed without loading or depending on the respective
+packages.
+
+In the following example, we perform a multiple alignment of Hemoglobin alpha
+example sequences and convert the result for later processing with the \verb+seqinr+
+package:
+<<Hemoglobin1>>=
+hemoSeq <- readAAStringSet(system.file("examples/HemoglobinAA.fasta",
+                                       package="msa"))
+hemoAln <- msa(hemoSeq)
+hemoAln
+hemoAln2 <- msaConvert(hemoAln, type="seqinr::alignment")
+@
+Now we compute a distance matrix using the \verb+dist.alignment()+ function from
+the \verb+seqinr+ package:
+<<Hemoglobin2>>=
+library(seqinr)
+
+d <- dist.alignment(hemoAln2, "identity")
+as.matrix(d)[3:4, 3:4]
+@
+Now we can construct a draft phylogenetic tree using the \verb+hclust()+ function from
+the \verb+stats+ package:
+<<HemoglobinTree,output.width='0.8\\textwidth',output.height='0.5\\textwidth'>>=
+hemoTree <- hclust(d)
+plot(hemoTree, main="Phylogenetic Tree of Hemoglobin Alpha Sequences",
+     xlab="", sub="")
+@
+
+The following example shows how to convert a multiple alignment object in an object of
+class \verb+align+ as defined by the \verb+bios2mds+ package:
+<<Hemoglobin3>>=
+hemoAln3 <- msaConvert(hemoAln, type="bios2mds::align")
+str(hemoAln3)
+@
 
 \section{Pretty-Printing Multiple Sequence Alignments}\label{sec:msaPrettyPrint}
 
@@ -716,6 +764,11 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.3.3:] \mbox{ }  \begin{itemize}
+   \item added function for converting multiple sequence alignments for
+     use with other sequence alignment packages
+   \item corresponding changes in documentation
+  \end{itemize}
 \item[Version 1.3.2:] \mbox{ }  \begin{itemize}
    \item further fixes in Makefiles and Makevars files to account for changes in build system
    \item update of citation information

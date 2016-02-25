@@ -1,6 +1,11 @@
 Change history of package msa:
 ==============================
 
+Version 1.3.3:
+- added function for converting multiple sequence alignments for
+  use with other sequence alignment packages
+- corresponding changes in documentation
+
 Version 1.3.2:
 - further fixes in Makefiles and Makevars files to account for changes
   in build system

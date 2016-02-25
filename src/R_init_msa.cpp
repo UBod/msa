@@ -1,6 +1,7 @@
 #include "RClustalOmega.h"
 #include "RClustalW.h"
 #include "RMuscle.h"
+#include "SplitCharVector2List.h"
 
 #include <R.h>
 #include <Rinternals.h>
@@ -13,6 +14,8 @@ static const R_CallMethodDef callMethods[] = {
     {"RClustalW", (DL_FUNC) &RClustalW, 9},
     /* RClustalOmega.cpp */
     {"RClustalOmega", (DL_FUNC) &RClustalOmega, 9},
+    /* convertMultipleAlignment.cpp */
+    {"SplitCharVector2List", (DL_FUNC) &SplitCharVector2List, 1},
     {NULL, NULL, 0}
 };
 
