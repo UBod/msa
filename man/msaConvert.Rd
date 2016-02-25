@@ -23,13 +23,13 @@
     \code{"align"} as defined in the \pkg{bios2mds} package.}
   }
 \details{
-  The function returns converts \code{x} to the class of object
+  The function converts \code{x} to the class of object
   as specified by the \code{type} argument. Note that this conversion
   happens independently of the packages \pkg{seqinr} and
   \pkg{bios2mds}. More specifically, lists with the respective
   class attributes are returned without actually loading any of
   the two packages. They need not even be installed. This approach
-  has been chosed to avoid abundant dependencies and possible
+  has been chosen to avoid abundant dependencies and possible
   incompatibilities. That is also why the standard S3/S4
   mechanism of \code{as}/\code{as.class} functions is not
   used.
