@@ -1,8 +1,8 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.3.3
-Date: 2016-02-25
+Version: 1.3.4
+Date: 2016-04-06
 Author: Enrico Bonatesta, Christoph Horejs-Kainrath, Ulrich Bodenhofer
 Maintainer: Ulrich Bodenhofer <bodenhofer@bioinf.jku.at>
 Description: This package provides a unified R/Bioconductor interface to the
@@ -27,7 +27,7 @@ LazyLoad: yes
 Collate: AllClasses.R AllGenerics.R params-methods.R version-methods.R
         helperFunctions.R inputChecks.R convertRows.R msaPrettyPrint.R
         print-methods.R show-methods.R msa.R msaMuscle.R msaClustalW.R
-        msaClustalOmega.R msaConvert.R
+        msaClustalOmega.R msaConvert.R msaCheckNames.R
 biocViews: MultipleSequenceAlignment, Alignment, MultipleComparison,
         Sequencing
 NeedsCompilation: yes

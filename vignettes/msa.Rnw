@@ -666,10 +666,28 @@ the \shade\ package must be loaded in the preamble:
 \end{verbatim}
 \end{quote}
 
+\subsection{Sequence Names}
+
+The \verb+Biostrings+ package does not impose any restrictions on the names of
+sequences. Consequently, \MSA\ also allows all possible ASCII strings as
+sequence (row) names in multiple alignments. As soon as \verb+msaPrettyPrint()+
+is used for pretty-printing multiple sequence alignments, however, the sequence
+names are interpreted as plain \LaTeX\ source code. Consequently, \LaTeX\ errors
+may arise because of characters or words in the sequence names that \LaTeX\
+does not or cannot interpret as plain text correctly. This particularly includes
+appearances of special characters and backslash characters in the sequence names.
+
+The \MSA\ package offers a function \verb+msaCheckNames()+ which allows for finding
+and replacing potentially problematic characters in the sequence names of
+multiple alignment objects (see \verb+?msaCheckNames+). However, the best solution
+is to check sequence names carefully and to avoid problematic sequence names from the beginning.
+Note, moreover, that too long sequence names will lead to less appealing outputs,
+so users are generally advised to consider sequence names carefully.
+
 \subsection{Further Caveats}
 
 \begin{itemize}
-  \item Note that \verb+texi2dvi()+ and \verb+ttexi2pdf()+ always
+  \item Note that \verb+texi2dvi()+ and \verb+texi2pdf()+ always
     save the resulting DVI/PDF files to the current working directory,
     even if the \LaTeX\ source file is in a different directory.
     That is also the reason why the temporary file is created in the
@@ -764,6 +782,13 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.3.4:] \mbox{ }  \begin{itemize}
+   \item added function for checking and fixing sequence names for
+     possibly problematic characters that could lead to \LaTeX\ errors
+     when using \verb+msaPrettyPrint()+
+   \item corresponding changes in documentation
+   \item minor namespace fix
+  \end{itemize}
 \item[Version 1.3.3:] \mbox{ }  \begin{itemize}
    \item added function for converting multiple sequence alignments for
      use with other sequence alignment packages

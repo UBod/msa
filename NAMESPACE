@@ -7,9 +7,10 @@ import(Biostrings)
 import(S4Vectors)
 import(IRanges)
 importFrom(tools, texi2dvi)
+importFrom(utils, capture.output)
 
 export(msa, msaMuscle, msaClustalW, msaClustalOmega, msaPrettyPrint,
-       msaConvert)
+       msaConvert, msaCheckNames)
 
 exportClasses(MsaDNAMultipleAlignment, MsaRNAMultipleAlignment,
               MsaAAMultipleAlignment, MsaMetaData)
