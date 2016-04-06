@@ -11,7 +11,7 @@
 \usepackage[OT1]{fontenc}
 
 \title{{\Huge msa}\\[5mm] An R Package for Multiple Sequence Alignment}
-\author{Enrico Bonatesta, Christoph Horejs-Kainrath, and Ulrich Bodenhofer}
+\author{Enrico Bonatesta, Christoph Horej\v{s}-Kainrath, and Ulrich Bodenhofer}
 \affiliation{Institute of Bioinformatics, Johannes Kepler University
 Linz\\Altenberger Str. 69, 4040 Linz, Austria\\
 \email{msa@bioinf.jku.at}}
