@@ -782,6 +782,9 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.3.5:] \mbox{ }  \begin{itemize}
+   \item adaptation of displaying help text by \verb+msa()+ function
+  \end{itemize}
 \item[Version 1.3.4:] \mbox{ }  \begin{itemize}
    \item added function for checking and fixing sequence names for
      possibly problematic characters that could lead to \LaTeX\ errors

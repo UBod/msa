@@ -232,9 +232,13 @@ stratifyFilenames <- function(x)
 
 printHelp <- function(method)
 {
-    files <- system.file(c("extdata/msaCommonHelp.txt",
-                           paste0("extdata/msa", method, "Help.txt")),
-                         package="msa")
+    file <- system.file("extdata/msaCommonHelp.txt", package="msa")
+    cat(readLines(file), sep="\n")
 
-    file.show(files)
+    cat ("Press [enter] to continue")
+    line <- readline()
+
+    file <- system.file(paste0("extdata/msa", method, "Help.txt"),
+                        package="msa")
+    file.show(file)
 }

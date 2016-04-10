@@ -11,6 +11,12 @@ msa <- function(inputSeqs,
                 help=FALSE,
                 ...)
 {
+    if (help && identical(method, c("ClustalW", "ClustalOmega", "Muscle")))
+    {
+        file <- system.file("extdata/msaHelpPrefix.txt", package="msa")
+        cat(readLines(file), sep="\n")
+    }
+
     method <- match.arg(method)
 
     msaFun <- match.fun(paste0("msa", method))
@@ -30,5 +36,8 @@ msa <- function(inputSeqs,
     if (is(out, "MsaMetaData"))
         out@call <- deparse(sys.call())
 
-    out
+    if (is.null(out))
+        invisible(out)
+    else
+        out
 }

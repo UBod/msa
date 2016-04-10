@@ -1,0 +1,12 @@
+This is the help text of the default method ClustalW. To view help
+information for any of the other methods, change the 'method' argument
+
+    msa(method="ClustalOmega", help=TRUE)
+    msa(method="Muscle", help=TRUE)
+
+or directly call the respective method with 'help=TRUE':
+
+    msaClustalOmega(help=TRUE)
+    msaMuscle(help=TRUE)
+
+

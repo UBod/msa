@@ -7,4 +7,3 @@ Furthermore, until now, not all functionalities are realized. A more
 sophisticated implementation (and help) will be available in the subsequent 
 version.
 
-
