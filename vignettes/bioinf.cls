@@ -143,6 +143,7 @@ Institute of Bioinformatics\\
 Johannes Kepler University Linz\\
 A-4040 Linz, Austria
 \end{tabular}}}
+\put(9.5,0.4){\makebox(0,0)[cb]{\includegraphics[height=0.8cm]{JKU_EN_noName}}}
 \put(19,0){\makebox(0,0)[rb]{\fontfamily{phv}\normalsize\begin{tabular}[b]{r}
 Tel. +43 732 2468 4520\\
 Fax +43 732 2468 4539\\

@@ -1,6 +1,11 @@
 Change history of package msa:
 ==============================
 
+Version 1.3.6:
+- msaPrettyPrint() now also accepts dashes in file names
+- added section about pretty-printing wide alignments to package
+  vignette
+
 Version 1.3.5:
 - adaptation of displaying help text by msa() function 
 

@@ -684,6 +684,41 @@ is to check sequence names carefully and to avoid problematic sequence names fro
 Note, moreover, that too long sequence names will lead to less appealing outputs,
 so users are generally advised to consider sequence names carefully.
 
+\subsection{Pretty-Printing Wide Alignments}
+
+If the alignment to be printed with \verb+msaPrettyPrint()+ is wide
+(thousands of columns or wider), \LaTeX\ may terminate prematurely because of
+exceeded \TeX\ capacity. Unfortunately, this problem remains opaque to the
+user, since \verb+texi2dvi()+ and \verb+texi2pdf()+ do not convey much details
+about \LaTeX\ problems when typesetting a document. We recommend the following
+if a user encounters problems with running \verb+msaPrettyPrint()+'s output
+with \verb+texi2dvi()+ and \verb+texi2pdf()+:
+\begin{enumerate}
+\item Run \verb+pdflatex+ on the generated \verb+.tex+ file to see
+  whether it is actually a problem with \TeX\ capacity.
+\item If so, split the alignment into multiple chunks and run
+  \verb+msaPrettyPrint()+ on each chunk separately.
+\end{enumerate}
+
+The following example
+demonstrates this approach for a multiple aligment object `\verb+aln+':
+<<SplitAlignmentIntoJunks,eval=FALSE>>=
+chunkSize <- 300 ## how much fits on one page depends on the length of
+                 ## names and the number of sequences;
+                 ## change to what suits your needs
+
+for (start in seq(1, ncol(aln), by=chunkSize))
+{
+    end <- min(start + chunkSize - 1, ncol(aln))
+    alnPart <- DNAMultipleAlignment(subseq(unmasked(aln), start, end))
+
+    msaPrettyPrint(x=alnPart, output="pdf", subset=NULL,
+                   file=paste0("aln_", start, "-", end, ".pdf"))
+}
+@
+\noindent This creates multiple PDF files all of which show one part of the alignment.
+Please note, however, that the numbering of columns is restarted for each chunk.
+
 \subsection{Further Caveats}
 
 \begin{itemize}
@@ -782,6 +817,10 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.3.6:] \mbox{ }  \begin{itemize}
+   \item \verb+msaPrettyPrint()+ now also accepts dashes in file names
+   \item added section about pretty-printing wide alignments to package vignette
+  \end{itemize}
 \item[Version 1.3.5:] \mbox{ }  \begin{itemize}
    \item adaptation of displaying help text by \verb+msa()+ function
   \end{itemize}
