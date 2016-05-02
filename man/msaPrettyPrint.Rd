@@ -106,8 +106,9 @@
      \code{"HotCold"}, \code{"BlueRed"}, \code{"RedBlue"}, \code{"GreenRed"},
      \code{"RedGreen"}, and \code{"Gray"} (see documentation of
      \pkg{texshade.sty} for details).}
-   \item{consensusThreshold}{a single numeric between 0 and 100
-     (see documentation of \pkg{texshade.sty} for details)}
+   \item{consensusThreshold}{one or two numbers between 0 and 100, where
+     the second one is optional and must be larger than the
+     first one (see documentation of \pkg{texshade.sty} for details)}
    \item{showLogo}{where to show a sequence logo; 
      possible values are \code{"top"}, \code{"bottom"}, or 
      \code{"none"} (the latter option suppresses printing of the
@@ -175,6 +176,11 @@
   and spaces (!) are allowed. If a file name would be invalid,
   \code{msaPrettyPrint} makes a default choice.
 
+  Moreover, if sequence names are to be printed, there might be names
+  that are not LaTeX-compliant and lead to LaTeX errors. In order
+  to check that in advance, the function \code{\link{msaCheckNames}}
+  is available.
+
   Note that \code{\link{texi2dvi}} and \code{\link{texi2pdf}} always
   save the resulting DVI/PDF files to the current working directory,
   even if the LaTeX source file is in a different directory.
@@ -201,6 +207,8 @@
   sequence alignments using LaTeX2e
   \emph{Bioinformatics} \bold{16}(2):135-139. DOI:
   \href{http://dx.doi.org/10.1093/bioinformatics/16.2.135}{10.1093/bioinformatics/16.2.135}.
+}
+\seealso{\code{\link{msaCheckNames}}
 }
 \examples{
 ## read sequences

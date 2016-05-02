@@ -119,10 +119,15 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
     showNames <- match.arg(showNames)
     showNumbering <- match.arg(showNumbering)
 
-    if (!is.numeric(consensusThreshold) || length(consensusThreshold) != 1 ||
-        consensusThreshold < 0 || consensusThreshold > 100)
+    if (!is.numeric(consensusThreshold) || length(consensusThreshold) < 1 ||
+        length(consensusThreshold) > 2 ||
+        any(consensusThreshold < 0) || any(consensusThreshold > 100))
         stop("The parameter consensusThreshold must be \n",
-             "a single numeric between 0 and 100 !")
+             "one or two numbers between 0 and 100 !")
+    else if (length(consensusThreshold) == 2 &&
+             consensusThreshold[1] >= consensusThreshold[2])
+        stop("The second percentage in consensusThreshold must be \n",
+             "at least as large as the first one!")
 
     if (shadingMode %in% c("identical", "similar"))
     {
@@ -236,8 +241,6 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
     if (verbose)
         message("Multiple alignment written to temporary file ", alFile)
 
-    seqNames <- rownames(x)[subset]
-
     texOutput <- paste0("\\begin{texshade}{", stratifyFilenames(alFile), "}")
 
     if (is(x, "AAMultipleAlignment"))
@@ -275,12 +278,27 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
                                      shadingModeArg, "]{",
                                      shadingMode, "}", sep=""))
 
+        if (length(consensusThreshold) == 2)
+            texOutput <- c(texOutput, paste("\\threshold[",
+                                            consensusThreshold[2], "]{",
+                                            consensusThreshold[1], "}",
+                                            sep=""))
+        else
+            texOutput <- c(texOutput, paste("\\threshold{",
+                                            consensusThreshold[1], "}",
+                                            sep=""))
+
         if (showConsensus != "none")
+        {
             texOutput <- c(texOutput,
                            paste("\\showconsensus[", consensusColors,
                                  "]{", showConsensus, "}", sep=""))
+        }
         else
             texOutput <- c(texOutput, "\\hideconsensus")
+
+        texOutput <- c(texOutput, paste("\\shadingcolors{",
+                                        shadingColors, "}", sep=""))
 
         if (showLogo != "none")
             texOutput <- c(texOutput,
@@ -295,11 +313,16 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
                                  sep=""))
 
         if (showNames != "none")
+        {
+            seqNames <- rownames(x)[subset]
+            pattern <- "[^a-zA-Z0-9,;:.?!/\\-\\(\\)\\'\" ]"
+            seqNames <- gsub(pattern, " ", seqNames, perl=TRUE)
+
             texOutput <- c(texOutput,
                            paste("\\shownames{", showNames, "}", sep=""),
                            paste("\\nameseq{", 1:length(subset), "}{",
-                                 gsub('[^A-Za-z0-9]', ' ',
-                                      rownames(x)[subset]), "}", sep=""))
+                                 seqNames, "}", sep=""))
+        }
         else
             texOutput <- c(texOutput, "\\hidenames")
 

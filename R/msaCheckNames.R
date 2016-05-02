@@ -5,7 +5,7 @@ msaCheckNames <- function(x, replacement=" ", verbose=TRUE)
 
     out <- x
 
-    pattern <- "[^a-zA-Z0-9,;:.?!\\-\\(\\)\\'\" ]"
+    pattern <- "[^a-zA-Z0-9,;:.?!/\\-\\(\\)\\'\" ]"
 
     if (length(grep(pattern, rownames(x), perl=TRUE)) > 0)
     {
