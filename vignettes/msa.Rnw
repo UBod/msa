@@ -436,14 +436,16 @@ uses this function to compute the consensus sequence.
 \subsection{Interfacing to Other Packages}
 
 There are also other sequence analysis packages that use or make use of multiple
-sequence alignments. The \msa\ package does not directly interface to any of these packages
+sequence alignments. The \msa\ package does not directly interface to these packages
 in order to avoid dependencies and possible incompatibilities. However, \msa\ provides
 a function \verb+msaConvert()+ that allows for converting multiple sequence alignment
-objects to other types/classes. Currently, two such conversions are available, namely to
-objects of class \verb+alignment+ (as defined and used by the \verb+seqinr+ package) and
-to objects of class \verb+align+ (as defined and used by the \verb+bios2mds+ package).
-Note that the conversion is performed without loading or depending on the respective
-packages.
+objects to other types/classes. Currently, five such conversions are available, namely to
+the classes \verb+alignment+ (\verb+seqinr+ package \cite{CharifLobry2007}),
+\verb+align+ (\verb+bios2mds+ package \cite{PeleBecuAbdiChabbert2012}),
+\verb+AAbin+/\verb+DNAbin+ (\verb+ape+ package \cite{ParadisClaudeStrimmer2004}),
+and \verb+phyDat+ (\verb+phangorn+ package \cite{Schliep2011}). Except for the
+conversion to the class \verb+phyDat+, these conversion are performed without loading
+or depending on the respective packages.
 
 In the following example, we perform a multiple alignment of Hemoglobin alpha
 example sequences and convert the result for later processing with the \verb+seqinr+
@@ -461,14 +463,15 @@ the \verb+seqinr+ package:
 library(seqinr)
 
 d <- dist.alignment(hemoAln2, "identity")
-as.matrix(d)[3:4, 3:4]
+as.matrix(d)[2:5, "HBA1_Homo_sapiens", drop=FALSE]
 @
-Now we can construct a draft phylogenetic tree using the \verb+hclust()+ function from
-the \verb+stats+ package:
-<<HemoglobinTree,output.width='0.8\\textwidth',output.height='0.5\\textwidth'>>=
-hemoTree <- hclust(d)
-plot(hemoTree, main="Phylogenetic Tree of Hemoglobin Alpha Sequences",
-     xlab="", sub="")
+Now we can construct a phylogenetic tree with the neighbor joining algorithm using the
+\verb+nj()+ function from the \verb+ape+ package:
+<<HemoglobinTree,output.width='0.8\\textwidth',output.height='0.5\\textwidth',message=FALSE,results='hide'>>=
+library(ape)
+
+hemoTree <- nj(d)
+plot(hemoTree, main="Phylogenetic Tree of Hemoglobin Alpha Sequences")
 @
 
 The following example shows how to convert a multiple alignment object in an object of
@@ -477,6 +480,20 @@ class \verb+align+ as defined by the \verb+bios2mds+ package:
 hemoAln3 <- msaConvert(hemoAln, type="bios2mds::align")
 str(hemoAln3)
 @
+
+The conversions to the standard \verb+Biostrings+ classes are straightforward using
+standard \verb+as()+ methods and not provided by the \verb+msaConvert()+ function.
+The following example converts a multiple alignment object to class \verb+BStringSet+
+(e.g.\ the \verb+msaplot()+ function from the \verb+ggtree+ package
+\cite{YuSmithZhuGuanLam2016} accepts \verb+BStringSet+ objects):
+<<Hemoglobin4>>=
+hemoAln4 <- as(hemoAln, "BStringSet")
+hemoAln4
+@
+
+\notebox{The \texttt{msaConvert()} function has been introduced in version 1.3.3 of the
+  \MSA\ package. So, to have this function available, at least Bioconductor 3.3
+  is required, which requires at least R 3.3.0.}
 
 \section{Pretty-Printing Multiple Sequence Alignments}\label{sec:msaPrettyPrint}
 
@@ -817,6 +834,13 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.5.3:] \mbox{ }  \begin{itemize}
+   \item additional conversions implemented for \verb+msaConvert()+ function
+   \item corresponding changes in documentation
+  \end{itemize}
+\item[Versions 1.5.1 and 1.5.2:] version number bumps for technical reasons
+  related to Bioconductor build servers
+\item[Version 1.5.0:] new branch for Bioconductor 3.4 devel
 \item[Version 1.4.0:] release as part of Bioconductor 3.3
 \item[Version 1.3.7:] \mbox{ }  \begin{itemize}
    \item fixes in \verb+msaPrettyPrint()+ function
@@ -847,7 +871,7 @@ bibliography below).
 \item[Version 1.3.1:] \mbox{ }  \begin{itemize}
    \item fixes in Makefiles and Makevars files to account for changes in build system
   \end{itemize}
-\item[Version 1.3.0:] devel branch created from version 1.2.0
+\item[Version 1.3.0:] new branch for Bioconductor 3.3 devel
 \item[Version 1.2.0:] release as part of Bioconductor 3.2
 \item[Version 1.1.3:] \mbox{ }  \begin{itemize}
     \item bug fix related to custom substitution matrices
@@ -872,84 +896,11 @@ bibliography below).
 \item[Version 1.1.1:]  \mbox{ }  \begin{itemize}
     \item fix of \verb+msa()+ function
   \end{itemize}
-\item[Version 1.1.0:] devel branch created from version 1.0.0
+\item[Version 1.1.0:] new branch for Bioconductor 3.2 devel
 \item[Version 1.0.0:] first official release as part of Bioconductor 3.1
 \end{description}
 
-%\bibliographystyle{plain}
-%\bibliography{lit}
-
-\begin{thebibliography}{10}
-
-\bibitem{Beitz2000}
-E.~Beitz.
-\newblock {\TeX shade}: shading and labeling of multiple sequence alignments
-  using {\LaTeX2e}.
-\newblock {\em Bioinformatics}, 16(2):135--139, 2000.
-
-\bibitem{Edgar2004b}
-R.~C. Edgar.
-\newblock {MUSCLE}: a multiple sequence alignment method with reduced time and
-  space complexity.
-\newblock {\em BMC Bioinformatics}, 5(5):113, 2004.
-
-\bibitem{Edgar2004a}
-R.~C. Edgar.
-\newblock {MUSCLE:} multiple sequence alignment with high accuracy and high
-  throughput.
-\newblock {\em Nucleic Acids Res.}, 32(5):1792--1797, 2004.
-
-\bibitem{Lamport1999}
-L.~Lamport.
-\newblock {\em {\LaTeX} --- A Document Preparation System. User's Guide and
-  Reference Manual}.
-\newblock Addison-Wesley Longman, Amsterdam, 1999.
-
-\bibitem{Leisch2002}
-F.~Leisch.
-\newblock Sweave: dynamic generation of statistical reports using literate data
-  analysis.
-\newblock In W.~H\"ardle and B.~R\"onz, editors, {\em Compstat 2002 ---
-  Proceedings in Computational Statistics}, pages 575--580, Heidelberg, 2002.
-  Physica-Verlag.
-
-\bibitem{Morgenstern1999}
-B.~Morgenstern.
-\newblock {DIALIGN 2}: improvement of the segment-to-segment approach to
-  multiple sequence alignment.
-\newblock {\em Bioinformatics}, 15(3):211--218, 1999.
-
-\bibitem{Nethercote2007}
-N.~Nethercote and J.~Seward.
-\newblock Valgrind: A framework for heavyweight dynamic binary instrumentation.
-\newblock In {\em Proc. of the ACM SIGPLAN 2007 Conf. on Programming Language
-  Design and Implementation}, San Diego, CA, 2007.
-
-\bibitem{Notredame2000}
-C.~Notredame, D.~G. Higgins, and J.~Heringa.
-\newblock {T-Coffee}: A novel method for fast and accurate multiple sequence
-  alignment.
-\newblock {\em J. Mol. Biol.}, 302(1):205--217, 2000.
-
-\bibitem{Sievers2011}
-F.~Sievers, A.~Wilm, D.~Dineen, T.~J. Gibson, K.~Karplus, W.~Li, R.~Lopez,
-  H.~McWilliam, M.~Remmert, J.~S\"oding, J.~D. Thompson, and D.~G. Higgins.
-\newblock Fast, scalable generation of high-quality protein multiple sequence
-  alignments using {Clustal Omega}.
-\newblock {\em Mol. Syst. Biol.}, 7:539, 2011.
-
-\bibitem{Thompson1994}
-J.~D. Thompson, D.~G. Higgins, and T.~J. Gibson.
-\newblock {CLUSTAL W}: improving the sensitivity of progressive multiple
-  sequence alignment through sequence weighting, position-specific gap
-  penalties and weight matrix choice.
-\newblock {\em Nucleic Acids Res.}, 22(22):4673--4680, 2004.
-
-\bibitem{Xie2014}
-Y.~Xie.
-\newblock {\em Dynamic Documents with R and knitr}.
-\newblock Chapman \&\ Hall/CRC, 2014.
-
-\end{thebibliography}
+\bibliographystyle{plain}
+\bibliography{lit}
 
 \end{document}

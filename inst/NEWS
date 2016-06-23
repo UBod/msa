@@ -1,6 +1,17 @@
 Change history of package msa:
 ==============================
 
+Version 1.5.3:
+- additional conversions implemented for msaConvert() function
+- corresponding changes in documentation
+
+Versions 1.5.1 / 1.5.2:
+- version number bumps for technical reasons related to Bioconductor
+  build servers
+
+Version 1.5.0:
+- new branch for Bioconductor 3.4 devel
+
 Version 1.4.0:
 - release as part of Bioconductor 3.3
 

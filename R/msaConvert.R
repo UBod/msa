@@ -1,27 +1,61 @@
 msaConvert <- function(x, type=c("seqinr::alignment",
-                                 "bios2mds::align"))
+                                 "bios2mds::align",
+                                 "ape::AAbin",
+                                 "ape::DNAbin",
+                                 "phangorn::phyDat"))
 {
     type <- match.arg(type)
 
     if (!is(x, "MultipleAlignment"))
         stop("x must be a 'MultipleAlignment' object")
 
-    x <- as.character(unmasked(x))
+    xn <- as.character(unmasked(x))
 
     if (type == "seqinr::alignment")
     {
-        out <- list(nb=length(x),
-                    nam=names(x),
-                    seq=unname(x),
+        out <- list(nb=length(xn),
+                    nam=names(xn),
+                    seq=unname(xn),
                     com=NA)
 
         class(out) <- "alignment"
     }
     else if (type == "bios2mds::align")
     {
-        out <- .Call("SplitCharVector2List", x)
-        names(out) <- names(x)
+        out <- .Call("SplitCharVector2List", xn)
+        names(out) <- names(xn)
         class(out) <- "align"
+    }
+    else if (type == "ape::AAbin")
+    {
+        if (!is(x, "AAMultipleAlignment"))
+            stop("conversion to 'ape::AAbin' only supported for ",
+                 "amino acid sequences")
+
+        out <- .Call("SplitCharVector2Matrix", xn, "X")
+        rownames(out) <- names(xn)
+        class(out) <- "AAbin"
+    }
+    else if (type == "ape::DNAbin")
+    {
+        if (!is(x, "DNAMultipleAlignment"))
+            stop("conversion to 'ape::DNAbin' only supported for ",
+                 "DNA sequences")
+
+        out <- .Call("SplitCharVector2Matrix", tolower(xn), "n")
+        rownames(out) <- names(xn)
+        class(out) <- "DNAbin"
+    }
+    else if (type == "phangorn::phyDat")
+    {
+        if (!is(x, "DNAMultipleAlignment"))
+            stop("conversion to 'phangorn::phyDat' only supported for ",
+                 "DNA sequences")
+
+        if (requireNamespace("phangorn", quietly=TRUE))
+            out <- as.phyDat(x)
+        else
+            stop("conversion to 'phyDat' requires package 'phangorn'")
     }
 
     out
