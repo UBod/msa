@@ -834,6 +834,12 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.5.4:] \mbox{ }  \begin{itemize}
+   \item bug fix in \verb+msaClustalW()+: unsupported parameter `\verb+tree+' deactivated
+   \item fixes in ClustalOmega source code to ensure GCC 6 compatibility
+   \item fix in \verb+msaConvert()+ function to improve safety of call to suggested
+  package \verb+phangorn+
+  \end{itemize}
 \item[Version 1.5.3:] \mbox{ }  \begin{itemize}
    \item additional conversions implemented for \verb+msaConvert()+ function
    \item corresponding changes in documentation

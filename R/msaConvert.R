@@ -53,7 +53,7 @@ msaConvert <- function(x, type=c("seqinr::alignment",
                  "DNA sequences")
 
         if (requireNamespace("phangorn", quietly=TRUE))
-            out <- as.phyDat(x)
+            out <- phangorn::as.phyDat(x)
         else
             stop("conversion to 'phyDat' requires package 'phangorn'")
     }

@@ -292,10 +292,10 @@ msaClustalW <- function(inputSeqs,
     # tree #
     ########
     ##calculate NJ tree
-    params[["tree"]] <- checkLogicalParams("tree", params, FALSE)
+    ## params[["tree"]] <- checkLogicalParams("tree", params, FALSE)
 
     ##delete param in copy
-    paramsCopy[["tree"]] <- NULL
+    ## paramsCopy[["tree"]] <- NULL
 
     #######
     # pim #

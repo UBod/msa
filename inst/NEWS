@@ -1,6 +1,12 @@
 Change history of package msa:
 ==============================
 
+Version 1.5.4:
+- bug fix in msaClustalW(): unsupported parameter 'tree' deactivated
+- fixes in ClustalOmega source code to ensure GCC6 compatibility
+- fix in msaConvert() function to improve safety of call to suggested
+  package 'phangorn'
+
 Version 1.5.3:
 - additional conversions implemented for msaConvert() function
 - corresponding changes in documentation
