@@ -1,6 +1,10 @@
 Change history of package msa:
 ==============================
 
+Version 1.5.5:
+- fixes in ClustalOmega source code to ensure Windows compatibility of
+  GCC6 compatibility fix
+
 Version 1.5.4:
 - bug fix in msaClustalW(): unsupported parameter 'tree' deactivated
 - fixes in ClustalOmega source code to ensure GCC6 compatibility

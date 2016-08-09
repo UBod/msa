@@ -834,6 +834,10 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.5.5:] \mbox{ }  \begin{itemize}
+   \item fixes in ClustalOmega source code to ensure Windows compatibility of
+   GCC6 compatibility fix
+   \end{itemize}
 \item[Version 1.5.4:] \mbox{ }  \begin{itemize}
    \item bug fix in \verb+msaClustalW()+: unsupported parameter `\verb+tree+' deactivated
    \item fixes in ClustalOmega source code to ensure GCC 6 compatibility

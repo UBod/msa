@@ -36,8 +36,13 @@
 #include <string.h>     // strcmp, strstr
 #include <stdio.h>    // printf
 #include <stdlib.h>   // exit
-//#include <math.h>     // sqrt, pow
+
+#ifdef WINMATHH
+#include <math.h>     // sqrt, pow
+#else
 #include <cmath>     // sqrt, pow
+#endif
+
 #include <limits.h>   // INT_MIN
 #include <float.h>    // FLT_MIN
 #include <time.h>     // clock
