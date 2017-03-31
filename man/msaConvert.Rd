@@ -9,7 +9,7 @@
     msaConvert(x,
                type=c("seqinr::alignment", "bios2mds::align",
                       "ape::AAbin", "ape::DNAbin",
-                      "phangorn::phyDat"))
+                      "phangorn::phyDat", "bio3d::fasta"))
 }
 \arguments{
   \item{x}{an object of class \code{\linkS4class{MultipleAlignment}}
@@ -20,8 +20,8 @@
   \item{type}{a character string specifying to which type of object
     \code{x} should be converted; currently, the
     values \code{"seqinr::alignment"}, \code{"bios2mds::align"},
-    \code{"ape::AAbin"}, \code{"ape::DNAbin"}, and
-    \code{"phangorn::phyDat"}.}
+    \code{"ape::AAbin"}, \code{"ape::DNAbin"},
+    \code{"phangorn::phyDat"}, and \code{"bio3d::fasta"}.}
   }
 \details{
   The function converts \code{x} to the class of object as

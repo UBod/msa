@@ -1,6 +1,25 @@
 Change history of package msa:
 ==============================
 
+Version 1.7.1:
+- additional conversions implemented for msaConvert() function
+- added a new method msaConsensusSequence() that extends the
+  functionality provided by Biostring's consensusString() method
+- added a new method msaConservationScore()
+- print() method extended such that it now also allows for
+  customization of the consensus sequence (via the new
+  msaConsensusSequence() method)
+- package now depends on Biostrings version >= 2.40.0 in order
+  to make sure that consensusMatrix() also works correctly
+  for masked alignments
+- corresponding changes in documentation and vignette
+
+Version 1.7.0:
+- new branch for Bioconductor 3.5 devel
+
+Version 1.6.0:
+- release as part of Bioconductor 3.4
+
 Version 1.5.5:
 - fixes in ClustalOmega source code to ensure Windows compatibility of
   GCC6 compatibility fix

@@ -46,7 +46,7 @@
 \section{Methods}{
   \describe{
     \item{\code{print(x, show=c("alignment", "version", "call"),
-      showNames=TRUE, showConsensus=TRUE, halfNrow=9, nameWidth=20)}:}{
+      showNames=TRUE, showConsensus=TRUE, halfNrow=9, nameWidth=20, ...)}:}{
       prints information about the object \code{x}; the \code{show}
       argument allows for determining what should be printed.
       The \code{show} must be a character vector and may contain any
@@ -95,6 +95,9 @@
       where the masked sequences/positions are shown as hash marks.
       However, the consensus sequences are computed from the
       complete, unmasked alignment and displayed as such.
+      Additional arguments are passed on to
+      \code{\link{msaConsensusSequence}} for customizing how the
+      consensus sequence is computed.
     }
     \item{\code{show(object)}:}{displays the alignment along with
       metadata; synonymous to calling \code{print} with default
@@ -138,11 +141,13 @@ show(myAlignment)
 ## print the results
 print(myAlignment, show="alignment")
 print(myAlignment, show="alignment", showConsensus=FALSE)
-print(myAlignment, show="complete")
 print(myAlignment, show=c("alignment", "version"))
 print(myAlignment, show="standardParams")
 print(myAlignment, show="algParams")
 print(myAlignment, show=c("call", "version"))
+
+## print results with custom consensus sequence
+print(myAlignment, show="complete", type="upperlower", thresh=c(50, 20))
 
 ## show the params
 params(myAlignment)

@@ -382,8 +382,8 @@ both as setter and getter functions. To set row or column masks, an
 \verb+IRanges+ object must be supplied:
 <<maskExample>>=
 myMaskedAlignment <- myFirstAlignment
-rowM <- IRanges(start=1, end=2)
-rowmask(myMaskedAlignment) <- rowM
+colM <- IRanges(start=1, end=100)
+colmask(myMaskedAlignment) <- colM
 myMaskedAlignment
 @
 
@@ -400,16 +400,26 @@ conMat <- consensusMatrix(myFirstAlignment)
 dim(conMat)
 conMat[, 101:110]
 @
-Note that \verb+consensusMatrix()+ cannot handle
-alignments with active masks. So, the masks in multiple alignment objects must
-must be removed prior to the computation of the consensus matrix:
+If called on a masked alignment, \verb+consensusMatrix()+ only uses those
+sequences/rows that are not masked. If there are masked columns,
+the matrix contains \verb+NA+'s in those columns:
 <<consensusExample2>>=
-conMat <- consensusMatrix(unmasked(myMaskedAlignment))
+conMat <- consensusMatrix(myMaskedAlignment)
+conMat[, 95:104]
 @
 
-Consensus strings can be computed from consensus matrices:
+Multiple alignments also inherit the \verb+consensusString()+ method from
+the \verb+Biostrings+ package. However, for more flexibility and consistency,
+we rather advise users to use the method \verb+msaConsensusSequence()+
+method (see below).
+
+\subsection{Consensus Sequences and Conservation Scores}
+
+With version 1.7.1 of \MSA, new methods have been provided that allow for
+the computation of consensus sequences and conservation scores.
+By default, the \verb+msaConsensusSequence()+ method is a wrapper around the
+\verb+consensusString()+ method from the \verb+Biostrings+:
 <<consensusExample3>>=
-## auxiliary function for splitting a string into displayable portions
 printSplitString <- function(x, width=getOption("width") - 1)
 {
     starts <- seq(from=1, to=nchar(x), by=width)
@@ -418,20 +428,55 @@ printSplitString <- function(x, width=getOption("width") - 1)
         cat(substr(x, starts[i], starts[i] + width - 1), "\n")
 }
 
-printSplitString(consensusString(conMat))
+printSplitString(msaConsensusSequence(myFirstAlignment))
 @
-\noindent Consensus sequences can also be computed directly without computing
-intermediate consensus matrices. However, the \verb+consensusString()+
-function cannot handle the
-masks contained in the multiple alignment objects (no matter whether
-there are active masks or not). Therefore, it is necessary to remove
-the masks beforehand:
+However, there is also a second method for computing consensus sequence that
+has been implemented in line with a consensus sequence method implemented
+in \TeXshade\ that allows for specify an upper and a lower conservation threshold
+(see example below). This method can be accessed via the argument
+\verb+type="upperlower"+. Additional customizations are available, too:
 <<consensusExample4>>=
-printSplitString(consensusString(unmasked(myFirstAlignment)))
-printSplitString(consensusString(unmasked(myMaskedAlignment)))
+printSplitString(msaConsensusSequence(myFirstAlignment, type="upperlower",
+                                      thresh=c(40, 20)))
 @
-\noindent Actually, the \verb+print()+ method (see Section~\ref{sec:msaPrint} above)
-uses this function to compute the consensus sequence.
+
+Regardless of which method is used, masks are taken into account: masked
+rows/sequences are neglected and masked columns are shown as ``\verb+#+'' in
+the consensus sequence:
+<<consensusExample5>>=
+printSplitString(msaConsensusSequence(myMaskedAlignment, type="upperlower",
+                                      thresh=c(40, 20)))
+@
+
+The main purpose of consensus sequences is to get an impression of conservation
+at individual positions/columns of a multiple alignment. The \MSA\ package also
+provides another means of analyzing conservation: the method
+\verb+msaConservationScore()+ computes sums of pairwise scores for a given
+substitution/scoring matrix. Thereby, conservation can also be analyzed in a
+more sensible way than by only taking relative frequencies of letters into
+account as \verb+msaConsensusSequence()+ does.
+<<conservationExample1>>=
+data(BLOSUM62)
+msaConservationScore(myFirstAlignment, BLOSUM62)
+@
+As the above example shows, a substitution matrix must be provided. The result
+is obviously a vector as long as the alignment has columns. The entries of the
+vector are labeled by the consensus sequence. The way the consensus sequence is
+computed can be customized:
+<<conservationExample2>>=
+msaConservationScore(myFirstAlignment, BLOSUM62, gapVsGap=0,
+                     type="upperlower", thresh=c(40, 20))
+@
+The additional argument \verb+gapVsGap+ allows for controlling how pairs of
+gap are taken into account when computing pairwise scores (see
+\verb+?msaConservationScore+ for more details).
+
+Conservation scores can also be computed from masked alignments. For masked
+columns, \verb+NA+'s are returned:
+<<conservationExample3>>=
+msaConservationScore(myMaskedAlignment, BLOSUM62, gapVsGap=0,
+                     type="upperlower", thresh=c(40, 20))
+@
 
 \subsection{Interfacing to Other Packages}
 
@@ -795,6 +840,16 @@ source package tarball, untar it, comment/uncomment the corresponding line in
 \verb+msa/src/ClustalOmega/msaMakefile+ (see first six lines), and
 build/install the package from source.
 
+\subsubsection*{Build/installation issues}
+
+Some users have reported compiler and linker errors when building \MSA\ from
+source on Linux systems. In almost all cases, these could have been tracked down
+to issues with the \R\ setup on those systems (e.g.\ a \verb+Rprofile.site+ file
+that makes changes to the \R\ environment that are not compatible with \MSA's
+Makefiles).\footnote{See, e.g., \url{https://support.bioconductor.org/p/90735/}}
+In most cases, these issues can be avoided by installing \MSA\ in a ``vanilla \R\ session'',
+i.e.\ starting \R\ with option \verb+--vanilla+ when installing \MSA.
+
 \section{Future Extensions}\label{sec:future}
 
 We envision the following changes/extensions in future versions of the package:
@@ -834,6 +889,21 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.7.1:] \mbox{ }  \begin{itemize}
+   \item additional conversions implemented for \verb+msaConvert()+ function
+   \item added a new method \verb+msaConsensusSequence()+ that extends the
+     functionality provided by \verb+Biostring+'s \verb+consensusString()+ method
+   \item added a new method \verb+msaConservationScore()+
+   \item \verb+print()+ method extended such that it now also allows for
+     customization of the consensus sequence (via the new
+     \verb+msaConsensusSequence()+ method)
+   \item package now depends on \verb+Biostrings+ version $\geq$2.40.0 in order
+     to make sure that \verb+consensusMatrix()+ also works correctly
+     for masked alignments
+   \item corresponding changes in documentation and vignette
+  \end{itemize}
+\item[Version 1.7.0:] new branch for Bioconductor 3.5 devel
+\item[Version 1.6.0:] release as part of Bioconductor 3.4
 \item[Version 1.5.5:] \mbox{ }  \begin{itemize}
    \item fixes in ClustalOmega source code to ensure Windows compatibility of
    GCC6 compatibility fix

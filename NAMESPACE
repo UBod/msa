@@ -14,5 +14,5 @@ export(msa, msaMuscle, msaClustalW, msaClustalOmega, msaPrettyPrint,
 
 exportClasses(MsaDNAMultipleAlignment, MsaRNAMultipleAlignment,
               MsaAAMultipleAlignment, MsaMetaData)
-exportMethods(params, version, show, print)
-
+exportMethods(params, version, show, print, msaConservationScore,
+              msaConsensusSequence)

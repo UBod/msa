@@ -2,7 +2,8 @@ msaConvert <- function(x, type=c("seqinr::alignment",
                                  "bios2mds::align",
                                  "ape::AAbin",
                                  "ape::DNAbin",
-                                 "phangorn::phyDat"))
+                                 "phangorn::phyDat",
+                                 "bio3d::fasta"))
 {
     type <- match.arg(type)
 
@@ -56,6 +57,14 @@ msaConvert <- function(x, type=c("seqinr::alignment",
             out <- phangorn::as.phyDat(x)
         else
             stop("conversion to 'phyDat' requires package 'phangorn'")
+    }
+    else if (type == "bio3d::fasta")
+    {
+        out <- list(id=names(xn),
+                    ali=.Call("SplitCharVector2Matrix", xn, "-"),
+                    call=x@call)
+        rownames(out$ali) <- out$id
+        class(out) <- "fasta"
     }
 
     out

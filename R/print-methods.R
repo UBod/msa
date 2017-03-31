@@ -79,7 +79,7 @@ print.MsaMultipleAlignmentChunk <- function(str, names=NULL, halfNrow=9, pos="",
 
 print.MsaMultipleAlignment <- function(x, show=c("alignment", "version", "call"),
                                        showNames=TRUE, showConsensus=TRUE,
-                                       halfNrow=9, nameWidth=20)
+                                       halfNrow=9, nameWidth=20, ...)
 {
     show <- match.arg(show,
                       choices=c("alignment", "complete", "version", "call",
@@ -154,7 +154,7 @@ print.MsaMultipleAlignment <- function(x, show=c("alignment", "version", "call")
 
             if (showConsensus)
             {
-                cons <- consensusString(consensusMatrix(unmasked(x)))
+                cons <- msaConsensusSequence(x, ...)
                 strings <- c(strings, cons)
 
                 if (length(names(strings)) > 0)
