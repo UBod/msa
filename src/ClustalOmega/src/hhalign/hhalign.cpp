@@ -37,7 +37,7 @@
 #include <stdio.h>    // printf
 #include <stdlib.h>   // exit
 
-#ifdef WINMATHH
+#ifdef MATH_H_CLIB
 #include <math.h>     // sqrt, pow
 #else
 #include <cmath>     // sqrt, pow

@@ -5,6 +5,9 @@ CONFIGURE_FLAGS=`${R_HOME}/bin${R_ARCH_BIN}/Rscript -e "if (Sys.info()['sysname'
 ## Variant 3: let the configure script determine whether OpenMP is available
 #CONFIGURE_FLAGS=
 
+## Additional flag for compatibility on Mac OS
+MAC_FLAGS=`${R_HOME}/bin${R_ARCH_BIN}/Rscript -e "if (Sys.info()['sysname'] == 'Darwin') cat('-DMATH_H_CLIB')"`
+
 CPPNames=\
 exceptions4c/e4c_lite.c \
 argtable2/argtable2.c argtable2/arg_end.c argtable2/arg_rem.c argtable2/arg_lit.c argtable2/arg_int.c \
@@ -44,7 +47,7 @@ all: clustalomega
 clustalomega:
 	./configure $(CONFIGURE_FLAGS); \
 	export PKG_LIBS="$(PKG_LIBS) $(SHLIB_OPENMP_CFLAGS)"; \
-	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) $(SHLIB_OPENMP_CXXFLAGS) -std=c++98 -fPIC -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I../../gc-7.2/include"; \
+	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) $(SHLIB_OPENMP_CXXFLAGS) $(MAC_FLAGS) -std=c++98 -fPIC -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I../../gc-7.2/include"; \
 	export PKG_CFLAGS="$(PKG_CFLAGS) $(SHLIB_OPENMP_CFLAGS) -fPIC -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I../../gc-7.2/include"; \
 	cd src; \
 	${R_HOME}/bin${R_ARCH_BIN}/R CMD SHLIB -o libClustalOmega.so $(CPPNames) && \
