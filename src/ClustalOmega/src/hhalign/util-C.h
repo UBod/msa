@@ -50,8 +50,10 @@ inline int iround(double x) {return int(floor(x+0.5));}
 inline double fmean(double x, double y, double d) { return pow( (pow(x,d)+pow(y,d))/2 ,1./d);}
 
 // log base 2
-inline float log2(float x)  {return (x<=0? (float)(-100000):1.442695041*log(x));}
-inline float log10(float x) {return (x<=0? (float)(-100000):0.434294481*log(x));}
+// inline float log2(float x)  {return (x<=0? (float)(-100000):1.442695041*log(x));}
+// inline float log10(float x) {return (x<=0? (float)(-100000):0.434294481*log(x));}
+#define log2 log2f
+#define log10 log10f
 
 
 /////////////////////////////////////////////////////////////////////////////////////

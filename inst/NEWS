@@ -1,6 +1,9 @@
 Change history of package msa:
 ==============================
 
+Version 1.7.2:
+- fix for new clang 4 compiler on Mac OS
+
 Version 1.7.1:
 - additional conversions implemented for msaConvert() function
 - added a new method msaConsensusSequence() that extends the
