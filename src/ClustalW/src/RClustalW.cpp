@@ -116,6 +116,16 @@ SEXP RClustalW(SEXP rInputSeqs,
             args.push_back(std::string(numiter));
         }
 
+        //type
+        if (!Rf_isNull(rType)) {
+            string type = as<string>(rType);
+            string autoType = "auto";
+            //clustalW don't know type == "rna"
+            if (autoType.compare(type) != 0 && type != "rna") {
+                args.push_back(" TYPE=" + type);
+            }
+        }
+
         //rSubstitutionMatrix
         bool defaultFlag = false;
         if (hasClustalWEntry(rparam, "substitutionMatrixIsDefaultFlag")) {
@@ -127,8 +137,13 @@ SEXP RClustalW(SEXP rInputSeqs,
         }
 
         if (defaultFlag) {
-            //do nothing
-            Rprintf("use default substitution matrix\n");
+            if (hasClustalWEntry(rparam, "pwdnamatrix")) {
+		string pwDnaMat = as<string>(rparam["pwdnamatrix"]);
+		Rprintf("use DNA substitution matrix: %s\n", pwDnaMat.c_str());
+	    }
+	    else {
+		Rprintf("use default substitution matrix\n");
+	    }
         } else if (stringFlag) {
             /*FIXME TODO change hardcoded rows and numbers*/
             string inputMatrixFile = as<string>(rSubstitutionMatrix);
@@ -143,16 +158,6 @@ SEXP RClustalW(SEXP rInputSeqs,
             string dummyMatrix = "-MATRIX=dummyR.matrix";
             args.push_back(dummyMatrix);
             input.substitutionMatrix = substitutionMatrix;
-        }
-
-        //type
-        if (!Rf_isNull(rType)) {
-            string type = as<string>(rType);
-            string autoType = "auto";
-            //clustalW don't know type == "rna"
-            if (autoType.compare(type) != 0 && type != "rna") {
-                args.push_back(" TYPE=" + type);
-            }
         }
 
         //verbose
@@ -465,6 +470,10 @@ SEXP RClustalW(SEXP rInputSeqs,
             string pwdnamatrix = as<string>(rparam["pwdnamatrix"]);
             args.push_back(" PWDNAMATRIX=" + pwdnamatrix);
         }
+	else if (hasClustalWEntry(rparam, "dnamatrix")) {
+            string pwdnamatrix = as<string>(rparam["dnamatrix"]);
+            args.push_back(" PWDNAMATRIX=" + pwdnamatrix);
+	}
 
         //params$pwgapext
         if (hasClustalWEntry(rparam, "pwgapext")) {

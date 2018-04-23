@@ -889,6 +889,14 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.12.0:] release as part of Bioconductor 3.7
+\item[Version 1.11.1:] \mbox{ }  \begin{itemize}
+   \item fix of code for using custom substitution matrices in ClustalW
+  \end{itemize}
+\item[Version 1.11.0:] new branch for Bioconductor 3.7 devel
+\item[Version 1.10.0:] release as part of Bioconductor 3.56
+\item[Version 1.9.0:] new branch for Bioconductor 3.6 devel
+\item[Version 1.8.0:] release as part of Bioconductor 3.5
 \item[Version 1.7.2:] \mbox{ }  \begin{itemize}
    \item fix for new \verb+clang+ 4 compiler on Mac OS
   \end{itemize}

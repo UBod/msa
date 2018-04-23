@@ -154,7 +154,7 @@ msaClustalW <- function(inputSeqs,
 
             params[["substitutionMatrixIsStringFlag"]] <- FALSE
             params[["substitutionMatrixIsDefaultFlag"]] <- TRUE
-            params[["dnamatrix"]] <- substitutionMatrix
+            params[["pwdnamatrix"]] <- substitutionMatrix
             substitutionMatrix <- "default"
         }
     } else {
@@ -334,8 +334,7 @@ msaClustalW <- function(inputSeqs,
 
     ###########
     # convert #
-    ###########
-    ##output the input sequences in a different file format.
+    ###########    ##output the input sequences in a different file format.
     params[["convert"]] <- checkLogicalParams("convert", params, FALSE)
 
     ##delete param in copy
@@ -655,7 +654,7 @@ msaClustalW <- function(inputSeqs,
     } else {
         posVal <- c("iub", "clustalw")
         params[["pwdnamatrix"]] <- checkSingleValParamsNew("pwdnamatrix",
-                                    params, posVal)
+                                                           params, posVal)
     }
 
     ##delete param in copy
@@ -729,16 +728,16 @@ msaClustalW <- function(inputSeqs,
     #############
     ##DNA weight matrix=IUB, CLUSTALW or filename
 
-    ##if filename (seperated with ".") check and use file;
+    ##if filename (separated with ".") check and use file;
     ##else check whether value is iub or clustalw;
     ##if nothing is given, use iub
     if (!is.null(params[["dnamatrix"]]) &&
             grepl("\\.", params[["dnamatrix"]], perl=TRUE)) {
         checkInFile("dnamatrix", params)
-    } else {
+    } else if (is.null(params[["pwdnamatrix"]])) {
         posVal <- c("iub", "clustalw")
-        params[["dnamatrix"]] <- checkSingleValParamsNew("dnamatrix",
-                                    params, posVal)
+        params[["pwdnamatrix"]] <- checkSingleValParamsNew("dnamatrix",
+                                                           params, posVal)
     }
 
     ##delete param in copy

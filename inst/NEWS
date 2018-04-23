@@ -1,6 +1,24 @@
 Change history of package msa:
 ==============================
 
+Version 1.12.0:
+- release as part of Bioconductor 3.7
+
+Version 1.11.1:
+- fix of code for using custom substitution matrices in ClustalW
+
+Version 1.11.0:
+- new branch for Bioconductor 3.7 devel
+
+Version 1.10.0:
+- release as part of Bioconductor 3.6
+
+Version 1.9.0:
+- new branch for Bioconductor 3.6 devel
+
+Version 1.8.0:
+- release as part of Bioconductor 3.5
+
 Version 1.7.2:
 - fix for new clang 4 compiler on Mac OS
 
