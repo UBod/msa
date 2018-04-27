@@ -5,6 +5,9 @@ Version 1.12.0:
 - release as part of Bioconductor 3.7
 
 Version 1.11.1:
+- minor fix in ClustalW
+
+Version 1.11.2:
 - fix of code for using custom substitution matrices in ClustalW
 
 Version 1.11.0:

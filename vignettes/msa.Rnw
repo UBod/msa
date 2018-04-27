@@ -890,6 +890,9 @@ bibliography below).
 
 \begin{description}
 \item[Version 1.12.0:] release as part of Bioconductor 3.7
+\item[Version 1.11.2:] \mbox{ }  \begin{itemize}
+   \item minor fix in ClustalW
+  \end{itemize}
 \item[Version 1.11.1:] \mbox{ }  \begin{itemize}
    \item fix of code for using custom substitution matrices in ClustalW
   \end{itemize}

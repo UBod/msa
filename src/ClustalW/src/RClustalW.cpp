@@ -519,7 +519,7 @@ SEXP RClustalW(SEXP rInputSeqs,
             secondvalue1<<secondvalue2;
             string secondvalue = secondvalue1.str();
             string rangeVector= " RANGE=" + firstvalue + "," + secondvalue;
-            if (!(firstvalue2 == -1 | secondvalue2 == -1)) {
+            if (!(firstvalue2 == -1 || secondvalue2 == -1)) {
                 args.push_back(std::string(rangeVector));
             }
         }
