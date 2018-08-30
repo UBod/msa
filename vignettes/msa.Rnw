@@ -111,8 +111,9 @@ available via Bioconductor. The simplest way to install the package
 is the following:
 
 <<InstallMSA,eval=FALSE>>=
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("msa")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("msa")
 @
 
 To test the installation of the \MSA\ package, enter
