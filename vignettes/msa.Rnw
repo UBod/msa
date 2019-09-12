@@ -890,6 +890,18 @@ bibliography below).
 \section{Change Log}
 
 \begin{description}
+\item[Version 1.18.0:] release as part of Bioconductor 3.10
+\item[Version 1.17.1:] \mbox{ }  \begin{itemize}
+   \item fixed regular expression to comply with PCRE2
+   \item fixed Windows makefile for gc lib
+   \item fixed Windows cleanup script
+   \item fixed\verb+ src/Makevars.win+
+  \end{itemize}
+\item[Version 1.17.0:] new branch for Bioconductor 3.10 devel
+\item[Version 1.16.0:] release as part of Bioconductor 3.9
+\item[Version 1.15.0:] new branch for Bioconductor 3.9 devel
+\item[Version 1.14.0:] release as part of Bioconductor 3.8
+\item[Version 1.13.0:] new branch for Bioconductor 3.8 devel
 \item[Version 1.12.0:] release as part of Bioconductor 3.7
 \item[Version 1.11.2:] \mbox{ }  \begin{itemize}
    \item minor fix in ClustalW

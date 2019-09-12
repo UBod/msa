@@ -12,7 +12,7 @@ clean:
 	cd src
 
 ./libGC.a:
-	make --file=msaMakefile.win --directory=gc-7.2
+	make --file=msaMakefile.win --directory=gc-7.2 AR="$(AR)"
 	@echo "----------------------------------------"
 	@echo "------------------ GC  -----------------"
 	@echo "----------------------------------------"
@@ -20,7 +20,7 @@ clean:
 	@echo "----------------------------------------"
 
 ./libMuscle.a:
-	make --file=msaMakefile.win --directory=Muscle
+	make --file=msaMakefile.win --directory=Muscle AR="$(AR)"
 	@echo "----------------------------------------"
 	@echo "---------------- MUSCLE ----------------"
 	@echo "----------------------------------------"
@@ -28,7 +28,7 @@ clean:
 	@echo "----------------------------------------"
 
 ./libClustalW.a:
-	make --file=msaMakefile.win --directory=ClustalW
+	make --file=msaMakefile.win --directory=ClustalW AR="$(AR)"
 	@echo "----------------------------------------"
 	@echo "--------------- ClustalW ---------------"
 	@echo "----------------------------------------"
@@ -36,7 +36,7 @@ clean:
 	@echo "----------------------------------------"
 
 ./libClustalOmega.a:
-	make --file=msaMakefile.win --directory=ClustalOmega
+	make --file=msaMakefile.win --directory=ClustalOmega AR="$(AR)"
 	@echo "----------------------------------------"
 	@echo "------------- ClustalOmega -------------"
 	@echo "----------------------------------------"

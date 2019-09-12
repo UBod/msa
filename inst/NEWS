@@ -1,6 +1,30 @@
 Change history of package msa:
 ==============================
 
+Version 1.18.0:
+- release as part of Bioconductor 3.10
+
+Version 1.7.1:
+- fixed regular expression to comply with PCRE2
+- fixed Windows makefile for gc lib
+- fixed Windows cleanup script
+- fixed src/Makevars.win
+
+Version 1.17.0:
+- new branch for Bioconductor 3.10 devel
+
+Version 1.16.0:
+- release as part of Bioconductor 3.9
+
+Version 1.15.0:
+- new branch for Bioconductor 3.9 devel
+
+Version 1.14.0:
+- release as part of Bioconductor 3.8
+
+Version 1.13.0:
+- new branch for Bioconductor 3.8 devel
+
 Version 1.12.0:
 - release as part of Bioconductor 3.7
 

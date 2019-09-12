@@ -88,5 +88,8 @@ rm -rf src/ClustalOmega/src/argtable2/*.la
 rm -rf src/ClustalOmega/src/argtable2/*.o
 rm -rf src/ClustalOmega/src/argtable2/*.lo
 rm -rf src/ClustalOmega/src/argtable2/Makefile
+rm -rf src/ClustalOmega/src/exceptions4c/*.la
+rm -rf src/ClustalOmega/src/exceptions4c/*.o
+rm -rf src/ClustalOmega/src/exceptions4c/*.lo
 rm -rf src/ClustalOmega/src/*.dll
 rm -rf src/ClustalOmega/src/*.a

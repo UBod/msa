@@ -215,7 +215,7 @@ msaPrettyPrint <- function(x, y, output=c("pdf", "tex", "dvi", "asis"),
 
         jobname <- substr(file, 1, nchar(file) - 4)
 
-        if (length(grep("[^\\w-/\\\\:.]", jobname, perl=TRUE)) > 0)
+        if (length(grep("[^\\w\\-/\\\\:.]", jobname, perl=TRUE)) > 0)
         {
             warning("Cannot use file name '", file,
                     "' because it contains invalid characters => \n",
