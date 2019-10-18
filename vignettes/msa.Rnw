@@ -6,12 +6,12 @@
 \hypersetup{colorlinks=false,
     pdfborder=0 0 0,
     pdftitle={msa - An R Package for Multiple Sequence Alignment},
-    pdfauthor={Enrico Bonatesta, Christoph Horejs-Kainrath, and Ulrich Bodenhofer}}
+    pdfauthor={Enrico Bonatesta, Christoph Kainrath, and Ulrich Bodenhofer}}
 
 \usepackage[OT1]{fontenc}
 
 \title{{\Huge msa}\\[5mm] An R Package for Multiple Sequence Alignment}
-\author{Enrico Bonatesta, Christoph Horej\v{s}-Kainrath, and Ulrich Bodenhofer}
+\author{Enrico Bonatesta, Christoph Kainrath, and Ulrich Bodenhofer}
 \affiliation{Institute of Bioinformatics, Johannes Kepler University
 Linz\\Altenberger Str. 69, 4040 Linz, Austria\\
 \email{msa@bioinf.jku.at}}
@@ -886,126 +886,6 @@ toBibtex(citation("msa"))
 Moreover, we insist that, any time you cite the package, you also cite
 the original paper in which the original algorithm has been introduced (see
 bibliography below).
-
-\section{Change Log}
-
-\begin{description}
-\item[Version 1.18.0:] release as part of Bioconductor 3.10
-\item[Version 1.17.1:] \mbox{ }  \begin{itemize}
-   \item fixed regular expression to comply with PCRE2
-   \item fixed Windows makefile for gc lib
-   \item fixed Windows cleanup script
-   \item fixed\verb+ src/Makevars.win+
-  \end{itemize}
-\item[Version 1.17.0:] new branch for Bioconductor 3.10 devel
-\item[Version 1.16.0:] release as part of Bioconductor 3.9
-\item[Version 1.15.0:] new branch for Bioconductor 3.9 devel
-\item[Version 1.14.0:] release as part of Bioconductor 3.8
-\item[Version 1.13.0:] new branch for Bioconductor 3.8 devel
-\item[Version 1.12.0:] release as part of Bioconductor 3.7
-\item[Version 1.11.2:] \mbox{ }  \begin{itemize}
-   \item minor fix in ClustalW
-  \end{itemize}
-\item[Version 1.11.1:] \mbox{ }  \begin{itemize}
-   \item fix of code for using custom substitution matrices in ClustalW
-  \end{itemize}
-\item[Version 1.11.0:] new branch for Bioconductor 3.7 devel
-\item[Version 1.10.0:] release as part of Bioconductor 3.56
-\item[Version 1.9.0:] new branch for Bioconductor 3.6 devel
-\item[Version 1.8.0:] release as part of Bioconductor 3.5
-\item[Version 1.7.2:] \mbox{ }  \begin{itemize}
-   \item fix for new \verb+clang+ 4 compiler on Mac OS
-  \end{itemize}
-\item[Version 1.7.1:] \mbox{ }  \begin{itemize}
-   \item additional conversions implemented for \verb+msaConvert()+ function
-   \item added a new method \verb+msaConsensusSequence()+ that extends the
-     functionality provided by \verb+Biostring+'s \verb+consensusString()+ method
-   \item added a new method \verb+msaConservationScore()+
-   \item \verb+print()+ method extended such that it now also allows for
-     customization of the consensus sequence (via the new
-     \verb+msaConsensusSequence()+ method)
-   \item package now depends on \verb+Biostrings+ version $\geq$2.40.0 in order
-     to make sure that \verb+consensusMatrix()+ also works correctly
-     for masked alignments
-   \item corresponding changes in documentation and vignette
-  \end{itemize}
-\item[Version 1.7.0:] new branch for Bioconductor 3.5 devel
-\item[Version 1.6.0:] release as part of Bioconductor 3.4
-\item[Version 1.5.5:] \mbox{ }  \begin{itemize}
-   \item fixes in ClustalOmega source code to ensure Windows compatibility of
-   GCC6 compatibility fix
-   \end{itemize}
-\item[Version 1.5.4:] \mbox{ }  \begin{itemize}
-   \item bug fix in \verb+msaClustalW()+: unsupported parameter `\verb+tree+' deactivated
-   \item fixes in ClustalOmega source code to ensure GCC 6 compatibility
-   \item fix in \verb+msaConvert()+ function to improve safety of call to suggested
-  package \verb+phangorn+
-  \end{itemize}
-\item[Version 1.5.3:] \mbox{ }  \begin{itemize}
-   \item additional conversions implemented for \verb+msaConvert()+ function
-   \item corresponding changes in documentation
-  \end{itemize}
-\item[Versions 1.5.1 and 1.5.2:] version number bumps for technical reasons
-  related to Bioconductor build servers
-\item[Version 1.5.0:] new branch for Bioconductor 3.4 devel
-\item[Version 1.4.0:] release as part of Bioconductor 3.3
-\item[Version 1.3.7:] \mbox{ }  \begin{itemize}
-   \item fixes in \verb+msaPrettyPrint()+ function
-  \end{itemize}
-\item[Version 1.3.6:] \mbox) { }  \begin{itemize}
-   \item \verb+msaPrettyPrint()+ now also accepts dashes in file names
-   \item added section about pretty-printing wide alignments to package vignette
-  \end{itemize}
-\item[Version 1.3.5:] \mbox{ }  \begin{itemize}
-   \item adaptation of displaying help text by \verb+msa()+ function
-  \end{itemize}
-\item[Version 1.3.4:] \mbox{ }  \begin{itemize}
-   \item added function for checking and fixing sequence names for
-     possibly problematic characters that could lead to \LaTeX\ errors
-     when using \verb+msaPrettyPrint()+
-   \item corresponding changes in documentation
-   \item minor namespace fix
-  \end{itemize}
-\item[Version 1.3.3:] \mbox{ }  \begin{itemize}
-   \item added function for converting multiple sequence alignments for
-     use with other sequence alignment packages
-   \item corresponding changes in documentation
-  \end{itemize}
-\item[Version 1.3.2:] \mbox{ }  \begin{itemize}
-   \item further fixes in Makefiles and Makevars files to account for changes in build system
-   \item update of citation information
-  \end{itemize}
-\item[Version 1.3.1:] \mbox{ }  \begin{itemize}
-   \item fixes in Makefiles and Makevars files to account for changes in build system
-  \end{itemize}
-\item[Version 1.3.0:] new branch for Bioconductor 3.3 devel
-\item[Version 1.2.0:] release as part of Bioconductor 3.2
-\item[Version 1.1.3:] \mbox{ }  \begin{itemize}
-    \item bug fix related to custom substitution matrices
-      in the MUSCLE interface
-    \item corrections and updates of documentation
-  \end{itemize}
-\item[Version 1.1.2:] \mbox{ }  \begin{itemize}
-    \item new \verb+print()+ function for multiple alignments that also
-      allows for displaying alignments in their entirety (plus additional
-      customizations)
-    \item strongly improved handling of custom substitution matrices by
-      \verb+msaClustalW()+: now custom matrices can also be supplied for nucleotide
-      sequences which can also be passed via the \verb+substitutionMatrix+ argument.
-      The \verb+dnamatrix+ argument is still available for the sake of backwards
-      compatibility.
-    \item strongly improved handling of custom substitution matrices by
-      \verb+msaMuscle()+
-    \item fix of improperly aligned sequence logos produced by
-      \verb+msaPrettyPrint()+
-    \item updated citation information
-  \end{itemize}
-\item[Version 1.1.1:]  \mbox{ }  \begin{itemize}
-    \item fix of \verb+msa()+ function
-  \end{itemize}
-\item[Version 1.1.0:] new branch for Bioconductor 3.2 devel
-\item[Version 1.0.0:] first official release as part of Bioconductor 3.1
-\end{description}
 
 \bibliographystyle{plain}
 \bibliography{lit}
