@@ -103,8 +103,8 @@ class SubMatrix
         // The functions below are purely for testing purposes.
         void printGetMatrixResults(int mat[NUMRES][NUMRES]); 
         void compareMatrices(int mat1[NUMRES][NUMRES], int mat2[NUMRES][NUMRES]); 
-        void printInFormat(vector<short>& temp, char* name = "tempfile.out");
-        void printVectorToFile(vector<short>& temp, char* name = "tempfile.out");
+        void printInFormat(vector<short>& temp, const char* name = "tempfile.out");
+        void printVectorToFile(vector<short>& temp, const char* name = "tempfile.out");
         Matrix* getUserMatAddress(int alignResidueType, int alignType);
         Xref* getUserXrefAddress(int alignResidueType, int alignType);
         void checkResidueAndAlignType(int alignResidueType, int alignType);

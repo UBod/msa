@@ -19,7 +19,9 @@
   \item{cluster}{The clustering method which should be used.
     Possible values are \code{"nj"} (default) and \code{"upgma"}.
     In the original ClustalW implementation, this parameter is called 
-    \code{clustering}.}
+    \code{clustering}. Please note that \code{cluster="upgma"} leads
+    to an unidentified error on Windows with R 4.0.x that even crashes
+    the entire R session.}
   \item{gapOpening}{gap opening penalty; the default value for
     nucleotide sequences is 15.0, the default value for 
     amino acid sequences is 10.0.}
@@ -111,6 +113,6 @@ msaClustalW(mySeqs)
 
 ## call msaClustalW with custom parameters
 msaClustalW(mySeqs, gapOpening=1, gapExtension=1, maxiters=16,
-            cluster="upgma", kimura=FALSE, order="input", maxdiv=23)
+            kimura=FALSE, order="input", maxdiv=23)
 }
 \keyword{manip}

@@ -1630,7 +1630,7 @@ bool SubMatrix::commentline(char* line)
  * @param temp 
  * @param name 
  */
-void SubMatrix::printInFormat(vector<short>& temp, char* name)
+void SubMatrix::printInFormat(vector<short>& temp, const char* name)
 {
     char nameOfFile[30];
     strcpy(nameOfFile, name);
@@ -1693,7 +1693,7 @@ void SubMatrix::printInFormat(vector<short>& temp, char* name)
  * @param temp 
  * @param name 
  */
-void SubMatrix::printVectorToFile(vector<short>& temp, char* name)
+void SubMatrix::printVectorToFile(vector<short>& temp, const char* name)
 {
     char nameOfFile[30];
     strcpy(nameOfFile, name);

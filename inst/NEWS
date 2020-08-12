@@ -1,6 +1,20 @@
 Change history of package msa:
 ==============================
 
+Version 1.21.1:
+- changed msaClustalW() examples to run smoothly on Windows with R 4.0.x
+- added warning to msaClustalW() help page regarding cluster="upgma" on
+  Windows
+
+Version 1.21.0:
+- new branch for Bioconductor 3.12 devel
+
+Version 1.20.0:
+- release as part of Bioconductor 3.11
+
+Version 1.19.0:
+- new branch for Bioconductor 3.11 devel
+
 Version 1.18.0:
 - release as part of Bioconductor 3.10
 
