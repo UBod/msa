@@ -15,6 +15,7 @@
  */
 
 #include "private/gc_pmark.h"
+#include "private/gc_priv.h"
 
 #include <stdio.h>
 

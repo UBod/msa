@@ -139,6 +139,12 @@
 
 #define READ read
 
+#if defined(NEED_FIND_LIMIT) \
+     || (defined(USE_PROC_FOR_LIBRARIES) && defined(THREADS))
+JMP_BUF GC_jmp_buf;
+#endif /* NEED_FIND_LIMIT || USE_PROC_FOR_LIBRARIES */
+
+
 /* Repeatedly perform a read call until the buffer is filled or */
 /* we encounter EOF.                                            */
 STATIC ssize_t GC_repeat_read(int fd, char *buf, size_t count)
