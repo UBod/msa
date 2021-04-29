@@ -1,0 +1,19 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                                                                      %%%%%
+%%%%%            Ciliate macronuclear genetic code definitions             %%%%%
+%%%%%                                                                      %%%%%
+%%%%%    Only exchanges compared to the standard code must be defined.     %%%%%
+%%%%%                                                                      %%%%%
+%%%%%      (The last codon of the list is used for backtranslations        %%%%%
+%%%%%       from protein to DNA sequences---therefore the wobbles)         %%%%%
+%%%%%                                                                      %%%%%
+%%%%%                                                                      %%%%%
+%%%%%    Activate these definitions for your alignment by the following    %%%%%
+%%%%%    command in the texshade environment:                              %%%%%
+%%%%%                                                                      %%%%%
+%%%%%                         \geneticcode{ciliate}                        %%%%%
+%%%%%                                                                      %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\codon{Q}{TAA,TAG,UAA,UAG,YAR}

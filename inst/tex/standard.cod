@@ -1,0 +1,34 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                                                                      %%%%%
+%%%%%                   Standard genetic code definitions                  %%%%%
+%%%%%                                                                      %%%%%
+%%%%%      (The last codon of each list is used for backtranslations       %%%%%
+%%%%%        from protein to DNA sequences---therefore the wobbles)        %%%%%
+%%%%%                                                                      %%%%%
+%%%%%              These definitions are default in TeXshade.              %%%%%
+%%%%%     There is no need to load them. This is an example file only.     %%%%%
+%%%%%                                                                      %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\codon{A}{GCA,GCG,GCC,GCT,GCU,GCN}
+\codon{C}{TGC,TGT,UGC,UGU,TGY}
+\codon{D}{GAC,GAT,GAU,GAY}
+\codon{E}{GAA,GAG,GAR}
+\codon{F}{TTC,TTT,UUC,UUU,TTY}
+\codon{G}{GGA,GGG,GGC,GGT,GGU,GGN}
+\codon{H}{CAC,CAT,CAY}
+\codon{I}{ATA,ATC,ATT,AUA,AUC,AUU,ATH}
+\codon{K}{AAA,AAG,AAG,AAR}
+\codon{L}{CTA,CTG,CTC,CTT,TTA,TTG,CUG,CUG,CUC,CUU,UUA,UUG,YTN}
+\codon{M}{ATG,AUG,ATG}
+\codon{N}{AAC,AAT,AAU,AAY}
+\codon{P}{CCA,CCG,CCC,CCT,CCU,CCN}
+\codon{Q}{CAA,CAG,CAR}
+\codon{R}{AGA,AGG,CGA,CGG,CGC,CGT,CGU,MGN}
+\codon{S}{TCT,TCC,TCG,TCA,AGT,AGC,UCU,UCC,UCG,UCA,AGU,WSN}
+\codon{T}{ACT,ACC,ACG,ACA,ACU,ACN}
+\codon{V}{GTA,GTG,GTC,GTT,GUA,GUG,GUC,GUU,GTN}
+\codon{W}{TGG,UGG,TGG}
+\codon{Y}{TAC,TAT,UAC,UAU,TAY}
+\codon{.}{TAA,TAG,TGA,UAA,UAG,UGA,TRR}

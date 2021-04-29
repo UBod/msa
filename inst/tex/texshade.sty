@@ -8,13 +8,13 @@
 %% 
 %% LaTeX package for typesetting nucleotide and peptide alignments
 %% 
-%% Copyright (C) 1999-2011 Eric Beitz
+%% Copyright (C) 1999-2021 Eric Beitz
 %% See the file texshade.txt
 %% 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{texshade}[2011/05/13 LaTeX TeXshade (v1.24)]
-\message{Package `texshade', Version 1.24 of 2011/12/01.}
+\ProvidesPackage{texshade}[2021/04/01 LaTeX TeXshade (v1.26)]
+\message{Package `texshade', Version 1.26 of 2021/04/01.}
 
 \PassOptionsToPackage{dvips}{color}
 \PassOptionsToPackage{dvips}{graphicx}
@@ -56,6 +56,7 @@
 \newread\structurefile  \newwrite\featurefile
 \newread\alignfile      \newread\sublogofile
 \newwrite\exp@rtfile
+\newwrite\exp@rt@chimerafile
 
 \expandafter\ifx\csname blacktriangleright\endcsname\relax
  \openin\structurefile = amssymb.sty
@@ -94,6 +95,7 @@
 \newlength\equal@height \newlength\temp@@length
 \newlength\vspace@legend
 \newlength\hspace@legend
+\newlength\bar@length
 
 \newif\ifletter       \newif\ifnumber
 \newif\ifnewres       \newif\ifall@shade
@@ -677,6 +679,16 @@
 \xdef\HydroS{-6}  \xdef\HydroT{-2}  \xdef\HydroU{N}
 \xdef\HydroV{37}  \xdef\HydroW{28}  \xdef\HydroX{N}
 \xdef\HydroY{9}   \xdef\HydroZ{N}
+
+\xdef\hardnessA{98}  \xdef\hardnessB{0}   \xdef\hardnessC{37}
+\xdef\hardnessD{100} \xdef\hardnessE{96} \xdef\hardnessF{48}
+\xdef\hardnessG{92}  \xdef\hardnessH{50} \xdef\hardnessI{98}
+\xdef\hardnessJ{86}   \xdef\hardnessK{73} \xdef\hardnessL{98}
+\xdef\hardnessM{25}  \xdef\hardnessN{86} \xdef\hardnessO{0}
+\xdef\hardnessP{91}   \xdef\hardnessQ{95} \xdef\hardnessR{69}
+\xdef\hardnessS{94}  \xdef\hardnessT{98}  \xdef\hardnessU{-34}
+\xdef\hardnessV{98}  \xdef\hardnessW{0}  \xdef\hardnessX{0}
+\xdef\hardnessY{28}   \xdef\hardnessZ{0}
 
 \xdef\consCB{0}  \xdef\consCJ{0}  \xdef\consCO{0}  \xdef\consCU{0}  \xdef\consCX{0}  \xdef\consCZ{0}
 \expandafter\xdef\csname consC?\endcsname{0}
@@ -2593,7 +2605,6 @@
             \expandafter\xdef\csname hide@@@seq\first@\endcsname{kill}
             \ifnum\first@=\cons@num \xdef\cons@num{0} \fi
             \advance\killseq@count by -1
-            \seq@percent=100 \divide\seq@percent by \killseq@count
          \fi
       \fi\fi
       \xdef\first@{\first@@ @}
@@ -2612,7 +2623,6 @@
             \expandafter\xdef\csname hide@@@seq\fourth@\endcsname{kill}
             \ifnum\fourth@=\cons@num \xdef\cons@num{0} \fi
             \advance\killseq@count by -1
-            \seq@percent=100 \divide\seq@percent by \killseq@count
          \fi
       \fi\fi
       \killseq@
@@ -2893,8 +2903,17 @@
       \funcgroup{Leu, Val, Ile}{LVI}{Green}{White}{upper}{up}
       \funcgroup{Pro}{P}{Apricot}{White}{upper}{up}
    \else
+   \xdef\second@{hardness}
+   \ifx\temp@\second@
+      \funcgroup{22-23 eV (ADEGILPQSTV) | 2$\times$ HOMO-LUMO gap}{ADEGILPQSTV}{White}{BlueRed5}{upper}{up}
+      \funcgroup{21-22 eV (KN)}{KN}{White}{BlueRed20}{upper}{up}
+      \funcgroup{20-21 eV (R)}{R}{Black}{BlueRed40}{upper}{up}
+      \funcgroup{19-20 eV (CFH)}{CFH}{Black}{BlueRed60}{upper}{up}
+      \funcgroup{18-19 eV (MY)}{MY}{White}{BlueRed80}{upper}{up}
+      \funcgroup{17-18 eV (W)}{W}{White}{BlueRed100}{upper}{up}
+   \else
    \message{<Unknown shading mode - clearing `funcgroups'>}
-   \fi\fi\fi\fi\fi\fi\fi
+   \fi\fi\fi\fi\fi\fi\fi\fi
 }
 \def\shadeallresidues{\all@fshadetrue}
 \def\get@fromstack#1;#2;#3;#4;#5@{%
@@ -3114,22 +3133,33 @@
    \expandafter\xdef\csname stack@\bottop@\seq@\endcsname{\tmpstack}
 }
 \def\getarrow@shape#1#2#3#4&{%
-   \xdef\first@@{#1}\xdef\second@@{#2}\xdef\third@@{#3}
-   \if\first@@ v
-      \if\second@@ =
-      \else \xdef\style@{\first@@ v\third@@#4} \fi
+   \xdef\first@@{#1}\xdef\second@@{#2}\xdef\third@@{#3}\xdef\fourth@@{#4}
+   \ifx\temp@@\y@
+      \if\first@@ ` \xdef\first@@{a} \else
+      \if\first@@ ' \xdef\first@@{a} \else
+      \if\first@@ , \xdef\first@@{b} \else
+      \if\first@@ S \xdef\first@@{c} \xdef\second@@{-}
+      \fi\fi\fi\fi
+      \if\third@@ ` \xdef\third@@{a} \else
+      \if\third@@ ' \xdef\third@@{a} \else
+      \if\third@@ , \xdef\third@@{b} \else
+      \if\third@@ S \xdef\third@@{c} \xdef\second@@{-}
+      \fi\fi\fi\fi
+      \xdef\style@{\first@@ -\third@@\fourth@@}
+   \fi
+   \if\first@@ S
+      \xdef\style@{\first@@ -\third@@\fourth@@}
    \else
    \if\first@@ v
       \if\second@@ =
-      \else \xdef\style@{\first@@ v\third@@#4} \fi
+      \else \xdef\style@{\first@@ v\third@@\fourth@@} \fi
+   \else
+   \if\third@@ S
+      \xdef\style@{\first@@ -\third@@\fourth@@}
    \else
    \if\third@@ v
       \if\second@@ =
-      \else \xdef\style@{\first@@ v\third@@#4} \fi
-   \else
-   \if\third@@ v
-      \if\second@@ =
-      \else \xdef\style@{\first@@ v\third@@#4} \fi
+      \else \xdef\style@{\first@@ v\third@@\fourth@@} \fi
    \fi\fi\fi\fi
 }
 \def\get@shape#1#2#3{%
@@ -5894,7 +5924,11 @@
          \fi
          \xdef\style@{cons[color]:cons[\f@color][0]}
       \else
-         \xdef\style@{#4} \expandafter\getarrow@shape\temp@
+         \xdef\style@{#4} \xdef\temp@@{n}
+         \expandafter\get@firstfill\temp@
+         \if\second@@ ^ \xdef\second@@{_} \fi
+         \if\second@@ _ \xdef\temp@{\fill@char} \xdef\temp@@{y}\fi
+         \expandafter\getarrow@shape\temp@
       \fi
       \fi
       \fi
@@ -6382,7 +6416,17 @@
       \logocolor{EQ}{RoyalPurple}
       \logocolor{R}{RedViolet}
       \logocolor{K}{Black}
-   \fi\fi\fi\fi\fi\fi\fi
+   \else
+   \xdef\second@{hardness}
+   \ifx\first@\second@
+      \clearlogocolors
+      \logocolor{ADEGILPQSTV}{BlueRed5}
+      \logocolor{KN}{BlueRed20}
+      \logocolor{R}{BlueRed40}
+      \logocolor{CFH}{BlueRed60}
+      \logocolor{MY}{BlueRed80}
+      \logocolor{W}{BlueRed100}
+   \fi\fi\fi\fi\fi\fi\fi\fi
 }
 \newcommand\findsubfamily[2][n]{%
    \xdef\first@{#1}
@@ -7793,9 +7837,8 @@
        \advance\pos@sum by 1 \fi
   \ifnum\innerloopcount<\seq@count \repeat
 
-  \multiply\pos@sum by \seq@percent
   \expandafter\xdef\csname pos\the\loopcount\endcsname{\the\pos@sum}
-  \expandafter\ifnum\csname pos\the\loopcount\endcsname<\thresh@ld
+  \expandafter\ifnum\csname pos\the\loopcount\endcsname<\thresh@ld@
   \else
     \expandafter\ifnum\csname pos\the\loopcount\endcsname>\m@x
       \xdef\m@x{\csname pos\the\loopcount\endcsname}
@@ -7843,13 +7886,12 @@
   \expandafter\ifnum\csname pos\the\loopcount\endcsname=\seq@count
     \xdef\cons@seq{\the\loopcount} \xdef\match@case{2} \loopcount=1
   \else
-   \multiply\pos@sum by \seq@percent
    \expandafter\xdef\csname pos\the\loopcount\endcsname{\the\pos@sum}
-   \expandafter\ifnum\csname pos\the\loopcount\endcsname<\thresh@ld
+   \expandafter\ifnum\csname pos\the\loopcount\endcsname<\thresh@ld@
    \else
     \expandafter\ifnum\csname pos\the\loopcount\endcsname>\m@x
       \xdef\m@x{\csname pos\the\loopcount\endcsname}
-      \expandafter\ifnum\csname pos\the\loopcount\endcsname<\all@thresh@ld
+      \expandafter\ifnum\csname pos\the\loopcount\endcsname<\all@thresh@ld@
          \xdef\cons@seq{\the\loopcount} \xdef\match@case{1}
       \else
          \xdef\cons@seq{\the\loopcount} \xdef\match@case{2}
@@ -10431,6 +10473,7 @@
              \fi
              \fi
              \expandafter\xdef\csname res@count\the\loopcount\endcsname{\the\res@count}
+             \ifnum\loopcount=\chimera@seqnum \xdef\chimera@stack{\chimera@stack \the\res@count,} \fi
              \ifnum\loopcount=\exp@rt@num \xdef\sixth@{\the\res@count}\xdef\seventh@{y}\fi
              \ifnum\loopcount=\rule@num\relax
               \expandafter\ifnum\csname res@count\rule@num\endcsname>\rule@tens
@@ -10574,6 +10617,7 @@
                            \the\innerloopcount}
          \else
           \ifnum\loopcount=\rule@num \xdef\ruler@{\ruler@ -} \fi
+          \ifnum\loopcount=\chimera@seqnum \xdef\chimera@stack{\chimera@stack &,} \fi
           \ifx\collect@valtop\yes
           \ifnum\v@lseqtop=\loopcount
              \xdef\v@ltop{\v@ltop,N}
@@ -11373,7 +11417,7 @@
          \textcolor{\legend@fg}{%
          \ifgerm@n\kern2ex\legend@size{nicht konserviert}%
          \else\ifsp@nish\kern2ex\legend@size{no conservado}%
-         \else\kern2ex\legend@size{non conserved}\fi\fi}
+         \else\kern2ex\legend@size{non-conserved}\fi\fi}
          \newline\hbox{}\noindent%
          \ifsimmode%
          \ifnames@\ifnames@right\else\hbox to \name@width{\hss}\fi\fi
@@ -11862,6 +11906,7 @@
 \def\get@tripletfill#1#2#3#4&{%
    \multiply\temp@count by -1%
    \def\second@@{#1}\def\second@@@{#2}\def\second@@@@{#3}\def\fill@char{#4&}}
+
 \def\putfeature@style#1{%
    \residues@size%
    \setbox1=\hbox{\ensuremath{\overrightarrow{\hbox{}}}}%
@@ -11967,6 +12012,7 @@
        \fontseries{\featurestyles@series}%
        \fontshape{\featurestyles@shape}%
        \selectfont%
+       \xdef\last@{bottom}%
        \ifx\bottop@\temp@\xdef\last@{0.35}\else\xdef\last@{0}\fi%
        \kern0.15\box@width%
        \loopcount=0\relax%
@@ -12137,6 +12183,7 @@
         \ifx\bottop@\temp@ \xdef\last@{0.35}\else\xdef\last@{-0.55}\fi%
         \textcolor{\f@color}{%
         \raisebox{\last@\arrow@height}{%
+         \if\first@@ b \xdef\first@@{,}\fi%
          \if\first@@ ,%
             \rule{0.1\arrow@height}{\arrow@height}\kern-0.35\arrow@height%
          \else%
@@ -12148,9 +12195,14 @@
                   \rule[\arrow@height]%
                      {0.1\arrow@height}{\arrow@height}\kern-0.35\arrow@height%
                \else%
+               \if\first@@ '%
+                  \rule[\arrow@height]%
+                     {0.1\arrow@height}{\arrow@height}\kern-0.35\arrow@height%
+               \else%
                   \if\first@@ -%
                      \rule{0pt}{0pt}\kern-0.35\arrow@height%
                   \fi%
+               \fi%
                \fi%
             \fi%
          \fi%
@@ -12212,6 +12264,7 @@
                  \xdef\last@{-0.25}\fi\fi\fi\fi%
         \textcolor{\f@color}{%
         \raisebox{\last@\arrow@height}{%
+         \if\first@@ b \xdef\first@@{,}\fi%
          \if\first@@ ,%
             \rule[-0.5\arrow@height]{0.1\arrow@height}{1.5\arrow@height}%
             \kern-0.1\arrow@height%
@@ -12220,7 +12273,8 @@
                \rule[-0.5\arrow@height]{0.1\arrow@height}{2.25\arrow@height}%
                \kern-0.1\arrow@height%
             \else%
-               \if\first@@ `\xdef\first@@{'}\fi%
+               \if\first@@ a \xdef\first@@{'}\fi%
+               \if\first@@ ` \xdef\first@@{'}\fi%
                \if\first@@ '%
                   \rule[0.4\arrow@height]%
                      {0.1\arrow@height}{1.5\arrow@height}%
@@ -12245,6 +12299,7 @@
             \rule[0.37\arrow@height]{\width@tmp}{0.1\arrow@height}%
             \kern-\width@tmp%
             \rule[0.9\arrow@height]{\width@tmp}{0.1\arrow@height}%
+            \if\first@@ b \xdef\first@@{,}\fi%
             \if\third@@ ,%
                \kern-0.05\arrow@height%
                \rule[-0.5\arrow@height]{0.1\arrow@height}{1.5\arrow@height}%
@@ -12253,10 +12308,16 @@
                   \kern-0.05\arrow@height%
                   \rule[-0.5\arrow@height]{0.1\arrow@height}{2.25\arrow@height}%
                \else%
-                  \if\third@@ `\xdef\third@@{'}\fi%
+                  \if\first@@ a \xdef\first@@{'}\fi%
+                  \if\third@@ ` \xdef\third@@{'}\fi%
                   \if\third@@ '%
                      \kern-0.05\arrow@height%
                      \rule[0.4\arrow@height]{0.1\arrow@height}{1.5\arrow@height}%
+                  \else%
+                  \if\third@@ a%
+                     \kern-0.05\arrow@height%
+                     \rule[0.4\arrow@height]{0.1\arrow@height}{1.5\arrow@height}%
+                  \fi%
                   \fi%
                \fi%
             \fi%
@@ -12268,9 +12329,25 @@
         \advance\width@tmp by -0.5\temp@@length%
         \if\first@@ o\xdef\first@@{O}\fi%
         \if\third@@ o\xdef\third@@{O}\fi%
+        \xdef\last@{bottom}%
+        \ifx\fe@turep@s\last@%
+           \vspace{-20pt}\message{(((-20pt)))}%
+        \fi%
         \textcolor{\f@color}{%
          \if\first@@ ,%
-         \rule{\temp@@length}{\arrow@height}\kern-\temp@@length%
+           \rule{\temp@@length}{\arrow@height}\kern-\temp@@length%
+         \else%
+         \if\first@@ b%
+           \xdef\last@{bottom}%
+           \ifx\fe@turep@s\last@%
+            \rule{\temp@@length}{\arrow@height}\kern-\temp@@length%
+           \else
+            \xdef\shift@feature{y}%
+            \kern-\temp@@length%
+            \rule[-\bar@length]{\temp@@length}{\bar@length}%
+            \kern-\temp@@length%
+            \rule{\temp@@length}{\arrow@height}\kern-\temp@@length%
+           \fi
          \else%
             \if\first@@ |%
                \rule{\temp@@length}{2\arrow@height}\kern-\temp@@length%
@@ -12278,6 +12355,52 @@
               \if\first@@ O%
                 \raisebox{0.06ex}{\ensuremath{\bullet}}\kern-0.55ex%
                 \rule[\width@tmp]{0.65ex}{\temp@@length}%
+              \else%
+              \if\first@@ S%
+                \xdef\last@{bottom}%
+                \ifx\fe@turep@s\last@%
+                   \advance\width@tmp by 0.5\temp@@length%
+                   \kern0.5\box@width%
+                   \kern-2\temp@@length%
+                   \rule[\width@tmp]{\temp@@length}{\arrow@height}%
+                   \advance\width@tmp by -0.5\temp@@length%
+                   \kern-\temp@@length%
+                   \rule[\width@tmp]{0.5\temp@@length}{\temp@@length}%
+                   \rule[\width@tmp]{0.5\box@width}{\temp@@length}%
+                \else%
+                   \kern0.5\box@width%
+                   \kern-2\temp@@length%
+                   \rule{\temp@@length}{\arrow@height}%
+                   \kern-\temp@@length%
+                   \rule[\width@tmp]{0.5\temp@@length}{\temp@@length}%
+                   \rule[\width@tmp]{0.5\box@width}{\temp@@length}%
+                \fi%
+              \else%
+              \if\first@@ c%
+                \xdef\last@{bottom}%
+                \ifx\fe@turep@s\last@%
+                   \advance\width@tmp by 0.5\temp@@length%
+                   \raisebox{\arrow@height}{\rule[\box@height]{0pt}{\bar@length}}%%%%%%%%%%%%%%%%%%%%%%%
+                   \kern0.5\box@width%
+                   \kern-2\temp@@length%
+                   \rule[2\arrow@height]{\temp@@length}{\bar@length}%%%%%%%%%%%%%%%%%%%%%%
+                   \kern-\temp@@length%%%%%%%%%%%%%%%%%%%%%%%%%
+                   \rule[\width@tmp]{\temp@@length}{\arrow@height}%
+                   \advance\width@tmp by -0.5\temp@@length%
+                   \kern-\temp@@length%
+                   \rule[\width@tmp]{0.5\temp@@length}{\temp@@length}%
+                   \rule[\width@tmp]{0.5\box@width}{\temp@@length}%
+                \else%
+                   \xdef\shift@feature{y}%
+                   \kern0.5\box@width%
+                   \kern-2\temp@@length%
+                   \rule[-\bar@length]{\temp@@length}{\bar@length}%
+                   \kern-\temp@@length%
+                   \rule{\temp@@length}{\arrow@height}%
+                   \kern-\temp@@length%
+                   \rule[\width@tmp]{0.5\temp@@length}{\temp@@length}%
+                   \rule[\width@tmp]{0.5\box@width}{\temp@@length}%
+                \fi%
               \else%
                \if\first@@ <%
                  \raisebox{0.06ex}{\ensuremath{\blacktriangleleft}}\kern-0.35ex%
@@ -12290,13 +12413,20 @@
                 \fi%
                \fi%
               \fi%
+              \fi%
+              \fi%
             \fi%
+         \fi%
          \fi%
          \loopcount=\second@%
          \if\first@@ <\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
          \if\third@@ >\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
          \if\first@@ O\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
          \if\third@@ O\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
+         \if\first@@ S\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
+         \if\third@@ S\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
+         \if\first@@ c\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
+         \if\third@@ c\advance\loopcount by -1\relax\ifnum\loopcount<0 \loopcount=0\fi\fi%
          \xdef\second@{\the\loopcount}%
          \rule[\width@tmp]{\second@\box@width}{\temp@@length}%
          \setbox1=\hbox{\residues@size{\fill@char}}%
@@ -12307,12 +12437,48 @@
          \if\third@@ ,%
          \kern-\temp@@length\rule{\temp@@length}{\arrow@height}%
          \else%
+         \if\third@@ b%
+           \xdef\last@{bottom}%
+           \ifx\fe@turep@s\last@%
+            \kern-\temp@@length\rule{\temp@@length}{\arrow@height}%
+           \else
+            \xdef\shift@feature{y}%
+            \kern-\temp@@length%
+            \rule[-\bar@length]{\temp@@length}{\bar@length}%
+            \kern-\temp@@length\rule{\temp@@length}{\arrow@height}%
+           \fi
+         \else%
             \if\third@@ |%
                \kern-\temp@@length\rule{\temp@@length}{2\arrow@height}%
             \else%
               \if\third@@ O%
                 \rule[\width@tmp]{0.65ex}{\temp@@length}%
                 \kern-0.55ex\raisebox{0.06ex}{\ensuremath{\bullet}}%
+              \else%
+              \if\third@@ S%
+                \rule[\width@tmp]{0.5\box@width}{\temp@@length}%
+                \rule[\width@tmp]{0.5\temp@@length}{\temp@@length}%
+                \xdef\last@{bottom}%
+                \ifx\fe@turep@s\last@%
+                  \advance\width@tmp by 0.5\temp@@length%
+                  \kern-\temp@@length\rule[\width@tmp]{\temp@@length}{\arrow@height}%
+                \else
+                  \kern-\temp@@length\rule{\temp@@length}{\arrow@height}%
+                \fi%
+              \else%
+              \if\third@@ c%
+                \xdef\shift@feature{y}%
+                \rule[\width@tmp]{0.5\box@width}{\temp@@length}%
+                \xdef\last@{bottom}%
+                \ifx\fe@turep@s\last@%
+                  \kern-\temp@@length%%%%%%%%%%%%%%%%%%%%%%%%%
+                  \rule[2\arrow@height]{\temp@@length}{\bar@length}%%%%%%%%%%%%%%%%%%%%%%
+                  \advance\width@tmp by 0.5\temp@@length%
+                  \kern-\temp@@length\rule[\width@tmp]{\temp@@length}{\arrow@height}%
+                \else
+                  \kern-\temp@@length\rule[-\bar@length]{\temp@@length}{\bar@length}%
+                  \kern-\temp@@length\rule{\temp@@length}{\arrow@height}%
+                \fi%
               \else%
                \if\third@@ >%
                 \kern-0.35ex\raisebox{0.06ex}{\ensuremath{\blacktriangleright}}%
@@ -12324,7 +12490,10 @@
                 \fi%
                \fi%
               \fi%
-            \fi
+              \fi%
+              \fi%
+            \fi%
+         \fi%
          \fi}%
        \fi
       \fi
@@ -12731,9 +12900,550 @@
    \divide\loopcount by 100 %
    \xdef\third@{\the\loopcount}%
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                         Chimera export routines                      %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\chimeraballScale#1{\xdef\chimerab@llSc@le{#1}}
+\def\chimeraballscale#1{\xdef\chimerab@llSc@le{#1}}
+\def\chimeraaxisdistance#1#2#3{\xdef\chimera@xdist@nce{#1}\xdef\chimera@ydist@nce{#2}\xdef\chimera@zdist@nce{#3}}
+\def\memelabelcutoff#1{%
+   \xdef\label@threshold@lower{#1}
+   \setlength\temp@@length{1000sp}
+   \setlength\temp@@length{\label@threshold@lower\temp@@length}
+   \loopcount=\temp@@length
+   \xdef\label@threshold@lowerIOOO{\the\loopcount}
+   \xdef\label@threshold@lowerremainingIOOO{-\the\loopcount}
+}
+\def\chimera@color@get#1#2@{%
+   \xdef\first@{#1}\xdef\third@{#2@}
+   \ifx\first@\ampers@nd
+   \else
+      \ifnum`#1>96 \make@upper\fi
+      \if\second@ O \else \expandafter\xdef\csname chimera@col@\first@\endcsname{\second@} \fi
+      \expandafter\chimera@color@get\third@
+   \fi
+}
+\def\memered#1{%
+      \xdef\third@{#1&@}
+      \xdef\second@{red}
+      \expandafter\chimera@color@get\third@
+}
+\def\memeblue#1{%
+      \xdef\third@{#1&@}
+      \xdef\second@{blue}
+      \expandafter\chimera@color@get\third@
+}
+\def\memeyellow#1{%
+      \xdef\third@{#1&@}
+      \xdef\second@{yellow}
+      \expandafter\chimera@color@get\third@
+}
+\def\memeblack#1{%
+      \xdef\third@{#1&@}
+      \xdef\second@{black}
+      \expandafter\chimera@color@get\third@
+}
+\def\memewhite#1{%
+      \xdef\third@{#1&@}
+      \xdef\second@{white}
+      \expandafter\chimera@color@get\third@
+}
+\def\memenone#1{%
+      \xdef\third@{#1&@}
+      \xdef\second@{none}
+      \expandafter\chimera@color@get\third@
+}
+\def\memeRed#1{\memered{#1}}
+\def\memeBlue#1{\memeblue{#1}}
+\def\memeYellow#1{\memeyellow{#1}}
+\def\memeBlack#1{\memeblack{#1}}
+\def\memeWhite#1{\memewhite{#1}}
+\def\memeNone#1{\memenone{#1}}
+\def\chimera@colors#1#2@{%
+   \xdef\first@{#1}\xdef\third@{#2@}
+   \ifx\first@\ampers@nd
+   \else
+      \xdef\second@{\csname chimera@col@\first@\endcsname}
+      \expandafter\xdef\csname chimera@list@\second@\endcsname{\csname chimera@list@\second@\endcsname \first@}
+      \expandafter\chimera@colors\third@
+   \fi
+}
+\def\memeStandardcolors{%
+   \xdef\chimera@col@A{white}
+   \xdef\chimera@col@B{none}
+   \xdef\chimera@col@C{yellow}
+   \xdef\chimera@col@D{red}
+   \xdef\chimera@col@E{red}
+   \xdef\chimera@col@F{black}
+   \xdef\chimera@col@G{yellow}
+   \xdef\chimera@col@H{blue}
+   \xdef\chimera@col@I{black}
+   \xdef\chimera@col@J{none}
+   \xdef\chimera@col@K{blue}
+   \xdef\chimera@col@L{black}
+   \xdef\chimera@col@M{black}
+   \xdef\chimera@col@N{yellow}
+   \xdef\chimera@col@O{none}
+   \xdef\chimera@col@P{white}
+   \xdef\chimera@col@Q{yellow}
+   \xdef\chimera@col@R{blue}
+   \xdef\chimera@col@S{yellow}
+   \xdef\chimera@col@T{yellow}
+   \xdef\chimera@col@U{none}
+   \xdef\chimera@col@V{white}
+   \xdef\chimera@col@W{black}
+   \xdef\chimera@col@X{none}
+   \xdef\chimera@col@Y{yellow}
+   \xdef\chimera@col@Z{none}
+}
+\def\echostructurefile#1{\xdef\echo@filename{, e.g. #1}}
+\def\chimerachain#1{\xdef\chimerach@in{.#1}}
+\catcode`\"=6 \catcode`\#=12 \catcode`\~=12
+\newcommand{\structurememe}[2][chimera.cmd]{%
+   \ifx\exp@rt@chimera\n@
+      \xdef\first@{"2 @} \expandafter\check@letter\first@
+      \xdef\first@{"2}   \ifletter \get@name@number \fi
+      \xdef\chimera@seqnum{\first@}
+      \xdef\exp@rt@chimera{y}
+      \xdef\first@{"1}
+      \immediate\openout\exp@rt@chimerafile = \first@
+   \fi
+}
+\def\init@chimera@file{%
+      \xdef\chimera@list@red{} \xdef\chimera@list@blue{} \xdef\chimera@list@yellow{} \xdef\chimera@list@black{} \xdef\chimera@list@white{}
+      \xdef\chimera@list@none{}
+      \xdef\first@{ABCDEFGHIJKLMNOPQRSTUVWXYZ&@}
+      \expandafter\chimera@colors\first@
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{###}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }. O ¡ o STRUCTURE MEME ¡ . O o}
+      \immediate\write\exp@rt@chimerafile{###}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }Chimera command file generated from TeXshade logo data}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }use '.cmd' or '.com' suffix}
+      \immediate\write\exp@rt@chimerafile{###}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }Reference sequence: '\csname newseqname\chimera@seqnum\endcsname'\echo@filename}
+      \immediate\write\exp@rt@chimerafile{###}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }residue colors: (set with \string\memeRed{residues}\unexpanded{ }etc.)}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }\chimera@list@red \unexpanded{ }(Red)}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }\chimera@list@blue \unexpanded{ }(Blue)}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }\chimera@list@yellow \unexpanded{ }(Yellow)}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }\chimera@list@black \unexpanded{ }(Black)}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }\chimera@list@white \unexpanded{ }(White)}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }residues in labels: (\string\memelabelcutoff{bit-value})}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }\label@threshold@lower\unexpanded{ }bit required to appear}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }> : . indicate 3, 2, and 1 bit levels}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }initialize & load structure}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{close session; background solid white;}
+      \immediate\write\exp@rt@chimerafile{echo load structure file for '\csname newseqname\chimera@seqnum\endcsname'\echo@filename}
+      \immediate\write\exp@rt@chimerafile{open #0; ~ribbon; ~surface}
+      \immediate\write\exp@rt@chimerafile{}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }to set ball scale, change factor ]0.0 - 1.0]}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }in 'setattr m ballScale <factor> #0' below,}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }or use the \string\chimeraballScale{factor}\unexpanded{ }command}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{setattr m ballScale \chimerab@llSc@le \unexpanded{ }#0}
+      \immediate\write\exp@rt@chimerafile{}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }display alpha-carbons only}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{represent bs @ca; show @ca}
+      \immediate\write\exp@rt@chimerafile{}
+      \ifshow@sublogo
+            \immediate\write\exp@rt@chimerafile{############################################################}
+            \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }duplicate structure;}
+            \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }to alter direction or Angstrom distance, set}
+            \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }'move <x, y, or z> 1 <distance> models #1' below,}
+            \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }or use the \string\chimeraaxisdistance{x}{y}{z}\unexpanded{ }command}
+            \immediate\write\exp@rt@chimerafile{############################################################}
+            \immediate\write\exp@rt@chimerafile{combine #0}
+            \ifnum\chimera@xdist@nce>0
+               \immediate\write\exp@rt@chimerafile{move x 1 \chimera@xdist@nce \unexpanded{ }models #1}
+            \fi
+            \ifnum\chimera@ydist@nce>0
+               \immediate\write\exp@rt@chimerafile{move y 1 \chimera@ydist@nce \unexpanded{ }models #1}
+            \fi
+            \ifnum\chimera@zdist@nce>0
+               \immediate\write\exp@rt@chimerafile{move z 1 \chimera@zdist@nce \unexpanded{ }models #1}
+            \fi
+            \immediate\write\exp@rt@chimerafile{}
+            \immediate\write\exp@rt@chimerafile{############################################################}
+            \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }focus view and name structure models}
+            \immediate\write\exp@rt@chimerafile{############################################################}
+            \immediate\write\exp@rt@chimerafile{wait; focus #0#1}
+            \ifx\sublogo@name@user\ampers@nd
+                \immediate\write\exp@rt@chimerafile{setattr m name subfamily #0}
+            \else
+                \immediate\write\exp@rt@chimerafile{setattr m name '\sublogo@name@user' \unexpanded{ }#0}
+            \fi
+            \xdef\first@{\sublogo@name@neg &}
+            \ifx\first@\ampers@nd
+                \immediate\write\exp@rt@chimerafile{setattr m name remaining #1}
+            \else
+                \immediate\write\exp@rt@chimerafile{setattr m name '\sublogo@name@neg' \unexpanded{ }#1}
+            \fi
+     \else
+            \immediate\write\exp@rt@chimerafile{\string ############################################################}
+            \immediate\write\exp@rt@chimerafile{\string ###\unexpanded{ }\unexpanded{ }\unexpanded{ }name structure model}
+            \immediate\write\exp@rt@chimerafile{\string ############################################################}
+            \ifx\logo@name@user\ampers@nd
+                \immediate\write\exp@rt@chimerafile{setattr m name logo #0}
+            \else
+                \immediate\write\exp@rt@chimerafile{setattr m name '\logo@name@user' \unexpanded{ }#0}
+            \fi
+      \fi
+      \immediate\write\exp@rt@chimerafile{}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }logo data}
+      \immediate\write\exp@rt@chimerafile{############################################################}
+}
+\def\make@HEX{%
+     \xdef\sixth@{\the\loopcount}%
+     \divide\loopcount by 4096\relax%
+     \ifnum\loopcount=10\relax%
+        \xdef\seventh@{A}%
+     \else%
+     \ifnum\loopcount=11\relax%
+        \xdef\seventh@{B}%
+     \else%
+     \ifnum\loopcount=12\relax%
+        \xdef\seventh@{C}%
+     \else%
+     \ifnum\loopcount=13\relax%
+        \xdef\seventh@{D}%
+     \else%
+     \ifnum\loopcount=14\relax%
+        \xdef\seventh@{E}%
+     \else%
+     \ifnum\loopcount>14\relax%
+        \xdef\seventh@{F}%
+     \else%
+        \xdef\seventh@{\the\loopcount}%
+     \fi\fi\fi\fi\fi\fi%
+     \multiply\loopcount by -4096\relax%
+     \advance\loopcount by \sixth@%
+     \xdef\sixth@{\the\loopcount}%
+     \divide\loopcount by 256\relax%
+     \ifnum\loopcount=10 \relax%
+        \xdef\eighth@{A}%
+     \else%
+     \ifnum\loopcount=11 \relax%
+        \xdef\eighth@{B}%
+     \else%
+     \ifnum\loopcount=12 \relax%
+        \xdef\eighth@{C}%
+     \else%
+     \ifnum\loopcount=13 \relax%
+        \xdef\eighth@{D}%
+     \else%
+     \ifnum\loopcount=14 \relax%
+        \xdef\eighth@{E}%
+     \else%
+     \ifnum\loopcount>14 \relax%
+        \xdef\eighth@{F}%
+     \else%
+        \xdef\eighth@{\the\loopcount}%
+     \fi\fi\fi\fi\fi\fi%
+     \xdef\seventh@{\seventh@\eighth@}%
+     \multiply\loopcount by -256\relax%
+     \advance\loopcount by \sixth@%
+     \xdef\sixth@{\the\loopcount}%
+     \divide\loopcount by 16\relax%
+     \ifnum\loopcount=10\relax%
+        \xdef\eighth@{A}%
+     \else%
+     \ifnum\loopcount=11\relax%
+        \xdef\eighth@{B}%
+     \else%
+     \ifnum\loopcount=12\relax%
+        \xdef\eighth@{C}%
+     \else%
+     \ifnum\loopcount=13\relax%
+        \xdef\eighth@{D}%
+     \else%
+     \ifnum\loopcount=14\relax%
+        \xdef\eighth@{E}%
+     \else%
+     \ifnum\loopcount>14\relax%
+        \xdef\eighth@{F}%
+     \else%
+        \xdef\eighth@{\the\loopcount}%
+     \fi\fi\fi\fi\fi\fi%
+     \xdef\seventh@{\seventh@\eighth@}%
+     \multiply\loopcount by -16\relax%
+     \advance\loopcount by \sixth@\relax%
+     \ifnum\loopcount=10\relax%
+        \xdef\eighth@{A}%
+     \else%
+     \ifnum\loopcount=11\relax%
+        \xdef\eighth@{B}%
+     \else%
+     \ifnum\loopcount=12\relax%
+        \xdef\eighth@{C}%
+     \else%
+     \ifnum\loopcount=13\relax%
+        \xdef\eighth@{D}%
+     \else%
+     \ifnum\loopcount=14\relax%
+        \xdef\eighth@{E}%
+     \else%
+     \ifnum\loopcount>14\relax%
+        \xdef\eighth@{F}%
+     \else%
+        \xdef\eighth@{\the\loopcount}%
+     \fi\fi\fi\fi\fi\fi%
+     \xdef\seventh@{\seventh@\eighth@}%
+}
+\def\write@chimera@data{%
+      \ifnum\temp@count>0 \else\temp@count=1\relax\temp@@count=0\fi%
+      \loopcount=\temp@count%
+      \xdef\fourth@{\the\loopcount @}%
+      \ifnum\loopcount>9999 \expandafter\decimal@A\fourth@ \else%
+      \ifnum\loopcount>999  \expandafter\decimal@B\fourth@ \else%
+      \ifnum\loopcount>99   \expandafter\decimal@C\fourth@ \else%
+      \ifnum\loopcount>9    \expandafter\decimal@D\fourth@ \else%
+                            \expandafter\decimal@E\fourth@%
+      \fi\fi\fi\fi%
+      \loopcount=\chimera@subfamily@col@black%
+      \multiply\loopcount by 65535\relax%
+      \divide\loopcount by \temp@count%
+      \xdef\chimera@subfamily@col@black{\the\loopcount}%
+      \loopcount=65535\relax%
+      \advance\loopcount by -\chimera@subfamily@col@black%
+      \xdef\temp@@{\the\loopcount}%
+%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%
+      \loopcount=\chimera@subfamily@col@blue\relax%
+      \ifnum\chimera@subfamily@col@yellow>\loopcount\relax%
+         \loopcount=\chimera@subfamily@col@yellow\relax%
+      \else%
+         \ifnum\chimera@subfamily@col@red>\loopcount\relax%
+            \loopcount=\chimera@subfamily@col@red\relax%
+         \fi%
+      \fi%
+      \xdef\max@yellow{\the\loopcount}%
+      \ifnum\chimera@subfamily@col@blue<\chimera@subfamily@col@yellow\relax%
+         \xdef\chimera@subfamily@col@green{\chimera@subfamily@col@blue}%
+      \else%
+         \xdef\chimera@subfamily@col@green{\chimera@subfamily@col@yellow}%
+      \fi%
+      \loopcount=\chimera@subfamily@col@yellow\relax%
+      \advance\loopcount by -\chimera@subfamily@col@green%
+      \xdef\chimera@subfamily@col@yellow{\the\loopcount}%
+      \loopcount=\chimera@subfamily@col@blue\relax%
+      \advance\loopcount by -\chimera@subfamily@col@green%
+      \xdef\chimera@subfamily@col@blue{\the\loopcount}%
+      \ifnum\chimera@subfamily@col@blue>0\relax%
+         \ifnum\chimera@subfamily@col@green>0\relax%
+            \loopcount=\chimera@subfamily@col@blue\relax%
+            \multiply\loopcount by 2\relax \xdef\chimera@subfamily@col@blue{\the\loopcount}%
+            \loopcount=\chimera@subfamily@col@green\relax%
+            \multiply\loopcount by 2\relax \xdef\chimera@subfamily@col@green{\the\loopcount}%
+         \fi%
+      \fi%
+      \loopcount=\chimera@subfamily@col@green\relax%
+      \advance\loopcount by \chimera@subfamily@col@yellow%
+      \xdef\chimera@subfamily@col@green{\the\loopcount}%
+      \loopcount=\chimera@subfamily@col@red\relax%
+      \advance\loopcount by \chimera@subfamily@col@yellow%
+      \xdef\chimera@subfamily@col@red{\the\loopcount}%
+      \loopcount=\chimera@subfamily@col@blue\relax%
+      \ifnum\chimera@subfamily@col@green>\loopcount\relax%
+         \loopcount=\chimera@subfamily@col@green\relax%
+      \else%
+         \ifnum\chimera@subfamily@col@red>\loopcount\relax%
+            \loopcount=\chimera@subfamily@col@red\relax%
+         \fi%
+      \fi%
+      \xdef\max@green{\the\loopcount}%
+      \loopcount=\chimera@subfamily@col@blue%
+      \ifnum\max@green>0\relax%
+         \multiply\loopcount by \max@yellow%
+         \divide\loopcount by \max@green%
+      \fi%
+      \advance\loopcount by \chimera@subfamily@col@white%
+      \multiply\loopcount by \temp@@%
+      \divide\loopcount by \temp@count%
+      \make@HEX%
+      \xdef\nineth@{\seventh@}%
+      \loopcount=\chimera@subfamily@col@green%
+      \ifnum\max@green>0\relax%
+         \multiply\loopcount by \max@yellow%
+         \divide\loopcount by \max@green%
+      \fi%
+      \advance\loopcount by \chimera@subfamily@col@white%
+      \multiply\loopcount by \temp@@%
+      \divide\loopcount by \temp@count%
+      \make@HEX%
+      \xdef\nineth@{\seventh@\nineth@}%
+      \loopcount=\chimera@subfamily@col@red%
+      \ifnum\max@green>0\relax%
+         \multiply\loopcount by \max@yellow%
+         \divide\loopcount by \max@green%
+      \fi%
+      \advance\loopcount by \chimera@subfamily@col@white%
+      \multiply\loopcount by \temp@@%
+      \divide\loopcount by \temp@count%
+      \make@HEX%
+      \xdef\nineth@{\seventh@\nineth@}%
+                     \ifx\chimera@labelOne@set\n@%
+                        \xdef\chimera@labelOne@set{y}%
+                        \xdef\chimera@label@subfamily{.\chimera@label@subfamily}%
+                     \fi%
+      \immediate\write\exp@rt@chimerafile{setattr a radius \temp@ \unexpanded{} #0:\chimera@res@num\chimerach@in @ca}%
+      \immediate\write\exp@rt@chimerafile{setattr a color #\nineth@ \unexpanded{} #0:\chimera@res@num\chimerach@in @ca}%
+      \immediate\write\exp@rt@chimerafile{setattr a name '|| \chimera@label@subfamily' #0:\chimera@res@num\chimerach@in @ca}%
+      \ifshow@sublogo
+         \ifnum\temp@@count>0 \else\temp@@count=1\fi%
+         \loopcount=\temp@@count%
+         \xdef\fourth@{\the\loopcount @}%
+         \ifnum\loopcount>9999 \expandafter\decimal@A\fourth@ \else%
+         \ifnum\loopcount>999  \expandafter\decimal@B\fourth@ \else%
+         \ifnum\loopcount>99   \expandafter\decimal@C\fourth@ \else%
+         \ifnum\loopcount>9    \expandafter\decimal@D\fourth@ \else%
+                               \expandafter\decimal@E\fourth@%
+         \fi\fi\fi\fi%
+         \loopcount=-\chimera@remaining@col@red\relax%
+         \xdef\chimera@remaining@col@red{\the\loopcount}%
+         \loopcount=-\chimera@remaining@col@yellow\relax%
+         \xdef\chimera@remaining@col@yellow{\the\loopcount}%
+         \loopcount=-\chimera@remaining@col@blue\relax%
+         \xdef\chimera@remaining@col@blue{\the\loopcount}%
+         \loopcount=-\chimera@remaining@col@white\relax%
+         \xdef\chimera@remaining@col@white{\the\loopcount}%
+         \loopcount=-\chimera@remaining@col@black%
+         \multiply\loopcount by 65535\relax%
+         \divide\loopcount by \temp@count%
+         \xdef\chimera@remaining@col@black{\the\loopcount}%
+         \loopcount=65535\relax%
+         \advance\loopcount by -\chimera@remaining@col@black%
+         \xdef\temp@@{\the\loopcount}%
+         \loopcount=\chimera@remaining@col@blue\relax%
+         \ifnum\chimera@remaining@col@yellow>\loopcount\relax%
+            \loopcount=\chimera@remaining@col@yellow\relax%
+         \else%
+            \ifnum\chimera@remaining@col@red>\loopcount\relax%
+               \loopcount=\chimera@remaining@col@red\relax%
+            \fi%
+         \fi%
+         \xdef\max@yellow{\the\loopcount}%
+         \ifnum\chimera@remaining@col@blue<\chimera@remaining@col@yellow\relax%
+            \xdef\chimera@remaining@col@green{\chimera@remaining@col@blue}%
+         \else%
+            \xdef\chimera@remaining@col@green{\chimera@remaining@col@yellow}%
+         \fi%
+         \loopcount=\chimera@remaining@col@yellow\relax%
+         \advance\loopcount by -\chimera@remaining@col@green%
+         \xdef\chimera@remaining@col@yellow{\the\loopcount}%
+         \loopcount=\chimera@remaining@col@blue\relax%
+         \advance\loopcount by -\chimera@remaining@col@green%
+         \xdef\chimera@remaining@col@blue{\the\loopcount}%
+         \ifnum\chimera@remaining@col@blue>0\relax%
+            \ifnum\chimera@remaining@col@green>0\relax%
+               \loopcount=\chimera@remaining@col@blue\relax%
+               \multiply\loopcount by 2\relax \xdef\chimera@remaining@col@blue{\the\loopcount}%
+               \loopcount=\chimera@remaining@col@green\relax%
+               \multiply\loopcount by 2\relax \xdef\chimera@remaining@col@green{\the\loopcount}%
+            \fi%
+         \fi%
+         \loopcount=\chimera@remaining@col@green\relax%
+         \advance\loopcount by \chimera@remaining@col@yellow%
+         \xdef\chimera@remaining@col@green{\the\loopcount}%
+         \loopcount=\chimera@remaining@col@red\relax%
+         \advance\loopcount by \chimera@remaining@col@yellow%
+         \xdef\chimera@remaining@col@red{\the\loopcount}%
+         \loopcount=\chimera@remaining@col@blue\relax%
+         \ifnum\chimera@remaining@col@green>\loopcount\relax%
+            \loopcount=\chimera@remaining@col@green\relax%
+         \else%
+            \ifnum\chimera@remaining@col@red>\loopcount\relax%
+               \loopcount=\chimera@remaining@col@red\relax%
+            \fi%
+         \fi%
+         \xdef\max@green{\the\loopcount}%
+         \loopcount=\chimera@remaining@col@blue%
+         \ifnum\max@green>0\relax%
+            \multiply\loopcount by \max@yellow%
+            \divide\loopcount by \max@green%
+         \fi%
+         \advance\loopcount by \chimera@remaining@col@white%
+         \multiply\loopcount by \temp@@%
+         \divide\loopcount by \temp@count%
+         \make@HEX%
+         \xdef\nineth@{\seventh@}%
+         \loopcount=\chimera@remaining@col@green%
+         \ifnum\max@green>0\relax%
+            \multiply\loopcount by \max@yellow%
+            \divide\loopcount by \max@green%
+         \fi%
+         \advance\loopcount by \chimera@remaining@col@white%
+         \multiply\loopcount by \temp@@%
+         \divide\loopcount by \temp@count%
+         \make@HEX%
+         \xdef\nineth@{\seventh@\nineth@}%
+         \loopcount=\chimera@remaining@col@red%
+         \ifnum\max@green>0\relax%
+            \multiply\loopcount by \max@yellow%
+            \divide\loopcount by \max@green%
+         \fi%
+         \advance\loopcount by \chimera@remaining@col@white%
+         \multiply\loopcount by \temp@@%
+         \divide\loopcount by \temp@count%
+         \make@HEX%
+         \xdef\nineth@{\seventh@\nineth@}%
+                     \ifx\chimera@label@remainingOne@set\n@%
+                        \xdef\chimera@label@remainingOne@set{y}%
+                        \xdef\chimera@label@remaining{.\chimera@label@remaining}%
+                     \fi%
+         \immediate\write\exp@rt@chimerafile{setattr a radius \temp@ \unexpanded{} #1:\chimera@res@num\chimerach@in @ca}%
+         \immediate\write\exp@rt@chimerafile{setattr a color #\nineth@ \unexpanded{} #1:\chimera@res@num\chimerach@in @ca}%
+         \immediate\write\exp@rt@chimerafile{setattr a name '|| \chimera@label@remaining' #1:\chimera@res@num\chimerach@in @ca}%
+      \fi%
+}
+\catcode`\"=12 \catcode`\#=6 \catcode`\~=13
+\def\get@chimera@res@num#1,#2@{\xdef\chimera@res@num{#1}\xdef\chimera@stack{#2}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%                     Chimera export routines   end                %%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\next@logo#1:#2,#3@{%
    \xdef\first@{#1}\xdef\second@{#2}\xdef\last@{#3}%
    \ifx\first@\ampers@nd%
+      \ifx\exp@rt@chimera\y@%
+        \xdef\chimera@stack{\chimera@stack @}%
+        \expandafter\get@chimera@res@num\chimera@stack%
+        \ifx\chimera@res@num\ampers@nd%
+        \else%
+            \write@chimera@data%
+        \fi%
+        \xdef\chimera@label@subfamily{}%
+        \xdef\chimera@label@remaining{}%
+        \xdef\chimera@subfamily@col@red{0}%
+        \xdef\chimera@subfamily@col@blue{0}%
+        \xdef\chimera@subfamily@col@yellow{0}%
+        \xdef\chimera@subfamily@col@black{0}%
+        \xdef\chimera@subfamily@col@white{0}%
+        \xdef\chimera@remaining@col@red{0}%
+        \xdef\chimera@remaining@col@blue{0}%
+        \xdef\chimera@remaining@col@yellow{0}%
+        \xdef\chimera@remaining@col@black{0}%
+        \xdef\chimera@remaining@col@white{0}%
+        \xdef\chimera@labelOne@set{n}%
+        \xdef\chimera@labelTwo@set{n}%
+        \xdef\chimera@labelThree@set{n}%
+        \xdef\chimera@label@remainingOne@set{n}%
+        \xdef\chimera@label@remainingTwo@set{n}%
+        \xdef\chimera@label@remainingThree@set{n}%
+      \fi%
      \ifx\clear@logo\n@%
      \ifx\hide@sig\n@%
       \expandafter\firstchar@get\sublogo@sig%
@@ -12755,12 +13465,10 @@
      \fi%
      \fi%
      \temp@count=0%
+     \temp@@count=0%
      \kern\box@width%
      \advance\outerloopcount by 1 %
    \else%
-    \ifnum#2=1%
-      \temp@count=0%
-    \else%
       \if\seq@type N%
          \loopcount=\second@%
          \multiply\loopcount by 2%
@@ -12796,7 +13504,7 @@
       \fi\fi\fi\fi%
       \xdef\third@{\fl@g\temp@}%
       \ifnum\temp@count<0 %
-         \ifnum\second@<0 \else\temp@count=0 \fi%
+         \ifnum\second@<0 \else\temp@@count=-\temp@count\relax\temp@count=0 \fi%
       \fi%
       \ifnum\temp@count>0 %
          \loopcount=\temp@count \xdef\fl@g{}%
@@ -12823,7 +13531,64 @@
          \kern-\box@width%
       \fi%
       \advance\temp@count by \second@%
-    \fi%
+      \xdef\temp@{\the\temp@count}%
+      \ifx\exp@rt@chimera\y@%
+         \xdef\temp@@{\csname chimera@col@\first@\endcsname}%
+         \ifnum\second@<0 %
+            \xdef\temp@@@{\csname chimera@remaining@col@\temp@@\endcsname}%
+            \temp@count=\temp@@@%
+            \advance\temp@count by \second@%
+            \expandafter\xdef\csname chimera@remaining@col@\temp@@\endcsname{\the\temp@count}%
+            \ifnum\second@<\label@threshold@lowerremainingIOOO%
+                  \ifnum\second@<-999%
+                     \ifx\chimera@label@remainingOne@set\n@%
+                        \xdef\chimera@label@remainingOne@set{y}%
+                        \xdef\chimera@label@remaining{.\chimera@label@remaining}%
+                     \fi%
+                  \fi%
+                  \ifnum\second@<-1999%
+                     \ifx\chimera@label@remainingTwo@set\n@%
+                        \xdef\chimera@label@remainingTwo@set{y}%
+                        \xdef\chimera@label@remaining{:\chimera@label@remaining}%
+                     \fi%
+                  \fi%
+                  \ifnum\second@<-2999%
+                     \ifx\chimera@label@remainingThree@set\n@%
+                        \xdef\chimera@label@remainingThree@set{y}%
+                        \xdef\chimera@label@remaining{>\chimera@label@remaining}%
+                     \fi%
+                  \fi%
+                  \xdef\chimera@label@remaining{\first@\chimera@label@remaining}%
+            \fi%
+         \else%
+            \xdef\temp@@@{\csname chimera@subfamily@col@\temp@@\endcsname}%
+            \temp@count=\temp@@@%
+            \advance\temp@count by \second@%
+            \expandafter\xdef\csname chimera@subfamily@col@\temp@@\endcsname{\the\temp@count}%
+            \ifnum\second@>\label@threshold@lowerIOOO%
+                  \ifnum\second@>999%
+                     \ifx\chimera@labelOne@set\n@%
+                        \xdef\chimera@labelOne@set{y}%
+                        \xdef\chimera@label@subfamily{.\chimera@label@subfamily}%
+                     \fi%
+                  \fi%
+                  \ifnum\second@>1999%
+                     \ifx\chimera@labelTwo@set\n@%
+                        \xdef\chimera@labelTwo@set{y}%
+                        \xdef\chimera@label@subfamily{:\chimera@label@subfamily}%
+                     \fi%
+                  \fi%
+                  \ifnum\second@>2999%
+                     \ifx\chimera@labelThree@set\n@%
+                        \xdef\chimera@labelThree@set{y}%
+                        \xdef\chimera@label@subfamily{>\chimera@label@subfamily}%
+                     \fi%
+                  \fi%
+                  \xdef\chimera@label@subfamily{\first@\chimera@label@subfamily}%
+            \fi%
+         \fi%
+      \fi%
+      \temp@count=\temp@%
    \fi%
    \xdef\temp@{\last@.}%
    \ifx\temp@\d@t%
@@ -13125,10 +13890,23 @@
    \xdef\featureposttttop{1} \xdef\featureposbbbbottom{1}%
    \findc@nsensus%
    \noindent%
+   \setlength{\bar@length}{0pt}%
+   \xdef\fe@turep@s{top}%
    \ifnum\feature@ttttop=1
+      \advance\bar@length by \feature@tttop\baselineskip%
+      \advance\bar@length by \feature@ttop\baselineskip%
+      \advance\bar@length by \feature@top\baselineskip%
+      \multiply\bar@length by 2%
+      \advance\bar@length by \tttt@sp@ce%
+      \advance\bar@length by \ttt@sp@ce%
+      \advance\bar@length by \tt@sp@ce%
       \ifnum\featureonttttop=0 \xdef\feature@ttttop{0} \fi
       \xdef\bottop@{ttttop}%
+      \xdef\shift@feature{n}%
       \put@feature%
+      \advance\bar@length by -\baselineskip%
+      \ifx\shift@feature\y@ \vspace{-\bar@length}\fi%
+      \setlength{\bar@length}{0pt}%
       \vspace{\tttt@sp@ce}%
       \vspace{-\baselineskip}%
       \newline\hbox{}%
@@ -13136,9 +13914,18 @@
       \iffix@\ifttttopfeature \vspace{\tttt@sp@ce}\newline\hbox{}\newline\hbox{}\fi\fi
    \fi
    \ifnum\feature@tttop=1
+      \advance\bar@length by \feature@ttop\baselineskip%
+      \advance\bar@length by \feature@top\baselineskip%
+      \multiply\bar@length by 2%
+      \advance\bar@length by \ttt@sp@ce%
+      \advance\bar@length by \tt@sp@ce%
       \ifnum\featureontttop=0 \xdef\feature@tttop{0} \fi
       \xdef\bottop@{tttop}%
+      \xdef\shift@feature{n}%
       \put@feature%
+      \advance\bar@length by -\baselineskip%
+      \ifx\shift@feature\y@ \vspace{-\bar@length}\fi%
+      \setlength{\bar@length}{0pt}%
       \vspace{\ttt@sp@ce}%
       \vspace{-\baselineskip}%
       \newline\hbox{}%
@@ -13146,9 +13933,16 @@
       \iffix@\iftttopfeature \vspace{\ttt@sp@ce}\newline\hbox{}\newline\hbox{}\fi\fi
    \fi
    \ifnum\feature@ttop=1
+      \advance\bar@length by \feature@top\baselineskip%
+      \multiply\bar@length by 2%
+      \advance\bar@length by \tt@sp@ce\message{tt\the\bar@length tt}%
       \ifnum\featureonttop=0 \xdef\feature@ttop{0} \fi
       \xdef\bottop@{ttop}%
+      \xdef\shift@feature{n}%
       \put@feature%
+      \advance\bar@length by -\baselineskip%
+      \ifx\shift@feature\y@ \vspace{-\bar@length}\fi%
+      \setlength{\bar@length}{0pt}%
       \vspace{\tt@sp@ce}%
       \vspace{-\baselineskip}%
       \newline\hbox{}%
@@ -13264,6 +14058,9 @@
          \ifnum\ruler@rot=0 \vspace{0.25\baselineskip}\fi%
       \fi%
    \fi%
+   \xdef\fe@turep@s{bottom}%
+   \setlength{\bar@length}{0pt}%
+   \xdef\b@feature@count{0}
    \ifnum\feature@bottom=1 %
       \ifnum\featureonbottom=0 \xdef\feature@bottom{0}\fi%
       \xdef\bottop@{bottom}%
@@ -13273,6 +14070,9 @@
          \vspace{\b@r@stretch\box@height}%
       \fi%
       \put@feature%
+      \temp@@count=\b@feature@count%
+      \advance\temp@@count by 1%
+      \xdef\b@feature@count{\the\temp@@count}%
    \else
       \iffix@
       \if\bottom@stretch y%
@@ -13285,14 +14085,24 @@
       \fi%
    \fi%
    \ifnum\feature@bbottom=1 %
+      \advance\bar@length by \b@feature@count \baselineskip%
+      \multiply\bar@length by \b@r@stretch%
+      \multiply\bar@length by 2%
+      \advance\bar@length by \bb@sp@ce\message{bb\the\bar@length bb}%
       \ifnum\featureonbbottom=0 \xdef\feature@bbottom{0}\fi%
       \xdef\bottop@{bbottom}%
       \vspace{\bb@sp@ce}%
       \if\bbottom@stretch y%
+         \advance\bar@length by -\box@height%
+         \advance\bar@length by \b@r@stretch\box@height%
          \vspace{-\box@height}%
          \vspace{\b@r@stretch\box@height}%
       \fi%
+      \setlength{\bar@length}{0pt}%
       \put@feature%
+      \temp@@count=\b@feature@count%
+      \advance\temp@@count by 1%
+      \xdef\b@feature@count{\the\temp@@count}%
    \else
       \iffix@
       \if\bbottom@stretch y%
@@ -13305,6 +14115,10 @@
       \fi
    \fi
    \ifnum\feature@bbbottom=1 %
+      \advance\bar@length by \b@feature@count\baselineskip%
+      \multiply\bar@length by \b@r@stretch%
+      \multiply\bar@length by 2%
+      \advance\bar@length by \bbb@sp@ce\message{bbb\the\bar@length bbb}%
       \ifnum\featureonbbbottom=0 \xdef\feature@bbbottom{0}\fi%
       \xdef\bottop@{bbbottom}%
       \vspace{\bbb@sp@ce}%
@@ -13313,6 +14127,9 @@
          \vspace{\b@r@stretch\box@height}%
       \fi%
       \put@feature%
+      \temp@@count=\b@feature@count%
+      \advance\temp@@count by 1%
+      \xdef\b@feature@count{\the\temp@@count}%
    \else
       \iffix@
       \if\bbbottom@stretch y%
@@ -13325,6 +14142,10 @@
       \fi
    \fi
    \ifnum\feature@bbbbottom=1 %
+      \advance\bar@length by \b@feature@count\baselineskip%
+      \multiply\bar@length by \b@r@stretch%
+      \multiply\bar@length by 2%
+      \advance\bar@length by \bbbb@sp@ce\message{bbbb\the\bar@length bbbb}%
       \ifnum\featureonbbbbottom=0 \xdef\feature@bbbbottom{0}\fi%
       \xdef\bottop@{bbbbottom}%
       \vspace{\bbbb@sp@ce}%
@@ -14030,6 +14851,7 @@
     \fi
     \ifshow@sublogo \closein\sublogofile \fi
     \ifx\exp@rt\y@ \closeout\exp@rtfile \fi
+    \ifx\exp@rt@chimera\y@ \closeout\exp@rt@chimerafile \fi%
     \closein\alignfile
     \message{)}
 }
@@ -14181,8 +15003,6 @@
     \ifnum\loopcount<\seq@count \repeat
     \xdef\seq@order{\seq@order,@}
  \killseq@count=\seq@count
- \seq@percent=100
- \ifnum\seq@count>0 \divide\seq@percent by \seq@count \fi
  \fi
  \fi
 }
@@ -14450,6 +15270,18 @@
            \caption[\c@pshort]{\c@p}
          \fi
       \fi
+      \loopcount = \thresh@ld \multiply\loopcount by \seq@count \divide\loopcount by 100
+      \xdef\thresh@ld@{\the\loopcount}
+      \loopcount = \all@thresh@ld \multiply\loopcount by \seq@count \divide\loopcount by 100
+      \xdef\all@thresh@ld@{\the\loopcount}
+      \if\exp@rt@chimera\y@%
+         \ifshow@logo%
+             \init@chimera@file%
+         \else%
+         \ifshow@sublogo%
+             \init@chimera@file%
+         \fi\fi%
+      \fi%
       \bgroup
          \ifx\out@put\y@\bigskip\fi
          \iffuncmode \show@consfalse \fi
@@ -14607,6 +15439,32 @@
 \expandafter\xdef\csname group@num1\endcsname{0}
 \expandafter\xdef\csname group@num2\endcsname{0}
 \xdef\exp@rt@num{0}       \xdef\exp@rt{n}
+\xdef\exp@rt@chimera@num{1}   \xdef\exp@rt@chimera{n} \xdef\chimera@stack{}
+\xdef\chimerab@llSc@le{1.0}
+\memelabelcutoff{0.1}
+\xdef\chimera@labelOne@set{n}
+\xdef\chimera@labelTwo@set{n}
+\xdef\chimera@labelThree@set{n}
+\xdef\chimera@labelOne@remaining@set{n}
+\xdef\chimera@labelTwo@remaining@set{n}
+\xdef\chimera@labelThree@remaining@set{n}
+\xdef\chimera@xdist@nce{0} \xdef\chimera@ydist@nce{40} \xdef\chimera@zdist@nce{0}
+\xdef\chimerach@in{} \xdef\chimera@seqnum{0}
+\xdef\chimera@label@subfamily{} \xdef\chimera@label@remaining{}
+\memeStandardcolors
+\xdef\chimera@subfamily@col@red{0}%
+\xdef\chimera@subfamily@col@blue{0}%
+\xdef\chimera@subfamily@col@yellow{0}%
+\xdef\chimera@subfamily@col@black{0}%
+\xdef\chimera@subfamily@col@white{0}%
+\xdef\chimera@subfamily@col@none{0}%
+\xdef\chimera@remaining@col@red{0}%
+\xdef\chimera@remaining@col@blue{0}%
+\xdef\chimera@remaining@col@yellow{0}%
+\xdef\chimera@remaining@col@black{0}%
+\xdef\chimera@remaining@col@white{0}%
+\xdef\chimera@remaining@col@none{0}%
+\xdef\echo@filename{}
 \xdef\divref@{0}
 \xdef\all@thresh@ld{100}  \all@shadefalse
 \hidefeaturenames         \hidefeaturestylenames
