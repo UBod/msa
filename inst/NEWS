@@ -1,6 +1,12 @@
 Change history of package msa:
 ==============================
 
+Version 1.25.1:
+- update of gc
+
+Version 1.25.0:
+- new branch for Bioconductor 3.14 devel
+
 Version 1.24.0:
 - release as part of Bioconductor 3.13
 
