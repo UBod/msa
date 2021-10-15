@@ -244,7 +244,7 @@
 
 /* The size of `fpos_t', as computed by sizeof. */
 #ifndef CLUSTAL_OMEGA_SIZEOF_FPOS_T
-#define CLUSTAL_OMEGA_SIZEOF_FPOS_T 12
+#define CLUSTAL_OMEGA_SIZEOF_FPOS_T 16
 #endif
 
 /* The size of `unsigned int', as computed by sizeof. */
@@ -254,7 +254,7 @@
 
 /* The size of `unsigned long', as computed by sizeof. */
 #ifndef CLUSTAL_OMEGA_SIZEOF_UNSIGNED_LONG
-#define CLUSTAL_OMEGA_SIZEOF_UNSIGNED_LONG 4
+#define CLUSTAL_OMEGA_SIZEOF_UNSIGNED_LONG 8
 #endif
 
 /* The size of `unsigned long long', as computed by sizeof. */

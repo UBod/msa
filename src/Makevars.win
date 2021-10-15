@@ -1,7 +1,7 @@
 .PHONY: all ./libGC.a ./libMuscle.a ./libClustalW.a ./libClustalOmega.a
 
 PKG_LIBS=-Wl,--whole-archive ./libGC.a ./libMuscle.a ./libClustalW.a ./libClustalOmega.a -Wl,--no-whole-archive
-PKG_CXXFLAGS=-I"./gc-7.2/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src"
+PKG_CXXFLAGS=-I"./gc-7.6.12/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src" -Wno-deprecated
 
 all: $(SHLIB)
 $(SHLIB): ./libGC.a ./libMuscle.a ./libClustalW.a ./libClustalOmega.a
@@ -12,7 +12,7 @@ clean:
 	cd src
 
 ./libGC.a:
-	make --file=msaMakefile.win --directory=gc-7.2 AR="$(AR)"
+	make --file=msaMakefile.win --directory=gc-7.6.12 AR="$(AR)"
 	@echo "----------------------------------------"
 	@echo "------------------ GC  -----------------"
 	@echo "----------------------------------------"

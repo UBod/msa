@@ -3,7 +3,7 @@
 
 const char *SecsToStr(unsigned long Secs)
 	{
-	static char Str[16];
+	static char Str[100]; // [UB] waste some memory to prevent overflow warning
 	long hh, mm, ss;
 
 	hh = Secs/(60*60);

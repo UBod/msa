@@ -1,5 +1,5 @@
 PKG_LIBS=`${R_HOME}/bin${R_ARCH_BIN}/Rscript -e "if (Sys.info()['sysname'] == 'Darwin') cat('-Wl,-all_load ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a') else cat('-Wl,--whole-archive ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,--no-whole-archive')"`
-PKG_CXXFLAGS=-I"./gc-7.2/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src"
+PKG_CXXFLAGS=-I"./gc-7.6.12/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src"
 
 .PHONY: all mylibs
 
@@ -9,7 +9,7 @@ $(SHLIB): mylibs
 mylibs: build_gc build_muscle build_clustalw build_clustalomega
 
 build_gc:
-	make --file=msaMakefile --directory=gc-7.2
+	make --file=msaMakefile --directory=gc-7.6.12
 	@echo "----------------------------------------"
 	@echo "------------------ GC  -----------------"
 	@echo "----------------------------------------"

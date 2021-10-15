@@ -28,7 +28,8 @@ Collate: AllClasses.R AllGenerics.R params-methods.R version-methods.R
         helperFunctions.R inputChecks.R convertRows.R msaPrettyPrint.R
         print-methods.R show-methods.R msa.R msaMuscle.R msaClustalW.R
         msaClustalOmega.R msaConvert.R msaCheckNames.R
-	msaConsensusSequence-methods.R msaConservationScore-methods.R
+        msaConsensusSequence-methods.R msaConservationScore-methods.R
 biocViews: MultipleSequenceAlignment, Alignment, MultipleComparison,
         Sequencing
 NeedsCompilation: yes
+Packaged: 2021-10-15 08:56:43 UTC; ulrich
