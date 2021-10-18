@@ -1,6 +1,9 @@
 Change history of package msa:
 ==============================
 
+Version 1.25.2:
+- removed build/ directory from repo to avoid installation problems
+
 Version 1.25.1:
 - update of gc
 - minor changes to get rid of compiler warnings
