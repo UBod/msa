@@ -101,7 +101,7 @@ string ClustalWResources::findFile(const string file, const ClustalWResourcePath
             path = &defaultPath;
             break;
     }
-    char delim[1];
+    char delim[2]; // UB: Bug fix here (array was too short)
     delim[0] = DIRDELIM;
     delim[1] = 0;
     
