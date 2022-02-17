@@ -92,19 +92,19 @@
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
-  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+  \doi{10.1093/bioinformatics/btv494}.
 
   \url{http://www.drive5.com/muscle/muscle.html}
   
   Edgar, R. C. (2004) MUSCLE: multiple sequence alignment with high 
   accuracy and high throughput.
   \emph{Nucleic Acids Res.} \bold{32}(5):1792-1797. DOI:
-  \href{http://dx.doi.org/10.1093/nar/gkh340}{10.1093/nar/gkh340}.
+  \doi{10.1093/nar/gkh340}.
 
   Edgar, R. C. (2004) MUSCLE: a multiple sequence alignment method 
   with reduced time and space complexity.
   \emph{BMC Bioinformatics} \bold{5}:113. DOI:
-  \href{http://dx.doi.org/10.1186/1471-2105-5-113}{10.1186/1471-2105-5-113}.
+  \doi{10.1186/1471-2105-5-113}.
 }
 \seealso{\code{\link{msa}}, \code{\linkS4class{MsaAAMultipleAlignment}},
   \code{\linkS4class{MsaDNAMultipleAlignment}},

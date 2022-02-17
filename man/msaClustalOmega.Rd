@@ -83,7 +83,7 @@
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
-  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+  \doi{10.1093/bioinformatics/btv494}.
 
   \url{http://www.clustal.org/omega/README}
   
@@ -92,7 +92,7 @@
   and Higgins, D. G. (2011) Fast, scalable generation of high-quality
   protein multiple sequence alignments using Clustal Omega.
   \emph{Mol. Syst. Biol.} \bold{7}:539. DOI:
-  \href{http://dx.doi.org/10.1038/msb.2011.75}{10.1038/msb.2011.75}.
+  \doi{10.1038/msb.2011.75}.
 }
 \seealso{\code{\link{msa}}, \code{\linkS4class{MsaAAMultipleAlignment}},
   \code{\linkS4class{MsaDNAMultipleAlignment}},

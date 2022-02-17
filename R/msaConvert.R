@@ -33,9 +33,10 @@ msaConvert <- function(x, type=c("seqinr::alignment",
             stop("conversion to 'ape::AAbin' only supported for ",
                  "amino acid sequences")
 
-        out <- .Call("SplitCharVector2Matrix", xn, "X")
-        rownames(out) <- names(xn)
-        class(out) <- "AAbin"
+        if (requireNamespace("ape", quietly=TRUE))
+            out <- ape::as.AAbin(x)
+        else
+            stop("conversion to 'AAbin' requires package 'ape'")
     }
     else if (type == "ape::DNAbin")
     {
@@ -43,9 +44,10 @@ msaConvert <- function(x, type=c("seqinr::alignment",
             stop("conversion to 'ape::DNAbin' only supported for ",
                  "DNA sequences")
 
-        out <- .Call("SplitCharVector2Matrix", tolower(xn), "n")
-        rownames(out) <- names(xn)
-        class(out) <- "DNAbin"
+        if (requireNamespace("ape", quietly=TRUE))
+            out <- ape::as.DNAbin(x)
+        else
+            stop("conversion to 'DNAbin' requires package 'ape'")
     }
     else if (type == "phangorn::phyDat")
     {

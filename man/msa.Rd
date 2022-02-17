@@ -135,7 +135,7 @@
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
-  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+  \doi{10.1093/bioinformatics/btv494}.
  
   \url{http://www.clustal.org/download/clustalw_help.txt}
 
@@ -148,24 +148,24 @@
   alignment through sequence weighting, position-specific gap penalties
   and weight matrix choice.
   \emph{Nucleic Acids Res.} \bold{22}(22):4673-4680. DOI:
-  \href{http://dx.doi.org/10.1093/nar/22.22.4673}{10.1093/nar/22.22.4673}.
+  \doi{10.1093/nar/22.22.4673}.
 
   Sievers, F., Wilm, A., Dineen, D., Gibson, T. J., Karplus, K., Li, W.,
   Lopez, R., McWilliam, H., Remmert, M., Soeding, J., Thompson, J. D.,
   and Higgins, D. G. (2011) Fast, scalable generation of high-quality
   protein multiple sequence alignments using Clustal Omega.
   \emph{Mol. Syst. Biol.} \bold{7}:539. DOI:
-  \href{http://dx.doi.org/10.1038/msb.2011.75}{10.1038/msb.2011.75}.
+  \doi{10.1038/msb.2011.75}.
 
   Edgar, R. C. (2004) MUSCLE: multiple sequence alignment with high 
   accuracy and high throughput.
   \emph{Nucleic Acids Res.} \bold{32}(5):1792-1797. DOI:
-  \href{http://dx.doi.org/10.1093/nar/gkh340}{10.1093/nar/gkh340}.
+  \doi{10.1093/nar/gkh340}.
 
   Edgar, R. C. (2004) MUSCLE: a multiple sequence alignment method 
   with reduced time and space complexity.
   \emph{BMC Bioinformatics} \bold{5}:113. DOI:
-  \href{http://dx.doi.org/10.1186/1471-2105-5-113}{10.1186/1471-2105-5-113}.
+  \doi{10.1186/1471-2105-5-113}.
 }  
 \seealso{\code{\link{msaClustalW}},
   \code{\link{msaClustalOmega}}, \code{\link{msaMuscle}},

@@ -87,7 +87,7 @@
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
-  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+  \doi{10.1093/bioinformatics/btv494}.
  
   \url{http://www.clustal.org/download/clustalw_help.txt}
 
@@ -96,7 +96,7 @@
   alignment through sequence weighting, position-specific gap penalties
   and weight matrix choice.
   \emph{Nucleic Acids Res.} \bold{22}(22):4673-4680. DOI:
-  \href{http://dx.doi.org/10.1093/nar/22.22.4673}{10.1093/nar/22.22.4673}.
+  \doi{10.1093/nar/22.22.4673}.
 }
 \seealso{\code{\link{msa}}, \code{\linkS4class{MsaAAMultipleAlignment}},
   \code{\linkS4class{MsaDNAMultipleAlignment}},

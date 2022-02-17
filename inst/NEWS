@@ -1,6 +1,19 @@
 Change history of package msa:
 ==============================
 
+Version 1.27.1:
+- workaround for problems running texi2dvi() on R 4.2.0; those occurred 
+  during package checks when running some examples and the vignette code
+- updated URLs and DOIs (now requires R version >= 3.3.0)
+- fixed msaConvert() function to now work well with newer versions of the
+  'ape' package (now requires at least version 5.2)
+
+Version 1.27.0:
+- new branch for Bioconductor 3.15 devel
+
+Version 1.26.0:
+- release as part of Bioconductor 3.14
+
 Version 1.25.3:
 - further changes to get rid of compiler warnings
 

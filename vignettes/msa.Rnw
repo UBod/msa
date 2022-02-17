@@ -171,7 +171,7 @@ which allows for pretty-printing multiple alignments using the \LaTeX\ package
 \shade. As an example, the following \R\ code creates a PDF file
 \verb+myfirstAlignment.pdf+ which is shown in
 Figure~\ref{fig:myFirstAlignment}:
-<<IntegratePDF2>>=
+<<IntegratePDF2,eval=FALSE>>=
 msaPrettyPrint(myFirstAlignment, output="pdf", showNames="none",
                showLogo="none", askForOverwrite=FALSE, verbose=FALSE)
 @

@@ -199,14 +199,14 @@
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
-  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+  \doi{10.1093/bioinformatics/btv494}.
 
   \url{https://www.ctan.org/pkg/texshade}
 
   Beitz, E. (2000) TeXshade: shading and labeling of multiple
   sequence alignments using LaTeX2e
   \emph{Bioinformatics} \bold{16}(2):135-139. DOI:
-  \href{http://dx.doi.org/10.1093/bioinformatics/16.2.135}{10.1093/bioinformatics/16.2.135}.
+  \doi{10.1093/bioinformatics/16.2.135}.
 }
 \seealso{\code{\link{msaCheckNames}}
 }
@@ -223,6 +223,7 @@ myAlignment <- msa(mySeqs)
 msaPrettyPrint(myAlignment, output="asis", askForOverwrite=FALSE)
 
 ## create PDF file according to some custom settings
+\dontrun{
 tmpFile <- tempfile(pattern="msa", tmpdir=".", fileext=".pdf")
 tmpFile
 msaPrettyPrint(myAlignment, file=tmpFile, output="pdf",
@@ -230,7 +231,6 @@ msaPrettyPrint(myAlignment, file=tmpFile, output="pdf",
                showConsensus="bottom", logoColors="rasmol",
                verbose=FALSE, askForOverwrite=FALSE)
 
-\dontrun{
 library(Biobase)
 openPDF(tmpFile)}
 }

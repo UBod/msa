@@ -118,7 +118,7 @@
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
-  \href{http://dx.doi.org/10.1093/bioinformatics/btv494}{10.1093/bioinformatics/btv494}.
+  \doi{10.1093/bioinformatics/btv494}.
 }
 \seealso{\code{\link{msa}}, \code{\link{msaClustalW}},
   \code{\link{msaClustalOmega}}, \code{\link{msaMuscle}},
