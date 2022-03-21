@@ -1,6 +1,9 @@
 Change history of package msa:
 ==============================
 
+Version 1.27.2:
+- applied patch to allow msa to work with the new Windows UCRT toolchain
+
 Version 1.27.1:
 - workaround for problems running texi2dvi() on R 4.2.0; those occurred 
   during package checks when running some examples and the vignette code

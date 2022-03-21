@@ -32,7 +32,7 @@ USA.
 #include <limits.h>
 
 /* local error codes */
-enum {EMINCOUNT=1,EMAXCOUNT,EBADINT,EOVERFLOW};
+enum {EMINCOUNT=1,EMAXCOUNT,EBADINT,CO_EOVERFLOW};
 
 static void resetfn(struct arg_int *parent)
     {
@@ -187,28 +187,28 @@ static int scanfn(struct arg_int *parent, const char *argval)
         /* Safety check for integer overflow. WARNING: this check    */
         /* achieves nothing on machines where size(int)==size(long). */
         if ( val>INT_MAX || val<INT_MIN )
-            errorcode = EOVERFLOW;
+            errorcode = CO_EOVERFLOW;
 
         /* Detect any suffixes (KB,MB,GB) and multiply argument value appropriately. */
         /* We need to be mindful of integer overflows when using such big numbers.   */
         if (detectsuffix(end,"KB"))             /* kilobytes */
             {
             if ( val>(INT_MAX/1024) || val<(INT_MIN/1024) )
-                errorcode = EOVERFLOW;          /* Overflow would occur if we proceed */
+                errorcode = CO_EOVERFLOW;          /* Overflow would occur if we proceed */
             else
                 val*=1024;                      /* 1KB = 1024 */
             }
         else if (detectsuffix(end,"MB"))        /* megabytes */
             {
             if ( val>(INT_MAX/1048576) || val<(INT_MIN/1048576) )
-                errorcode = EOVERFLOW;          /* Overflow would occur if we proceed */
+                errorcode = CO_EOVERFLOW;          /* Overflow would occur if we proceed */
             else
                 val*=1048576;                   /* 1MB = 1024*1024 */
             }
         else if (detectsuffix(end,"GB"))        /* gigabytes */
             {
             if ( val>(INT_MAX/1073741824) || val<(INT_MIN/1073741824) )
-                errorcode = EOVERFLOW;          /* Overflow would occur if we proceed */
+                errorcode = CO_EOVERFLOW;          /* Overflow would occur if we proceed */
             else
                 val*=1073741824;                /* 1GB = 1024*1024*1024 */
             }
@@ -258,7 +258,7 @@ static void errorfn(struct arg_int *parent, FILE *fp, int errorcode, const char 
             arg_print_option(fp,shortopts,longopts,datatype,"\n");
             break;
 
-        case EOVERFLOW:
+        case CO_EOVERFLOW:
             fputs("integer overflow at option ",fp);
             arg_print_option(fp,shortopts,longopts,datatype," ");
             fprintf(fp,"(%s is too large)\n",argval);
