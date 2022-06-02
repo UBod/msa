@@ -31,6 +31,9 @@ USA.
 #include "argtable2.h"
 #include <limits.h>
 
+/* CHANGE (UBod): include <ctype.h> in order to avoid problems on newest Mac OS */
+#include <ctype.h>
+
 /* local error codes */
 enum {EMINCOUNT=1,EMAXCOUNT,EBADINT,CO_EOVERFLOW};
 

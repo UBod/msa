@@ -1,6 +1,16 @@
 Change history of package msa:
 ==============================
 
+Version 1.29.1:
+- fix in argtable library (ClustalOmega) to avoid compilation errors on
+  newest Mac OS
+
+Version 1.29.0:
+- new branch for Bioconductor 3.16 devel
+
+Version 1.28.0:
+- release as part of Bioconductor 3.15
+
 Version 1.27.2:
 - applied patch to allow msa to work with the new Windows UCRT toolchain
 
