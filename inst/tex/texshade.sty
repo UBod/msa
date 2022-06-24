@@ -153,7 +153,12 @@
 \def\resn@m@tch{upper} \def\ressimm@tch{upper}
 \def\resm@tch{upper}   \def\res@llm@tch{upper}
 \def\tr@ns{translate}  \def\gr@ydef@ult{GrayDefault}
-\xdef\par@{\expandafter\string\par}
+%%%%REMOVED FOLLOWING LINE:
+%%%%\xdef\par@{\expandafter\string\par}
+%%%%ADDED FOLLOWING TWO LINES (according to https://ctan.org/pkg/texshade)
+\xdef\par@{\par}
+\xdef\par@{\expandafter\string\par@}
+%%%%
 \expandafter\def\csname fg@textcolor/\endcsname{White}
 \expandafter\def\csname fg@color/\endcsname{White}
 \expandafter\def\csname func@style/\endcsname{\csname textup\endcsname}

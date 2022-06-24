@@ -1,8 +1,8 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.29.1
-Date: 2022-06-02
+Version: 1.29.2
+Date: 2022-06-24
 Author: Enrico Bonatesta, Christoph Horejs-Kainrath, Ulrich Bodenhofer
 Maintainer: Ulrich Bodenhofer <bodenhofer@bioinf.jku.at>
 Description: The 'msa' package provides a unified R/Bioconductor interface to
