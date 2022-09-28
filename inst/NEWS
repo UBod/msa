@@ -1,6 +1,11 @@
 Change history of package msa:
 ==============================
 
+Version 1.29.3:
+- fix for possibly malformed inputs: all sequences are forced to
+  uppercase characters (previously, ClustalW and ClustalOmega produced
+  wrong results when called with lowercase sequences)
+
 Version 1.29.2:
 - fix in texshade.sty as suggested on TeXshade homepage at CTAN
 
@@ -27,7 +32,7 @@ Version 1.27.1:
 Version 1.27.0:
 - new branch for Bioconductor 3.15 devel
 
-Version 1.26.0:
+Version 1.26.0: 
 - release as part of Bioconductor 3.14
 
 Version 1.25.3:
