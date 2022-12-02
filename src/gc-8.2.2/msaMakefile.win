@@ -1,0 +1,18 @@
+INCLUDE_DIR=./include
+PRIVATE_INCLUDE_DIR=$(INCLUDE_DIR)/private
+AO_INCLUDE_DIR=./libatomic_ops/src
+
+OBJNamesGC=allchblk.o alloc.o backgraph.o blacklst.o checksums.o darwin_stop_world.o dbg_mlc.o dyn_load.o finalize.o fnlz_mlc.o gcj_mlc.o gc_dlopen.o headers.o mach_dep.o malloc.o mallocx.o mark.o mark_rts.o misc.o new_hblk.o obj_map.o os_dep.o pthread_start.o pthread_stop_world.o pthread_support.o ptr_chck.o reclaim.o specific.o thread_local_alloc.o typd_mlc.o win32_threads.o
+OBJNamesGCCPP=gc_cpp.o
+
+all: gc82
+
+gc82:
+	export PKG_LIBS="$(PKG_LIBS) -I$(INCLUDE_DIR) -I$(PRIVATE_INCLUDE_DIR) -I."; \
+	export PKG_CFLAGS="-fcommon $(PKG_CFLAGS) -DALL_INTERIOR_POINTERS -DGC_DLL -DGC_THREADS -D_CRT_SECURE_NO_DEPRECATE -I$(AO_INCLUDE_DIR) -I$(INCLUDE_DIR) -I$(PRIVATE_INCLUDE_DIR) -I."; \
+	export PKG_CXXFLAGS="-fcommon $(PKG_CXXFLAGS) -DALL_INTERIOR_POINTERS -DALL_INTERIOR_POINTERS -DGC_DLL -DGC_THREADS -D_CRT_SECURE_NO_DEPRECATE -I$(AO_INCLUDE_DIR) -I$(INCLUDE_DIR) -I$(PRIVATE_INCLUDE_DIR) -I."; \
+	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o gc82.dll *.c; \
+	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o gccpp82.dll -L. -lgc82 *.cpp; \
+	$(AR) rcs libGC.a $(OBJNamesGC); \
+	$(AR) rcs libGCcpp.a $(OBJNamesGCCPP); \
+	cp libGC*.a ../

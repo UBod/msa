@@ -1,6 +1,15 @@
 Change history of package msa:
 ==============================
 
+Version 1.31.1:
+- update of gc
+
+Version 1.31.0:
+- new branch for Bioconductor 3.17 devel
+
+Version 1.30.0:
+- release as part of Bioconductor 3.16
+
 Version 1.29.3:
 - fix for possibly malformed inputs: all sequences are forced to
   uppercase characters (previously, ClustalW and ClustalOmega produced

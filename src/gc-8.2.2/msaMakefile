@@ -1,0 +1,7 @@
+all: build_gc
+
+build_gc:
+	./configure --enable-cplusplus --enable-threads=pthreads --enable-shared=no --with-pic
+	make
+	cp .libs/libgc.a ../
+	cp .libs/libgccpp.a ../ 

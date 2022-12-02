@@ -37,9 +37,9 @@ all: clustalomega
 clustalomega:
 	cp windows/src/config.h src/; \
 	cp windows/src/clustal-omega-config.h src/; \
-	export PKG_LIBS="$(PKG_LIBS) -L"../../gc-7.6.12" -lgccpp72 -lgc72"; \
-	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) -std=c++98 -DMATH_H_CLIB -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I../../gc-7.6.12/include"; \
-	export PKG_CFLAGS="$(PKG_CFLAGS) -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I../../gc-7.6.12/include -lgccpp -lgc"; \
+	export PKG_LIBS="$(PKG_LIBS) -L"../../gc-8.2.2" -lgccpp82 -lgc82"; \
+	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) -std=c++98 -DMATH_H_CLIB -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I../../gc-8.2.2/include"; \
+	export PKG_CFLAGS="$(PKG_CFLAGS) -DHAVE_CONFIG_H -I. -DCLUSTALO -DCLUSTALO_NOFILE -DDEFAULT_FILTER=90 -I../../gc-8.2.2/include -lgccpp82 -lgc82"; \
 	cd src; \
 	${R_HOME}/bin${R_ARCH_BIN}/R.exe CMD SHLIB -o ClustalOmega.dll $(CPPNames) && \
 	$(AR) rcs libClustalOmega.a $(OBJNames) && \

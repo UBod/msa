@@ -5,7 +5,7 @@ OBJNames = aligngivenpath.o aligngivenpathsw.o aligntwomsas.o aligntwoprofs.o al
 all: muscle
 
 muscle:
-	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) -I../gc-7.6.12/include"
+	export PKG_CXXFLAGS="$(PKG_CXXFLAGS) -I../gc-8.2.2/include"
 	${R_HOME}/bin${R_ARCH_BIN}/R CMD SHLIB -o libMuscle.so $(CPPNames)
 	ar rcs libMuscle.a $(OBJNames)
 	cp libMuscle.a ../
