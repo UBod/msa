@@ -1,6 +1,10 @@
 Change history of package msa:
 ==============================
 
+Version 1.31.2:
+- msa() function changed such that it also works if the package
+  is not attached to the workspace
+
 Version 1.31.1:
 - update of gc
 

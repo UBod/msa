@@ -19,7 +19,7 @@ msa <- function(inputSeqs,
 
     method <- match.arg(method)
 
-    msaFun <- match.fun(paste0("msa", method))
+    msaFun <- get(paste0("msa", method), envir=environment(msa))
 
     out <- msaFun(inputSeqs=inputSeqs,
                   cluster=cluster,
