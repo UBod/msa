@@ -1,7 +1,9 @@
 #include "muscle.h"
 #include "distfunc.h"
 
-const float INFINITY = float(1e29);
+/*--------------------------CHANGE UBOD 2023-02-22------------*/
+const float AUX_INFINITY = float(1e29);
+/*--------------------------CHANGE END------------------------*/
 const unsigned NILL = uInsane;
 
 static float *ShortestPathEstimate;
@@ -43,7 +45,7 @@ static void InitializeSingleSource(DistFunc &DF, unsigned uIndex)
 
 	for (unsigned i = 0; i < uNodeCount; ++i)
 		{
-		ShortestPathEstimate[i] = INFINITY;
+		ShortestPathEstimate[i] = AUX_INFINITY;
 		Predecessor[i] = NILL;
 		}
 	ShortestPathEstimate[uIndex] = 0;
