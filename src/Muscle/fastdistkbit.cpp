@@ -5,7 +5,7 @@
 
 #define	MIN(x, y)	((x) < (y) ? (x) : (y))
 
-static void SetKmerBitVector(const Seq &s, byte Bits[])
+static void SetKmerBitVector(const Seq &s, MByte Bits[])
 	{
 	const unsigned uLength = s.Length();
 	const unsigned k = 3;	// kmer length
@@ -42,13 +42,13 @@ static void SetKmerBitVector(const Seq &s, byte Bits[])
 		}
 	}
 
-static unsigned CommonBitCount(const byte Bits1[], const byte Bits2[])
+static unsigned CommonBitCount(const MByte Bits1[], const MByte Bits2[])
 	{
-	const byte * const p1end = Bits1 + 1000;
-	const byte *p2 = Bits2;
+	const MByte * const p1end = Bits1 + 1000;
+	const MByte *p2 = Bits2;
 
 	unsigned uCount = 0;
-	for (const byte *p1 = Bits1; p1 != p1end; ++p1)
+	for (const MByte *p1 = Bits1; p1 != p1end; ++p1)
 		{
 	// Here is a cute trick for efficiently counting the
 	// bits common between two bytes by combining them into
@@ -75,7 +75,7 @@ void DistKbit20_3(const SeqVect &v, DistFunc &DF)
 // 1,000 bytes, having one bit per kmer. The bit is set to 1 if the
 // kmer is present in the sequence.
 	const unsigned uBytes = uSeqCount*1000;
-	byte *BitVector = new byte[uBytes];
+	MByte *BitVector = new MByte[uBytes];
 	memset(BitVector, 0, uBytes);
 
 	SetProgressDesc("K-bit distance matrix");
@@ -86,11 +86,11 @@ void DistKbit20_3(const SeqVect &v, DistFunc &DF)
 	const unsigned uTotal = (uSeqCount*(uSeqCount - 1))/2;
 	for (unsigned uSeqIndex1 = 0; uSeqIndex1 < uSeqCount; ++uSeqIndex1)
 		{
-		const byte *Bits1 = BitVector + uSeqIndex1*1000;
+		const MByte *Bits1 = BitVector + uSeqIndex1*1000;
 		const unsigned uLength1 = v[uSeqIndex1]->Length();
 		for (unsigned uSeqIndex2 = 0; uSeqIndex2 < uSeqIndex1; ++uSeqIndex2)
 			{
-			const byte *Bits2 = BitVector + uSeqIndex2*1000;
+			const MByte *Bits2 = BitVector + uSeqIndex2*1000;
 			const unsigned uLength2 = v[uSeqIndex2]->Length();
 			const float fCount = (float) CommonBitCount(Bits1, Bits2);
 

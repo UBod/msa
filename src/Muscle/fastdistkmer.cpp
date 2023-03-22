@@ -76,16 +76,16 @@ const char *KmerToStr(unsigned Kmer)
 	return s;
 	}
 
-void CountKmers(const byte s[], unsigned uSeqLength, byte KmerCounts[])
+void CountKmers(const MByte s[], unsigned uSeqLength, MByte KmerCounts[])
 	{
 #if	TRACE
 	Log("CountKmers\n");
 #endif
-	memset(KmerCounts, 0, TABLE_SIZE*sizeof(byte));
+	memset(KmerCounts, 0, TABLE_SIZE*sizeof(MByte));
 
-	const byte *ptrKmerStart = s;
-	const byte *ptrKmerEnd = s + 4;
-	const byte *ptrSeqEnd = s + uSeqLength;
+	const MByte *ptrKmerStart = s;
+	const MByte *ptrKmerEnd = s + 4;
+	const MByte *ptrSeqEnd = s + uSeqLength;
 
 	unsigned c3 = s[0]*N_3;
 	unsigned c2 = s[1]*N_2;
@@ -116,15 +116,15 @@ void CountKmers(const byte s[], unsigned uSeqLength, byte KmerCounts[])
 		}
 	}
 
-unsigned CommonKmerCount(const byte Seq[], unsigned uSeqLength,
-  const byte KmerCounts1[], const byte Seq2[], unsigned uSeqLength2)
+unsigned CommonKmerCount(const MByte Seq[], unsigned uSeqLength,
+  const MByte KmerCounts1[], const MByte Seq2[], unsigned uSeqLength2)
 	{
-	byte KmerCounts2[TABLE_SIZE];
+	MByte KmerCounts2[TABLE_SIZE];
 	CountKmers(Seq2, uSeqLength2, KmerCounts2);
 
-	const byte *ptrKmerStart = Seq;
-	const byte *ptrKmerEnd = Seq + 4;
-	const byte *ptrSeqEnd = Seq + uSeqLength;
+	const MByte *ptrKmerStart = Seq;
+	const MByte *ptrKmerEnd = Seq + 4;
+	const MByte *ptrSeqEnd = Seq + uSeqLength;
 
 	unsigned c3 = Seq[0]*N_3;
 	unsigned c2 = Seq[1]*N_2;
@@ -138,8 +138,8 @@ unsigned CommonKmerCount(const byte Seq[], unsigned uSeqLength,
 		{
 		assert(Kmer < TABLE_SIZE);
 
-		const byte Count1 = KmerCounts1[Kmer];
-		const byte Count2 = KmerCounts2[Kmer];
+		const MByte Count1 = KmerCounts1[Kmer];
+		const MByte Count2 = KmerCounts2[Kmer];
 
 		uCommonCount += MIN(Count1, Count2);
 
@@ -160,7 +160,7 @@ unsigned CommonKmerCount(const byte Seq[], unsigned uSeqLength,
 	return uCommonCount;
 	}
 
-static void SeqToLetters(const Seq &s, byte Letters[])
+static void SeqToLetters(const Seq &s, MByte Letters[])
 	{
 	const unsigned uSeqLength = s.Length();
 	for (unsigned uCol = 0; uCol < uSeqLength; ++uCol)
@@ -177,7 +177,7 @@ static void SeqToLetters(const Seq &s, byte Letters[])
 
 void FastDistKmer(const SeqVect &v, DistFunc &DF)
 	{
-	byte KmerCounts[TABLE_SIZE];
+	MByte KmerCounts[TABLE_SIZE];
 
 	const unsigned uSeqCount = v.GetSeqCount();
 
@@ -204,8 +204,8 @@ void FastDistKmer(const SeqVect &v, DistFunc &DF)
 	if (0 == uMaxLength)
 		return;
 
-	byte *Seq1Letters = new byte[uMaxLength];
-	byte *Seq2Letters = new byte[uMaxLength];
+	MByte *Seq1Letters = new MByte[uMaxLength];
+	MByte *Seq2Letters = new MByte[uMaxLength];
 
 	for (unsigned uSeqIndex1 = 0; uSeqIndex1 < uSeqCount - 1; ++uSeqIndex1)
 		{
