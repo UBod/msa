@@ -2,6 +2,10 @@ Change history of package msa:
 ==============================
 
 Version 1.31.5:
+- update of ClustalW makefile to avoid problems arising from compiling
+  ClustalW with C++ 17: added -D_HAS_AUTO_PTR_ETC=1
+
+Version 1.31.5:
 - update of Muscle source code to avoid problems arising from compiling
   Muscle with C++ 17: renamed type 'byte' to 'MByte'
 
