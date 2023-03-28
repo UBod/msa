@@ -7,7 +7,7 @@ all: clustalw
 clustalw:
 	./configure; \
 	cd src; \
-	export PKG_CXXFLAGS="-DHAVE_CONFIG_H -D_HAS_AUTO_PTR_ETC=1 -I. $(PKG_CXXFLAGS) -Wno-deprecated -Wno-unused-result"; \
+	export PKG_CXXFLAGS="-DHAVE_CONFIG_H -std=c++14  -I. $(PKG_CXXFLAGS) -Wno-deprecated -Wno-unused-result"; \
 	${R_HOME}/bin/R CMD SHLIB -o libClustalW.so $(CPPNames) && \
 	ar rcs libClustalW.a $(OBJNames) && \
 	cp libClustalW.a ../../

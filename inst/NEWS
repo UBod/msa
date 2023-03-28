@@ -1,7 +1,12 @@
 Change history of package msa:
 ==============================
 
-Version 1.31.5:
+Version 1.31.7:
+- changes of Version 1.31.6 undone (fix did not work on Mac OS)
+- update of ClustalW makefile to avoid problems arising from compiling
+  ClustalW with C++ 17: added -std=c++14
+
+Version 1.31.6:
 - update of ClustalW makefile to avoid problems arising from compiling
   ClustalW with C++ 17: added -D_HAS_AUTO_PTR_ETC=1
 
