@@ -9,11 +9,16 @@ msaConservationScore.matrix <- function(x, substitutionMatrix, gapVsGap=NULL,
         stop("substitution matrix is not in proper format")
 
     if (is.null(rownames(x)) ||
-        any(!(rownames(x) %in% c(LETTERS, "-", "+", "."))))
+        any(!(rownames(x) %in% c(LETTERS, "-", "+", ".", "*"))))
         stop("consensus matrix 'x' is not in proper format")
 
-    sel <- match(c("+", "."), rownames(x))
+    sel <- match(c("+", ".", "*"), rownames(x))
     sel <- sel[which(!is.na(sel))]
+    if (length(sel) > 0)
+        x <- x[-sel, ]
+
+    sel <- which(rowSums(x, na.rm=TRUE) <= 0)
+
     if (length(sel) > 0)
         x <- x[-sel, ]
 

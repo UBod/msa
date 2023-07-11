@@ -5,7 +5,7 @@ msaConsensusSequence.matrix <- function(x, type=c("Biostrings", "upperlower"),
     type <- match.arg(type)
 
     if (is.null(rownames(x)) ||
-        any(!(rownames(x) %in% c(LETTERS, "-", "+", "."))))
+        any(!(rownames(x) %in% c(LETTERS, "-", "+", ".", "*"))))
         stop("consensus matrix 'x' is not in proper format")
 
     sel <- match(c("+", "."), rownames(x))
