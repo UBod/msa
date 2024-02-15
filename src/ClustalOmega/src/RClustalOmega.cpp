@@ -359,7 +359,7 @@ SEXP RClustalOmega(SEXP rInputSeqs,
 
         bool verbose = as<bool>(rVerbose);
 		if (verbose) {
-			Rprintf("params:", argc);
+			Rprintf("params:");
 			int cnt;
 			for (cnt = 0; cnt < argc; cnt++) {
 				Rprintf(" %s", argv[cnt]);
