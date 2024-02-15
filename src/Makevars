@@ -1,6 +1,7 @@
 PKG_LIBS=`${R_HOME}/bin${R_ARCH_BIN}/Rscript -e "if (Sys.info()['sysname'] == 'Darwin') cat('-Wl,-all_load ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a') else cat('-Wl,--whole-archive ./libgc.a ./libClustalW.a ./libClustalOmega.a ./libMuscle.a  -Wl,--no-whole-archive -lpthread')"`
 PKG_CXXFLAGS=-I"./gc-8.2.2/include" -I"./Muscle/" -I"./ClustalW/src" -I"./ClustalOmega/src"
 
+MAKE ?= make
 .PHONY: all mylibs
 
 all: $(SHLIB)
@@ -9,7 +10,7 @@ $(SHLIB): mylibs
 mylibs: build_gc build_muscle build_clustalw build_clustalomega
 
 build_gc:
-	make --file=msaMakefile --directory=gc-8.2.2
+	$(MAKE) --file=msaMakefile --directory=gc-8.2.2
 	@echo "----------------------------------------"
 	@echo "------------------ GC  -----------------"
 	@echo "----------------------------------------"
@@ -17,7 +18,7 @@ build_gc:
 	@echo "----------------------------------------"
 
 build_muscle:
-	make --file=msaMakefile --directory=Muscle
+	$(MAKE) --file=msaMakefile --directory=Muscle
 	@echo "----------------------------------------"
 	@echo "---------------- MUSCLE ----------------"
 	@echo "----------------------------------------"
@@ -25,7 +26,7 @@ build_muscle:
 	@echo "----------------------------------------"
 
 build_clustalw:
-	make --file=msaMakefile --directory=ClustalW
+	$(MAKE) --file=msaMakefile --directory=ClustalW
 	@echo "----------------------------------------"
 	@echo "--------------- ClustalW ---------------"
 	@echo "----------------------------------------"
@@ -33,7 +34,7 @@ build_clustalw:
 	@echo "----------------------------------------"
 
 build_clustalomega:
-	make --file=msaMakefile --directory=ClustalOmega
+	$(MAKE) --file=msaMakefile --directory=ClustalOmega
 	@echo "----------------------------------------"
 	@echo "------------- ClustalOmega -------------"
 	@echo "----------------------------------------"

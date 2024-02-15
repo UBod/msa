@@ -851,6 +851,11 @@ Makefiles).\footnote{See, e.g., \url{https://support.bioconductor.org/p/90735/}}
 In most cases, these issues can be avoided by installing \MSA\ in a ``vanilla \R\ session'',
 i.e.\ starting \R\ with option \verb+--vanilla+ when installing \MSA.
 
+On some systems (e.g.\ FreeBSD), the required Gnu make command is installed under a
+different name, e.g., \verb+gmake+. The \MSA\ package installation can handle this under
+the condition that an environment variable \verb+MAKE+ is defined beforehand that contains
+the name of the Gnu make binary.
+
 \section{Future Extensions}\label{sec:future}
 
 We envision the following changes/extensions in future versions of the package:

@@ -1,6 +1,17 @@
 Change history of package msa:
 ==============================
 
+Version 1.35.1:
+- update of some Makevars and Makefiles to avoid compliation issues on FreeBSD
+  + minor adaptation in vignette
+- minor fix in src/ClustalOmega/src/RClustalOmega.cpp (bug in Rprintf arg list)
+
+Version 1.35.0:
+- new branch for Bioconductor 3.19 devel
+
+Version 1.34.0:
+- release as part of Bioconductor 3.18
+
 Version 1.33.2:
 - update of Makevars: added -lpthread to PKG_LIBS in order to make sure that
   package also builds correctly on Bioconda
