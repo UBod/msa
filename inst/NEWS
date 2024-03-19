@@ -1,6 +1,10 @@
 Change history of package msa:
 ==============================
 
+Version 1.35.2:
+- update of msaMakevars.win in ClustalW to avoid problems arising from compiling
+  ClustalW with C++ 17: added -std=c++14
+
 Version 1.35.1:
 - update of some Makevars and Makefiles to avoid compliation issues on FreeBSD
   + minor adaptation in vignette
