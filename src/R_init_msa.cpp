@@ -27,6 +27,7 @@ extern "C"
     void R_init_msa(DllInfo *info) {
 		/* Register routines, allocate resources. */
 		R_registerRoutines(info, NULL, callMethods, NULL, NULL);
+	R_useDynamicSymbols(info, FALSE);
     }
 
     void R_unload_msa(DllInfo *info) {

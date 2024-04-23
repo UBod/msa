@@ -1,4 +1,4 @@
-\documentclass[article]{bioinf}
+\documentclass{ubmanual}
 
 \usepackage{texshade}
 \usepackage{hyperref}
@@ -11,10 +11,12 @@
 \usepackage[OT1]{fontenc}
 
 \title{{\Huge msa}\\[5mm] An R Package for Multiple Sequence Alignment}
-\author{Enrico Bonatesta, Christoph Kainrath, and Ulrich Bodenhofer}
-\affiliation{Institute of Bioinformatics, Johannes Kepler University
-Linz\\Altenberger Str. 69, 4040 Linz, Austria\\
-\email{msa@bioinf.jku.at}}
+\author{Enrico Bonatesta\affilmark{2}, Christoph Kainrath\affilmark{2}, and Ulrich Bodenhofer\affilmark{1,2}}
+\affiliation{\affilmark{1} School of Informatics, Communication and Media\\
+University of Applied Sciences Upper Austria\\
+Softwarepark 11, 4232 Hagenberg, Austria\\[2mm]
+{\grey\affilmark{2} previously with: Institute of Bioinformatics,
+Johannes Kepler University\\Altenberger Str.\ 69, 4040 Linz, Austria}}
 
 \newcommand{\msa}{\texttt{msa}}
 \newcommand{\MSA}{\texttt{msa}}
@@ -52,7 +54,7 @@ msaDate <- paste(month.name[msaDateMonth], " ",
 
 \newcommand{\msaVer}{\Sexpr{msaVersion}}
 \newcommand{\msaDate}{\Sexpr{msaDate}}
-\manualtitlepage[Version \msaVer, \msaDate]
+\manualtitlepage{Version \msaVer, \msaDate]}{https://github.com/UBod/msa}
 
 \section*{Scope and Purpose of this Document}
 

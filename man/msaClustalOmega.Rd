@@ -74,11 +74,9 @@
    If called with \code{help=TRUE}, \code{msaClustalOmega} returns
    an invisible \code{NULL}.
 }
-\author{Enrico Bonatesta and Christoph Horejs-Kainrath
-  <msa@bioinf.jku.at>
-}
+\author{Enrico Bonatesta and Christoph Kainrath}
 \references{
-  \url{http://www.bioinf.jku.at/software/msa}
+  \url{https://github.com/UBod/msa}
   
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 

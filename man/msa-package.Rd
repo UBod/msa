@@ -17,16 +17,14 @@
   \tabular{ll}{
     Package: \tab msa\cr
     Type: \tab Package\cr
-    Version: \tab 1.1.2\cr
-    Date: \tab 2015-09-29\cr
+    Version: \tab 1.35.2\cr
+    Date: \tab 2024-04-23\cr
     License: \tab GPL-2\cr
   }
 }
-\author{Enrico Bonatesta, Christoph Horejs-Kainrath, and Ulrich Bodenhofer
-  <msa@bioinf.jku.at>
-}
+\author{Enrico Bonatesta, Christoph Kainrath, and Ulrich Bodenhofer}
 \references{
-  \url{http://www.bioinf.jku.at/software/msa}
+  \url{https://github.com/UBod/msa}
   
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 

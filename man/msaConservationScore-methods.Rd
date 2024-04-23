@@ -82,10 +82,9 @@
   matrix has columns. The vector is named with the consensus sequence
   (see details above).
 }
-\author{Ulrich Bodenhofer <msa@bioinf.jku.at>
-}
+\author{Ulrich Bodenhofer}
 \references{
-  \url{http://www.bioinf.jku.at/software/msa}
+  \url{https://github.com/UBod/msa}
   
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 

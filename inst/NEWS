@@ -2,6 +2,11 @@ Change history of package msa:
 ==============================
 
 Version 1.35.2:
+- changed e-mail address of maintainer
+- updated README.md and formatting of package vignette
+- updated references in documentation
+
+Version 1.35.2:
 - update of msaMakevars.win in ClustalW to avoid problems arising from compiling
   ClustalW with C++ 17: added -std=c++14
 

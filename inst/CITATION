@@ -1,12 +1,12 @@
 ##345678901234567890123456789012345678901234567890123456789012345678901234567890
 citHeader("To cite package 'msa' in publications use:")
 
-citEntry(entry="Article",
+bibentry(bibtype="Article",
          title = "msa: an R package for multiple sequence alignment",
-         author = personList(as.person("Ulrich Bodenhofer"),
-                             as.person("Enrico Bonatesta"),
-                             as.person("Christoph Horejs-Kainrath"),
-                             as.person("Sepp Hochreiter")),
+         author = c(person("Ulrich", "Bodenhofer"),
+                    person("Enrico", "Bonatesta"),
+                    person("Christoph", "Horejs-Kainrath"),
+                    person("Sepp", "Hochreiter")),
          journal="Bioinformatics",
          volume="31",
          number="24",

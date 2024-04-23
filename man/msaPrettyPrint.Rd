@@ -190,11 +190,9 @@
 \value{\code{msaPrettyPrint} returns an invisible character vector consisting
   of the LaTeX fragment with the \code{texshade} environment.
 }
-\author{Ulrich Bodenhofer, Enrico Bonatesta, and Christoph Horejs-Kainrath 
-  <msa@bioinf.jku.at>
-}
+\author{Ulrich Bodenhofer, Enrico Bonatesta, and Christoph Kainrath}
 \references{
-  \url{http://www.bioinf.jku.at/software/msa}
+  \url{https://github.com/UBod/msa}
   
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 

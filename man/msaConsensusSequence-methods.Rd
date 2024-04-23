@@ -77,10 +77,9 @@
 \value{
   The function returns a character string with the consensus sequence.
 }
-\author{Ulrich Bodenhofer <msa@bioinf.jku.at>
-}
+\author{Ulrich Bodenhofer}
 \references{
-  \url{http://www.bioinf.jku.at/software/msa}
+  \url{https://github.com/UBod/msa}
   
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 

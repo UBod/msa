@@ -109,11 +109,9 @@
       also \code{\linkS4class{MsaMetaData}})}
   }
 }
-\author{Enrico Bonatesta, Christoph Horejs-Kainrath, and
-  Ulrich Bodenhofer <msa@bioinf.jku.at>
-}
+\author{Enrico Bonatesta, Christoph Kainrath, and Ulrich Bodenhofer}
 \references{
-  \url{http://www.bioinf.jku.at/software/msa}
+  \url{https://github.com/UBod/msa}
   
   U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
   (2015). msa: an R package for multiple sequence alignment. 

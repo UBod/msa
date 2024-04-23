@@ -1,10 +1,10 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.35.2
-Date: 2024-03-19
-Author: Enrico Bonatesta, Christoph Horejs-Kainrath, Ulrich Bodenhofer
-Maintainer: Ulrich Bodenhofer <bodenhofer@bioinf.jku.at>
+Version: 1.35.3
+Date: 2024-04-23
+Author: Enrico Bonatesta [aut], Christoph Kainrath [aut], Ulrich Bodenhofer [aut,cre]
+Maintainer: Ulrich Bodenhofer <ulrich@bodenhofer.com>
 Description: The 'msa' package provides a unified R/Bioconductor interface to
              the multiple sequence alignment algorithms ClustalW, ClustalOmega,
 	     and Muscle. All three algorithms are integrated in the package,
@@ -13,7 +13,7 @@ Description: The 'msa' package provides a unified R/Bioconductor interface to
 	     alignment algorithms are complemented by a function for
 	     pretty-printing multiple sequence alignments using the LaTeX
 	     package TeXshade.
-URL: http://www.bioinf.jku.at/software/msa/
+URL: https://github.com/UBod/msa
 License: GPL (>= 2)
 Copyright: See file inst/COPYRIGHT
 Depends: R (>= 3.3.0), methods, Biostrings (>= 2.40.0)
