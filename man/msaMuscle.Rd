@@ -110,6 +110,9 @@
   \code{\linkS4class{MsaMetaData}}
 }
 \examples{
+## load 'pwalign' package which provides substitution matrices
+library(pwalign)
+
 ## read sequences
 filepath <- system.file("examples", "exampleAA.fasta", package="msa")
 mySeqs <- readAAStringSet(filepath)
