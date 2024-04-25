@@ -37,8 +37,8 @@
   scores for all positions of the alignment. For computing these scores,
   it is compulsory to specify a substitution/scoring matrix. This matrix
   must be provided as a \code{\link{matrix}} object. This can either be
-  one of the ready-made matrices provided by the \pkg{Biostrings}
-  package (e.g. \code{\link{BLOSUM62}}) or any other hand-crafted
+  one of the ready-made matrices provided by the \pkg{pwalign}
+  package (e.g. \code{\link[pwalign]{BLOSUM62}}) or any other hand-crafted
   matrix. In the latter case, the following restrictions apply:
   \itemize{
     \item{The matrix must be quadratic.}
@@ -49,7 +49,7 @@
     \item{All letters/symbols occurring in the multiple alignment,
       including gaps \sQuote{-}, must also be found in the row/column
       names of the substitution matrix. For consistency with the
-      matrices from the \pkg{Biostrings} package, the
+      matrices from the \pkg{pwalign} package, the
       row/column corresponding to gap penalties
       may also be labeled \sQuote{*} instead of \sQuote{-}.}
   }
