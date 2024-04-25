@@ -459,6 +459,7 @@ substitution/scoring matrix. Thereby, conservation can also be analyzed in a
 more sensible way than by only taking relative frequencies of letters into
 account as \verb+msaConsensusSequence()+ does.
 <<conservationExample1>>=
+library(pwalign)  # for the BLOSUM62 matrix
 data(BLOSUM62)
 msaConservationScore(myFirstAlignment, BLOSUM62)
 @

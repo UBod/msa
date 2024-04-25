@@ -1,8 +1,8 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.35.3
-Date: 2024-04-23
+Version: 1.35.4
+Date: 2024-04-24
 Author: Enrico Bonatesta [aut], Christoph Kainrath [aut], Ulrich Bodenhofer [aut,cre]
 Maintainer: Ulrich Bodenhofer <ulrich@bodenhofer.com>
 Description: The 'msa' package provides a unified R/Bioconductor interface to
@@ -19,7 +19,7 @@ Copyright: See file inst/COPYRIGHT
 Depends: R (>= 3.3.0), methods, Biostrings (>= 2.40.0)
 Imports: Rcpp (>= 0.11.1), BiocGenerics, IRanges (>= 1.20.0),
         S4Vectors, tools
-Suggests: Biobase, knitr, seqinr, ape (>= 5.1), phangorn
+Suggests: Biobase, knitr, seqinr, ape (>= 5.1), phangorn, pwalign
 LinkingTo: Rcpp
 SystemRequirements: GNU make
 VignetteBuilder: knitr
