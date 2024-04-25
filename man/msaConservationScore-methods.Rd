@@ -99,6 +99,9 @@
   \code{\link{msaConsensusSequence}}
 }
 \examples{
+## load 'pwalign' package which provides substitution matrices
+library(pwalign)
+
 ## read sequences
 filepath <- system.file("examples", "HemoglobinAA.fasta", package="msa")
 mySeqs <- readAAStringSet(filepath)
