@@ -54,7 +54,7 @@ msaDate <- paste(month.name[msaDateMonth], " ",
 
 \newcommand{\msaVer}{\Sexpr{msaVersion}}
 \newcommand{\msaDate}{\Sexpr{msaDate}}
-\manualtitlepage{Version \msaVer, \msaDate]}{https://github.com/UBod/msa}
+\manualtitlepage{Version \msaVer, \msaDate}{https://github.com/UBod/msa}
 
 \section*{Scope and Purpose of this Document}
 
