@@ -130,7 +130,7 @@
 \references{
   \url{https://github.com/UBod/msa}
   
-  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  Bodenhofer, U., Bonatesta, E., Horejs-Kainrath, C., and Hochreiter, S.
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
   \doi{10.1093/bioinformatics/btv494}.

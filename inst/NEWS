@@ -1,6 +1,9 @@
 Change history of package msa:
 ==============================
 
+Version 1.35.5:
+- major update of package help page man/msa-package.Rd
+
 Version 1.35.4:
 - fixes to account for move of substitution matrices from 'Biostrings' to 'pwalign'
   package

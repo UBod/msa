@@ -194,15 +194,15 @@
 \references{
   \url{https://github.com/UBod/msa}
   
-  U. Bodenhofer, E. Bonatesta, C. Horejs-Kainrath, and S. Hochreiter
+  Bodenhofer, U., Bonatesta, E., Horejs-Kainrath, C., and Hochreiter, S.
   (2015). msa: an R package for multiple sequence alignment. 
   \emph{Bioinformatics} \bold{31}(24):3997-3999. DOI:
   \doi{10.1093/bioinformatics/btv494}.
 
   \url{https://www.ctan.org/pkg/texshade}
 
-  Beitz, E. (2000) TeXshade: shading and labeling of multiple
-  sequence alignments using LaTeX2e
+  Beitz, E. (2000). TeXshade: shading and labeling of multiple
+  sequence alignments using LaTeX2e.
   \emph{Bioinformatics} \bold{16}(2):135-139. DOI:
   \doi{10.1093/bioinformatics/16.2.135}.
 }
