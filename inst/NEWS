@@ -1,6 +1,10 @@
 Change history of package msa:
 ==============================
 
+Version 1.39.1:
+- added USE_C17 to DESCRIPTION as SystemRequirement to cope with the upcoming change
+  to C23 as default in R 4.5.0
+
 Version 1.37.4:
 - change of interface of msaPrettyPrint() function in order to allow for a
   workaround for texi2dvi() problems (using quiet=TRUE and index=FALSE together
