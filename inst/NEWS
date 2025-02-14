@@ -1,6 +1,10 @@
 Change history of package msa:
 ==============================
 
+Version 1.39.2:
+- further fix to cope with the upcoming change
+  to C23 as default in R 4.5.0
+
 Version 1.39.1:
 - added USE_C17 to DESCRIPTION as SystemRequirement to cope with the upcoming change
   to C23 as default in R 4.5.0
