@@ -1,9 +1,0 @@
-MAKE ?= make
-
-all: build_gc
-
-build_gc:
-	./configure --enable-cplusplus --enable-threads=pthreads --enable-shared=no --with-pic
-	$(MAKE)
-	cp .libs/libgc.a ../
-	cp .libs/libgccpp.a ../ 

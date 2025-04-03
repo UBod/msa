@@ -53,7 +53,10 @@ transformInputSeq <- function(inputSeq) {
         }
     }
 
-    return(toupper(inputSeq))
+    if (length(inputSeq) == 1)
+        return(inputSeq)
+    else
+        return(toupper(inputSeq))
 }
 
 ###############################################################################

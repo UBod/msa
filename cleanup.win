@@ -6,9 +6,9 @@ rm -rf src/*.o
 rm -rf src/*.a
 
 ## -- gc
-rm -rf src/gc-8.2.2/*.dll
-rm -rf src/gc-8.2.2/*.o
-rm -rf src/gc-8.2.2/*.a
+rm -rf src/gc-8.2.8/*.dll
+rm -rf src/gc-8.2.8/*.o
+rm -rf src/gc-8.2.8/*.a
 
 ## -- Muscle
 rm -rf src/Muscle/muscle.make.std???.txt
