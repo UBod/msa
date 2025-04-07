@@ -1,6 +1,9 @@
 Change history of package msa:
 ==============================
 
+Version 1.39.4:
+- fix of gc 8.2.8 source for Windows platform
+
 Version 1.39.3:
 - upgraded gc library to version 8.2.8
 - changed compiler standard to gnu++11 for ClustalOmega compilation on Linux/Mac

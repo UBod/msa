@@ -6,7 +6,7 @@ rm -rf src/*.a
 rm -rf src/*.o
 rm -rf src/*.rds
 
-## gc-8.2.8
+## gc-8.2.2
 rm -rf src/gc-8.2.8/.deps
 rm -rf src/gc-8.2.8/.libs
 rm -rf src/gc-8.2.8/*.o
@@ -23,7 +23,25 @@ rm -rf src/gc-8.2.8/cord/*.lo
 rm -rf src/gc-8.2.8/cord/*.la
 rm -rf src/gc-8.2.8/include/private/config.h
 rm -rf src/gc-8.2.8/include/private/stamp-h1
-rm -rf src/gc-8.2.8/libatomic_ops
+rm -rf src/gc-8.2.8/libatomic_ops/Makefile
+rm -rf src/gc-8.2.8/libatomic_ops/config.log
+rm -rf src/gc-8.2.8/libatomic_ops/config.status
+rm -rf src/gc-8.2.8/libatomic_ops/doc/Makefile
+rm -rf src/gc-8.2.8/libatomic_ops/pkgconfig/atomic_ops-uninstalled.pc
+rm -rf src/gc-8.2.8/libatomic_ops/pkgconfig/atomic_ops.pc
+rm -rf src/gc-8.2.8/libatomic_ops/src/.deps
+rm -rf src/gc-8.2.8/libatomic_ops/src/.libs
+rm -rf src/gc-8.2.8/libatomic_ops/src/*.o
+rm -rf src/gc-8.2.8/libatomic_ops/src/*.la
+rm -rf src/gc-8.2.8/libatomic_ops/src/*.lo
+rm -rf src/gc-8.2.8/libatomic_ops/src/.dirstamp
+rm -rf src/gc-8.2.8/libatomic_ops/src/Makefile
+rm -rf src/gc-8.2.8/libatomic_ops/src/atomic_ops/Makefile
+rm -rf src/gc-8.2.8/libatomic_ops/src/atomic_ops/sysdeps/Makefile
+rm -rf src/gc-8.2.8/libatomic_ops/src/config.h
+rm -rf src/gc-8.2.8/libatomic_ops/src/stamp-h1
+rm -rf src/gc-8.2.8/libatomic_ops/tests/.deps
+rm -rf src/gc-8.2.8/libatomic_ops/tests/Makefile
 rm -rf src/gc-8.2.8/libtool
 rm -rf src/gc-8.2.8/tests/.deps
 rm -rf src/gc-8.2.8/cord/.dirstamp
