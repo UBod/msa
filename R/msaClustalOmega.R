@@ -59,10 +59,21 @@ msaClustalOmega <- function(inputSeqs,
     #############
     # order     #
     #############
-    order <- match.arg(order)
-    params[["outputOrder"]] <- switch(order,
-                                      aligned="tree-order",
-                                      input="input-order")
+    ##https://github.com/UBod/msa/issues/35
+    ##specifying the output order and profile1 at the same time causes segfault
+    ##this is an upstream bug in Clustal Omega
+    if (!is.null(params[["profile1"]])) {
+        if (!missing(order)) {
+            warning("The parameter order cannot be set with profile1,\n",
+                "leaving output-order as default instead...\n")
+        }
+        ##simply leave params[["outputOrder"]] undefined to keep default
+    } else {
+        order <- match.arg(order)
+        params[["outputOrder"]] <- switch(order,
+                                        aligned="tree-order",
+                                        input="input-order")
+    }
 
     ###########
     # cluster #
