@@ -65,7 +65,7 @@ msaClustalOmega <- function(inputSeqs,
     if (!is.null(params[["profile1"]])) {
         if (!missing(order)) {
             warning("The parameter order cannot be set with profile1,\n",
-                "leaving output-order as default instead...\n")
+                    "leaving output-order as default instead.")
         }
         ##simply leave params[["outputOrder"]] undefined to keep default
     } else {

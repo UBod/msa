@@ -50,5 +50,9 @@ wrap=                        [Positive Int]
   - [String] in the context of substitutionMatrix means a string, 
     which describes the matrix like "blosum30" (see ?msaClustalOmega).
 
+* ClustalOmega crashes if profile1 is used in conjunction with a non-default
+  output order. That is why the order argument is ignored when profile1 is
+  specified. (a warning is also displayed in this case)
+
 For more information on how these parameters are interpreted by
 ClustalOmega, see http://www.clustal.org/omega/README.
