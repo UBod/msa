@@ -43,7 +43,9 @@ static void DoSeq(Seq &s, unsigned uSeqIndex, const ProfPos *RootProf,
 	msaOut.SetSeqId(uSeqIndex, s.GetId());
 	for (unsigned uColIndex = 0; uColIndex < uRootProfLength; ++uColIndex)
 		msaOut.SetChar(uSeqIndex, uColIndex, msaCombined.GetChar(0, uColIndex));
-	}
+	
+    delete[] SeqProf;
+    }
 
 // Steven Brenner's O(NL^2) proposal for creating a root alignment
 // Align each sequence to the profile at the root.

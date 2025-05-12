@@ -10,18 +10,23 @@
 
 void DeleteProgNode(ProgNode &Node)
 	{
-	ProgNode *temp = &Node;
-	if (!temp) {
-		if (NULL != Node.m_Prof) {
-			delete[] Node.m_Prof;
-		}
-		delete[] Node.m_EstringL;
-		delete[] Node.m_EstringR;
+    if (Node.m_Prof)
+    {
+        delete[] Node.m_Prof;
+        Node.m_Prof = nullptr;
+    }
 
-		Node.m_Prof = 0;
-		Node.m_EstringL = 0;
-		Node.m_EstringR = 0;
-	}
+    if (Node.m_EstringL)
+    {
+        delete[] Node.m_EstringL;
+        Node.m_EstringL = nullptr;
+    }
+
+    if (Node.m_EstringR)
+    {
+        delete[] Node.m_EstringR;
+        Node.m_EstringR = nullptr;
+    }
 	}
 
 static void MakeNode(ProgNode &OldNode, ProgNode &NewNode, bool bSwapLR)
