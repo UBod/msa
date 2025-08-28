@@ -1,6 +1,9 @@
 Change history of package msa:
 ==============================
 
+Version 1.41.1:
+- fix of compilation issues caused by ClustalOmega on arm64 systems 
+
 Version 1.39.5:
 - workaround to avoid segfault caused by ClustalOmega 
 
