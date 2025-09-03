@@ -250,12 +250,14 @@ void DoMuscle(MuscleInput *msaInput, MuscleOutput *msaOutput)
 	msaOutput->msa = DoMuscleOutput(msa);
 
 	//GuideTree = 0;
-	extern void DeleteProgNode(ProgNode &Node);
-	const unsigned uNodeCount = GuideTree.GetNodeCount();
-	for (unsigned uNodeIndex = 0; uNodeIndex < uNodeCount; ++uNodeIndex)
+    if(g_bLow && ProgNodes) {
+        extern void DeleteProgNode(ProgNode &Node);
+	    const unsigned uNodeCount = GuideTree.GetNodeCount();
+	    for (unsigned uNodeIndex = 0; uNodeIndex < uNodeCount; ++uNodeIndex)
 			DeleteProgNode(ProgNodes[uNodeIndex]); //valgrind
 
-	delete[] ProgNodes;
+	    delete[] ProgNodes;
+    }
 
 	GuideTree.Clear(); //valgrind
 	return;

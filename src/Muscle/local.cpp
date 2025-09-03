@@ -97,4 +97,7 @@ void Local()
 
 	TextFile fileOut(g_pstrOutFileName, true);
 	msaOut.ToFile(fileOut);
+    
+    delete[] Prof1;
+    delete[] Prof2;    
 	}

@@ -79,7 +79,10 @@ void ProfileProfile(MSA &msa1, MSA &msa2, MSA &msaOut)
 
 	Progress("Building output");
 	AlignTwoMSAsGivenPath(Path, msa1, msa2, msaOut);
-	}
+	
+    delete[] Prof1;
+    delete[] Prof2;
+    }
 
 // Do profile-profile alignment
 void Profile()
