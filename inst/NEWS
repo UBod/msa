@@ -1,6 +1,9 @@
 Change history of package msa:
 ==============================
 
+Version 1.41.2:
+- fix of memory leaks in Muscle (thanks for GitHub user Rong-Zh)
+
 Version 1.41.1:
 - fix of compilation issues caused by ClustalOmega on arm64 systems 
 
