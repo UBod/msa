@@ -11,7 +11,7 @@ Authors@R: c(person(given = "Enrico",
 		    role = c("aut")),
              person(given = "Ulrich",
                     family = "Bodenhofer",
-		    role = c("aut", "cre"),
+		    role = c("aut", "cre", "ths"),
 		    email = "ulrich@bodenhofer.com"))
 Maintainer: Ulrich Bodenhofer <ulrich@bodenhofer.com>
 Description: The 'msa' package provides a unified R/Bioconductor interface to
