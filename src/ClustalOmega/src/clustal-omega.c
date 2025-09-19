@@ -628,7 +628,7 @@ InitClustalOmega(int iNumThreadsRequested)
               iNumThreadsRequested, PACKAGE_NAME);
     }
     iNumberOfThreads = 1; /* need to set this, even if build without support */
-#elif HAVE_OPENMP
+#elif defined(HAVE_OPENMP) && defined(_OPENMP)
     iNumberOfThreads = iNumThreadsRequested;
     omp_set_num_threads(iNumberOfThreads);
 #else

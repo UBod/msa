@@ -38,7 +38,11 @@
 #include <assert.h>
 
 #ifdef HAVE_OPENMP
+#if defined(_OPENMP)
 #include <omp.h>
+#else
+#undef HAVE_OPENMP
+#endif
 #endif
 
 #include "../squid/squid.h"

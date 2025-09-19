@@ -21,11 +21,10 @@
 #ifndef CLUSTALO_H
 #define CLUSTALO_H
 
-
-
-#ifdef HAVE_OPENMP
+#if defined(HAVE_OPENMP) && defined(_OPENMP)
 #include <omp.h>
 #endif
+
 #include <stdbool.h>
 
 #include "clustal-omega-config.h"

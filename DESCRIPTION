@@ -1,9 +1,18 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.41.2
-Date: 2025-09-03
-Author: Enrico Bonatesta [aut], Christoph Kainrath [aut], Ulrich Bodenhofer [aut,cre]
+Version: 1.41.3
+Date: 2025-09-19
+Authors@R: c(person(given = "Enrico",
+                    family = "Bonatesta",
+		    role = c("aut")),
+             person(given = "Christoph",
+                    family = "Kainrath",
+		    role = c("aut")),
+             person(given = "Ulrich",
+                    family = "Bodenhofer",
+		    role = c("aut", "cre"),
+		    email = "ulrich@bodenhofer.com"))
 Maintainer: Ulrich Bodenhofer <ulrich@bodenhofer.com>
 Description: The 'msa' package provides a unified R/Bioconductor interface to
              the multiple sequence alignment algorithms ClustalW, ClustalOmega,

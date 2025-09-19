@@ -155,7 +155,7 @@ SetDefaultUserOpts(cmdline_opts_t *opts)
 
 #ifdef WIN32
     opts->iThreads = 1;
-#elif HAVE_OPENMP
+#elif defined(HAVE_OPENMP) && defined(_OPENMP)
     /* defaults to # of CPUs */
     opts->iThreads = omp_get_max_threads();
 #else
