@@ -1126,8 +1126,6 @@ msaMuscle <- function(inputSeqs,
             names(out@unmasked) <- inputSeqNames
         }
     }
-    else
-        names(out@unmasked) <- NULL
 
     standardParams <- list(gapOpening=gapOpening,
                            gapExtension=gapExtension,

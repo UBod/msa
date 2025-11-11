@@ -633,8 +633,6 @@ msaClustalOmega <- function(inputSeqs,
         perm <- match(names(out@unmasked), names(inputSeqs))
         names(out@unmasked) <- inputSeqNames[perm]
     }
-    else
-        names(out@unmasked) <- NULL
 
     standardParams <- list(gapOpening=gapOpening,
                            gapExtension=gapExtension,

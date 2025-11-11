@@ -1,6 +1,10 @@
 Change history of package msa:
 ==============================
 
+Version 1.43.1:
+- fix of bug that deleted sequence names if the sequences were read from
+  FASTA file (all three alignment algorithms)
+
 Version 1.41.3:
 - fix in ClustalOmega to better determine whether OpenMP is available
 - updated DESCRIPTION file to new format (Authors@R)
