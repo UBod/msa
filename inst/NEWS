@@ -1,6 +1,12 @@
 Change history of package msa:
 ==============================
 
+The following list highlights the change history of the package.
+It only mentions versions in which actual changes have been made
+(leaving out automatic version number increments that have been made
+within the Bioconductor release cycle without any actual change
+of code or documentation).
+
 Version 1.43.1:
 - fix of bug that deleted sequence names if the sequences were read from
   FASTA file (all three alignment algorithms)
@@ -71,12 +77,6 @@ Version 1.35.1:
   + minor adaptation in vignette
 - minor fix in src/ClustalOmega/src/RClustalOmega.cpp (bug in Rprintf arg list)
 
-Version 1.35.0:
-- new branch for Bioconductor 3.19 devel
-
-Version 1.34.0:
-- release as part of Bioconductor 3.18
-
 Version 1.33.2:
 - update of Makevars: added -lpthread to PKG_LIBS in order to make sure that
   package also builds correctly on Bioconda
@@ -84,12 +84,6 @@ Version 1.33.2:
 Version 1.33.1:
 - update of msaConsensusSequence() and msaConsensusSequence() methods to
   account for recent change in function Biostrings::consensusMatrix()
-
-Version 1.33.0:
-- new branch for Bioconductor 3.18 devel
-
-Version 1.32.0:
-- release as part of Bioconductor 3.17
 
 Version 1.31.7:
 - changes of Version 1.31.6 undone (fix did not work on Mac OS)
@@ -120,12 +114,6 @@ Version 1.31.2:
 Version 1.31.1:
 - update of gc
 
-Version 1.31.0:
-- new branch for Bioconductor 3.17 devel
-
-Version 1.30.0:
-- release as part of Bioconductor 3.16
-
 Version 1.29.3:
 - fix for possibly malformed inputs: all sequences are forced to
   uppercase characters (previously, ClustalW and ClustalOmega produced
@@ -138,12 +126,6 @@ Version 1.29.1:
 - fix in argtable library (ClustalOmega) to avoid compilation errors on
   newest Mac OS
 
-Version 1.29.0:
-- new branch for Bioconductor 3.16 devel
-
-Version 1.28.0:
-- release as part of Bioconductor 3.15
-
 Version 1.27.2:
 - applied patch to allow msa to work with the new Windows UCRT toolchain
 
@@ -153,12 +135,6 @@ Version 1.27.1:
 - updated URLs and DOIs (now requires R version >= 3.3.0)
 - fixed msaConvert() function to now work well with newer versions of the
   'ape' package (now requires at least version 5.2)
-
-Version 1.27.0:
-- new branch for Bioconductor 3.15 devel
-
-Version 1.26.0: 
-- release as part of Bioconductor 3.14
 
 Version 1.25.3:
 - further changes to get rid of compiler warnings
@@ -170,37 +146,13 @@ Version 1.25.1:
 - update of gc
 - minor changes to get rid of compiler warnings
 
-Version 1.25.0:
-- new branch for Bioconductor 3.14 devel
-
-Version 1.24.0:
-- release as part of Bioconductor 3.13
-
 Version 1.23.1:
 - updated texshade.sty to newest version
-
-Version 1.23.0:
-- new branch for Bioconductor 3.13 devel
-
-Version 1.22.0:
-- release as part of Bioconductor 3.12
 
 Version 1.21.1:
 - changed msaClustalW() examples to run smoothly on Windows with R 4.0.x
 - added warning to msaClustalW() help page regarding cluster="upgma" on
   Windows
-
-Version 1.21.0:
-- new branch for Bioconductor 3.12 devel
-
-Version 1.20.0:
-- release as part of Bioconductor 3.11
-
-Version 1.19.0:
-- new branch for Bioconductor 3.11 devel
-
-Version 1.18.0:
-- release as part of Bioconductor 3.10
 
 Version 1.17.2:
 - removed change history from package vignette for easier maintenance
@@ -211,41 +163,11 @@ Version 1.17.1:
 - fixed Windows cleanup script
 - fixed src/Makevars.win
 
-Version 1.17.0:
-- new branch for Bioconductor 3.10 devel
-
-Version 1.16.0:
-- release as part of Bioconductor 3.9
-
-Version 1.15.0:
-- new branch for Bioconductor 3.9 devel
-
-Version 1.14.0:
-- release as part of Bioconductor 3.8
-
-Version 1.13.0:
-- new branch for Bioconductor 3.8 devel
-
-Version 1.12.0:
-- release as part of Bioconductor 3.7
-
 Version 1.11.1:
 - minor fix in ClustalW
 
 Version 1.11.2:
 - fix of code for using custom substitution matrices in ClustalW
-
-Version 1.11.0:
-- new branch for Bioconductor 3.7 devel
-
-Version 1.10.0:
-- release as part of Bioconductor 3.6
-
-Version 1.9.0:
-- new branch for Bioconductor 3.6 devel
-
-Version 1.8.0:
-- release as part of Bioconductor 3.5
 
 Version 1.7.2:
 - fix for new clang 4 compiler on Mac OS
@@ -262,12 +184,6 @@ Version 1.7.1:
   to make sure that consensusMatrix() also works correctly
   for masked alignments
 - corresponding changes in documentation and vignette
-
-Version 1.7.0:
-- new branch for Bioconductor 3.5 devel
-
-Version 1.6.0:
-- release as part of Bioconductor 3.4
 
 Version 1.5.5:
 - fixes in ClustalOmega source code to ensure Windows compatibility of
@@ -286,12 +202,6 @@ Version 1.5.3:
 Versions 1.5.1 / 1.5.2:
 - version number bumps for technical reasons related to Bioconductor
   build servers
-
-Version 1.5.0:
-- new branch for Bioconductor 3.4 devel
-
-Version 1.4.0:
-- release as part of Bioconductor 3.3
 
 Version 1.3.7:
 - fixes in msaPrettyPrint() function
@@ -324,12 +234,6 @@ Version 1.3.2:
 Version 1.3.1:
 - fixes in Makefiles and Makevars files to account for changes in build system
 
-Version 1.3.0:
-- new branch for Bioconductor 3.3 devel
-
-Version 1.2.0:
-- release as part of Bioconductor 3.2
-
 Version 1.1.3: 
 - bug fix related to custom substitution matrices in the MUSCLE interface
 - correction and updates of documentation
@@ -350,9 +254,6 @@ Version 1.1.2:
 
 Version 1.1.1:
 - fix of msa() function
-
-Version 1.1.0:
-- new branch for Bioconductor 3.2 devel
 
 Version 1.0.0:
 - first official release as part of Bioconductor 3.1
