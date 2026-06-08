@@ -54,7 +54,7 @@
       may also be labeled \sQuote{*} instead of \sQuote{-}.}
   }
   So, nucleotide substitution matrices created by
-  \code{\link{nucleotideSubstitutionMatrix}} can be used for multiple
+  \code{\link[pwalign]{nucleotideSubstitutionMatrix}} can be used for multiple
   alignments of nucleotide sequences, but must be
   completed with gap penalty rows and columns (see example below).
 

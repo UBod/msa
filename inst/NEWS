@@ -7,6 +7,10 @@ It only mentions versions in which actual changes have been made
 within the Bioconductor release cycle without any actual change
 of code or documentation).
 
+Version 1.45.1:
+- adapted imports to new MultipleAlignment package (Bioconductor 3.24)
+- minor fix of link in help page
+
 Version 1.43.1:
 - fix of bug that deleted sequence names if the sequences were read from
   FASTA file (all three alignment algorithms)
