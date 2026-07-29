@@ -16,10 +16,11 @@
 }
 \arguments{
   \item{inputSeqs}{input sequences; this argument can be a character vector,
-    an object of class \code{\linkS4class{XStringSet}} (includes the
-    classes \code{\linkS4class{AAStringSet}}, \code{\linkS4class{DNAStringSet}},
-    and \code{\linkS4class{RNAStringSet}}), or a single character string with a
-    file name. In the latter case, the file name is required to have the
+    an object of class \code{\link[Biostrings]{XStringSet}} (includes the
+    classes \code{\link[Biostrings]{AAStringSet}},
+    \code{\link[Biostrings]{DNAStringSet}}, and
+    \code{\link[Biostrings]{RNAStringSet}}), or a single character string with
+    a file name. In the latter case, the file name is required to have the
     suffix \sQuote{.fa} or \sQuote{.fasta}, and the file must be in
     FASTA format.}
   \item{method}{
@@ -58,8 +59,9 @@
     The \code{type} argument is mandatory if \code{inputSeqs} is
     a character vector or the file name of a FASTA file (see above).
     If \code{inputSeqs} is an object of class
-    \code{\linkS4class{AAStringSet}}, \code{\linkS4class{DNAStringSet}},
-    or \code{\linkS4class{RNAStringSet}}, the type of sequences is
+    \code{\link[Biostrings]{AAStringSet}},
+    \code{\link[Biostrings]{DNAStringSet}}, or
+    \code{\link[Biostrings]{RNAStringSet}}, the type of sequences is
     determined by the class of \code{inputSeqs} and the \code{type}
     parameter is not necessary. If it is nevertheless specified and the
     type does not match the class of \code{inputSeqs}, the function

@@ -33,11 +33,11 @@
   provided by the \pkg{msa} package.}
 \section{Details}{
   The class \code{MsaAAMultipleAlignment} extends the
-  \code{\linkS4class{AAMultipleAlignment}} class, the class
+  \code{\link[MultipleAlignment]{AAMultipleAlignment}} class, the class
   \code{MsaDNAMultipleAlignment} extends the
-  \code{\linkS4class{DNAMultipleAlignment}} class, and the class
+  \code{\link[MultipleAlignment]{DNAMultipleAlignment}} class, and the class
   \code{MsaRNAMultipleAlignment} extends the
-  \code{\linkS4class{RNAMultipleAlignment}} class. All three classes
+  \code{\link[MultipleAlignment]{RNAMultipleAlignment}} class. All three classes
   extend their parent classes by the slots contained in the
   \code{\linkS4class{MsaMetaData}}, i.e. all three classes are class
   unions of the aforementioned parent classes and the class

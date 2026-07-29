@@ -19,7 +19,7 @@
   directly accessing the respective algorithm, i.e.,
   \code{\link{msaClustalW}}, \code{\link{msaClustalOmega}}, and
   \code{\link{msaMuscle}}) can handle multiple types of input sequences,
-  such as \code{\linkS4class{XStringSet}} and any subclass thereof,
+  such as \code{\link[Biostrings]{XStringSet}} and any subclass thereof,
   character vectors, and can also directly read from FASTA files.
   The package defines special classes for storing multiple alignments
   and provides several methods for manipulating, analyzing, and printing
