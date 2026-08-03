@@ -7,6 +7,9 @@ It only mentions versions in which actual changes have been made
 within the Bioconductor release cycle without any actual change
 of code or documentation).
 
+Version 1.45.2:
+- fixes of some links in help pages (thanks to Hervé Pages)
+
 Version 1.45.1:
 - adapted imports to new MultipleAlignment package (Bioconductor 3.24)
 - minor fix of link in help page
