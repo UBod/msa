@@ -30,13 +30,14 @@
                    showLegend=TRUE, furtherCode=NA, verbose=FALSE, index=TRUE)
 }
 \arguments{
-  \item{x}{an object of class \code{\linkS4class{MultipleAlignment}},
+  \item{x}{an object of class
+    \code{\link[MultipleAlignment]{MultipleAlignment}},
     which includes the classes \code{\linkS4class{MsaAAMultipleAlignment}}, 
     \code{\linkS4class{MsaDNAMultipleAlignment}}, and
     \code{\linkS4class{MsaRNAMultipleAlignment}}.}
   \item{y}{argument for restricting the output to a subset of columns;
     can be a numeric vector of length 2 with a lower and an upper bound
-    or an object of class \code{\linkS4class{IRanges}}. If missing,
+    or an object of class \code{\link[IRanges]{IRanges}}. If missing,
     the entire multiple alignment is printed.}
   \item{output}{type of output to be generated (see details below)}
   \item{subset}{can be used to specify a subset of sequences in the

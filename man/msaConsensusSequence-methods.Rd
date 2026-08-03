@@ -14,7 +14,7 @@
 \S4method{msaConsensusSequence}{MultipleAlignment}(x, ...)
 }
 \arguments{
-  \item{x}{an object of class \code{\linkS4class{MultipleAlignment}}
+  \item{x}{an object of class \code{\link[MultipleAlignment]{MultipleAlignment}}
     (which includes objects of classes
     \code{\linkS4class{MsaAAMultipleAlignment}},
     \code{\linkS4class{MsaDNAMultipleAlignment}}, and
@@ -33,19 +33,19 @@
     Only relevant for \code{type="upperlower"} (see details below),
     otherwise ignored.}
   \item{...}{when the method is called for a
-    \code{\linkS4class{MultipleAlignment}} object, the consensus matrix is
-    computed and, including all further arguments, passed
+    \code{\link[MultipleAlignment]{MultipleAlignment}} object, the consensus
+    matrix is computed and, including all further arguments, passed
     passed on to the \code{msaConsensusSequence} method with signature
     \code{matrix}. The method with signature \code{matrix} forwards
-    additional arguments to the \code{\link{consensusString}} method
-    from the \pkg{Biostrings} package if \code{type="Biostrings"}.}
+    additional arguments to the \code{\link[Biostrings]{consensusString}}
+    method from the \pkg{Biostrings} package if \code{type="Biostrings"}.}
   }
 \details{
-  The method takes a \code{\linkS4class{MultipleAlignment}} object or a
-  previously computed consensus matrix and computes a consensus
+  The method takes a \code{\link[MultipleAlignment]{MultipleAlignment}}
+  object or a previously computed consensus matrix and computes a consensus
   sequence. For \code{type="Biostrings"}, the method
-  \code{\link{consensusString}} from the \pkg{Biostrings} package is
-  used to compute the consensus sequence. For \code{type="upperlower"},
+  \code{\link[Biostrings]{consensusString}} from the \pkg{Biostrings} package
+  is used to compute the consensus sequence. For \code{type="upperlower"},
   two thresholds (argument \code{thresh}, see above) are used to
   compute the consensus sequence:
   \itemize{
@@ -90,8 +90,8 @@
   \code{\linkS4class{MsaDNAMultipleAlignment}},
   \code{\linkS4class{MsaRNAMultipleAlignment}},
   \code{\linkS4class{MsaMetaData}},
-  \code{\linkS4class{MultipleAlignment}},
-  \code{\link{consensusString}}
+  \code{\link[MultipleAlignment]{MultipleAlignment}},
+  \code{\link[Biostrings]{consensusString}}
 }
 \examples{
 ## read sequences

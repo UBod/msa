@@ -11,7 +11,7 @@
     msaCheckNames(x, replacement=" ", verbose=TRUE)
 }
 \arguments{
-  \item{x}{an object of class \code{\linkS4class{MultipleAlignment}}
+  \item{x}{an object of class \code{\link[MultipleAlignment]{MultipleAlignment}}
     (which includes objects of classes
     \code{\linkS4class{MsaAAMultipleAlignment}},
     \code{\linkS4class{MsaDNAMultipleAlignment}}, and

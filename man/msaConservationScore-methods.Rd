@@ -13,7 +13,7 @@
 \S4method{msaConservationScore}{MultipleAlignment}(x, ...)
 }
 \arguments{
-  \item{x}{an object of class \code{\linkS4class{MultipleAlignment}}
+  \item{x}{an object of class \code{\link[MultipleAlignment]{MultipleAlignment}}
     (which includes objects of classes
     \code{\linkS4class{MsaAAMultipleAlignment}},
     \code{\linkS4class{MsaDNAMultipleAlignment}}, and
@@ -24,16 +24,16 @@
   \item{gapVsGap}{score to use for aligning gaps versus gaps (see
     details below).}
   \item{...}{when the method is called for a
-    \code{\linkS4class{MultipleAlignment}} object, the consensus matrix is
-    computed and, including all further arguments,
+    \code{\link[MultipleAlignment]{MultipleAlignment}} object, the
+    consensus matrix is computed and, including all further arguments,
     passed on to the \code{msaConservationScore} method with signature
     \code{matrix}. This method passes all further arguments on to the
     \code{\link{msaConsensusSequence}} method to customize the way
     the consensus sequence is computed.}
   }
 \details{
-  The method takes a \code{\linkS4class{MultipleAlignment}} object or a
-  previously computed consensus matrix and computes the sum of pairwise
+  The method takes a \code{\link[MultipleAlignment]{MultipleAlignment}} object
+  or a previously computed consensus matrix and computes the sum of pairwise
   scores for all positions of the alignment. For computing these scores,
   it is compulsory to specify a substitution/scoring matrix. This matrix
   must be provided as a \code{\link{matrix}} object. This can either be
@@ -95,7 +95,7 @@
   \code{\linkS4class{MsaDNAMultipleAlignment}},
   \code{\linkS4class{MsaRNAMultipleAlignment}},
   \code{\linkS4class{MsaMetaData}},
-  \code{\linkS4class{MultipleAlignment}},
+  \code{\link[MultipleAlignment]{MultipleAlignment}},
   \code{\link{msaConsensusSequence}}
 }
 \examples{
