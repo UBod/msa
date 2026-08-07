@@ -330,8 +330,7 @@ static void regoptail(struct comp *cp, char *p, char *val);
  * of the structure of the compiled regexp.
  */
 sqd_regexp *
-sqd_regcomp(exp)
-const char *exp;
+sqd_regcomp(const char *exp)
 {
 	register sqd_regexp *r;
 	register char *scan;
@@ -419,10 +418,7 @@ const char *exp;
  * follows makes it hard to avoid.
  */
 static char *
-reg(cp, paren, flagp)
-register struct comp *cp;
-int paren;			/* Parenthesized? */
-int *flagp;
+reg(register struct comp *cp, int paren, int *flagp)
 {
 	register char *ret = NULL;   /* SRE: NULL init added to silence gcc */
 	register char *br;
@@ -489,9 +485,7 @@ int *flagp;
  * Implements the concatenation operator.
  */
 static char *
-regbranch(cp, flagp)
-register struct comp *cp;
-int *flagp;
+regbranch(register struct comp *cp, int *flagp)
 {
 	register char *ret;
 	register char *chain;
@@ -530,9 +524,7 @@ int *flagp;
  * endmarker role is not redundant.
  */
 static char *
-regpiece(cp, flagp)
-register struct comp *cp;
-int *flagp;
+regpiece(register struct comp *cp, int *flagp)
 {
 	register char *ret;
 	register char op;
@@ -599,9 +591,7 @@ int *flagp;
  * separate node; the code is simpler that way and it's not worth fixing.
  */
 static char *
-regatom(cp, flagp)
-register struct comp *cp;
-int *flagp;
+regatom(register struct comp *cp, int *flagp)
 {
 	register char *ret;
 	int flags;
@@ -708,9 +698,7 @@ int *flagp;
  - regnode - emit a node
  */
 static char *			/* Location. */
-regnode(cp, op)
-register struct comp *cp;
-char op;
+regnode(register struct comp *cp, int op)
 {
 	register char *const ret = cp->regcode;
 	register char *ptr;
@@ -733,9 +721,7 @@ char op;
  - regc - emit (if appropriate) a byte of code
  */
 static void
-regc(cp, b)
-register struct comp *cp;
-char b;
+regc(register struct comp *cp, int b)
 {
 	if (EMITTING(cp))
 		*cp->regcode++ = b;
@@ -749,10 +735,7 @@ char b;
  * Means relocating the operand.
  */
 static void
-reginsert(cp, op, opnd)
-register struct comp *cp;
-char op;
-char *opnd;
+reginsert(register struct comp *cp, int op, char *opnd)
 {
 	register char *place;
 
@@ -774,10 +757,7 @@ char *opnd;
  - regtail - set the next-pointer at the end of a node chain
  */
 static void
-regtail(cp, p, val)
-register struct comp *cp;
-char *p;
-char *val;
+regtail(register struct comp *cp, char *p, char *val)
 {
 	register char *scan;
 	register char *temp;
@@ -799,10 +779,7 @@ char *val;
  - regoptail - regtail on operand of first argument; nop if operandless
  */
 static void
-regoptail(cp, p, val)
-register struct comp *cp;
-char *p;
-char *val;
+regoptail(register struct comp *cp, char *p, char *val)
 {
 	/* "Operandless" and "op != BRANCH" are synonymous in practice. */
 	if (!EMITTING(cp) || OP(p) != BRANCH)
@@ -841,9 +818,7 @@ static char *regprop();
  - sqd_regexec - match a regexp against a string
  */
 int
-sqd_regexec(prog, str)
-register sqd_regexp *prog;
-const char *str;
+sqd_regexec(register sqd_regexp *prog, const char *str)
 {
 	register char *string = (char *)str;	/* avert const poisoning */
 	register char *s;
@@ -895,10 +870,7 @@ const char *str;
  - regtry - try match at specific point
  */
 static int			/* 0 failure, 1 success */
-regtry(ep, prog, string)
-register struct exec *ep;
-sqd_regexp *prog;
-char *string;
+regtry(register struct exec *ep, sqd_regexp *prog, char *string)
 {
 	register int i;
 	register char **stp;
@@ -931,9 +903,7 @@ char *string;
  * by recursion.
  */
 static int			/* 0 failure, 1 success */
-regmatch(ep, prog)
-register struct exec *ep;
-char *prog;
+regmatch(register struct exec *ep, char *prog)
 {
 	register char *scan;	/* Current node. */
 	char *next;		/* Next node. */
@@ -1086,9 +1056,7 @@ char *prog;
  - regrepeat - report how many times something simple would match
  */
 static size_t
-regrepeat(ep, node)
-register struct exec *ep;
-char *node;
+regrepeat(register struct exec *ep, char *node)
 {
 	register size_t count;
 	register char *scan;
@@ -1123,8 +1091,7 @@ char *node;
  - regnext - dig the "next" pointer out of a node
  */
 static char *
-regnext(p)
-register char *p;
+regnext(register char *p)
 {
 	register const int offset = NEXT(p);
 
@@ -1142,8 +1109,7 @@ static char *regprop();
  - regdump - dump a regexp onto stdout in vaguely comprehensible form
  */
 void
-regdump(r)
-sqd_regexp *r;
+regdump(sqd_regexp *r)
 {
 	register char *s;
 	register char op = EXACTLY;	/* Arbitrary non-END op. */
@@ -1185,8 +1151,7 @@ sqd_regexp *r;
  - regprop - printable representation of opcode
  */
 static char *
-regprop(op)
-char *op;
+regprop(char *op)
 {
 	register char *p;
 	static char buf[50];
@@ -1269,10 +1234,7 @@ char *op;
  - sqd_regsub - perform substitutions after a regexp match
  */
 void
-sqd_regsub(rp, source, dest)
-const sqd_regexp *rp;
-const char *source;
-char *dest;
+sqd_regsub(const sqd_regexp *rp, const char *source, char *dest)
 {
 	register sqd_regexp * const prog = (sqd_regexp *)rp;
 	register char *src = (char *)source;
@@ -1318,8 +1280,7 @@ char *dest;
 
 
 void
-sqd_regerror(s)
-char *s;
+sqd_regerror(char *s)
 {
   fprintf(stderr, "regexp(3): %s\n", s);
   throw(ClustalOmegaException, "1");
