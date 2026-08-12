@@ -7,6 +7,10 @@ It only mentions versions in which actual changes have been made
 within the Bioconductor release cycle without any actual change
 of code or documentation).
 
+Version 1.45.4:
+- fix of ClustalOmega source file squid/hsregex.c to maintain compatibility with
+  newer versions of clang (thanks for GitHub user jeroen)
+
 Version 1.45.3:
 - adapted Windows makefile for ClustalOmega to ensure better compatibility with
   newer versions of clang
