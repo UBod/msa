@@ -8,6 +8,10 @@ within the Bioconductor release cycle without any actual change
 of code or documentation).
 
 Version 1.45.4:
+- updated vignette (some classes/methods are now imported from the
+  MultipleAlignment package instead of the Biostrings package)
+
+Version 1.45.4:
 - fix of ClustalOmega source file squid/hsregex.c to maintain compatibility with
   newer versions of clang (thanks for GitHub user jeroen)
 

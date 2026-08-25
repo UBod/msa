@@ -93,8 +93,9 @@ widely used. However, all these algorithms are implemented as stand-alone
 commmand line programs without any integration into the R/Bioconductor
 ecosystem. Before the \MSA\ package, only the \verb+muscle+ package has
 been available in \R, but no other multiple sequence alignment algorithm,
-although the \verb+Biostrings+ package has provided data types for
-representing multiple sequence alignments for quite some time.
+although the \verb+MultipleAlignment+ package is providing data types for
+representing multiple sequence alignments (up to Bioconductor version 3.23, these were provided by the
+\verb+Biostrings+ package).
 The \MSA\ package aims to close that gap by
 providing a unified R interface to the multiple sequence alignment algorithms
 ClustalW, ClustalOmega, and MUSCLE. The package requires no additional
@@ -370,11 +371,12 @@ print(myFirstAlignment, showNames=FALSE, show="complete")
 
 \section{Processing Multiple Alignments}\label{sec:msaProc}
 
-\subsection{Methods Inherited From {\tt Biostrings}}
+\subsection{Methods Inherited From {\tt MultipleAlignment}}
 
 The classes defined by the \MSA\ package for storing multiple alignment results
 have been derived from the corresponding classes defined by the
-\verb+Biostrings+ package. Therefore, all methods for processing
+\verb+MultipleAlignment+ package (up to Bioconductor version 3.23, these were
+provided by the \verb+Biostrings+ package). Therefore, all methods for processing
 multiple alignments are available and work without any practical limitation. In
 this section, we highlight some of these.
 
@@ -390,7 +392,7 @@ colmask(myMaskedAlignment) <- colM
 myMaskedAlignment
 @
 
-The \verb+unmasked()+ allows for removing these masks, thereby casting
+The \verb+unmasked()+ function allows for removing these masks, thereby casting
 the multiple alignment to a set of aligned \verb+Biostrings+ sequences
 (class \verb+AAStringSet+, \verb+DNAStringSet+, or \verb+RNAStringSet+):
 <<unmaskedExample>>=
@@ -412,7 +414,7 @@ conMat[, 95:104]
 @
 
 Multiple alignments also inherit the \verb+consensusString()+ method from
-the \verb+Biostrings+ package. However, for more flexibility and consistency,
+the \verb+MultipleAlignment+ package. However, for more flexibility and consistency,
 we rather advise users to use the method \verb+msaConsensusSequence()+
 method (see below).
 
@@ -421,7 +423,7 @@ method (see below).
 With version 1.7.1 of \MSA, new methods have been provided that allow for
 the computation of consensus sequences and conservation scores.
 By default, the \verb+msaConsensusSequence()+ method is a wrapper around the
-\verb+consensusString()+ method from the \verb+Biostrings+:
+\verb+consensusString()+ method from the \verb+MultipleAlignment+ package:
 <<consensusExample3>>=
 printSplitString <- function(x, width=getOption("width") - 1)
 {
@@ -539,10 +541,6 @@ The following example converts a multiple alignment object to class \verb+BStrin
 hemoAln4 <- as(hemoAln, "BStringSet")
 hemoAln4
 @
-
-\notebox{The \texttt{msaConvert()} function has been introduced in version 1.3.3 of the
-  \MSA\ package. So, to have this function available, at least Bioconductor 3.3
-  is required, which requires at least R 3.3.0.}
 
 \section{Pretty-Printing Multiple Sequence Alignments}\label{sec:msaPrettyPrint}
 
@@ -734,7 +732,8 @@ the \shade\ package must be loaded in the preamble:
 
 \subsection{Sequence Names}
 
-The \verb+Biostrings+ package does not impose any restrictions on the names of
+The packages \verb+Biostrings+ and \verb+MultipleAlignment+ do not impose
+any restrictions on the names of
 sequences. Consequently, \MSA\ also allows all possible ASCII strings as
 sequence (row) names in multiple alignments. As soon as \verb+msaPrettyPrint()+
 is used for pretty-printing multiple sequence alignments, however, the sequence
