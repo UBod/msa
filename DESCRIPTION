@@ -1,8 +1,8 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.45.5
-Date: 2026-08-25
+Version: 1.45.6
+Date: 2026-08-27
 Authors@R: c(person(given = "Enrico",
                     family = "Bonatesta",
 		    role = c("aut")),
@@ -25,9 +25,9 @@ Description: The 'msa' package provides a unified R/Bioconductor interface to
 URL: https://github.com/UBod/msa
 License: GPL (>= 2)
 Copyright: See file inst/COPYRIGHT
-Depends: R (>= 3.3.0), methods, Biostrings (>= 2.40.0)
+Depends: R (>= 3.3.0), methods, Biostrings (>= 2.40.0), MultipleAlignment
 Imports: Rcpp (>= 0.11.1), BiocGenerics, IRanges (>= 1.20.0),
-        S4Vectors, MultipleAlignment, tools
+        S4Vectors, tools
 Suggests: Biobase, knitr, seqinr, ape (>= 5.1), phangorn, pwalign
 LinkingTo: Rcpp
 SystemRequirements: GNU make

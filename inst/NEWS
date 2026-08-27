@@ -7,7 +7,11 @@ It only mentions versions in which actual changes have been made
 within the Bioconductor release cycle without any actual change
 of code or documentation).
 
-Version 1.45.4:
+Version 1.45.6:
+- correction of Imports in DESCRIPTION
+- updated texshade.sty to newest version (1.29)
+
+Version 1.45.5:
 - updated vignette (some classes/methods are now imported from the
   MultipleAlignment package instead of the Biostrings package)
 

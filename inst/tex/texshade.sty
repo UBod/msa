@@ -8,13 +8,13 @@
 %% 
 %% LaTeX package for typesetting nucleotide and peptide alignments
 %% 
-%% Copyright (C) 1999-2021 Eric Beitz
-%% See the file texshade.txt
+%% Copyright (C) 1999-2025 Eric Beitz
+%% See the file README
 %% 
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{texshade}[2021/04/01 LaTeX TeXshade (v1.26)]
-\message{Package `texshade', Version 1.26 of 2021/04/01.}
+\ProvidesPackage{texshade}[2025/10/16 LaTeX TeXshade (v1.29)]
+\message{Package `texshade', Version 1.29 of 2025/10/16}
 
 \PassOptionsToPackage{dvips}{color}
 \PassOptionsToPackage{dvips}{graphicx}
@@ -145,7 +145,7 @@
 \def\gre@ter{>} \def\sm@ller{<} \def\N@{N} \def\equ@l{=} \def\H@{H}
 \def\gap@char{.} \def\dom@char{{\dom@rule}} \def\yes{yes} \def\y@{y} \def\n@{n}
 \def\o@{o} \def\d@t{.} \def\questi@n{?} \def\st@p@char{*} \def\semic@n{;}
-\def\br@cket{[} \def\p@r@gr@ph{¤}
+\def\br@cket{[} \def\p@r@gr@ph{â‚¬}
 \def\@TOM{ATOM} \def\C@lpha{CA} \def\@point@{point} \def\@line@{line} \def\@plane@{plane}
 \def\gap@rule{\rule[0.3\box@height]{\box@width}{\gap@rulethick}}
 \def\dom@rule{\vrule depth\box@depth height\box@height width\domgap@rulethick}
@@ -153,12 +153,14 @@
 \def\resn@m@tch{upper} \def\ressimm@tch{upper}
 \def\resm@tch{upper}   \def\res@llm@tch{upper}
 \def\tr@ns{translate}  \def\gr@ydef@ult{GrayDefault}
-%%%%REMOVED FOLLOWING LINE:
-%%%%\xdef\par@{\expandafter\string\par}
-%%%%ADDED FOLLOWING TWO LINES (according to https://ctan.org/pkg/texshade)
-\xdef\par@{\par}
-\xdef\par@{\expandafter\string\par@}
-%%%%
+\def\lower@{lower}
+\def\tr@nsp{transparent}
+\xdef\par@{\string\par}
+\xdef\rule@bottom{-1}\xdef\rule@top{-1}
+\xdef\rulername@top{} \xdef\rulername@bottom{}
+\xdef\rulernamecolor@top{n} \xdef\rulernamecolor@bottom{n}
+\xdef\rulername@family{n} \xdef\rulername@size{n}
+\xdef\exp@rt@pymol{n}
 \expandafter\def\csname fg@textcolor/\endcsname{White}
 \expandafter\def\csname fg@color/\endcsname{White}
 \expandafter\def\csname func@style/\endcsname{\csname textup\endcsname}
@@ -694,6 +696,12 @@
 \xdef\hardnessS{94}  \xdef\hardnessT{98}  \xdef\hardnessU{-34}
 \xdef\hardnessV{98}  \xdef\hardnessW{0}  \xdef\hardnessX{0}
 \xdef\hardnessY{28}   \xdef\hardnessZ{0}
+
+\xdef\c@mpl@A{T} \xdef\c@mpl@B{V} \xdef\c@mpl@C{G} \xdef\c@mpl@D{H}
+\xdef\c@mpl@G{C} \xdef\c@mpl@H{D} \xdef\c@mpl@K{M} \xdef\c@mpl@M{K}
+\xdef\c@mpl@N{N} \xdef\c@mpl@R{Y} \xdef\c@mpl@S{S} \xdef\c@mpl@T{A}
+\xdef\c@mpl@U{A} \xdef\c@mpl@V{B} \xdef\c@mpl@W{W} \xdef\c@mpl@Y{R}
+\expandafter\xdef\csname c@mpl@.\endcsname{\ }
 
 \xdef\consCB{0}  \xdef\consCJ{0}  \xdef\consCO{0}  \xdef\consCU{0}  \xdef\consCX{0}  \xdef\consCZ{0}
 \expandafter\xdef\csname consC?\endcsname{0}
@@ -1640,6 +1648,10 @@
 \definecolor{TC8}           {cmyk}{0,0.8,1,0}
 \definecolor{TC9}           {cmyk}{0,0.875,1,0}
 \definecolor{TC99}          {cmyk}{0,0,0,0}
+\definecolor{BrewerC}      {cmyk}{0.35,0.07,0,0}
+\definecolor{BrewerG}      {cmyk}{0.90,0.30,0,0}
+\definecolor{BrewerT}      {cmyk}{0.30,0,0.45,0}
+\definecolor{BrewerA}      {cmyk}{0.80,0,1,0} 
 \definecolor{LightGreenYellow}   {cmyk}{0.08,0,0.35,0}
 \definecolor{LightYellow}        {cmyk}{0,0,0.50,0}
 \definecolor{LightGoldenrod}     {cmyk}{0,0.05,0.42,0}
@@ -1944,6 +1956,49 @@
 \definecolor{LightLightLightTC7}           {cmyk}{0,0.0175,0.125,0}
 \definecolor{LightLightLightTC8}           {cmyk}{0,0.1,0.125,0}
 \definecolor{LightLightLightTC99}          {cmyk}{0,0,0,0}
+\definecolor{BlackWhite100}         {cmyk}{0,0,0,0}
+\definecolor{BlackWhite95}         {cmyk}{0,0,0,0.05}
+\definecolor{BlackWhite90}        {cmyk}{0,0,0,0.10}
+\definecolor{BlackWhite85}        {cmyk}{0,0,0,0.15}
+\definecolor{BlackWhite80}        {cmyk}{0,0,0,0.20}
+\definecolor{BlackWhite75}        {cmyk}{0,0,0,0.25}
+\definecolor{BlackWhite70}        {cmyk}{0,0,0,0.30}
+\definecolor{BlackWhite65}        {cmyk}{0,0,0,0.35}
+\definecolor{BlackWhite60}        {cmyk}{0,0,0,0.40}
+\definecolor{BlackWhite55}        {cmyk}{0,0,0,0.45}
+\definecolor{BlackWhite50}        {cmyk}{0,0,0,0.50}
+\definecolor{BlackWhite45}        {cmyk}{0,0,0,0.55}
+\definecolor{BlackWhite40}        {cmyk}{0,0,0,0.60}
+\definecolor{BlackWhite35}        {cmyk}{0,0,0,0.65}
+\definecolor{BlackWhite30}        {cmyk}{0,0,0,0.70}
+\definecolor{BlackWhite25}        {cmyk}{0,0,0,0.75}
+\definecolor{BlackWhite20}        {cmyk}{0,0,0,0.80}
+\definecolor{BlackWhite15}        {cmyk}{0,0,0,0.85}
+\definecolor{BlackWhite10}        {cmyk}{0,0,0,0.90}
+\definecolor{BlackWhite5}        {cmyk}{0,0,0,0.95}
+\definecolor{BlackWhite0}       {cmyk}{0,0,0,1}
+\definecolor{WhiteBlack0}         {cmyk}{0,0,0,0}
+\definecolor{WhiteBlack5}         {cmyk}{0,0,0,0.05}
+\definecolor{WhiteBlack10}        {cmyk}{0,0,0,0.10}
+\definecolor{WhiteBlack15}        {cmyk}{0,0,0,0.15}
+\definecolor{WhiteBlack20}        {cmyk}{0,0,0,0.20}
+\definecolor{WhiteBlack25}        {cmyk}{0,0,0,0.25}
+\definecolor{WhiteBlack30}        {cmyk}{0,0,0,0.30}
+\definecolor{WhiteBlack35}        {cmyk}{0,0,0,0.35}
+\definecolor{WhiteBlack40}        {cmyk}{0,0,0,0.40}
+\definecolor{WhiteBlack45}        {cmyk}{0,0,0,0.45}
+\definecolor{WhiteBlack50}        {cmyk}{0,0,0,0.50}
+\definecolor{WhiteBlack55}        {cmyk}{0,0,0,0.55}
+\definecolor{WhiteBlack60}        {cmyk}{0,0,0,0.60}
+\definecolor{WhiteBlack65}        {cmyk}{0,0,0,0.65}
+\definecolor{WhiteBlack70}        {cmyk}{0,0,0,0.70}
+\definecolor{WhiteBlack75}        {cmyk}{0,0,0,0.75}
+\definecolor{WhiteBlack80}        {cmyk}{0,0,0,0.80}
+\definecolor{WhiteBlack85}        {cmyk}{0,0,0,0.85}
+\definecolor{WhiteBlack90}        {cmyk}{0,0,0,0.90}
+\definecolor{WhiteBlack95}        {cmyk}{0,0,0,0.95}
+\definecolor{WhiteBlack100}       {cmyk}{0,0,0,1}
+\definecolor{BlueRed0}           {rgb} {0.1,0.1,0.5}
 \definecolor{BlueRed5}           {rgb} {0.15,0.17,0.55}
 \definecolor{BlueRed10}          {rgb} {0.20,0.23,0.57}
 \definecolor{BlueRed15}          {rgb} {0.24,0.29,0.60}
@@ -1984,6 +2039,7 @@
 \definecolor{RedBlue15}          {rgb} {0.89,0.25,0.20}
 \definecolor{RedBlue10}          {rgb} {0.88,0.23,0.14}
 \definecolor{RedBlue5}           {rgb} {0.87,0.21,0.09}
+\definecolor{RedBlue0}           {rgb} {0.87,0.15,0.04}
 \definecolor{GreenRed5}          {rgb} {0,1,0}
 \definecolor{GreenRed10}         {rgb} {0.05,0.95,0}
 \definecolor{GreenRed15}         {rgb} {0.10,0.90,0}
@@ -2024,6 +2080,8 @@
 \definecolor{RedGreen15}         {rgb} {0.90,0.10,0}
 \definecolor{RedGreen10}         {rgb} {0.95,0.05,0}
 \definecolor{RedGreen5}          {rgb} {1,0,0}
+\definecolor{RedGreen0}          {rgb} {1,0,0}
+\definecolor{ColdHot0}           {rgb} {0,0,1}
 \definecolor{ColdHot5}           {rgb} {0,0.08,1}
 \definecolor{ColdHot10}          {rgb} {0,0.29,1}
 \definecolor{ColdHot15}          {rgb} {0,0.49,1}
@@ -2064,6 +2122,8 @@
 \definecolor{HotCold15}          {rgb} {1,0.40,0}
 \definecolor{HotCold10}          {rgb} {1,0.20,0}
 \definecolor{HotCold5}           {rgb} {0.91,0,0}
+\definecolor{HotCold0}           {rgb} {1,0,0}
+\expandafter\def\csname BlueRed0\endcsname{[0.1,0.1,0.5]}
 \expandafter\def\csname BlueRed5\endcsname{[0.15,0.17,0.55]}
 \expandafter\def\csname BlueRed10\endcsname{[0.20,0.23,0.57]}
 \expandafter\def\csname BlueRed15\endcsname{[0.24,0.29,0.60]}
@@ -2104,6 +2164,8 @@
 \expandafter\def\csname RedBlue15\endcsname{[0.89,0.25,0.20]}
 \expandafter\def\csname RedBlue10\endcsname{[0.88,0.23,0.14]}
 \expandafter\def\csname RedBlue5\endcsname{[0.87,0.21,0.09]}
+\expandafter\def\csname RedBlue0\endcsname{[0.87,0.15,0.04]}
+\expandafter\def\csname GreenRed0\endcsname{[0,1,0]}
 \expandafter\def\csname GreenRed5\endcsname{[0,1,0]}
 \expandafter\def\csname GreenRed10\endcsname{[0.05,0.95,0]}
 \expandafter\def\csname GreenRed15\endcsname{[0.10,0.90,0]}
@@ -2144,6 +2206,8 @@
 \expandafter\def\csname RedGreen15\endcsname{[0.90,0.10,0]}
 \expandafter\def\csname RedGreen10\endcsname{[0.95,0.05,0]}
 \expandafter\def\csname RedGreen5\endcsname{[1,0,0]}
+\expandafter\def\csname RedGreen0\endcsname{[1,0,0]}
+\expandafter\def\csname ColdHot0\endcsname{[0,0,1]}
 \expandafter\def\csname ColdHot5\endcsname{[0,0.08,1]}
 \expandafter\def\csname ColdHot10\endcsname{[0,0.29,1]}
 \expandafter\def\csname ColdHot15\endcsname{[0,0.49,1]}
@@ -2184,6 +2248,7 @@
 \expandafter\def\csname HotCold15\endcsname{[1,0.40,0]}
 \expandafter\def\csname HotCold10\endcsname{[1,0.20,0]}
 \expandafter\def\csname HotCold5\endcsname{[0.91,0,0]}
+\expandafter\def\csname HotCold0\endcsname{[1,0,0]}
 
 \def\make@lower{%
 \if\first@ A\xdef\first@{a}\else \if\first@ B\xdef\first@{b}\else
@@ -2243,6 +2308,14 @@
                   \xdef\char@num{`#1}}
 \def\check@letter#1#2@{\letterfalse\ifnum\catcode`#1=11 \lettertrue\fi%
                        \numberfalse\ifnum\catcode`#1=12 \numbertrue\fi}
+\def\check@number#1#2@{%
+      \letterfalse\ifnum\catcode`#1=11 \if#1 -\else\lettertrue\fi\fi
+      \numberfalse\ifnum\catcode`#1=12 \numbertrue\fi
+}
+\def\check@frust#1 #2 #3 #4 #5 #6 #7 #8 #9@{%
+   \xdef\first@{#1}\xdef\seventh@{#7} \xdef\nineth@{#9}
+   \xdef\temp@{#1@}\expandafter\check@letter\temp@
+}
 \def\seq@get#1 #2@{\def\first@{#1} \def\seq@line{#2}}
 \def\res@get#1#2@{\def\first@{#1} \def\seq@line{#2&@}}
 \def\tot@get#1#2@{%
@@ -2406,8 +2479,9 @@
       \expandafter\order@set\second@
    \ifnum\loopcount<\killseq@count \repeat
    \ifnum\cons@num>0 \xdef\cons@num{\csname @rd\cons@num\endcsname} \fi
-   \ifnum\rule@num>0 \xdef\rule@num{\csname @rd\rule@num\endcsname} \fi
-   \ifnum\divref@>0  \xdef\divref@{\csname @rd\divref@\endcsname} \fi
+   \ifnum\rule@num@top>0 \xdef\rule@num@top{\csname @rd\rule@num@top\endcsname} \fi
+   \ifnum\rule@num@bottom>0 \xdef\rule@num@bottom{\csname @rd\rule@num@bottom\endcsname} \fi
+    \ifnum\divref@>0  \xdef\divref@{\csname @rd\divref@\endcsname} \fi
    \loopcount=0
    \loop
       \advance\loopcount by 1
@@ -2422,7 +2496,10 @@
                  \xdef\second@{\csname sequence\the\loopcount\endcsname} \group@set
                  \fi}
    \xdef\second@{#1 &@} \xdef\third@{#2&,@} \group@set}
+\def\get@filestackitem#1:#2@{\xdef\fourth@{#2}\xdef\fourth@@{#1}}
+\def\get@stackitem#1(#2)#3@{\xdef\first@{#3@}\xdef\first@@{#3}\xdef\fourth@{#2}\xdef\fourth@@{#1}}
 \def\get@item#1,#2@{\xdef\first@{#2@}\xdef\first@@{#2}\xdef\fourth@{#1}}
+\def\get@two@items#1,#2,#3@{\xdef\first@{#3@}\xdef\first@@{#3}\xdef\fourth@{#1}\xdef\fourth@@{#2}}
 \def\get@first@@#1-#2@{\xdef\first@@{#1}}
 \def\get@digit#1,#2@{%
    \def\check@series##1-##2##3@{%
@@ -2681,12 +2758,14 @@
       \expandafter\xdef\csname res@count\the\loopcount\endcsname{%
             \csname res@count\the\innerloopcount\endcsname}
       \expandafter\xdef\csname hide@seq\the\innerloopcount\endcsname{kill}
-      \ifnum\loopcount=\rule@num \hideruler \fi
+      \ifnum\loopcount=\rule@num@top \hideruler[top] \fi
+      \ifnum\loopcount=\rule@num@bottom \hideruler[bottom] \fi
    \fi
    \expandafter\xdef\csname @rd\the\innerloopcount\endcsname{\the\loopcount}
    \advance\loopcount by 1
    \ifnum\loopcount>\killseq@count
-      \ifnum\rule@num>0\xdef\rule@num{\csname @rd\rule@num\endcsname}\fi
+      \ifnum\rule@num@top>0\xdef\rule@num@top{\csname @rd\rule@num@top\endcsname}\fi
+      \ifnum\rule@num@bottom>0\xdef\rule@num@bottom{\csname @rd\rule@num@bottom\endcsname}\fi
       \ifnum\cons@num>0\xdef\cons@num{\csname @rd\cons@num\endcsname}\fi
    \else
       \kill@seqnow
@@ -2917,8 +2996,15 @@
       \funcgroup{18-19 eV (MY)}{MY}{White}{BlueRed80}{upper}{up}
       \funcgroup{17-18 eV (W)}{W}{White}{BlueRed100}{upper}{up}
    \else
+   \xdef\second@{DNA}
+   \ifx\temp@\second@
+      \funcgroup{C}{Cc}{Black}{BrewerC}{upper}{up}
+      \funcgroup{G}{Gg}{White}{BrewerG}{upper}{up}
+      \funcgroup{A}{Aa}{Black}{BrewerA}{upper}{up}
+      \funcgroup{T, U}{TtUu}{Black}{BrewerT}{upper}{up}
+   \else
    \message{<Unknown shading mode - clearing `funcgroups'>}
-   \fi\fi\fi\fi\fi\fi\fi\fi
+   \fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 \def\shadeallresidues{\all@fshadetrue}
 \def\get@fromstack#1;#2;#3;#4;#5@{%
@@ -3207,6 +3293,7 @@
    \fi
 }
 \def\opt@color#1[#2]#3&{\xdef\fourth@{#1}\xdef\f@color{#2}}
+\def\opt@color@lower#1[#2][#3]#4&{\xdef\fourth@{#1}\xdef\f@color{#2}\xdef\ff@color{#3}\xdef\ffourth@{#4}}
 \def\graph@opt@color#1[#2]:#3[#4][#5]#6&{%
    \xdef\fourth@{#1}
    \xdef\f@color{#2}
@@ -3228,6 +3315,11 @@
          \expandafter\second@color\seventh@%
       \fi%
    \fi%
+}
+\def\three@opt@color#1,#2,#3@{%
+   \xdef\min@col{#1}%
+   \xdef\neutral@col{#2}%
+   \xdef\max@col{#3}%
 }
 \def\test@get#1#2@{%
    \xdef\temp@{#1} \xdef\third@@{#2@}
@@ -3469,8 +3561,13 @@
       \advance\temp@@count by 1
       \xdef\first@@{\csname motif\the\temp@@count\endcsname}
       \expandafter\get@motif@specs\first@@
-      \xdef\first@@{\csname sequence\seq@\endcsname &@}
+      \if\dom@in\y@
+         \xdef\first@@{\csname seq@dom\seq@\endcsname &@}
+      \else
+         \xdef\first@@{\csname sequence\seq@\endcsname &@}
+      \fi
       \temp@count=\csname res@count\seq@\endcsname
+      \expandafter\ifnum\csname seq@start\seq@\endcsname<0 \ifx\allow@zero\n@ \advance\temp@count by 1 \fi\fi
       \xdef\f@text@{\@ll}
       \xdef\style@{\fourth@@}
       \xdef\m@tif{\fifth@@} \expandafter\get@third@\fifth@@
@@ -3670,10 +3767,43 @@
 
 \def\test@fill#1:#2:#3&{%
    \xdef\last@{#1[,][,]&}\expandafter\arrow@col@width\last@%
+   \xdef\second@@{\fourth@ &}\ifx\second@@\ampers@nd\xdef\fourth@{///}\fi%
+   \xdef\bars@p@r@m{\f@color}%
    \xdef\second@@{\fourth@}%
    \xdef\last@{///}%
    \ifx\fourth@\last@%
      \xdef\second@@{empty}%
+   \else
+   \xdef\last@{complement}%
+   \ifx\fourth@\last@%
+     \xdef\second@@{complement}%
+     \xdef\lower@compl@{n}%
+     \xdef\fill@char{#2[,][,]&}%
+     \expandafter\opt@color@lower\fill@char%
+     \xdef\fill@char{\fourth@}%
+     \ifx\f@color\comm@%
+        \xdef\f@color{Black}\xdef\back@color{White}%
+     \else%
+        \ifx\f@color\lower@%
+           \xdef\f@color{Black}\xdef\back@color{White}\xdef\lower@compl@{y}%
+        \else%
+           \xdef\last@{\f@color,&@}%
+           \expandafter\two@opt@color\last@%
+           \ifx\seventh@\ampers@nd\xdef\back@color{White}\fi%
+           \xdef\f@color{\sixth@}%
+        \fi%
+     \fi%
+     \ifx\ff@color\comm@%
+     \else%
+        \ifx\ff@color\lower@%
+           \xdef\lower@compl@{y}%
+        \else%
+           \xdef\last@{\ff@color,&@}%
+           \expandafter\two@opt@color\last@%
+           \ifx\seventh@\ampers@nd\xdef\back@color{White}\fi%
+           \xdef\f@color{\sixth@}%
+        \fi%
+     \fi%
    \else
    \xdef\last@{translate}%
    \ifx\fourth@\last@%
@@ -3681,6 +3811,14 @@
      \xdef\fill@char{#2[,]&}%
      \expandafter\opt@color\fill@char%
      \xdef\fill@char{\fourth@}%
+     \ifx\f@color\comm@%
+        \xdef\f@color{Black}\xdef\back@color{White}%
+     \else%
+        \xdef\last@{\f@color,&@}%
+        \expandafter\two@opt@color\last@%
+        \ifx\seventh@\ampers@nd\xdef\back@color{White}\fi%
+        \xdef\f@color{\sixth@}%
+     \fi%
    \else
    \xdef\last@{fill}%
    \ifx\fourth@\last@
@@ -3688,6 +3826,111 @@
      \xdef\fill@char{#2[,]&}%
      \expandafter\opt@color\fill@char%
      \xdef\fill@char{\fourth@}%
+     \ifx\f@color\comm@%
+        \xdef\f@color{Black}\xdef\back@color{White}%
+     \else%
+        \xdef\last@{\f@color,&@}%
+        \expandafter\two@opt@color\last@%
+        \ifx\seventh@\ampers@nd\xdef\back@color{White}\fi%
+        \xdef\f@color{\sixth@}%
+     \fi%
+   \else
+  \xdef\last@{frustratometer}%
+   \ifx\fourth@\last@
+     \xdef\second@@{frust}%
+     \xdef\fill@char{#2[,]&}%
+     \expandafter\opt@color\fill@char%
+     \xdef\fill@char{\fourth@}%
+     \ifx\f@color\comm@%
+        \xdef\min@col{GreenRed20}%
+        \xdef\neutral@col{Gray15}%
+        \xdef\max@col{GreenRed100}%
+     \else%
+        \xdef\temp@{\f@color @}%
+        \expandafter\three@opt@color\temp@%
+     \fi%
+   \else
+  \xdef\last@{stackedbars}%
+   \ifx\fourth@\last@%
+     \xdef\second@@{bars}%
+     \ifx\f@color\comm@%
+        \xdef\g@min{,}\xdef\g@max{,}%
+        \xdef\pm@shift{0}%
+     \else%
+        \xdef\f@color{\f@color @}%
+        \expandafter\get@item\f@color%
+        \xdef\g@min{\fourth@} \xdef\g@max{\first@@}%
+        \xdef\pm@shift{\fourth@}%
+     \fi%
+     \temp@count=0%
+     \expandafter\xdef\csname bar@cols@num\bottop@\endcsname{0}%
+     \xdef\fill@char{#2[,]&}%
+     \expandafter\opt@color\fill@char%
+     \xdef\fill@char{\fourth@}%
+     \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{n}%
+     \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{n}%
+     \ifx\f@color\comm@%
+           \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+     \else%
+        \xdef\first@{\f@color ,&@}%
+        \loop%
+           \advance\temp@count by 1%
+           \expandafter\get@item\first@%
+           \expandafter\xdef\csname bars@col@\bottop@\the\temp@count\endcsname{\fourth@}%
+           \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{\fourth@}%
+           \xdef\fourth@{BlackWhite}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+           \xdef\fourth@{WhiteBlack}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+           \xdef\fourth@{BlueRed}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+           \xdef\fourth@{RedBlue}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+           \xdef\fourth@{GreenRed}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+           \xdef\fourth@{RedGreen}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+           \xdef\fourth@{ColdHot}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+           \xdef\fourth@{HotCold}%
+           \expandafter\ifx\csname bars@bgcol\bottop@\endcsname\fourth@%
+              \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{\fourth@}%
+              \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}%
+              \expandafter\xdef\csname bars@bgcol\bottop@\endcsname{White}%
+           \fi%
+        \ifx\first@@\ampers@nd\else\repeat%
+        \ifnum\temp@count=1\expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}\fi%
+        \expandafter\xdef\csname bar@cols@num\bottop@\endcsname{\the\temp@count}%
+     \fi%
    \else
   \xdef\last@{bar}%
    \ifx\fourth@\last@
@@ -3795,6 +4038,9 @@
         \expandafter\two@opt@color\f@color%
         \xdef\f@color{\arrow@color}%
      \fi
+   \fi
+   \fi
+   \fi
    \fi
    \fi
    \fi
@@ -5479,8 +5725,36 @@
      \fi
    \fi
 }
-\def\bargraphstretch#1{\def\b@r@stretch{#1}}
-\def\colorscalestretch#1{\def\sc@le@stretch{#1}}
+\newcommand{\bargraphstretch}[2][&]{%
+   \xdef\test@{#1}
+   \ifx\test@\ampers@nd
+      \def\b@r@stretchttttop{#2}
+      \def\b@r@stretchtttop{#2}
+      \def\b@r@stretchttop{#2}
+      \def\b@r@stretchtop{#2}
+      \def\b@r@stretchbottom{#2}
+      \def\b@r@stretchbbottom{#2}
+      \def\b@r@stretchbbbottom{#2}
+      \def\b@r@stretchbbbbottom{#2}
+   \else
+      \expandafter\def\csname b@r@stretch#1\endcsname{#2}
+   \fi
+}
+\newcommand{\colorscalestretch}[2][&]{%
+   \xdef\test@{#1}
+   \ifx\test@\ampers@nd
+      \def\sc@le@stretchttttop{#2}
+      \def\sc@le@stretchtttop{#2}
+      \def\sc@le@stretchttop{#2}
+      \def\sc@le@stretchtop{#2}
+      \def\sc@le@stretchbottom{#2}
+      \def\sc@le@stretchbbottom{#2}
+      \def\sc@le@stretchbbbottom{#2}
+      \def\sc@le@stretchbbbbottom{#2}
+   \else
+      \expandafter\def\csname sc@le@stretch#1\endcsname{#2}
+   \fi
+}
 \def\rm@@measure#1#2@{%
    \xdef\test@{#1}
    \ifx\test@\ampers@nd
@@ -5494,49 +5768,275 @@
 }
 \def\rm@measure#1.#2@{\xdef\first@{#1.}\xdef\second@{#2 @}\xdef\third@{#1}\expandafter\rm@@measure\second@}
 \def\pm@calc{%
-    \temp@@length=100000sp
-    \temp@@length=\g@min\temp@@length
-    \innerloopcount=\temp@@length
-    \xdef\min@{\the\innerloopcount}
-    \arrow@height=\temp@@length
-    \temp@@length=100000sp
-    \temp@@length=\g@max\temp@@length
-    \advance\temp@@length by -\arrow@height
-    \innerloopcount=\temp@@length
-    \divide\innerloopcount by 100
-    \ifnum\innerloopcount=0 \innerloopcount=1 \fi
-    \xdef\m@x{\the\innerloopcount}
     \xdef\test@{\g@min pt}
     \setlength\arrow@width{\test@}
     \xdef\test@{\g@max pt}
     \setlength\arrow@height{\test@}
     \advance\arrow@height by -\arrow@width
-    \ifdim\arrow@width<0pt\temp@@length=-\arrow@width\xdef\test@{y}\else\temp@@length=\arrow@width\xdef\test@{n}\fi
+    \xdef\pm@sp@n{\strip@pt\arrow@height}
+    \ifdim\arrow@width<0pt \xdef\test@{y}\else \xdef\test@{n}\fi
     \ifdim\arrow@height>0pt
        \ifx\test@\n@ \xdef\test@{y} \else \xdef\test@{n} \fi
-       \ifdim\temp@@length<\arrow@height\temp@@length=\arrow@height\fi
     \else
-       \ifdim\temp@@length>-\arrow@height\temp@@length=\arrow@height\fi
     \fi
-    \ifdim\temp@@length<100pt\arrow@width=100\arrow@width\arrow@height=100\arrow@height\else
-    \ifdim\temp@@length<10pt\arrow@width=1000\arrow@width\arrow@height=1000\arrow@height\else
-    \ifdim\temp@@length<1pt\arrow@width=10000\arrow@width\arrow@height=10000\arrow@height\else
-    \ifdim\temp@@length<0.1pt\arrow@width=100000\arrow@width\arrow@height=100000\arrow@height\else
-    \ifdim\temp@@length<0.01pt\arrow@width=1000000\arrow@width \arrow@height=1000000\arrow@height\else
-    \ifdim\temp@@length<0.001pt\arrow@width=10000000\arrow@width \arrow@height=10000000\arrow@height\else
-    \ifdim\temp@@length<0.0001pt\arrow@width=100000000\arrow@width \arrow@height=100000000\arrow@height\else
-    \ifdim\temp@@length<0.00001pt\arrow@width=1000000000\arrow@width \arrow@height=1000000000\arrow@height
-    \fi\fi\fi\fi\fi\fi\fi\fi
     \ifx\test@\y@
-       \xdef\pm@{0}
+       \xdef\pm@{0} \xdef\pm@plus{1}
     \else
-       \xdef\test@{-\the\arrow@height @}
-       \expandafter\rm@measure\test@
+       \ifdim\arrow@height>1000pt
+          \temp@@length=-0.1\arrow@height
+          \xdef\test@{\the\temp@@length @}
+          \expandafter\rm@measure\test@
+          \arrow@width=0.1\arrow@width
+       \else
+          \temp@@length=-10\arrow@height
+          \xdef\test@{\the\temp@@length @}
+          \expandafter\rm@measure\test@
+          \arrow@width=10\arrow@width
+       \fi
        \divide\arrow@width by \third@
        \xdef\pm@{\the\arrow@width @}
        \expandafter\rm@measure\pm@
        \xdef\pm@{\first@}
+       \temp@@length=1pt
+       \advance\temp@@length by -\arrow@width \xdef\pm@plus{\strip@pt\temp@@length}
     \fi
+}
+\def\read@frust{%
+    \bgroup
+    \immediate\openin\structurefile = \fill@char\relax
+    \ifeof\structurefile
+      \PackageError{TeXshade}
+      {File `\fill@char' not found}
+      {\MessageBreak
+       The file you specified is missing or you have \MessageBreak
+       misspelled it. \MessageBreak\MessageBreak
+       No frustration graph will be displayed. \MessageBreak
+       Type <return> to proceed. \MessageBreak
+       Type X <return> to quit. \MessageBreak
+}
+       \immediate\closein\structurefile\egroup
+    \else
+    \xdef\g@min{0} \xdef\g@max{1}
+    \temp@count=\st@rt
+    \advance\temp@count by -1
+    \xdef\temp@@@{n}
+    \loop
+       \read\structurefile to \readline
+       \xdef\test@{\expandafter\string\readline}
+       \ifx\test@\par@
+       \else
+       \xdef\second@{\test@ @}
+       \expandafter\check@frust\second@
+       \ifnumber
+          \ifnum\first@<\st@rt
+          \else
+             \ifnum\first@>\st@p
+             \else
+                \advance\temp@count by 1
+                \ifnum\temp@count=0 \temp@count=1 \fi
+                \ifnum\temp@count<\first@
+                   {\loop
+                      \ifx\temp@@@\n@
+                         \xdef\temp@@@{N,N}
+                      \else
+                         \xdef\temp@@@{\temp@@@,N,N}
+                      \fi
+                      \global\advance\temp@count by 1
+                    \ifnum\temp@count=\first@\else\repeat}
+                \fi
+                \temp@@length=100sp
+                \temp@@length=\nineth@\temp@@length
+                \innerloopcount=\temp@@length
+                \ifx\temp@@@\n@
+                   \xdef\temp@@@{\the\innerloopcount}
+                \else
+                   \xdef\temp@@@{\temp@@@,\the\innerloopcount}
+                \fi
+                \temp@@length=100sp
+                \temp@@length=\seventh@\temp@@length
+                \innerloopcount=\temp@@length
+                \xdef\temp@@@{\temp@@@,\the\innerloopcount}
+             \fi
+          \fi
+       \fi
+       \fi
+    \ifeof\structurefile\else\repeat
+    \immediate\closein\structurefile
+    \xdef\temp@@@{\temp@@@,@} \xdef\temp@@{y}
+    \xdef\st@p{\the\temp@count}
+    \fi
+    \egroup
+}
+\def\get@precomm@pt#1.#2@{\def\third@{#1}\xdef\third@@{#2}}
+\def\read@stackgraph{%
+  \bgroup
+  \immediate\openin\structurefile = \fill@char\relax
+  \ifeof\structurefile
+      \PackageError{TeXshade}
+      {File `\fill@char' not found}
+      {\MessageBreak
+       The file you specified is missing or you have \MessageBreak
+       misspelled it. \MessageBreak\MessageBreak
+       No feature graph will be displayed. \MessageBreak
+       Type <return> to proceed. \MessageBreak
+       Type X <return> to quit. \MessageBreak
+       }
+       \immediate\closein\structurefile\egroup
+  \else
+      \ifx\g@min\comm@
+         \xdef\fifth@{,} \xdef\sixth@{,}
+      \else
+         \xdef\fifth@{\g@min} \xdef\sixth@{\g@max}
+         \xdef\g@min{,} \xdef\g@max{,}
+      \fi
+      \loop
+       \read\structurefile to \readline
+       \xdef\first@{\expandafter\string\readline}
+       \ifx\first@\par@
+       \else
+         \xdef\second@{\first@ :&@}
+         \expandafter\get@filestackitem\second@
+         \ifx\fourth@\ampers@nd
+            \xdef\fourth@{\fourth@@}
+         \else
+            \xdef\second@{\fourth@ @}
+            \expandafter\get@filestackitem\second@\xdef\fourth@{\fourth@@}
+         \fi
+         \xdef\first@{\fourth@ @}
+         \expandafter\check@number\first@
+         \ifnumber
+          \xdef\first@{\fourth@,&@}
+          \innerloopcount=0 \temp@count=0 \xdef\temp@min@save{0 pt} \xdef\temp@max@save{0 pt}
+         {\loop
+          \advance\temp@count by 1
+          \expandafter\get@item\first@
+          \xdef\second@{\fourth@ @}\expandafter\check@number\second@\ifletter\xdef\fourth@{0}\fi
+          \expandafter\xdef\csname bars@num\bottop@\endcsname{\the\temp@count}
+          \temp@@length=1pt
+          \temp@@length=\fourth@\temp@@length\relax
+          \ifdim\temp@@length<0pt\relax
+             \global\advance\temp@@length by \temp@min@save \xdef\temp@min@save{\the\temp@@length}
+          \else
+             \global\advance\temp@@length by \temp@max@save \xdef\temp@max@save{\the\temp@@length}
+          \fi
+          \ifx\first@@\ampers@nd\else\repeat
+         }
+         \temp@@length=\temp@min@save\relax
+          \ifx\g@min\comm@
+             \xdef\min@{\the\temp@@length} \xdef\g@min{\strip@pt\temp@@length}
+          \else
+             \ifdim\temp@@length<\min@\relax \xdef\min@{\the\temp@@length} \xdef\g@min{\strip@pt\temp@@length}\fi
+          \fi
+         \temp@@length=\temp@max@save\relax
+          \ifx\g@max\comm@
+             \xdef\m@x{\the\temp@@length} \xdef\g@max{\strip@pt\temp@@length}
+          \else
+             \ifdim\temp@@length>\m@x\relax \xdef\m@x{\the\temp@@length} \xdef\g@max{\strip@pt\temp@@length}\fi
+          \fi
+         \fi
+       \fi
+      \ifeof\structurefile\else\repeat
+    \immediate\closein\structurefile\relax
+    \ifx\fifth@\comm@\else\xdef\g@min{\fifth@}\xdef\min@{\fifth@ pt}\xdef\g@max{\sixth@}\xdef\m@x{\sixth@ pt}\fi
+    \pm@calc
+    \expandafter\temp@count=\csname seq@start\seq@\endcsname
+    \advance\temp@count by -1
+    \xdef\temp@@@{} \xdef\temp@{n} \xdef\tmpstack{}
+    \xdef\third@{\g@max .@} \expandafter\get@precomm@pt\third@
+    \ifnum\third@>100
+       \temp@@length=100pt
+       \divide\temp@@length by \third@
+    \else
+       \temp@@length=\m@x
+       \temp@@length=100\temp@@length
+       \xdef\third@{\strip@pt\temp@@length .@} \expandafter\get@precomm@pt\third@
+       \temp@@length=10000pt
+       \divide\temp@@length by \third@
+    \fi
+    \xdef\eighth@{\the\temp@@length}
+    \immediate\openin\structurefile = \fill@char\relax
+    \loop
+       \read\structurefile to \readline
+       \xdef\first@{\expandafter\string\readline}
+       \ifx\first@\par@
+       \else
+         \xdef\second@{\first@ :&@}
+         \expandafter\get@filestackitem\second@\xdef\seventh@{\fourth@@}
+         \ifx\fourth@\ampers@nd
+            \xdef\fourth@{\fourth@@}\xdef\seventh@{}
+         \else
+            \xdef\second@{\fourth@ @}
+            \expandafter\get@filestackitem\second@\xdef\fourth@{\fourth@@}\xdef\fourth@@{}
+         \fi
+         \xdef\first@{\fourth@ @}
+         \expandafter\check@number\first@
+         \ifnumber
+          \advance\temp@count by 1
+          \ifnum\temp@count=0 \temp@count=1 \fi
+          \xdef\first@{\seventh@ &}
+          \ifx\first@\ampers@nd
+          \else
+             \xdef\first@{\seventh@ @}
+             \expandafter\check@number\first@
+             \ifnumber\temp@count=\seventh@\fi
+          \fi\relax
+          \ifnum\temp@count<\st@rt
+          \else
+             \ifnum\temp@count>\st@p
+             \else
+                \xdef\first@{\fourth@ ,&@}
+               {\loop
+                   \expandafter\get@item\first@
+                   \xdef\second@{\fourth@ @}\expandafter\check@number\second@\ifletter\xdef\fourth@{0}\fi
+                   \setlength\temp@@length{\eighth@}
+                   \temp@@length=\fourth@\temp@@length
+                   \temp@@length=10\temp@@length  \xdef\third@{\strip@pt\temp@@length .@}
+                   \expandafter\get@precomm@pt\third@
+                   \loopcount=\third@
+                   \innerloopcount=\loopcount
+                   \divide\innerloopcount by 10 \xdef\fifth@{\the\innerloopcount}
+                   \multiply\innerloopcount by 10
+                   \advance\loopcount by -\innerloopcount
+                   \ifnum\loopcount<0\relax\loopcount=-\loopcount\fi\xdef\sixth@{\the\loopcount}
+                   \ifx\temp@\n@
+                        \xdef\temp@{\fifth@ .\sixth@}
+                   \else
+                        \xdef\temp@{\temp@,\fifth@ .\sixth@}
+                   \fi
+                \ifx\first@@\ampers@nd
+                   \xdef\style@{bars[\pm@,\pm@plus]:\temp@}
+                   \xdef\tmpstack{\tmpstack;\the\temp@count;\the\temp@count;\style@;}
+                   \xdef\temp@{n}
+                \else\repeat
+               }
+             \fi
+          \fi
+         \fi
+       \fi
+    \ifeof\structurefile\else\repeat
+    \immediate\closein\structurefile
+    \temp@count=\csname bars@num\bottop@\endcsname
+    \temp@@count=\temp@count
+    \advance\temp@@count by -1
+    \ifnum\temp@@count=0 \xdef\first@{1} \else \xdef\first@{\the\temp@@count} \fi
+    \temp@@count = 95
+    \divide\temp@@count by \first@
+    \divide\temp@@count by 5
+    \multiply\temp@@count by 5
+    \xdef\first@{\the\temp@@count}
+    \expandafter\ifnum\csname bars@num\bottop@\endcsname=1 \temp@@count = 0 \else \temp@@count = 95 \fi
+    \expandafter\ifx\csname do@bar@cols\bottop@\endcsname\y@
+        \expandafter\ifx\csname bars@sc@le\bottop@\endcsname\n@
+           \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{ColdHot}
+        \fi
+        \set@bar@cols
+    \fi
+    \xdef\f@text@{\f@text@\tmpstack} \xdef\tmpstack{}
+    \xdef\last@{\csname stack@\bottop@\seq@\endcsname}
+    \sort@gstack
+    \expandafter\xdef\csname stack@\bottop@\seq@\endcsname{\tmpstack}
+  \fi
+  \egroup
 }
 \def\read@graph{%
     \bgroup
@@ -5554,7 +6054,6 @@
        \immediate\closein\structurefile\egroup
     \else
     \ifx\g@min\comm@
-    \def\par@{}
     \xdef\g@min{,} \xdef\g@max{,}
     \loop
        \read\structurefile to \readline
@@ -5675,6 +6174,136 @@
 \def\get@gregion#1..#2,#3&{%
    \xdef\st@rt{#1} \xdef\st@p{#2} \xdef\list@{#3}
 }
+\def\do@frustgraph{%
+   \expandafter\get@gregion\list@
+   \expandafter\ifnum\csname seq@start\seq@\endcsname>\st@rt
+   \else
+   \xdef\temp@@{n}
+   \xdef\temp@@@{\fill@char,@}
+   \expandafter\check@letter\temp@@@
+   \read@frust
+   \ifx\temp@@\y@
+   \loopcount=\st@rt
+   \xdef\tmpstack{}
+   \loop
+      \expandafter\get@two@items\temp@@@
+      \xdef\temp@@@{\first@}
+      \xdef\style@{frust:\fourth@,\fourth@@}
+      \xdef\tmpstack{\tmpstack\f@text@;\the\loopcount;\the\loopcount;\style@;}
+      \advance\loopcount by 1
+      \ifnum\loopcount=0 \loopcount=1 \fi
+   \ifnum\loopcount>\st@p
+   \else\repeat
+      \xdef\f@text@{\tmpstack} \xdef\tmpstack{}
+      \xdef\last@{\csname stack@\bottop@\seq@\endcsname}
+      \sort@gstack
+      \expandafter\xdef\csname stack@\bottop@\seq@\endcsname{\tmpstack}
+   \fi
+   \fi
+   \xdef\list@{\list@ &}
+   \ifx\list@\ampers@nd\else\do@frustgraph\fi
+}
+\def\set@bar@cols{%
+   \expandafter\xdef\csname bars@col@\bottop@\the\temp@count\endcsname{%
+         \csname bars@sc@le\bottop@\endcsname\the\temp@@count}
+   \advance\temp@count by -1
+   \advance\temp@@count by -\first@
+   \ifnum\temp@count>0\set@bar@cols\fi
+}
+\def\count@bars{%
+   \advance\temp@count by 1
+   \expandafter\get@item\first@
+   \expandafter\xdef\csname bars@num\bottop@\endcsname{\the\temp@count}
+   \ifx\first@@\ampers@nd
+      \temp@@count=\temp@count
+      \advance\temp@@count by -1
+      \ifnum\temp@@count=0 \xdef\first@{1} \else \xdef\first@{\the\temp@@count} \fi
+      \temp@@count = 95
+      \divide\temp@@count by \first@
+      \divide\temp@@count by 5
+      \multiply\temp@@count by 5
+      \xdef\first@{\the\temp@@count}
+      \expandafter\ifnum\csname bars@num\bottop@\endcsname=1 \temp@@count = 0 \else \temp@@count = 95 \fi
+      \xdef\second@{\csname bar@cols@num\bottop@\endcsname}
+      \expandafter\ifnum\csname bars@num\bottop@\endcsname>\second@
+         \expandafter\xdef\csname do@bar@cols\bottop@\endcsname{y}
+      \fi
+      \expandafter\ifx\csname do@bar@cols\bottop@\endcsname\y@
+         \expandafter\ifx\csname bars@sc@le\bottop@\endcsname\n@
+            \expandafter\xdef\csname bars@sc@le\bottop@\endcsname{ColdHot}
+         \fi
+         \set@bar@cols
+      \fi
+   \else
+      \count@bars
+   \fi
+}
+\def\do@stackgraph{%
+   \expandafter\get@gregion\list@
+   \expandafter\ifnum\csname seq@start\seq@\endcsname>\st@rt
+   \else
+   \xdef\temp@@{n}
+   \xdef\b@r{y}
+   \xdef\first@{\fill@char,@}
+   \expandafter\firstchar@get\first@
+   \if\first@ (
+      \ifx\g@min\comm@
+         \xdef\g@min{0} \xdef\g@max{100}
+      \else
+         \setlength\arrow@height{\g@max pt}
+         \setlength\arrow@width{\g@min pt}
+         \advance\arrow@height by -\arrow@width
+         \ifdim\arrow@height>100pt
+            \xdef\third@{\strip@pt\arrow@height .@}
+            \expandafter\get@precomm@pt\third@
+            \temp@@length=100pt
+            \divide\temp@@length by \third@
+         \else
+            \arrow@height=100\arrow@height
+            \xdef\third@{\strip@pt\arrow@height .@}
+            \expandafter\get@precomm@pt\third@
+            \temp@@length=10000pt
+            \divide\temp@@length by \third@
+         \fi
+         \xdef\eighth@{\strip@pt\temp@@length}
+      \fi
+      \pm@calc
+      \xdef\temp@@@{\fill@char}
+      \xdef\temp@@{y}
+   \else
+      \read@stackgraph
+   \fi
+   \ifx\temp@@\y@
+   \loopcount=\st@rt
+   \xdef\tmpstack{}
+   \xdef\temp@@@{\temp@@@,(&),@}
+   \loop
+    \expandafter\get@stackitem\temp@@@
+    \xdef\temp@@@{\first@}
+    \ifx\fourth@\ampers@nd
+      \loopcount=\st@p
+    \else
+      \ifx\b@r\y@
+         \xdef\fourth@@{\fourth@}
+         \temp@count=0 \xdef\first@{\fourth@ ,&@}\count@bars \xdef\b@r{n}
+         \xdef\fourth@{\fourth@@}
+      \fi
+      \xdef\style@{bars[\pm@,\eighth@]:\fourth@}
+      \xdef\tmpstack{\tmpstack\f@text@;\the\loopcount;\the\loopcount;\style@;}
+    \fi
+    \advance\loopcount by 1
+    \ifnum\loopcount=0 \loopcount=1 \fi
+   \ifnum\loopcount>\st@p
+   \else\repeat
+      \xdef\f@text@{\tmpstack} \xdef\tmpstack{}
+      \xdef\last@{\csname stack@\bottop@\seq@\endcsname}
+      \sort@gstack
+      \expandafter\xdef\csname stack@\bottop@\seq@\endcsname{\tmpstack}
+   \fi
+   \fi
+   \xdef\list@{\list@ &}
+   \ifx\list@\ampers@nd\else\do@stackgraph\fi
+}
 \def\do@bargraph{%
    \expandafter\get@gregion\list@
    \expandafter\ifnum\csname seq@start\seq@\endcsname>\st@rt
@@ -5690,19 +6319,23 @@
       \ifx\g@min\comm@ \xdef\g@min{0} \fi
       \ifx\g@max\comm@ \xdef\g@max{100} \fi
       \pm@calc
-      \xdef\temp@@@{\fill@char,@}
+      \xdef\temp@@@{\fill@char,&,@}
       \xdef\temp@@{y}
    \fi
    \ifx\temp@@\y@
    \loopcount=\st@rt
    \xdef\tmpstack{}
    \loop
-      \expandafter\get@item\temp@@@
-      \xdef\temp@@@{\first@}
-      \xdef\style@{bar[\pm@,0]:\fourth@[\f@color]}
+    \expandafter\get@item\temp@@@
+    \xdef\temp@@@{\first@}
+    \ifx\fourth@\ampers@nd
+      \loopcount=\st@p
+    \else
+      \xdef\style@{bar[\pm@,\pm@sp@n]:\fourth@[\f@color]}
       \xdef\tmpstack{\tmpstack\f@text@;\the\loopcount;\the\loopcount;\style@;}
-      \advance\loopcount by 1
-      \ifnum\loopcount=0 \loopcount=1 \fi
+    \fi
+    \advance\loopcount by 1
+    \ifnum\loopcount=0 \loopcount=1 \fi
    \ifnum\loopcount>\st@p
    \else\repeat
       \xdef\f@text@{\tmpstack} \xdef\tmpstack{}
@@ -5729,21 +6362,41 @@
       \ifx\g@min\comm@ \xdef\g@min{0} \fi
       \ifx\g@max\comm@ \xdef\g@max{100} \fi
       \pm@calc
-      \xdef\temp@@@{\fill@char,@}
+      \xdef\temp@@@{\fill@char,&,@}
       \xdef\temp@@{y}
    \fi
    \ifx\temp@@\y@
    \loopcount=\st@rt
    \xdef\tmpstack{}
    \loop
-      \xdef\last@{\csname stack@\bottop@\seq@\endcsname}
-      \expandafter\get@item\temp@@@
-      \xdef\temp@@@{\first@}
+    \xdef\last@{\csname stack@\bottop@\seq@\endcsname}
+    \expandafter\get@item\temp@@@
+    \xdef\temp@@@{\first@}
+    \ifx\fourth@\ampers@nd
+      \loopcount=\st@p
+    \else
       \ifx\fourth@\N@
          \xdef\style@{color:50[White]}
       \else
-         \ifnum\fourth@<1 \xdef\fourth@{1} \fi
-         \innerloopcount=\fourth@
+         \setlength\temp@@length{\fourth@ pt}
+         \setlength\arrow@width{\g@min pt}
+         \advance\temp@@length by -\arrow@width \ifdim\temp@@length<0pt \temp@@length=0pt\fi
+         \setlength\arrow@height{\pm@sp@n pt}
+         \ifdim\arrow@height<100 pt
+            \multiply\arrow@height by 100
+            \xdef\third@{\the\arrow@height .@}
+            \expandafter\get@precomm@pt\third@
+            \divide\temp@@length by \third@
+            \multiply\temp@@length by 100
+        \else
+            \xdef\third@{\the\arrow@height .@}
+            \expandafter\get@precomm@pt\third@
+            \divide\temp@@length by \third@
+         \fi
+         \multiply\temp@@length by 100
+         \xdef\third@{\strip@pt\temp@@length .@}
+         \expandafter\get@precomm@pt\third@
+         \innerloopcount=\third@
          \advance\innerloopcount by 4
          \divide\innerloopcount by 5
          \multiply\innerloopcount by 5
@@ -5751,8 +6404,9 @@
          \xdef\style@{color:50[\f@color\the\innerloopcount]}
       \fi
       \xdef\tmpstack{\tmpstack\f@text@;\the\loopcount;\the\loopcount;\style@;}
-      \advance\loopcount by 1
-      \ifnum\loopcount=0 \loopcount=1 \fi
+    \fi
+    \advance\loopcount by 1
+    \ifnum\loopcount=0 \loopcount=1 \fi
    \ifnum\loopcount>\st@p
    \else\repeat
       \xdef\f@text@{\tmpstack} \xdef\tmpstack{}
@@ -5836,9 +6490,10 @@
          \fi
       \fi
    \fi
+   \xdef\temp@@{all}
    \xdef\last@{bar}
    \ifx\second@@\last@
-      \xdef\list@{#3,&}
+      \xdef\temp@{#3}\ifx\temp@\temp@@ \xdef\list@{-99999999..99999999,&}\else \xdef\list@{#3,&}\fi
       \xdef\style@{#4}
       \def\f@text@{#5}
       \do@bargraph
@@ -5853,15 +6508,43 @@
    \else
    \xdef\last@{color}
    \ifx\second@@\last@
-      \xdef\list@{#3,&}
+      \xdef\temp@{#3}\ifx\temp@\temp@@ \xdef\list@{-99999999..99999999,&}\else \xdef\list@{#3,&}\fi
       \xdef\style@{#4}
       \def\f@text@{#5}
       \do@colorgraph
    \else
-   \xdef\f@@color{\f@color}
+   \xdef\last@{frust}
+   \ifx\second@@\last@
+      \xdef\temp@{#3}\ifx\temp@\temp@@ \xdef\list@{1..99999999,&}\else \xdef\list@{#3,&}\fi
+      \xdef\style@{#4}
+      \def\f@text@{#5}
+      \do@frustgraph
+      \xdef\temp@{bottom}
+      \ifx\bottop@\temp@ \xdef\bottom@stretch{y}\fi
+      \xdef\temp@{bbottom}
+      \ifx\bottop@\temp@ \xdef\bbottom@stretch{y}\fi
+      \xdef\temp@{bbbottom}
+      \ifx\bottop@\temp@ \xdef\bbbottom@stretch{y}\fi
+      \xdef\temp@{bbbbottom}
+      \ifx\bottop@\temp@ \xdef\bbbbottom@stretch{y}\fi
+   \else
+   \xdef\last@{bars}
+   \ifx\second@@\last@
+      \xdef\temp@{#3}\ifx\temp@\temp@@ \xdef\list@{-99999999..99999999,&}\else \xdef\list@{#3,&}\fi
+      \xdef\style@{#4}
+      \def\f@text@{#5}
+      \do@stackgraph
+      \xdef\temp@{bottom}
+      \ifx\bottop@\temp@ \xdef\bottom@stretch{y}\fi
+      \xdef\temp@{bbottom}
+      \ifx\bottop@\temp@ \xdef\bbottom@stretch{y}\fi
+      \xdef\temp@{bbbottom}
+      \ifx\bottop@\temp@ \xdef\bbbottom@stretch{y}\fi
+      \xdef\temp@{bbbbottom}
+      \ifx\bottop@\temp@ \xdef\bbbbottom@stretch{y}\fi
+   \else
    \def\f@text@{#5}
-   \xdef\f@color{\f@@color}
-   \xdef\temp@{#4&}
+   \xdef\temp@{\second@@&}
    \ifx\temp@\ampers@nd
       \xdef\list@{#3,&}
       \xdef\style@{&}
@@ -5943,7 +6626,8 @@
       \fi
       \fi
       \fi
-   \xdef\list@{#3,&}
+      \fi
+   \xdef\temp@{#3}\ifx\temp@\temp@@ \xdef\list@{-99999999..99999999,&}\else \xdef\list@{#3,&}\fi
    \xdef\@ll{\f@text@}
    \xdef\temp@@{\bottop@}
    \xdef\temp@{#3,,,:,,,,@} \expandafter\test@PDB\temp@
@@ -5956,6 +6640,7 @@
          \xdef\list@{\list@ @}
          \expandafter\get@fregions\list@
       \ifx\list@\ampers@nd\else\repeat
+   \fi
    \fi
    \fi\fi\fi
    \fi
@@ -6049,7 +6734,11 @@
 \def\bbottomspace#1{\def\bb@sp@ce{#1}}
 \def\bbbottomspace#1{\def\bbb@sp@ce{#1}}
 \def\bbbbottomspace#1{\def\bbbb@sp@ce{#1}}
-\def\rulerspace#1{\def\ruler@sp@ce{#1}}
+\newcommand\rulerspace[2][n]{
+   \xdef\first@{#1} \ifx\first@\n@ \def\ruler@sp@ce@top{#2}\def\ruler@sp@ce@bottom{#2}\fi
+   \xdef\second@{top} \ifx\first@\second@ \def\ruler@sp@ce@top{#2}\fi
+   \xdef\second@{bottom} \ifx\first@\second@ \def\ruler@sp@ce@bottom{#2}\fi
+}
 \def\fixblockspace{\fix@true}
 \def\flexblockspace{\fix@false}
 \def\nosepline{\def\seq@skip{\relax}}
@@ -6115,9 +6804,7 @@
    \else
    \xdef\first@{functional}
    \ifx\first@\last@
-      \if\seq@type N \message{<No functional shading on DNA sequences>}
-      \else \simmodefalse \funcmodetrue \func@shading{#1}
-            \xdef\seq@type{P} \xdef\prefix@{pep} \fi
+     \simmodefalse \funcmodetrue \func@shading{#1}
    \else
    \xdef\first@{T-Coffee}
    \ifx\first@\last@
@@ -6141,9 +6828,28 @@
       \gapchar{-}
       \hideconsensus
    \else
+   \xdef\first@{singleseq}
+   \ifx\first@\last@
+      \simmodefalse \funcmodefalse
+      \xdef\single@seq@num{#1}
+      \ifnum\single@seq@num>\seq@count \xdef\single@seq@num{1}\fi
+      \ifnum\single@seq@num<1 \xdef\single@seq@num{1}\fi
+      \loopcount=1
+      \loop
+         \ifnum\single@seq@num=\loopcount\donotshade{\the\loopcount}\else\killseq{\the\loopcount}\fi
+         \advance\loopcount by 1
+      \ifnum\loopcount>\seq@count\else\repeat
+      \hideconsensus
+      \hidenames
+      \shownumbering{leftright}
+      \residuesperline*{60}
+      \gapchar{\ }
+      \alignrightlabels
+      \smallblockskip
+   \else
    \message{<Unknown shading mode - using `similar'>}
    \simmodetrue  \funcmodefalse
-   \fi\fi\fi\fi\fi}
+   \fi\fi\fi\fi\fi\fi}
 \def\hideallmatchpositions{\xdef\all@out{y}}
 \def\showallmatchpositions{\xdef\all@out{n}}
 \newcommand\allmatchspecial[1][100]{%
@@ -6165,12 +6871,12 @@
 \def\gaprule#1{\def\gap@rulethick{#1}}
 \def\domaingaprule#1{\def\domgap@rulethick{#1}}
 \newcommand{\setends}[3][&]{%
+  \xdef\first@{#1}\ifx\first@\ampers@nd\else\startnumber{#2}{#1}\fi
   \xdef\start@seq{#2}
   \xdef\temp@{consensus}
   \ifx\start@seq\temp@
-%%%     \message{<\noexpand\setends does not accept `consensus'>}
      \xdef\start@seq{0}
-%%%%%%%%%%
+     \xdef\start@num@set@for{-1}
             \xdef\second@{#3@} \expandafter\get@nums\second@
             \xdef\start@num{\first@} \xdef\end@num{\second@}
             \ifnum\start@num<1 \xdef\start@num{1}\fi
@@ -6180,10 +6886,10 @@
             \advance\loopcount by -\start@num
             \xdef\end@num{\the\loopcount}
             \start@false
-%%%%%%%%%%
   \else
      \xdef\first@{\start@seq @} \expandafter\check@letter\first@
      \xdef\first@{\start@seq}
+     \xdef\start@num@set@for{-1}
      \ifletter \get@name@number \xdef\start@seq{\first@} \fi
      \ifnum\start@seq>\seq@count
          \message{<\noexpand\setends{} error: sequence `#2' not defined>}
@@ -6201,7 +6907,6 @@
          \fi
      \fi
   \fi
-  \xdef\first@{#1}\ifx\first@\ampers@nd\else\startnumber{#2}{#1}\fi
 }
 \newcommand{\startnumber}[3][&]{%
    \xdef\first@{#2} \xdef\second@{consensus}
@@ -6210,6 +6915,7 @@
       \expandafter\xdef\csname seq@start0\endcsname{#2}
       \cons@count=#3 \advance\cons@count by -1\relax
       \expandafter\xdef\csname res@count0\endcsname{\the\cons@count}
+      \xdef\start@num@set@for{0}
    \else
       \xdef\first@{#2 @} \expandafter\check@letter\first@
       \xdef\first@{#2}   \ifletter \get@name@number \fi
@@ -6221,6 +6927,7 @@
          \res@count=\second@
          \advance\res@count by -1
          \expandafter\xdef\csname res@count\first@\endcsname{\the\res@count}
+         \xdef\start@num@set@for{\first@}
       \fi
    \fi
    \xdef\first@{#1}\ifx\first@\ampers@nd\else\setends{#2}{#1}\fi
@@ -6431,7 +7138,16 @@
       \logocolor{CFH}{BlueRed60}
       \logocolor{MY}{BlueRed80}
       \logocolor{W}{BlueRed100}
-   \fi\fi\fi\fi\fi\fi\fi\fi
+   \else
+   \xdef\second@{DNA}
+   \ifx\first@\second@
+      \clearlogocolors
+      \logocolor{A}{BrewerA}
+      \logocolor{C}{BrewerC}
+      \logocolor{G}{BrewerG}
+      \logocolor{T}{BrewerT}
+      \logocolor{U}{BrewerT}
+   \fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 \newcommand\findsubfamily[2][n]{%
    \xdef\first@{#1}
@@ -6493,6 +7209,10 @@
       \xdef\c@nsc@l{\fourth@}
       \xdef\first@@{Gray}
       \ifx\c@nsc@l\first@@\xdef\text@scale{y}\else
+      \xdef\first@@{BlackWhite}
+      \ifx\c@nsc@l\first@@\xdef\text@scale{y}\else
+      \xdef\first@@{WhiteBlack}
+      \ifx\c@nsc@l\first@@\xdef\text@scale{y}\else
       \xdef\first@@{RedBlue}
       \ifx\c@nsc@l\first@@\xdef\text@scale{y}\else
       \xdef\first@@{BlueRed}
@@ -6505,7 +7225,7 @@
       \ifx\c@nsc@l\first@@\xdef\text@scale{y}\else
       \xdef\first@@{HotCold}
       \ifx\c@nsc@l\first@@\xdef\text@scale{y}
-      \fi\fi\fi\fi\fi\fi\fi
+      \fi\fi\fi\fi\fi\fi\fi\fi\fi
       \expandafter\get@item\first@
       \ifx\fourth@\ampers@nd
          \xdef\c@nssc@le{White}
@@ -6513,6 +7233,10 @@
          \xdef\c@nssc@le{\fourth@}
          \xdef\first@{Gray}
          \ifx\c@nssc@le\first@\xdef\box@scale{y}\else
+        \xdef\first@@{BlackWhite}
+         \ifx\c@nsc@l\first@@\xdef\text@scale{y}\else
+         \xdef\first@@{WhiteBlack}
+         \ifx\c@nsc@l\first@@\xdef\text@scale{y}\else
          \xdef\first@{RedBlue}
          \ifx\c@nssc@le\first@\xdef\box@scale{y}\else
          \xdef\first@{BlueRed}
@@ -6525,7 +7249,7 @@
          \ifx\c@nssc@le\first@\xdef\box@scale{y}\else
          \xdef\first@{HotCold}
          \ifx\c@nssc@le\first@\xdef\box@scale{y}\else
-         \fi\fi\fi\fi\fi\fi\fi
+         \fi\fi\fi\fi\fi\fi\fi\fi\fi
       \fi
       \xdef\collect@cons@colors{y}
    \fi
@@ -6558,34 +7282,96 @@
 \def\hideleadinggaps{\sh@wg@psfalse}
 \def\showleadinggaps{\sh@wg@pstrue}
 \newcommand\showruler[3][n]{%
-   \xdef\first@{#1}
-   \ifx\first@\n@\else\xdef\ruler@fg{#1}\fi
+   \xdef\first@@{#1}
    \xdef\first@{consensus} \xdef\second@{#3}
    \xdef\third@{bottom}    \xdef\fourth@{#2}
-   \ifx\third@\fourth@ \xdef\rule@top{1}\else\xdef\rule@top{0}\fi
-   \ifx\first@\second@ \xdef\rule@num{0}
+   \ifx\third@\fourth@
+      \xdef\rule@bottom{1}
+      \ifx\first@@\n@\else\xdef\ruler@fg@bottom{#1}\fi
+      \ifx\first@\second@ \xdef\rule@num@bottom{0}
+      \else
+        \xdef\first@{#3 @} \expandafter\check@letter\first@
+        \xdef\first@{#3}   \ifletter \get@name@number \fi
+        \ifnum\first@>\seq@count
+        \else
+           \ifnum\first@>0
+              \xdef\rule@num@bottom{\first@}
+           \fi
+         \fi
+      \fi
    \else
-     \xdef\first@{#3 @} \expandafter\check@letter\first@
-     \xdef\first@{#3}   \ifletter \get@name@number \fi
-     \ifnum\first@>\seq@count
-     \else
-        \ifnum\first@>0
-           \xdef\rule@num{\first@}
-        \fi
+      \xdef\rule@top{1}
+      \ifx\first@@\n@\else\xdef\ruler@fg@top{#1}\fi
+      \ifx\first@\second@ \xdef\rule@num@top{0}
+      \else
+        \xdef\first@{#3 @} \expandafter\check@letter\first@
+        \xdef\first@{#3}   \ifletter \get@name@number \fi
+        \ifnum\first@>\seq@count
+        \else
+           \ifnum\first@>0
+              \xdef\rule@num@top{\first@}
+           \fi
+         \fi
       \fi
    \fi
-   \xdef\ruler@{}}
-\def\hideruler{\xdef\rule@num{-1}}
+   \xdef\topruler@{}\xdef\bottomruler@{}
+}
+\newcommand\hideruler[1][n]{
+   \xdef\first@{#1} \ifx\first@\n@
+      \xdef\rule@num@top{-1} \xdef\rule@top{0}
+      \xdef\rule@num@bottom{-1} \xdef\rule@bottom{0}
+   \fi
+   \xdef\second@{top} \ifx\first@\second@
+      \xdef\rule@num@top{-1}  \xdef\rule@top{0}
+   \fi
+   \xdef\second@{bottom} \ifx\first@\second@
+      \xdef\rule@num@bottom{-1} \xdef\rule@bottom{0}
+   \fi
+}
 \def\allowzero{\xdef\allow@zero{y}}
 \def\disallowzero{\xdef\allow@zero{n}}
-\def\rulersteps#1{%
-   \xdef\ruler@step{#1}
-   \ifnum#1<4 \xdef\ruler@rot{90}\fi
+\newcommand\rulersteps[2][n]{
+   \xdef\first@{#1} \ifx\first@\n@
+      \xdef\ruler@step@top{#2} \ifnum#2<4 \xdef\ruler@rot@top{90}\fi
+      \xdef\ruler@step@bottom{#2} \ifnum#2<4 \xdef\ruler@rot@bottom{90}\fi
+   \fi
+   \xdef\second@{top} \ifx\first@\second@
+      \xdef\ruler@step@top{#2} \ifnum#2<4 \xdef\ruler@rot@top{90}\fi
+   \fi
+   \xdef\second@{bottom} \ifx\first@\second@
+      \xdef\ruler@step@bottom{#2} \ifnum#2<4 \xdef\ruler@rot@bottom{90}\fi
+   \fi
 }
-\def\rotateruler{\xdef\ruler@rot{90}}
-\def\unrotateruler{\xdef\ruler@rot{0}}
-\def\namerulerpos#1#2{%
-   \expandafter\xdef\csname alt@ruler#1\endcsname{#2}
+\newcommand\rotateruler[1][n]{
+   \xdef\first@{#1} \ifx\first@\n@ \xdef\ruler@rot@top{90} \xdef\ruler@rot@bottom{90} \fi
+   \xdef\second@{top} \ifx\first@\second@ \xdef\ruler@rot@top{90}\fi
+   \xdef\second@{bottom} \ifx\first@\second@ \xdef\ruler@rot@bottom{90}\fi
+}
+\newcommand\unrotateruler[1][n]{
+   \xdef\first@{#1} \ifx\first@\n@ \xdef\ruler@rot@top{0} \xdef\ruler@rot@bottom{0} \fi
+   \xdef\second@{top} \ifx\first@\second@ \xdef\ruler@rot@top{0}\fi
+   \xdef\second@{bottom} \ifx\first@\second@ \xdef\ruler@rot@bottom{0}\fi
+}
+\newcommand\namerulerpos[3][n]{%
+   \xdef\first@{#1}
+   \ifx\first@\n@
+      \expandafter\xdef\csname alt@ruler@top#2\endcsname{#3}
+      \expandafter\xdef\csname alt@ruler@bottom#2\endcsname{#3}
+   \fi
+   \xdef\second@{top}
+   \ifx\first@\second@ \expandafter\xdef\csname alt@ruler@top#2\endcsname{#3} \fi
+   \xdef\second@{bottom}
+   \ifx\first@\second@ \expandafter\xdef\csname alt@ruler@bottom#2\endcsname{#3} \fi
+}
+\newcommand\nameruler[2][n]{
+   \xdef\first@{#1} \ifx\first@\n@ \xdef\rulername@top{#2} \xdef\rulername@bottom{#2} \fi
+   \xdef\second@{top} \ifx\first@\second@ \xdef\rulername@top{#2}\fi
+   \xdef\second@{bottom} \ifx\first@\second@ \xdef\rulername@bottom{#2}\fi
+}
+\newcommand\rulernamecolor[2][n]{
+   \xdef\first@{#1} \ifx\first@\n@ \xdef\rulernamecolor@top{#2} \xdef\rulernamecolor@bottom{#2} \fi
+   \xdef\second@{top} \ifx\first@\second@ \xdef\rulernamecolor@top{#2}\fi
+   \xdef\second@{bottom} \ifx\first@\second@ \xdef\rulernamecolor@bottom{#2}\fi
 }
 \def\featurerule#1{\setlength\rule@thick{#1}}
 \def\orderseqs#1{%
@@ -6663,6 +7449,9 @@
    \xdef\temp@{ruler}
    \ifx\first@\temp@ \xdef\ruler@family{\second@}
    \else
+   \xdef\temp@{rulername}
+   \ifx\first@\temp@ \xdef\rulername@family{\second@}
+   \else
    \xdef\temp@{all}
    \ifx\first@\temp@
       \xdef\ftext@family{\third@}
@@ -6675,7 +7464,8 @@
       \xdef\legend@family{\third@}
       \xdef\label@family{\third@}
       \xdef\ruler@family{\second@}
-   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+      \xdef\rulername@family{\second@}
+   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
    \fi
 }
 \def\setseries#1#2{%
@@ -6886,6 +7676,10 @@
    \ifx\first@\temp@
       \def\bottomruler@size{\csname #2\endcsname}
    \fi
+   \xdef\temp@{rulername}
+   \ifx\first@\temp@
+      \def\rulername@size{\csname #2\endcsname}
+   \fi
 }
 \def\setfont#1#2#3#4#5{%
    \setfamily{#1}{#2}\setseries{#1}{#3}
@@ -7055,6 +7849,19 @@
 \def\rulerLARGE       {\setsize{ruler}{LARGE}}
 \def\rulerhuge        {\setsize{ruler}{huge}}
 \def\rulerHuge        {\setsize{ruler}{Huge}}
+\def\rulernamerm{\setfamily{rulername}{rm}}
+\def\rulernamesf{\setfamily{rulername}{sf}}
+\def\rulernamett{\setfamily{rulername}{tt}}
+\def\rulernametiny        {\setsize{rulername}{tiny}}
+\def\rulernamescriptsize  {\setsize{rulername}{scriptsize}}
+\def\rulernamefootnotesize{\setsize{rulername}{footnotesize}}
+\def\rulernamesmall       {\setsize{rulername}{small}}
+\def\rulernamenormalsize  {\setsize{rulername}{normalsize}}
+\def\rulernamelarge       {\setsize{rulername}{large}}
+\def\rulernameLarge       {\setsize{rulername}{Large}}
+\def\rulernameLARGE       {\setsize{rulername}{LARGE}}
+\def\rulernamehuge        {\setsize{rulername}{huge}}
+\def\rulernameHuge        {\setsize{rulername}{Huge}}
 \def\funcshadingstyle#1#2#3#4#5{%
   \xdef\temp@{nomatch} \xdef\first@{#1}
   \ifx\temp@\first@
@@ -7259,7 +8066,11 @@
    \fi
 }
 \def\legendcolor#1{\xdef\legend@fg{#1}}
-\def\rulercolor#1{\xdef\ruler@fg{#1}}
+\newcommand\rulercolor[2][n]{
+   \xdef\first@{#1} \ifx\first@\n@ \xdef\ruler@fg@top{#2} \xdef\ruler@fg@bottom{#2} \fi
+   \xdef\second@{top} \ifx\first@\second@ \xdef\ruler@fg@top{#2}\fi
+   \xdef\second@{bottom} \ifx\first@\second@ \xdef\ruler@fg@bottom{#2}\fi
+}
 \def\molweight#1#2{%
    \xdef\temp@{Da}%
    \xdef\second@{#2}%
@@ -7651,13 +8462,15 @@
    \ifx\temp@\first@ \xdef\tr@nstextstyle{4}\fi
 }
 
-\newcommand\exportconsensus[2][export.txt]{%
+\newcommand\exportconsensus[3][chimera]{%
    \ifx\exp@rt\n@
+      \xdef\first@{#1}\xdef\second@{pymol}
+      \ifx\first@\second@\xdef\exp@rt@pymol{y}\fi
       \xdef\first@{#2 @} \expandafter\check@letter\first@
       \xdef\first@{#2}   \ifletter \get@name@number \fi
       \xdef\exp@rt@num{\first@}
       \xdef\exp@rt{y}
-      \immediate\openout\exp@rtfile = #1
+      \immediate\openout\exp@rtfile = #3
    \fi
 }
 
@@ -7678,6 +8491,25 @@
    \ifx\list@\ampers@nd\else\repeat
    \xdef\dom@in{y}
 }
+
+\newcommand{\shiftsingleseq}[1][-1]{%
+   \xdef\single@seq@shift{}
+   \ifnum #1 < 0
+      \xdef\calc@shift{y}
+   \else
+      \xdef\calc@shift{n}
+      \xdef\shift@g@p{#1}
+      \loopcount=0
+      \loop
+         \advance\loopcount by 1
+      \ifnum\loopcount>#1\else\xdef\single@seq@shift{\single@seq@shift.}\repeat
+   \fi
+}
+
+\def\keepsingleseqgaps{\xdef\keep@g@ps{y}}
+
+\def\alignrightlabels{\xdef\@lign@right@y@{y}}
+\def\unalignrightlabels{\xdef\@lign@right@y@{n}}
 
 \def\decimal@IOO#1#2#3{#1#2\temp@#3}
 \def\decimal@IO#1#2{#1\temp@#2}
@@ -9037,7 +9869,7 @@
          \ifx\shading@style\ampers@nd
          \else
              \expandafter\xdef\csname seq\the\loopcount\endcsname{%
-                              \csname seq\the\loopcount\endcsname¤\shading@style)}
+                              \csname seq\the\loopcount\endcsnameâ‚¬\shading@style)}
          \fi
       \ifnum\loopcount<\seq@count \repeat
 }
@@ -9200,7 +10032,6 @@
          \getregion@fromframestack@first
       \else
          \ifnum\frame@on=0
-            \xdef\frame@on{1}
             \xdef\frame@{1}
             \expandafter\xdef\csname fr@style\the\loopcount\endcsname{%
                              \csname framestyle\the\loopcount\endcsname}
@@ -9287,7 +10118,7 @@
                      \innerloopcount=\pos@count
                      \advance\innerloopcount by 1
                      \advance\innerloopcount by -\frame@pos
-                     \xdef\styleframe{\styleframe&\the\innerloopcount;%
+                     \xdef\styleframe{\styleframe&-\the\innerloopcount;%
                                       \csname fr@style\the\loopcount\endcsname;}
                      \innerloopcount=\pos@count \advance\innerloopcount by 1
                      \xdef\frame@pos{\the\innerloopcount}
@@ -10208,6 +11039,29 @@
                      \collect@cons@res
                      \expandafter\xdef\csname v@l\bottop@\endcsname{\cons@val}
                   \fi
+                  \xdef\temp@{complement}
+                  \ifx\temp@\fourth@
+                   \if\seq@type P
+                    \message{<No complement of protein sequences>}
+                    \expandafter\xdef\csname ftext\bottop@\the\loopcount\endcsname{}
+                    \expandafter\xdef\csname fstyle\bottop@\the\loopcount\endcsname{%
+                                         ///}
+                   \else
+                    \ifnum\loopcount=0
+                     \message{<No complement of the consensus sequence>}
+                     \expandafter\xdef\csname ftext\bottop@\the\loopcount\endcsname{}
+                     \expandafter\xdef\csname fstyle\bottop@\the\loopcount\endcsname{%
+                                          ///}
+                    \else
+                    \expandafter\xdef\csname c@mpseq\bottop@\endcsname{\the\loopcount}
+                    \expandafter\xdef\csname collect@c@mpl@\bottop@\endcsname{yes}
+                     \expandafter\xdef\csname ffourth@\bottop@\endcsname{\ffourth@}
+                     \xdef\temp@{\csname res\the\loopcount\endcsname}
+                     \expandafter\xdef\csname c@mplement\bottop@\endcsname{%
+                           \csname c@mpl@\temp@\endcsname}
+                    \fi
+                   \fi
+                  \fi
                \else
                   \ifnum\pos@count=1\relax
                      \xdef\temp@{\csname fstyle\bottop@\the\loopcount\endcsname @}
@@ -10261,6 +11115,16 @@
                         \collect@cons@res
                         \expandafter\xdef\csname v@l\bottop@\endcsname{\cons@val}
                      \fi
+                     \xdef\temp@{complement}
+                     \ifx\temp@\fourth@
+                        \expandafter\ifx\csname res\the\loopcount\endcsname\gap@char
+                           \expandafter\xdef\csname c@mplement\bottop@\endcsname{\gap@char}
+                        \else
+                           \xdef\temp@{\csname res\the\loopcount\endcsname}
+                           \expandafter\xdef\csname c@mplement\bottop@\endcsname{%
+                               \csname c@mpl@\temp@\endcsname}
+                        \fi
+                     \fi
                   \fi
                \fi
                \expandafter\ifnum\csname stop\bottop@\the\loopcount\endcsname=\first@@
@@ -10304,7 +11168,17 @@
                         \expandafter\xdef\csname collect@cons@graph\bottop@\endcsname{no}
                         \expandafter\xdef\csname v@l\bottop@\endcsname{}
                      \else
+                     \xdef\temp@@{complement}
+                     \ifx\temp@@\fourth@
+                        \ifx\f@color\comm@
+                           \xdef\f@color{} \else \xdef\f@color{[\f@color]}
+                        \fi
+                        \xdef\temp@@{complement:\csname c@mplement\bottop@\endcsname\f@color}
+                        \expandafter\xdef\csname collect@c@mpl@\bottop@\endcsname{no}
+                        \expandafter\xdef\csname c@mplement\bottop@\endcsname{}
+                     \else
                         \xdef\temp@@{\csname fstyle\bottop@\the\loopcount\endcsname}
+                     \fi
                      \fi
                      \fi
                   \fi
@@ -10398,7 +11272,13 @@
                         \ifx\temp@@\fourth@
                            \xdef\temp@@{plot\f@color[\fffourth@]:\csname v@l\bottop@\endcsname[\ff@color]}
                         \else
+                        \xdef\temp@@{complement}
+                        \ifx\temp@@\fourth@
+                           \xdef\temp@@{complement:\csname c@mplement\bottop@\endcsname[\f@color]}
+                           \xdef\temp@@@{}
+                        \else
                            \xdef\temp@@{\style@@}
+                        \fi
                         \fi
                         \fi
                      \fi
@@ -10423,14 +11303,19 @@
       \ifnum\loopcount<\seq@count \repeat
 }
 
-\def\add@to@rule@tens{%
-    \advance\innerloopcount by \ruler@step\relax
-    \ifnum\innerloopcount=0
-          \ifx\allow@zero\n@ \innerloopcount=\ruler@step \fi
-    \fi
-    \expandafter\ifnum\csname res@count\rule@num\endcsname>\innerloopcount \add@to@rule@tens
+\def\add@to@rule@tens@top{%
+    \advance\innerloopcount by \ruler@step@top\relax
+    \expandafter\ifnum\csname res@count\rule@num@top\endcsname>\innerloopcount \add@to@rule@tens@top
     \else
-       \xdef\rule@tens{\the\innerloopcount}
+       \xdef\rule@tens@top{\the\innerloopcount}
+    \fi
+}
+
+\def\add@to@rule@tens@bottom{%
+    \advance\innerloopcount by \ruler@step@bottom\relax
+    \expandafter\ifnum\csname res@count\rule@num@bottom\endcsname>\innerloopcount \add@to@rule@tens@bottom
+    \else
+       \xdef\rule@tens@bottom{\the\innerloopcount}
     \fi
 }
 
@@ -10456,18 +11341,18 @@
             \expandafter\TC@get\TC@line
             \xdef\TC@first@{\csname TC@num\the\loopcount\endcsname}
          \fi
-         \xdef\seq@line{\csname sequence\the\loopcount\endcsname}
+         \xdef\seq@line{\single@seq@shift\csname sequence\the\loopcount\endcsname}
          \expandafter\residue@get\seq@line
          \xdef\first@{\csname res\the\loopcount\endcsname}
          \innerloopcount=\csname res@num\first@\endcsname
          \advance\innerloopcount by 1
          \expandafter\xdef\csname res@num\first@\endcsname{\the\innerloopcount}
          \expandafter\check@char\first@
-         \ifx\dom@in\y@ %%%%%%%%%%%*****
+         \ifx\dom@in\y@
                 \xdef\temp@{\csname dom@num\the\loopcount\endcsname}
                 \expandafter\get@dom@count\temp@
                 \expandafter\xdef\csname dom@num\the\loopcount\endcsname{\temp@}
-         \fi            %%%%%%%%%%%*****
+         \fi
          \ifletter
              \ifx\dom@in\y@
              \else
@@ -10480,24 +11365,44 @@
              \expandafter\xdef\csname res@count\the\loopcount\endcsname{\the\res@count}
              \ifnum\loopcount=\chimera@seqnum \xdef\chimera@stack{\chimera@stack \the\res@count,} \fi
              \ifnum\loopcount=\exp@rt@num \xdef\sixth@{\the\res@count}\xdef\seventh@{y}\fi
-             \ifnum\loopcount=\rule@num\relax
-              \expandafter\ifnum\csname res@count\rule@num\endcsname>\rule@tens
-                 \innerloopcount=\rule@tens \add@to@rule@tens
+             \ifnum\loopcount=\rule@num@top\relax
+              \expandafter\ifnum\csname res@count\rule@num@top\endcsname>\rule@tens@top
+                 \innerloopcount=\rule@tens@top \add@to@rule@tens@top
               \fi
-              \expandafter\ifnum\csname res@count\rule@num\endcsname=\rule@tens
-                \expandafter\ifx\csname alt@ruler\rule@tens\endcsname\relax
-                   \xdef\temp@{\rule@tens}
+               \expandafter\ifnum\csname res@count\rule@num@top\endcsname=\rule@tens@top
+                \expandafter\ifx\csname alt@ruler@top\rule@tens@top\endcsname\relax
+                   \xdef\temp@{\rule@tens@top}
                 \else
-                   \xdef\temp@{\csname alt@ruler\rule@tens\endcsname}
+                   \xdef\temp@{\csname alt@ruler@top\rule@tens@top\endcsname}
                 \fi
-                \xdef\ruler@{\ruler@ !<\temp@>}
+                \xdef\topruler@{\topruler@ !<\temp@>}
               \else
-                \xdef\ruler@{\ruler@ -}
+                \xdef\topruler@{\topruler@ -}
               \fi
-              \xdef\temp@{\csname res@count\rule@num\endcsname}
-              \expandafter\ifx\csname alt@ruler\temp@\endcsname\relax
+              \xdef\temp@{\csname res@count\rule@num@top\endcsname}
+              \expandafter\ifx\csname alt@ruler@top\temp@\endcsname\relax
               \else
-                \expandafter\xdef\csname alt@ruler\temp@\endcsname{\temp@}
+                \expandafter\xdef\csname alt@ruler@top\temp@\endcsname{\temp@}
+              \fi
+             \fi
+             \ifnum\loopcount=\rule@num@bottom\relax
+              \expandafter\ifnum\csname res@count\rule@num@bottom\endcsname>\rule@tens@bottom
+                 \innerloopcount=\rule@tens@bottom \add@to@rule@tens@bottom
+              \fi
+               \expandafter\ifnum\csname res@count\rule@num@bottom\endcsname=\rule@tens@bottom
+                \expandafter\ifx\csname alt@ruler@bottom\rule@tens@bottom\endcsname\relax
+                   \xdef\temp@{\rule@tens@bottom}
+                \else
+                   \xdef\temp@{\csname alt@ruler@bottom\rule@tens@bottom\endcsname}
+                \fi
+                \xdef\bottomruler@{\bottomruler@ !<\temp@>}
+              \else
+                \xdef\bottomruler@{\bottomruler@ -}
+              \fi
+              \xdef\temp@{\csname res@count\rule@num@bottom\endcsname}
+              \expandafter\ifx\csname alt@ruler@bottom\temp@\endcsname\relax
+              \else
+                \expandafter\xdef\csname alt@ruler@bottom\temp@\endcsname{\temp@}
               \fi
              \fi
              \ifx\collect@valtop\yes
@@ -10531,6 +11436,38 @@
              \ifx\collect@valbbbbottom\yes
              \ifnum\v@lseqbbbbottom=\loopcount
                 \xdef\v@lbbbbottom{\v@lbbbbottom,\csname \ffourth@bbbbottom\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@top\yes
+             \ifnum\c@mpseqtop=\loopcount
+                \xdef\c@mplementtop{\c@mplementtop\csname c@mpl@\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@ttop\yes
+             \ifnum\c@mpseqttop=\loopcount
+                \xdef\c@mplementttop{\c@mplementttop\csname c@mpl@\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@tttop\yes
+             \ifnum\c@mpseqtttop=\loopcount
+                \xdef\c@mplementtttop{\c@mplementtttop\csname c@mpl@\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@ttttop\yes
+             \ifnum\c@mpseqttttop=\loopcount
+                \xdef\c@mplementttttop{\c@mplementttttop\csname c@mpl@\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@bottom\yes
+             \ifnum\c@mpseqbottom=\loopcount
+                \xdef\c@mplementbottom{\c@mplementbottom\csname c@mpl@\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@bbottom\yes
+             \ifnum\c@mpseqtbbottom=\loopcount
+                \xdef\c@mplementbbottom{\c@mplementbbottom\csname c@mpl@\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@bbbottom\yes
+             \ifnum\c@mpseqbbbottom=\loopcount
+                \xdef\c@mplementbbbottom{\c@mplementbbbottom\csname c@mpl@\first@\endcsname}
+             \fi\fi
+             \ifx\collect@c@mpl@bbbbottom\yes
+             \ifnum\c@mpseqbbbbottom=\loopcount
+                \xdef\c@mplementbbbbottom{\c@mplementbbbbottom\csname c@mpl@\first@\endcsname}
              \fi\fi
              \ifx\collect@restop\yes
              \ifnum\tr@nsseqtop=\loopcount
@@ -10621,7 +11558,8 @@
           \expandafter\xdef\csname ch@rge\the\loopcount\endcsname{%
                            \the\innerloopcount}
          \else
-          \ifnum\loopcount=\rule@num \xdef\ruler@{\ruler@ -} \fi
+          \ifnum\loopcount=\rule@num@top \xdef\topruler@{\topruler@ -} \fi
+          \ifnum\loopcount=\rule@num@bottom \xdef\bottomruler@{\bottomruler@ -} \fi
           \ifnum\loopcount=\chimera@seqnum \xdef\chimera@stack{\chimera@stack &,} \fi
           \ifx\collect@valtop\yes
           \ifnum\v@lseqtop=\loopcount
@@ -10687,8 +11625,41 @@
           \ifnum\tr@nsseqbbbbottom=\loopcount
               \xdef\tr@nslatebbbbottom{\tr@nslatebbbbottom -}
           \fi\fi
+          \ifx\collect@c@mpl@top\yes
+             \ifnum\c@mpseqtop=\loopcount
+                \xdef\c@mplementtop{\c@mplementtop-}
+          \fi\fi
+          \ifx\collect@c@mpl@ttop\yes
+             \ifnum\c@mpseqttop=\loopcount
+                \xdef\c@mplementttop{\c@mplementttop-}
+          \fi\fi
+          \ifx\collect@c@mpl@tttop\yes
+             \ifnum\c@mpseqtttop=\loopcount
+                \xdef\c@mplementtttop{\c@mplementtttop-}
+          \fi\fi
+          \ifx\collect@c@mpl@ttttop\yes
+             \ifnum\c@mpseqttttop=\loopcount
+                \xdef\c@mplementttttop{\c@mplementttttop-}
+          \fi\fi
+          \ifx\collect@c@mpl@bottom\yes
+             \ifnum\c@mpseqbottom=\loopcount
+                \xdef\c@mplementbottom{\c@mplementbottom-}
+          \fi\fi
+          \ifx\collect@c@mpl@bbottom\yes
+             \ifnum\c@mpseqbbottom=\loopcount
+                \xdef\c@mplementbbottom{\c@mplementbbottom-}
+          \fi\fi
+          \ifx\collect@c@mpl@bbbottom\yes
+              \ifnum\c@mpseqbbbottom=\loopcount
+                \xdef\c@mplementbbbottom{\c@mplementbbbottom-}
+         \fi\fi
+          \ifx\collect@c@mpl@bbbbottom\yes
+             \ifnum\c@mpseqbbbbottom=\loopcount
+                \xdef\c@mplementbbbbottom{\c@mplementbbbbottom-}
+          \fi\fi
          \fi
     \ifnum\loopcount<\seq@count \repeat
+    \xdef\single@seq@shift{}
          \ifx\collect@cons@graphtop\yes
                 \outerloopcount=1\relax
                 \temp@count=0\relax
@@ -10759,7 +11730,12 @@
                 \multiply\outerloopcount by 5
                 \ifnum\outerloopcount<5\relax\outerloopcount=5\fi
                 \xdef\seventh@{n}
-                \immediate\write\exp@rtfile{\string color col\the\outerloopcount, resi \sixth@}
+                \ifx\exp@rt@pymol\y@
+                   \immediate\write\exp@rtfile{\string color col\the\outerloopcount, resi \sixth@}
+                \else
+                   \immediate\write\exp@rtfile{\string setattr a color col\the\outerloopcount \space :\sixth@}
+                   \immediate\write\exp@rtfile{\string setattr r ribbonColor col\the\outerloopcount \space :\sixth@}
+                \fi
              \fi
          \fi
 
@@ -10794,28 +11770,53 @@
        \ifcase\match@case \unc@nserved \or \c@nserved \or \allm@tch \else \functi@nal \fi
       \fi
      \fi
-     \ifnum\rule@num=0
+     \ifnum\rule@num@top=0
          \ifx\g@p\y@
-           \xdef\ruler@{\ruler@ -}
+           \xdef\topruler@{\topruler@ -}
          \else
-           \ifnum\cons@count=\rule@tens
-              \expandafter\ifx\csname alt@ruler\rule@tens\endcsname\relax
-                 \xdef\temp@{\rule@tens}
+           \ifnum\cons@count=\rule@tens@top
+              \expandafter\ifx\csname alt@ruler@top\rule@tens@top\endcsname\relax
+                 \xdef\temp@{\rule@tens@top}
               \else
-                 \xdef\temp@{\csname alt@ruler\rule@tens\endcsname}
+                 \xdef\temp@{\csname alt@ruler@top\rule@tens@top\endcsname}
               \fi
-              \xdef\ruler@{\ruler@ !<\temp@>}
-              \innerloopcount=\rule@tens \advance\innerloopcount by \ruler@step\relax
+              \xdef\topruler@{\topruler@ !<\temp@>}
+              \innerloopcount=\rule@tens@top \advance\innerloopcount by \ruler@step@top\relax
               \ifnum\innerloopcount=0
-                 \ifx\allow@zero\n@ \innerloopcount=\ruler@step \fi
+                 \ifx\allow@zero\n@ \innerloopcount=\ruler@step@top \fi
               \fi
-              \xdef\rule@tens{\the\innerloopcount}
+              \xdef\rule@tens@top{\the\innerloopcount}
            \else
-              \xdef\ruler@{\ruler@ -}
+              \xdef\topruler@{\topruler@ -}
            \fi
-           \expandafter\ifx\csname alt@ruler\the\cons@count\endcsname\relax
+           \expandafter\ifx\csname alt@ruler@top\the\cons@count\endcsname\relax
            \else
-             \expandafter\xdef\csname alt@ruler\the\cons@count\endcsname{\the\cons@count}
+             \expandafter\xdef\csname alt@ruler@top\the\cons@count\endcsname{\the\cons@count}
+           \fi
+         \fi
+     \fi
+     \ifnum\rule@num@bottom=0
+         \ifx\g@p\y@
+           \xdef\bottomruler@{\bottomruler@ -}
+         \else
+           \ifnum\cons@count=\rule@tens@bottom
+              \expandafter\ifx\csname alt@ruler@bottom\rule@tens@bottom\endcsname\relax
+                 \xdef\temp@{\rule@tens@bottom}
+              \else
+                 \xdef\temp@{\csname alt@ruler@bottom\rule@tens@bottom\endcsname}
+              \fi
+              \xdef\bottomruler@{\bottomruler@ !<\temp@>}
+              \innerloopcount=\rule@tens@bottom \advance\innerloopcount by \ruler@step@bottom\relax
+              \ifnum\innerloopcount=0
+                 \ifx\allow@zero\n@ \innerloopcount=\ruler@step@bottom \fi
+              \fi
+              \xdef\rule@tens@bottom{\the\innerloopcount}
+           \else
+              \xdef\bottomruler@{\bottomruler@ -}
+           \fi
+           \expandafter\ifx\csname alt@ruler@bottom\the\cons@count\endcsname\relax
+           \else
+             \expandafter\xdef\csname alt@ruler@bottom\the\cons@count\endcsname{\the\cons@count}
            \fi
          \fi
      \fi
@@ -10838,10 +11839,17 @@
  \fi}
 
 \def\prep@reexp@rtfile{
+  \def\get@c@nsc@l[##1,##2,##3]{\xdef\first@{##1} \xdef\second@{##2} \xdef\third@{##3}}
    \loopcount=0
    \loop
       \advance\loopcount by 5
-      \immediate\write\exp@rtfile{\string set_color col\the\loopcount, \csname\c@nsc@l\the\loopcount\endcsname}
+      \ifx\exp@rt@pymol\y@
+         \immediate\write\exp@rtfile{\string set_color col\the\loopcount, \csname\c@nsc@l\the\loopcount\endcsname}
+      \else
+         \xdef\first@{\csname\c@nsc@l\the\loopcount\endcsname}
+         \expandafter\get@c@nsc@l\first@
+         \immediate\write\exp@rtfile{\string colordef col\the\loopcount \space\first@ \space\second@ \space\third@}
+      \fi
    \ifnum\loopcount>95\else\repeat
 }
 
@@ -10865,14 +11873,21 @@
               \xdef\temp@{\csname dom@num\the\loopcount\endcsname}
               \expandafter\get@dom@count\temp@
               \expandafter\xdef\csname dom@num\the\loopcount\endcsname{\temp@}
-           \fi %%%%%%%%%%%*****
+           \fi
            \expandafter\xdef\csname res@count\the\loopcount\endcsname{\the\res@count}
-           \ifnum\rule@num=\loopcount
+           \ifnum\rule@num@top=\loopcount
               \temp@count=\csname res@count\the\loopcount\endcsname
-              \advance\temp@count by \ruler@step
-              \divide\temp@count by \ruler@step
-              \multiply\temp@count by \ruler@step
-              \xdef\rule@tens{\the\temp@count}
+              \advance\temp@count by \ruler@step@top
+              \divide\temp@count by \ruler@step@top
+              \multiply\temp@count by \ruler@step@top
+              \xdef\rule@tens@top{\the\temp@count}
+           \fi
+           \ifnum\rule@num@bottom=\loopcount
+              \temp@count=\csname res@count\the\loopcount\endcsname
+              \advance\temp@count by \ruler@step@bottom
+              \divide\temp@count by \ruler@step@bottom
+              \multiply\temp@count by \ruler@step@bottom
+              \xdef\rule@tens@bottom{\the\temp@count}
            \fi
        \fi
        \ifnum\loopcount<\seq@count \c@unt\fi}
@@ -11068,7 +12083,7 @@
             \xdef\temp@{\csname dom@num\the\loopcount\endcsname}
             \expandafter\get@dom@count\temp@
             \expandafter\xdef\csname dom@num\the\loopcount\endcsname{\the\res@count,\temp@}
-       \fi         %%%%%%%%%%*****
+       \fi
        \expandafter\xdef\csname res@count\the\loopcount\endcsname{\the\res@count}
        \ifnames@right
           \expandafter\xdef\csname seq\the\loopcount\endcsname{%
@@ -11270,6 +12285,7 @@
 \def\box@hstrut{\vrule depth\box@depth height\box@height width 0pt}
 \def\box@wstrut{\vrule depth 0pt height 0pt width\box@width}
 \def\do@legend{%
+      \ifnum\single@seq@num=0
       \baselineskip=1.2\baselineskip
       \xdef\first@{White}
       \fontfamily{\legend@family}%
@@ -11477,6 +12493,7 @@
          \fi
          \newline\hbox{}\noindent
          \fi
+      \fi
       \fi
       \fi
 }
@@ -11751,6 +12768,8 @@
    \else
       \innerloopcount=1\relax\put@char%
    \fi
+   \width@tmp=\@lign@right\box@width%
+   \hbox to \width@tmp{}%
    \ifnumbers@right\def\@kern{\kern0em}\expandafter\put@number\first@\fi
    \ifnames@right\def\@kern{\kern1em}\expandafter\put@name\first@\fi
    \newline\hbox{}%
@@ -11783,67 +12802,69 @@
    \xdef\first@{#2@}%
    \xdef\fill@char{#1[,]&}%
    \expandafter\opt@color\fill@char%
-   \ifx\f@color\comm@\xdef\f@color{\ruler@fg}\fi%
-   \ifcase\rule@top
-     \ifnum\ruler@rot=0 %
+   \ifnum\top@bot=0
+     \ifx\f@color\comm@\xdef\f@color{\ruler@fg@top}\fi
+     \ifnum\ruler@rot@top=0%
       \xdef\temp@{tt}%
       \ifx\ruler@family\temp@%
-         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\mathtt{\fourth@}}{\textcolor{\ruler@fg}{.}}}}%
+         \def\third@{\tt\bottomruler@size\vbox{\hbox to \ruler@width{\hss\fourth@\hss}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\textcolor{\ruler@fg@top}{\hss.\hss}}}}%
       \else
       \xdef\temp@{sf}%
       \ifx\ruler@family\temp@%
-         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\mathsf{\fourth@}}{\textcolor{\ruler@fg}{.}}}}%
+         \def\third@{\sf\bottomruler@size\vbox{\hbox to \ruler@width{\hss\fourth@\hss}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\textcolor{\ruler@fg@top}{\hss.\hss}}}}%
       \else
       \xdef\temp@{rm}%
       \ifx\ruler@family\temp@%
-         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\mathrm{\fourth@}}{\textcolor{\ruler@fg}{.}}}}%
+         \def\third@{\rm\bottomruler@size\vbox{\hbox to \ruler@width{\hss\fourth@\hss}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\textcolor{\ruler@fg@top}{\hss.\hss}}}}%
       \fi\fi\fi
      \else
       \xdef\temp@{tt}%
       \ifx\ruler@family\temp@%
          \def\third@{\tt\bottomruler@size\,\,\,\,%
-           \begin{rotopo}{90}\hbox to \ruler@width{\,\textcolor{\ruler@fg}{\ensuremath{\cdot}}\,\fourth@\hss}\end{rotopo}}%
+           \begin{rotopo}{90}\hbox to \ruler@width{\,\textcolor{\ruler@fg@top}{\ensuremath{\cdot}}\,\fourth@\hss}\end{rotopo}}%
       \else
       \xdef\temp@{sf}%
       \ifx\ruler@family\temp@%
          \def\third@{\sf\bottomruler@size\,\,\,\,%
-           \begin{rotopo}{90}\hbox to \ruler@width{\,\textcolor{\ruler@fg}{\ensuremath{\cdot}}\,\fourth@\hss}\end{rotopo}}%
+           \begin{rotopo}{90}\hbox to \ruler@width{\,\textcolor{\ruler@fg@top}{\ensuremath{\cdot}}\,\fourth@\hss}\end{rotopo}}%
       \else
       \xdef\temp@{rm}%
       \ifx\ruler@family\temp@%
          \def\third@{\rm\bottomruler@size\,\,\,\,%
-           \begin{rotopo}{90}\hbox to \ruler@width{\,\textcolor{\ruler@fg}{\ensuremath{\cdot}}\,\fourth@\hss}\end{rotopo}}%
+           \begin{rotopo}{90}\hbox to \ruler@width{\,\textcolor{\ruler@fg@top}{\ensuremath{\cdot}}\,\fourth@\hss}\end{rotopo}}%
       \fi\fi\fi
      \fi
-   \else
-     \ifnum\ruler@rot=0 %
+   \fi
+   \ifnum\top@bot=1
+     \ifx\f@color\comm@\xdef\f@color{\ruler@fg@bottom}\fi
+     \ifnum\ruler@rot@bottom=0%
       \xdef\temp@{tt}%
       \ifx\ruler@family\temp@%
-         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\textcolor{\ruler@fg}{.}}{\mathtt{\fourth@}}}}%
+         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\textcolor{\ruler@fg@bottom}{.}}{\mathtt{\fourth@}}}}%
       \else
       \xdef\temp@{sf}%
       \ifx\ruler@family\temp@%
-         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\textcolor{\ruler@fg}{.}}{\mathsf{\fourth@}}}}%
+         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\textcolor{\ruler@fg@bottom}{.}}{\mathsf{\fourth@}}}}%
       \else
       \xdef\temp@{rm}%
       \ifx\ruler@family\temp@%
-         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\textcolor{\ruler@fg}{.}}{\mathrm{\fourth@}}}}%
+         \def\third@{\bottomruler@size\ensuremath{\,\stackrel{\textcolor{\ruler@fg@bottom}{.}}{\mathrm{\fourth@}}}}%
       \fi\fi\fi
      \else
       \xdef\temp@{tt}%
       \ifx\ruler@family\temp@%
          \def\third@{\tt\bottomruler@size\,\,\,\,%
-           \begin{rotopo}{90}\hbox to \ruler@width{\hss\fourth@\,\textcolor{\ruler@fg}{\ensuremath{\cdot}}}\end{rotopo}}%
+           \begin{rotopo}{90}\hbox to \ruler@width{\hss\fourth@\,\textcolor{\ruler@fg@bottom}{\ensuremath{\cdot}}}\end{rotopo}}%
       \else
       \xdef\temp@{sf}%
       \ifx\ruler@family\temp@%
          \def\third@{\sf\bottomruler@size\,\,\,\,%
-           \begin{rotopo}{90}\hbox to \ruler@width{\hss\fourth@\,\textcolor{\ruler@fg}{\ensuremath{\cdot}}}\end{rotopo}}%
+           \begin{rotopo}{90}\hbox to \ruler@width{\hss\fourth@\,\textcolor{\ruler@fg@bottom}{\ensuremath{\cdot}}}\end{rotopo}}%
       \else
       \xdef\temp@{rm}%
       \ifx\ruler@family\temp@%
          \def\third@{\rm\bottomruler@size\,\,\,\,%
-           \begin{rotopo}{90}\hbox to \ruler@width{\hss\fourth@\,\textcolor{\ruler@fg}{\ensuremath{\cdot}}}\end{rotopo}}%
+           \begin{rotopo}{90}\hbox to \ruler@width{\hss\fourth@\,\textcolor{\ruler@fg@bottom}{\ensuremath{\cdot}}}\end{rotopo}}%
       \fi\fi\fi
      \fi
    \fi}
@@ -11866,48 +12887,127 @@
    \fi}
 
 \def\put@ruler{%
-   \ifnames@right%
-        \ifnumbers@left%
-          \ifnumbers@right%
-            \xdef\ruler@{)\ruler@)<>}%
-          \else%
-            \xdef\ruler@{)\ruler@<>}%
-          \fi%
-        \else%
-            \xdef\ruler@{\ruler@)<>}%
-        \fi%
-   \else%
-        \ifnumbers@left%
-          \ifnumbers@right%
-            \xdef\ruler@{<>)\ruler@)}%
-          \else%
-            \xdef\ruler@{<>)\ruler@}%
-          \fi%
-        \else%
-            \xdef\ruler@{<>\ruler@)}%
-        \fi%
-   \fi%
+   \ifx\rulernamecolor@top\n@\xdef\rulernamecolor@top{\ruler@fg@top}\fi%
+   \ifx\rulernamecolor@bottom\n@\xdef\rulernamecolor@bottom{\ruler@fg@bottom}\fi%
+   \ifx\rulername@family\n@\xdef\rulername@family{\ruler@family}\fi%
+   \ifx\rulername@size\n@\def\rulername@size{\bottomruler@size}\fi%
    \xdef\first@{\ruler@ @}%
-   \ifnum\rule@top=1%
-      \vspace{\ruler@sp@ce}%
+   \ifnum\top@bot=1%
+      \vspace{\ruler@sp@ce@bottom}%
       \vspace{-\baselineskip}%
       \newline\hbox{}%
+      \ifnames@
+      \ifnames@right%
+      \else
+       \ifnum\ruler@rot@bottom=0%
+         \xdef\temp@{tt}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\tt\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}%
+         \else
+         \xdef\temp@{sf}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\sf\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}%
+         \else
+         \xdef\temp@{rm}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\rm\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}%
+         \fi\fi\fi%
+      \else%
+         \xdef\temp@{tt}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\raisebox{0.6\baselineskip}{\tt\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}}%
+         \else
+         \xdef\temp@{sf}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\raisebox{0.6\baselineskip}{\sf\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}}%
+         \else
+         \xdef\temp@{rm}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\raisebox{0.6\baselineskip}{\rm\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}}%
+         \fi\fi\fi%
+       \fi%
+      \fi%
+      \fi%
+      \ifnumbers@left\hbox to \number@width{\hss\kern1em}\fi%
    \fi%
-   \ifnames@right\else\def\@kern{\kern0em}\expandafter\put@name\first@\fi%
-   \ifnumbers@left\def\@kern{\kern1em}\expandafter\put@number\first@\fi%
-   \vspace{-0.25\baselineskip}%
-   \ifnum\rule@top=0%
-      \vspace{\ruler@sp@ce}%
+   \vspace{-0.4\baselineskip}%
+   \ifnum\top@bot=0%
+      \ifnum\ruler@rot@top=90 \vspace{1.4\baselineskip}\fi%
+      \vspace{-0.58\baselineskip}%
+      \newline\hbox{}%
+      \ifnames@
+      \ifnames@right%
+      \else
+         \xdef\temp@{tt}%
+         \ifx\rulername@family\temp@%
+            \vbox{\tt\rulername@size\hbox to \name@width{\textcolor{\rulernamecolor@top}{\rulername@top\hss}}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\hss}}%
+         \else
+         \xdef\temp@{sf}%
+         \ifx\rulername@family\temp@%
+            \vbox{\sf\rulername@size\hbox to \name@width{\textcolor{\rulernamecolor@top}{\rulername@top\hss}}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\hss}}%
+         \else
+         \xdef\temp@{rm}%
+         \ifx\rulername@family\temp@%
+            \vbox{\rm\rulername@size\hbox to \name@width{\textcolor{\rulernamecolor@top}{\rulername@top\hss}}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\hss}}%
+         \fi\fi\fi%
+      \fi%
+      \fi%
+      \ifnumbers@left\hbox to \number@width{\hss\kern1em}\fi%
+      \vspace{-0.2\baselineskip}%
+      \vspace{\ruler@sp@ce@top}%
    \fi%
-   \fontfamily{\ruler@family}%
-   \fontseries{m}%
-   \fontshape{n}%
-   \selectfont%
    \innerloopcount=1\relax\put@rulechar%
+   \ifnames@right%
+   \kern1em%
+   \ifnumbers@left\else\hbox to \number@width{\hss}\fi%
+      \ifnum\top@bot=1%
+       \ifnum\ruler@rot@bottom=0%
+         \xdef\temp@{tt}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\tt\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}%
+         \else
+         \xdef\temp@{sf}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\sf\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}%
+         \else
+         \xdef\temp@{rm}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\rm\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}%
+         \fi\fi\fi%
+      \else%
+         \xdef\temp@{tt}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\raisebox{0.6\baselineskip}{\tt\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}}%
+         \else
+         \xdef\temp@{sf}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\raisebox{0.6\baselineskip}{\sf\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}}%
+         \else
+         \xdef\temp@{rm}%
+         \ifx\rulername@family\temp@%
+            \hbox to \name@width{\raisebox{0.6\baselineskip}{\rm\rulername@size\textcolor{\rulernamecolor@bottom}{\rulername@bottom\hss}}}%
+         \fi\fi\fi%
+       \fi%
+      \else
+         \xdef\temp@{tt}%
+         \ifx\rulername@family\temp@%
+            \vbox{\tt\rulername@size\hbox to \name@width{\textcolor{\rulernamecolor@top}{\rulername@top\hss}}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\hss}}%
+         \else
+         \xdef\temp@{sf}%
+         \ifx\rulername@family\temp@%
+            \vbox{\sf\rulername@size\hbox to \name@width{\textcolor{\rulernamecolor@top}{\rulername@top\hss}}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\hss}}%
+         \else
+         \xdef\temp@{rm}%
+         \ifx\rulername@family\temp@%
+            \vbox{\rm\rulername@size\hbox to \name@width{\textcolor{\rulernamecolor@top}{\rulername@top\hss}}\vspace{-0.75\baselineskip}\hbox to \ruler@width{\hss}}%
+         \fi\fi\fi%
+      \fi%
+   \fi%
    \newline\hbox{}%
 }
 \def\get@firstfill#1#2&{\xdef\second@@{#1}\xdef\fill@char{#2&}}
 \def\get@firstv@l#1,#2&{\xdef\second@@{#1}\xdef\fill@char{#2&}}
+\def\get@twov@l#1,#2&{\xdef\second@@{#1}\xdef\second@@@{#2}\xdef\fill@char{#2&}}
 \def\get@tripletfill#1#2#3#4&{%
    \multiply\temp@count by -1%
    \def\second@@{#1}\def\second@@@{#2}\def\second@@@@{#3}\def\fill@char{#4&}}
@@ -11923,6 +13023,24 @@
    \ifx\second@@\last@%
       \hbox to \second@\box@width{\hss}%
    \else%
+    \xdef\last@{complement}%
+    \ifx\second@@\last@%
+     \fontfamily{\featurestyles@family}%
+     \fontseries{\featurestyles@series}%
+     \fontshape{\featurestyles@shape}%
+     \selectfont%
+     \xdef\fill@char{\fill@char &}%
+     \loop%
+            \expandafter\get@firstfill\fill@char%
+            \ifx\lower@compl@\y@%
+               \xdef\first@{\second@@}\make@lower\xdef\second@@{\first@}%
+            \fi%
+            \textcolor{\back@color}{\box@rule}%
+            \if\second@@ -\def\second@@{\hss}\fi%
+            \hbox to -\box@width{\hss\textcolor{\f@color}{\featurestyles@size{\second@@}}\hss}%
+            \kern\box@width%
+     \ifx\fill@char\ampers@nd\else\repeat%
+   \else%
     \xdef\last@{translate}%
     \ifx\second@@\last@%
      \fontfamily{\featurestyles@family}%
@@ -11934,7 +13052,9 @@
         \loop%
             \expandafter\get@firstfill\fill@char%
             \if\second@@ -\def\second@@{\hss}\fi%
-            \hbox to \box@width{\hss\textcolor{\f@color}{\featurestyles@size{\second@@}}\hss}%
+            \textcolor{\back@color}{\box@rule}%
+            \hbox to -\box@width{\hss\textcolor{\f@color}{\featurestyles@size{\second@@}}\hss}%
+            \kern\box@width%
         \ifx\fill@char\ampers@nd\else\repeat%
      \else%
      \temp@count=1%
@@ -12024,37 +13144,139 @@
        \loop%
          \advance\loopcount by 1\relax%
          \raisebox{\last@\arrow@height}{%
-            \hbox to \box@width{\hss{\textcolor{\f@color}{\featurestyles@size\fill@char}}\hss}}%
+            \textcolor{\back@color}{\box@rule}%
+            \hbox to -\box@width{\hss{\textcolor{\f@color}{\featurestyles@size\fill@char}}\hss}}%
+             \kern\box@width%
        \ifnum\loopcount<\second@ \repeat%
+      \else%
+      \xdef\last@{frust}%
+      \ifx\second@@\last@%
+       \xdef\temp@{\csname b@r@stretch\bottop@\endcsname}%
+       \setlength\arrow@width{\temp@\box@height}%
+       \xdef\fill@char{\fill@char &}%
+       \expandafter\get@twov@l\fill@char%
+       \ifx\second@@\N@%
+          \hbox to \box@width{\hss}%
+       \else%
+          \setlength\arrow@height{\temp@\box@height}%
+          \hbox to \box@width{\hss{\textcolor{\neutral@col}{\vrule depth0pt%
+             height\arrow@width width\box@width}}\hss}%
+          \kern-\box@width%
+          \setlength\arrow@height{\second@@\arrow@width}%
+          \divide\arrow@height by 100\relax%
+          \hbox to \box@width{\hss{\textcolor{\min@col}{\vrule depth0pt%
+             height\arrow@height width0.8\box@width}}\hss}%
+          \kern-\box@width%
+          \setlength\arrow@height{\second@@@\box@height}%
+          \setlength\arrow@height{\temp@\arrow@height}%
+          \divide\arrow@height by 100\relax%
+          \raisebox{\arrow@width}{%
+             \hbox to \box@width{\hss{\textcolor{\max@col}{\vrule depth\arrow@height%
+             height0pt width0.8\box@width}}\hss}}%
+       \fi%
+      \else%
+      \xdef\last@{bars}%
+      \ifx\second@@\last@%
+      \xdef\temp@{\csname b@r@stretch\bottop@\endcsname}%
+      \xdef\first@{\bars@p@r@m @}%
+      \expandafter\get@item\first@%
+      \setlength\arrow@width{\fourth@\box@height}%
+      \setlength\arrow@width{\temp@\arrow@width}%
+      \xdef\pm@shift{\the\arrow@width}%
+      \xdef\eighth@{\first@@}%
+       \ifx\fill@char\N@%
+                \hbox to \box@width{\hss}%
+       \else%
+          \xdef\first@{ttttop}\ifx\bottop@\first@@\kern0.9\box@width\fi%
+          \xdef\first@{tttop}\ifx\bottop@\first@@\kern0.9\box@width\fi%
+          \xdef\first@{ttop}\ifx\bottop@\first@@\kern0.9\box@width\fi%
+          \xdef\first@{top}\ifx\bottop@\first@@\kern0.9\box@width\fi%
+          \xdef\temp@@{\csname bars@num\bottop@\endcsname}%
+          \xdef\first@{\csname bars@bgcol\bottop@\endcsname}%
+          \expandafter\ifx\csname bars@col@\bottop@\temp@@\endcsname\first@%
+          \else%
+             \setlength\arrow@height{\temp@\box@height}%
+                \hbox to \box@width{\hss{\textcolor{\csname bars@bgcol\bottop@\endcsname}{\vrule %
+                height\arrow@height width\box@width}}\hss}%
+             \kern-\box@width%
+          \fi%
+          \temp@count=0\xdef\m@xdepth{\pm@shift}\xdef\m@xheight{\pm@shift}%
+          \xdef\first@{\fill@char,&@}%
+          \loop%
+             \advance\temp@count by 1%
+             \expandafter\get@item\first@%
+             \setlength\arrow@height{\fourth@\box@height}%
+             \setlength\arrow@height{\eighth@\arrow@height}%
+             \setlength\arrow@height{\temp@\arrow@height}%
+             \divide\arrow@height by 100\relax%
+             \ifdim\arrow@height<0pt%
+                \arrow@height=-\arrow@height%
+                \setlength\arrow@width{\m@xdepth}%
+                \expandafter\ifx\csname bars@col@\bottop@\the\temp@count\endcsname\tr@nsp%
+                      \hbox to \box@width{\hss}%
+                \else%
+                   \raisebox{\arrow@width}{%
+                      \hbox to \box@width{\hss{\textcolor{\csname bars@col@\bottop@\the\temp@count\endcsname}{\vrule depth\arrow@height width0.8\box@width}}\hss}}%
+                \fi%
+                \advance\arrow@width by -\arrow@height%
+                \xdef\m@xdepth{\the\arrow@width}%
+             \else%
+                \setlength\arrow@width{\m@xheight}%
+                \expandafter\ifx\csname bars@col@\bottop@\the\temp@count\endcsname\tr@nsp%
+                      \hbox to \box@width{\hss}%
+                \else%
+                   \raisebox{\arrow@width}{%
+                      \hbox to \box@width{\hss{\textcolor{\csname bars@col@\bottop@\the\temp@count\endcsname}{\vrule height\arrow@height width0.8\box@width}}\hss}}%
+                \fi%
+                \advance\arrow@width by \arrow@height%
+                \xdef\m@xheight{\the\arrow@width}%
+             \fi%
+          \ifnum\temp@count<\temp@@\kern -\box@width\repeat%
+          \kern-\box@width%
+          \raisebox{\pm@shift}{\textcolor{Black}{\vrule height0.25pt depth0.25pt width\box@width}}%
+       \fi%
       \else%
       \xdef\last@{bar}%
       \ifx\second@@\last@%
-       \setlength\arrow@width{\pm@shift\box@height}%
-       \setlength\arrow@width{\b@r@stretch\arrow@width}%
+      \xdef\temp@{\csname b@r@stretch\bottop@\endcsname}%
+      \xdef\first@{\bars@p@r@m @}%
+      \expandafter\get@item\first@%
+      \setlength\arrow@width{\fourth@\box@height}%
+      \setlength\arrow@width{\temp@\arrow@width}%
+      \xdef\pm@shift{\the\arrow@width}%
+      \xdef\eighth@{\first@@}%
        \ifx\fill@char\N@%
-          \raisebox{\pm@shift\box@height}{\vrule width\box@width}%
+               \hbox to \box@width{\hss}%
        \else%
-          \kern-0.6\box@width%
+          \kern-0.9\box@width%
           \ifx\frame@color\back@color%
           \else%
-             \setlength\arrow@height{\box@height}%
-             \advance\arrow@height by -\pm@shift\box@height%
-             \setlength\arrow@height{\b@r@stretch\arrow@height}%
-             \raisebox{\arrow@width}{%
-                \hbox to \box@width{\hss{\textcolor{\back@color}{\vrule depth\arrow@width%
-                height\arrow@height width\box@width}}\hss}}%
+             \setlength\arrow@height{\temp@\box@height}%
+                \hbox to \box@width{\hss{\textcolor{\back@color}{\vrule height\arrow@height width\box@width}}\hss}%
              \kern-\box@width%
           \fi%
           \setlength\arrow@height{\fill@char\box@height}%
-          \setlength\arrow@height{\b@r@stretch\arrow@height}%
-          \divide\arrow@height by 100\relax%
+          \setlength\arrow@height{\temp@\arrow@height}%
+          \setlength\temp@@length{\pm@sp@n pt}%
+          \ifdim\temp@@length<100 pt%
+             \multiply\temp@@length by 100%
+             \xdef\third@{\the\temp@@length .@}%
+             \expandafter\get@precomm@pt\third@%
+             \divide\arrow@height by \third@%
+             \multiply\arrow@height by 100%
+          \else%
+             \xdef\third@{\the\temp@@length .@}%
+             \expandafter\get@precomm@pt\third@%
+             \divide\arrow@height by \third@%
+          \fi%
           \ifdim\arrow@height<0pt%
              \arrow@height=-\arrow@height%
              \raisebox{\arrow@width}{%
                 \hbox to \box@width{\hss{\textcolor{\frame@color}{\vrule depth\arrow@height width0.8\box@width}}\hss}}%
           \else%
              \raisebox{\arrow@width}{%
-                \hbox to \box@width{\hss{\textcolor{\frame@color}{\vrule height\arrow@height width0.8\box@width}}\hss}}\fi%
+                \hbox to \box@width{\hss{\textcolor{\frame@color}{\vrule height\arrow@height width0.8\box@width}}\hss}}%
+          \fi%
           \kern-\box@width%
           \raisebox{\arrow@width}{\textcolor{Black}{\vrule height0.25pt depth0.25pt width\box@width}}%
        \fi%
@@ -12062,7 +13284,8 @@
       \xdef\last@{color}%
       \ifx\second@@\last@%
        \setlength\arrow@height{\fill@char\box@height}%
-       \setlength\arrow@height{\sc@le@stretch\arrow@height}%
+       \xdef\temp@{\csname sc@le@stretch\bottop@\endcsname}%
+       \setlength\arrow@height{\temp@\arrow@height}%
        \divide\arrow@height by 100\relax%
        \raisebox{0.2\box@height}{%
          \hbox to \box@width{\hss{\textcolor{\f@color}{\vrule height\arrow@height width\box@width}}\hss}}%
@@ -12086,7 +13309,8 @@
               \fi%
               \setlength\arrow@height{50\box@height}%
               \divide\arrow@height by 100\relax%
-              \setlength\arrow@height{\sc@le@stretch\arrow@height}%
+              \xdef\temp@{\csname sc@le@stretch\bottop@\endcsname}%
+              \setlength\arrow@height{\temp@\arrow@height}%
               \raisebox{0.2\box@height}{%
                  \hbox to \box@width{\hss{\textcolor{\f@color\the\loopcount}{\vrule height\arrow@height width\box@width}}\hss}}%
             \fi
@@ -12095,12 +13319,13 @@
       \xdef\last@{plotbar}%
       \ifx\second@@\last@%
         \xdef\fill@char{\fill@char,&}%
+        \xdef\temp@{\csname b@r@stretch\bottop@\endcsname}%
         \ifnum\pm@shift>0%
            \setlength\arrow@width{0pt}%
         \else
            \setlength\arrow@width{-\pm@shift\box@height}%
            \divide\arrow@width by 100%
-           \setlength\arrow@width{\b@r@stretch\arrow@width}%
+           \setlength\arrow@width{\temp@\arrow@width}%
         \fi%
         \loop%
             \expandafter\get@firstv@l\fill@char%
@@ -12108,7 +13333,7 @@
             \else\relax%
                \ifx\frame@color\back@color%
                \else%
-                  \setlength\arrow@height{\b@r@stretch\box@height}%
+                  \setlength\arrow@height{\temp@\box@height}%
                   \hbox to \box@width{\hss{\textcolor{\back@color}%
                       {\vrule height\arrow@height width\box@width}}\hss}%
                   \kern-\box@width%
@@ -12121,7 +13346,7 @@
                   \setlength\arrow@height{11\arrow@height}%
                \fi
                \divide\arrow@height by 100\relax%
-               \setlength\arrow@height{\b@r@stretch\arrow@height}%
+               \setlength\arrow@height{\temp@\arrow@height}%
                \ifdim\arrow@height<0pt%
                   \arrow@height=-\arrow@height%
                   \raisebox{\arrow@width}{%
@@ -12336,7 +13561,7 @@
         \if\third@@ o\xdef\third@@{O}\fi%
         \xdef\last@{bottom}%
         \ifx\fe@turep@s\last@%
-           \vspace{-20pt}\message{(((-20pt)))}%
+           \vspace{-20pt}%
         \fi%
         \textcolor{\f@color}{%
          \if\first@@ ,%
@@ -12385,11 +13610,11 @@
                 \xdef\last@{bottom}%
                 \ifx\fe@turep@s\last@%
                    \advance\width@tmp by 0.5\temp@@length%
-                   \raisebox{\arrow@height}{\rule[\box@height]{0pt}{\bar@length}}%%%%%%%%%%%%%%%%%%%%%%%
+                   \raisebox{\arrow@height}{\rule[\box@height]{0pt}{\bar@length}}%
                    \kern0.5\box@width%
                    \kern-2\temp@@length%
-                   \rule[2\arrow@height]{\temp@@length}{\bar@length}%%%%%%%%%%%%%%%%%%%%%%
-                   \kern-\temp@@length%%%%%%%%%%%%%%%%%%%%%%%%%
+                   \rule[2\arrow@height]{\temp@@length}{\bar@length}%
+                   \kern-\temp@@length%
                    \rule[\width@tmp]{\temp@@length}{\arrow@height}%
                    \advance\width@tmp by -0.5\temp@@length%
                    \kern-\temp@@length%
@@ -12476,8 +13701,8 @@
                 \rule[\width@tmp]{0.5\box@width}{\temp@@length}%
                 \xdef\last@{bottom}%
                 \ifx\fe@turep@s\last@%
-                  \kern-\temp@@length%%%%%%%%%%%%%%%%%%%%%%%%%
-                  \rule[2\arrow@height]{\temp@@length}{\bar@length}%%%%%%%%%%%%%%%%%%%%%%
+                  \kern-\temp@@length%
+                  \rule[2\arrow@height]{\temp@@length}{\bar@length}%
                   \advance\width@tmp by 0.5\temp@@length%
                   \kern-\temp@@length\rule[\width@tmp]{\temp@@length}{\arrow@height}%
                 \else
@@ -12497,9 +13722,12 @@
               \fi%
               \fi%
               \fi%
+              \fi%
+              \fi%
             \fi%
          \fi%
          \fi}%
+         \fi
        \fi
       \fi
       \fi
@@ -12789,16 +14017,31 @@
    \else%
       \xdef\third@@{\f@color}%
    \fi%
+   \ifnum\second@<0%
+      \loopcount=-\second@\relax%
+      \xdef\second@{\the\loopcount}%
+      \xdef\right@frame@open{y}%
+   \fi%
    \setlength\arrow@width{\temp@@length}%
    \advance\arrow@width by -\third@@%
    \textcolor{\second@@}{%
       \rule{\second@\box@width}{\third@@}%
       \kern-\second@\box@width%
-      \rule{\third@@}{\arrow@width}%
-      \kern-\third@@%
+      \ifx\left@frame@open\n@%
+         \rule{\third@@}{\arrow@width}%
+         \kern-\third@@%
+      \else
+         \xdef\left@frame@open{n}%
+      \fi
       \rule[\arrow@width]{\second@\box@width}{\third@@}%
       \kern-\third@@%
-      \rule{\third@@}{\arrow@width}}%
+      \ifx\right@frame@open\n@%
+         \rule{\third@@}{\arrow@width}%
+      \else
+         \xdef\left@frame@open{y}%
+         \xdef\right@frame@open{n}%
+      \fi%
+      }%
 }
 \def\next@frame&#1;#2;#3@{%
    \xdef\first@{#2}%
@@ -13021,7 +14264,7 @@
       \expandafter\chimera@colors\first@
       \immediate\write\exp@rt@chimerafile{############################################################}
       \immediate\write\exp@rt@chimerafile{###}
-      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }. O ¡ o STRUCTURE MEME ¡ . O o}
+      \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }. O Â¡ o STRUCTURE MEME Â¡ . O o}
       \immediate\write\exp@rt@chimerafile{###}
       \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }Chimera command file generated from TeXshade logo data}
       \immediate\write\exp@rt@chimerafile{###\unexpanded{ }\unexpanded{ }\unexpanded{ }use '.cmd' or '.com' suffix}
@@ -13940,7 +15183,7 @@
    \ifnum\feature@ttop=1
       \advance\bar@length by \feature@top\baselineskip%
       \multiply\bar@length by 2%
-      \advance\bar@length by \tt@sp@ce\message{tt\the\bar@length tt}%
+      \advance\bar@length by \tt@sp@ce%
       \ifnum\featureonttop=0 \xdef\feature@ttop{0} \fi
       \xdef\bottop@{ttop}%
       \xdef\shift@feature{n}%
@@ -13964,7 +15207,7 @@
    \else
       \iffix@\iftopfeature \vspace{\t@sp@ce}\newline\hbox{}\newline\hbox{}\fi\fi
    \fi
-   \ifnum\rule@num<0 \else \ifnum\rule@top=0 \loopcount=0 \put@ruler \fi\fi
+   \ifnum\rule@num@top<0 \else \ifnum\rule@top=1 \loopcount=0 \xdef\top@bot{0}\xdef\ruler@{\topruler@}\put@ruler\fi\fi
    \ifshow@logo\ifnum\logo@top=0
       \xdef\last@{\stack@sequencelogo @}%
       \ifx\logo@name@user\ampers@nd\xdef\logo@name{logo}\else\xdef\logo@name{\logo@name@user}\fi
@@ -14052,15 +15295,15 @@
       \ifx\sublogo@name@user\ampers@nd\xdef\logo@name{subfamily}\else\xdef\logo@name{\sublogo@name@user}\fi
       \put@logo%
    \fi\fi%
-   \ifnum\rule@num<0 %
+   \ifnum\rule@num@bottom<0 %
    \else%
-      \ifnum\rule@top=1 %
+      \ifnum\rule@bottom=1 %
          \loopcount=0\relax%
-         \ifnum\ruler@rot=0 %
+         \ifnum\ruler@rot@bottom=0 %
          \else \vspace{\ruler@width}\vspace{-1.75\baselineskip}\newline\hbox{}%
          \fi
-         \put@ruler%
-         \ifnum\ruler@rot=0 \vspace{0.25\baselineskip}\fi%
+         \xdef\top@bot{1}\xdef\ruler@{\bottomruler@}\put@ruler%
+         \ifnum\ruler@rot@bottom=0 \vspace{0.25\baselineskip}\fi%
       \fi%
    \fi%
    \xdef\fe@turep@s{bottom}%
@@ -14072,7 +15315,7 @@
       \vspace{\b@sp@ce}%
       \if\bottom@stretch y%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbottom\box@height}%
       \fi%
       \put@feature%
       \temp@@count=\b@feature@count%
@@ -14082,7 +15325,7 @@
       \iffix@
       \if\bottom@stretch y%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbottom\box@height}%
       \fi%
       \ifbottomfeature%
          \vspace{\b@sp@ce}\newline\hbox{}\newline\hbox{}%
@@ -14091,17 +15334,17 @@
    \fi%
    \ifnum\feature@bbottom=1 %
       \advance\bar@length by \b@feature@count \baselineskip%
-      \multiply\bar@length by \b@r@stretch%
+      \multiply\bar@length by \b@r@stretchbbottom%
       \multiply\bar@length by 2%
-      \advance\bar@length by \bb@sp@ce\message{bb\the\bar@length bb}%
+      \advance\bar@length by \bb@sp@ce%
       \ifnum\featureonbbottom=0 \xdef\feature@bbottom{0}\fi%
       \xdef\bottop@{bbottom}%
       \vspace{\bb@sp@ce}%
       \if\bbottom@stretch y%
          \advance\bar@length by -\box@height%
-         \advance\bar@length by \b@r@stretch\box@height%
+         \advance\bar@length by \b@r@stretchbbottom\box@height%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbbottom\box@height}%
       \fi%
       \setlength{\bar@length}{0pt}%
       \put@feature%
@@ -14112,7 +15355,7 @@
       \iffix@
       \if\bbottom@stretch y%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbbottom\box@height}%
       \fi%
       \ifbbottomfeature
          \vspace{\bb@sp@ce}\newline\hbox{}\newline\hbox{}%
@@ -14121,15 +15364,15 @@
    \fi
    \ifnum\feature@bbbottom=1 %
       \advance\bar@length by \b@feature@count\baselineskip%
-      \multiply\bar@length by \b@r@stretch%
+      \multiply\bar@length by \b@r@stretchbbbottom%
       \multiply\bar@length by 2%
-      \advance\bar@length by \bbb@sp@ce\message{bbb\the\bar@length bbb}%
+      \advance\bar@length by \bbb@sp@ce%
       \ifnum\featureonbbbottom=0 \xdef\feature@bbbottom{0}\fi%
       \xdef\bottop@{bbbottom}%
       \vspace{\bbb@sp@ce}%
       \if\bbbottom@stretch y%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbbbottom\box@height}%
       \fi%
       \put@feature%
       \temp@@count=\b@feature@count%
@@ -14139,7 +15382,7 @@
       \iffix@
       \if\bbbottom@stretch y%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbbbottom\box@height}%
       \fi%
       \ifbbbottomfeature
          \vspace{\bbb@sp@ce}\newline\hbox{}\newline\hbox{}%
@@ -14148,29 +15391,29 @@
    \fi
    \ifnum\feature@bbbbottom=1 %
       \advance\bar@length by \b@feature@count\baselineskip%
-      \multiply\bar@length by \b@r@stretch%
+      \multiply\bar@length by \b@r@stretchbbbottom%
       \multiply\bar@length by 2%
-      \advance\bar@length by \bbbb@sp@ce\message{bbbb\the\bar@length bbbb}%
+      \advance\bar@length by \bbbb@sp@ce%
       \ifnum\featureonbbbbottom=0 \xdef\feature@bbbbottom{0}\fi%
       \xdef\bottop@{bbbbottom}%
       \vspace{\bbbb@sp@ce}%
       \if\bbbbottom@stretch y%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbbbottom\box@height}%
       \fi%
       \put@feature%
    \else
       \iffix@
       \if\bbbbottom@stretch y%
          \vspace{-\box@height}%
-         \vspace{\b@r@stretch\box@height}%
+         \vspace{\b@r@stretchbbbottom\box@height}%
       \fi%
       \ifbbbbottomfeature
          \vspace{\bbbb@sp@ce}\newline\hbox{}\newline\hbox{}%
       \fi
       \fi
    \fi
-   \xdef\consensus{} \xdef\ruler@{}
+   \xdef\consensus{} \xdef\topruler@{} \xdef\bottomruler@{}
    \xdef\styleframe{}
    \xdef\textfeaturetop{}     \xdef\textfeaturebottom{}
    \xdef\textfeaturettop{}    \xdef\textfeaturebbottom{}
@@ -14259,10 +15502,10 @@
  \fi\fi
       \else
          \ifnum\code@num=6
-            \xdef\second@{\second@\#}
+            \xdef\second@{\second@\#} 
  \else
          \ifnum\code@num=14
-            \xdef\second@{\second@\%}
+            \xdef\second@{\second@\%} 
  \else
             \xdef\second@{\second@\noexpand\string\first@}
  \fi\fi
@@ -14284,6 +15527,26 @@
        \advance\loopcount by 1
        \expandafter\def\csname sequence\the\loopcount\endcsname{}
     \ifnum\loopcount<\seq@count \repeat
+    \ifx\calc@shift\y@
+       \ifnum\start@num=1
+            \expandafter\temp@count=\csname seq@start\single@seq@num\endcsname\relax
+       \else
+            \temp@count=\start@num
+       \fi
+       \temp@@count=\temp@count
+       \ifnum\temp@count<0
+          \divide\temp@count by \res@perline\relax
+          \xdef\temp@{\the\temp@count}
+          \temp@count=\res@perline \multiply\temp@count by -\temp@ \xdef\temp@{\the\temp@count}
+          \advance\temp@@count by \temp@
+          \advance\temp@@count by \res@perline
+          \xdef\shift@g@p{\the\temp@@count}
+          \temp@count=0
+             \loop
+             \advance\temp@count by 1
+          \ifnum\temp@count>\shift@g@p\else\xdef\single@seq@shift{\single@seq@shift.}\repeat
+       \fi
+    \fi
     \xdef\consensus{}
     \xdef\constopo{}
     \xdef\frame@on{0}
@@ -14542,17 +15805,17 @@
          \advance\innerloopcount by 1
          \ifstart@ \advance\res@count by 1 \fi
          \ifnum\start@seq=0
-            \advance\end@count by 1
-%%%%%%%%%%
+               \advance\end@count by 1 \ifnum\end@count=0 \ifx\alllow@zero\y@\else \end@count=1 \fi\fi
+               \ifx\end@num\n@\else\ifnum\end@count=\end@num\relax\xdef\end@number{\the\res@count}\fi\fi
             \ifnum\end@count=\start@num\relax
                \xdef\start@number{\the\innerloopcount}
                \start@true \res@count=1
             \fi
-%%%%%%%%%%
          \else
             \expandafter\check@char\first@
             \ifletter
-               \advance\end@count by 1
+               \advance\end@count by 1 \ifnum\end@count=0 \ifx\alllow@zero\y@\else \end@count=1 \fi\fi
+               \ifx\end@num\n@\else\ifnum\end@count=\end@num\relax\xdef\end@number{\the\res@count}\fi\fi
                \if\seq@type A \relax
                   \temp@count=\char@num
                   \ifnum\temp@count>96 \advance\temp@count by -32 \fi
@@ -14587,10 +15850,10 @@
           \xdef\seq@@line{\seq@@line\first@}
        \else
        \ifnum\char@num=46
-          \xdef\seq@@line{\seq@@line\d@t}
+          \xdef\seq@@line{\seq@@line\first@@}
        \else
        \ifnum\char@num=45
-          \xdef\seq@@line{\seq@@line\d@t}
+          \xdef\seq@@line{\seq@@line\first@@}
        \else
        \ifnum\char@num=42
           \xdef\seq@@line{\seq@@line\questi@n}
@@ -14611,7 +15874,8 @@
          \else
          \innerloopcount=\csname @rd\the\loopcount\endcsname\relax
          \expandafter\ifx\csname seq@name\the\loopcount\endcsname\first@
-             \xdef\seq@@line{} \xdef\seq@line{\seq@line &@} \clean@seq
+             \ifnum\single@seq@num=0 \xdef\first@@{\d@t} \else \ifx\keep@g@ps\y@ \xdef\first@@{\d@t} \else \xdef\first@@{} \fi\fi
+             \xdef\seq@@line{} \xdef\seq@line{\seq@line @} \clean@seq
              \expandafter\xdef\csname sequence\the\innerloopcount\endcsname{%
                   \csname sequence\the\innerloopcount\endcsname\seq@line}
              \advance\loopcount by 1
@@ -14653,6 +15917,7 @@
              \expandafter\xdef\csname T@cof\the\loopcount\endcsname{\temp@ &@}
              \expandafter\xdef\csname T@coffee\the\loopcount\endcsname{}
           \fi
+          \expandafter\xdef\csname seq@dom\the\loopcount\endcsname{\csname sequence\the\loopcount\endcsname}
           \expandafter\xdef\csname seq\the\loopcount\endcsname{\csname sequence\the\loopcount\endcsname &@}
           \expandafter\xdef\csname sequence\the\loopcount\endcsname{}
           \expandafter\xdef\csname dom@num\the\loopcount\endcsname{}
@@ -14697,11 +15962,14 @@
        \if\seq@type A \guess@DNA \fi
        \advance\seq@pointer by \res@count\relax
        \xdef\total@pos{\the\total@count}
-       \ifx\end@num\n@\xdef\end@num{\the\end@count}\fi
+       \ifx\end@num\n@
+          \xdef\end@num{\the\end@count}
+       \else
+          \seq@pointer = \end@number\relax
+       \fi
+       \advance\seq@pointer by \shift@g@p\relax
        \total@count=\end@count\relax
-       \xdef\first@{\csname res@count\start@seq\endcsname}
-       \advance\total@count by \first@\relax
-       \xdef\first@{\the\total@count}
+       \ifnum\start@num@set@for>0 \xdef\start@seq{\start@num@set@for} \fi
        \ifnum\end@num>\total@count\xdef\end@num{\the\total@count}\fi
      \fi
      \ifshow@sublogo \prep@sublogo \fi
@@ -14729,7 +15997,8 @@
     \innerloopcount=\csname @rd\the\loopcount\endcsname\relax
  \else
     \expandafter\ifx\csname seq@name\the\loopcount\endcsname\seq@name
-              \xdef\seq@@line{} \xdef\seq@line{\seq@line &@} \clean@seq
+             \ifnum\single@seq@num=0 \xdef\first@@{\d@t} \else \ifx\keep@g@ps\y@ \xdef\first@@{\d@t} \else \xdef\first@@{} \fi\fi
+              \xdef\seq@@line{} \xdef\seq@line{\seq@line @} \clean@seq
               \expandafter\xdef\csname sequence\the\innerloopcount\endcsname{%
                   \csname sequence\the\innerloopcount\endcsname\seq@line}
             \fi
@@ -14768,6 +16037,7 @@
              \expandafter\xdef\csname T@cof\the\loopcount\endcsname{\temp@ &@}
              \expandafter\xdef\csname T@coffee\the\loopcount\endcsname{}
           \fi
+          \expandafter\xdef\csname seq@dom\the\loopcount\endcsname{\csname sequence\the\loopcount\endcsname}
           \expandafter\xdef\csname seq\the\loopcount\endcsname{\csname sequence\the\loopcount\endcsname &@}
           \expandafter\xdef\csname sequence\the\loopcount\endcsname{}
           \expandafter\xdef\csname dom@num\the\loopcount\endcsname{}
@@ -14813,10 +16083,9 @@
        \advance\seq@pointer by \res@count
        \xdef\total@pos{\the\total@count}
        \ifx\end@num\n@\xdef\end@num{\the\end@count}\fi
+       \advance\seq@pointer by \shift@g@p\relax
        \total@count=\end@count\relax
-       \xdef\first@{\csname res@count\start@seq\endcsname}
-       \advance\total@count by \first@\relax
-       \xdef\first@{\the\total@count}
+       \ifnum\start@num@set@for>0 \xdef\start@seq{\start@num@set@for} \fi
        \ifnum\end@num>\total@count\xdef\end@num{\the\total@count}\fi
      \fi
      \ifshow@sublogo \prep@sublogo \fi
@@ -14831,12 +16100,10 @@
     \clear@seq
     \ifnum\start@seq>0
        \xdef\start@seq{\csname @rd\start@seq\endcsname} \fi
-    \loopcount=\start@num
-    \advance\loopcount by -\csname res@count\start@seq\endcsname\relax
     \expandafter\ifnum\csname res@count\start@seq\endcsname<\start@num\relax
-       \xdef\start@num{\the\loopcount}
     \else \start@true \fi
-    \res@count=0 \seq@pointer=0 \end@count=0 \total@count=0
+    \res@count=0 \seq@pointer=0 \total@count=0
+    \end@count=\csname seq@start\start@seq\endcsname \advance\end@count by -1
     \xdef\start@number{0}
     \ifx\exp@rt\y@ \prep@reexp@rtfile \fi
     \ifx\f@st@\y@
@@ -14849,6 +16116,13 @@
     \ifnum\seq@pointer>0
        \ifstop@
        \else
+          \ifx\@lign@right@y@\y@
+             \res@count=\res@perline
+             \advance\res@count by -\seq@pointer
+             \xdef\@lign@right{\the\res@count}
+          \else
+             \xdef\@lign@right{0}
+          \fi
           \res@count=\res@perline
           \res@perline=\seq@pointer
           \block@output
@@ -15234,37 +16508,55 @@
       \reorder@seqs\seq@order \seq@count=\killseq@count
       \global\xdef\seq@num{\the\seq@count}
       \clear@sim@count
-      \ifnum\csname res@count\start@seq\endcsname<0
-       \ifnum\start@num>0
-         \loopcount=\start@num
-         \advance\loopcount by -1
-         \xdef\start@num{\the\loopcount}
-       \fi
-      \fi
-      \ifnum\rule@num>0
-         \loopcount=\csname res@count\rule@num\endcsname
-         \divide\loopcount by \ruler@step
-         \multiply\loopcount by \ruler@step
+      \ifnum\rule@num@top>0
+         \loopcount=\csname res@count\rule@num@top\endcsname
+         \divide\loopcount by \ruler@step@top
+         \multiply\loopcount by \ruler@step@top
          \ifnum\loopcount<0
-            \ifnum\ruler@step<3
-               \advance\loopcount by \ruler@step
+            \ifnum\ruler@step@top<3
+               \advance\loopcount by \ruler@step@top
             \fi
          \else
-            \advance\loopcount by \ruler@step
+            \advance\loopcount by \ruler@step@top
          \fi
-         \xdef\rule@tens{\the\loopcount}
+         \xdef\rule@tens@top{\the\loopcount}
       \else
          \loopcount=\cons@count
-         \divide\loopcount by \ruler@step
-         \multiply\loopcount by \ruler@step
+         \divide\loopcount by \ruler@step@top
+         \multiply\loopcount by \ruler@step@top
          \ifnum\loopcount<0
-            \ifnum\ruler@step<3
-               \advance\loopcount by \ruler@step
+            \ifnum\ruler@step@top<3
+               \advance\loopcount by \ruler@step@top
             \fi
          \else
-            \advance\loopcount by \ruler@step
+            \advance\loopcount by \ruler@step@top
          \fi
-         \xdef\rule@tens{\the\loopcount}
+         \xdef\rule@tens@top{\the\loopcount}
+      \fi
+      \ifnum\rule@num@bottom>0
+         \loopcount=\csname res@count\rule@num@bottom\endcsname
+         \divide\loopcount by \ruler@step@bottom
+         \multiply\loopcount by \ruler@step@bottom
+         \ifnum\loopcount<0
+           \ifnum\ruler@step@bottom<3
+               \advance\loopcount by \ruler@step@bottom
+            \fi
+         \else
+            \advance\loopcount by \ruler@step@bottom
+         \fi
+         \xdef\rule@tens@bottom{\the\loopcount}
+      \else
+         \loopcount=\cons@count
+         \divide\loopcount by \ruler@step@bottom
+         \multiply\loopcount by \ruler@step@bottom
+         \ifnum\loopcount<0
+            \ifnum\ruler@step@bottom<3
+               \advance\loopcount by \ruler@step@bottom
+            \fi
+         \else
+            \advance\loopcount by \ruler@step@bottom
+         \fi
+         \xdef\rule@tens@bottom{\the\loopcount}
       \fi
       \xdef\first@{top}
       \ifx\cap@pos\first@
@@ -15333,14 +16625,14 @@
 \loopcount=\@lign@count
 \advance\loopcount by 1\relax
 \xdef\@lign@count{\the\loopcount}
-\start@true \xdef\start@num{1} \xdef\start@seq{0}
+\start@true \xdef\start@num{1} \xdef\start@seq{0} \xdef\start@num@set@for{-1}
 \stop@false \xdef\end@num{n} \xdef\seq@regions{0}
 \cons@count=0
 \expandafter\xdef\csname res@count0\endcsname{0}
 \xdef\allow@zero{n} \xdef\c@ns@shift{0}
 \regionalshadefalse\regionalemphfalse\regionallowerfalse\regionaltintfalse
 \frame@false\shading@false
-\xdef\ruler@rot{0}
+\xdef\ruler@rot@top{0} \xdef\ruler@rot@bottom{0}
 \topfeaturefalse    \bottomfeaturefalse
 \ttopfeaturefalse   \bbottomfeaturefalse
 \tttopfeaturefalse  \bbbottomfeaturefalse
@@ -15370,6 +16662,10 @@
 \xdef\collect@restttop{no}   \xdef\collect@resttttop{no}
 \xdef\collect@resbottom{no}  \xdef\collect@resbbottom{no}
 \xdef\collect@resbbbottom{no}\xdef\collect@resbbbbottom{no}
+\xdef\collect@c@mpl@top{no}     \xdef\collect@c@mpl@ttop{no}
+\xdef\collect@c@mpl@tttop{no}   \xdef\collect@c@mpl@ttttop{no}
+\xdef\collect@c@mpl@bottom{no}  \xdef\collect@c@mpl@bbottom{no}
+\xdef\collect@c@mpl@bbbottom{no}\xdef\collect@c@mpl@bbbbottom{no}
 \xdef\tr@nslatetop{}         \xdef\tr@nslatettop{}
 \xdef\tr@nslatetttop{}       \xdef\tr@nslatettttop{}
 \xdef\tr@nslatebottom{}      \xdef\tr@nslatebbottom{}
@@ -15391,7 +16687,7 @@
 \xdef\ttt@sp@ce{0mm}         \xdef\tttt@sp@ce{0mm}
 \xdef\b@sp@ce{0mm}           \xdef\bb@sp@ce{0mm}
 \xdef\bbb@sp@ce{0mm}         \xdef\bbbb@sp@ce{0mm}
-\xdef\ruler@sp@ce{0mm}
+\xdef\ruler@sp@ce@top{0mm} \xdef\ruler@sp@ce@bottom{0mm}
 \xdef\seq@gap@num{0}
 \xdef\h@ndalign{no}         \xdef\sep@space{0pt}
 \xdef\c@pshort{n}
@@ -15477,6 +16773,12 @@
 \xdef\dom@in{no}          \xdef\label@motif{no}
 \xdef\motif@num{0}        \xdef\all@out{n}
 \hfuzz9999pt
+\xdef\left@frame@open{n}
+\xdef\right@frame@open{n}
+\xdef\single@seq@num{0} \xdef\single@seq@shift{}
+\xdef\calc@shift{n} \xdef\shift@g@p{0}
+\xdef\keep@g@ps{n} \xdef\back@color{White}
+\xdef\@lign@right{0} \xdef\@lign@right@y@{n}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%                                                                      %%%%%
