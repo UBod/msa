@@ -1,5 +1,3 @@
-setGeneric("version", function(object) standardGeneric("version"))
-
 setGeneric("msaConsensusSequence",
            function(x, ...) standardGeneric("msaConsensusSequence"))
 
