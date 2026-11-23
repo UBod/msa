@@ -1,7 +1,7 @@
 Package: msa
 Type: Package
 Title: Multiple Sequence Alignment
-Version: 1.45.7
+Version: 1.46.0
 Date: 2026-11-10
 Authors@R: c(person(given = "Enrico",
                     family = "Bonatesta",
